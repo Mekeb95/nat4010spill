@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CreatureData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/schemas/creature_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"takehund"
+display_name = "Tåkehund"
+emoji = "🐺"
+tier = 3
+max_hp = 15
+attack = 7
+defense = 5
+dmg_min = 2
+dmg_max = 4
+speed = 7
+is_ranged = false
+shots = 0
+is_flying = false
+retaliations = 1
+growth = 7
+cost_gold = 160
+cost_malm = 0

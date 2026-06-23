@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CreatureData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/schemas/creature_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"bueskytter"
+display_name = "Bueskytter"
+emoji = "🏹"
+tier = 2
+max_hp = 10
+attack = 6
+defense = 3
+dmg_min = 2
+dmg_max = 3
+speed = 4
+is_ranged = true
+shots = 12
+is_flying = false
+retaliations = 1
+growth = 9
+cost_gold = 120
+cost_malm = 0

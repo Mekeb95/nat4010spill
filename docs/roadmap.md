@@ -17,8 +17,13 @@ fase legger ett lag på en sløyfe som allerede henger sammen.
 
 ## Status
 
-- **Fase 0 — pågår/ferdig:** struktur (§6.2), 7 autoloads, `SeededRng`, `CreatureData`/
+- **Fase 0 — ferdig:** struktur (§6.2), 7 autoloads, `SeededRng`, `CreatureData`/
   `MetalData`-schemas, `ContentRegistry`, GUT-røyktest grønt headless, booter til
-  hovedmeny. Sample-innhold: `asketrell` (kreatur), `staal` (metall).
-- **Neste — Fase 1:** port skadeformel + tap-modell fra `combat-spec.md` til
-  `core/combat/`, rekonstruer referanse-roster + gulltester.
+  hovedmeny.
+- **Fase 1a (kampkjerne) — ferdig:** `core/combat/` — `hex_grid`, `stack_state`,
+  `damage` (kanonisk formel), `casualties` (tap-modell), `turn_order`, `combat_state`
+  (motangrep/skyttere/seier), `combat_ai`. 35 gulltester grønne headless (håndregnet
+  fasit). Referanse-roster rekonstruert: 6 kreaturer (asketrell→askejotn).
+- **Neste — Fase 1b (kampscene):** `scenes/combat/` som rendrer `CombatState` (hex-
+  render, touch-input, initiativkø, kamplogg). Mål: spillbar håndsatt kamp på telefonen.
+  Her er editoren + godot-ai MCP nyttig (skjermbilder, scenetre, iterasjon).

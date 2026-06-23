@@ -74,11 +74,16 @@ ellers:
 
 ---
 
-## Gulltester (Fase 1)
+## Gulltester (implementert i Fase 1a)
 
-Vi har ikke HTML-prototypen som §5.2 ble portert fra, så **referanse-rosteret og de
-håndregnede gullverdiene rekonstrueres i Fase 1**: vi utleder et roster langs HoMM3-
-kurven (Spydmann/Bueskytter/Grif/Sverdmann/Munk/Drage som form), regner ut fasit-
-verdier for hånd fra formlene over, og fryser dem som gulltester. RNG i testene
-frøsettes (`SeededRng`) slik at `randi_range`-trekkene er reproduserbare. Når
-prototypen eventuelt dukker opp, sjekkes tallene mot den.
+HTML-prototypen fantes ikke, så referanse-rosteret og fasit-verdiene ble **rekonstruert**:
+roster langs HoMM3-kurven (Spydmann/Bueskytter/Grif/Sverdmann/Munk/Drage som form), og
+fasit-tall regnet for hånd fra formlene over. Gulltestene ligger nå i:
+
+- `tests/test_damage.gd` — skadeformelen (positiv/negativ diff, 3.0×-tak, 0.3×-gulv,
+  forsvar ×1.3, skytter-tvunget-nærkamp ×0.5, min 1, helt-bonus, lineær i count)
+- `tests/test_casualties.gd` — tap-modellen (delvis drap, total utsletting, grenser)
+- `tests/test_combat_state.gd` — motangrep, Grif dobbel-motangrep, skyttere, blokkering
+
+Testene bruker kreaturer med `dmg_min == dmg_max` så terningkastet er fast og verdiene
+er RNG-uavhengige. Når prototypen eventuelt dukker opp, sjekkes tallene mot den.

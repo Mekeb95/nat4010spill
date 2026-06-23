@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CreatureData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/schemas/creature_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"griff"
+display_name = "Grif"
+emoji = "🦅"
+tier = 4
+max_hp = 25
+attack = 8
+defense = 8
+dmg_min = 3
+dmg_max = 6
+speed = 6
+is_ranged = false
+shots = 0
+is_flying = true
+retaliations = 2
+growth = 4
+cost_gold = 240
+cost_malm = 0
