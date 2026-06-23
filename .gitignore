@@ -1,0 +1,10 @@
+# Godot 4 import- og editor-cache
+.godot/
+# Eksporterte bygg
+/build/
+*.aab
+*.apk
+*.ipa
+# OS-skrot
+.DS_Store
+Thumbs.db

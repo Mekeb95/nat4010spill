@@ -1,0 +1,48 @@
+; Engine configuration file — Aske og Malm (Godot 4.6).
+; Se CLAUDE.md (agentkontrakt) og docs/ for design og fasit-regler.
+
+config_version=5
+
+[application]
+
+config/name="Aske og Malm"
+config/description="Roguelite turbasert taktikk (HoMM3-arv). Se docs/design-bible.md."
+run/main_scene="res://scenes/main_menu/main_menu.tscn"
+config/features=PackedStringArray("4.6", "Mobile")
+config/icon="res://icon.svg"
+
+[autoload]
+
+EventBus="*res://autoload/event_bus.gd"
+Rng="*res://autoload/rng.gd"
+ContentRegistry="*res://autoload/content_registry.gd"
+MetaProgression="*res://autoload/meta_progression.gd"
+GameState="*res://autoload/game_state.gd"
+SaveManager="*res://autoload/save_manager.gd"
+AudioManager="*res://autoload/audio_manager.gd"
+
+[debug]
+
+; Statisk typing er en arkitekturpilar (§6.1, pkt 5): manglende type-annotasjon
+; er en feil, ikke bare en advarsel. addons/ (GUT) er unntatt.
+gdscript/warnings/enable=true
+gdscript/warnings/exclude_addons=true
+gdscript/warnings/untyped_declaration=2
+
+[display]
+
+; Mobil-først, portrett (§1, pilar 7).
+window/size/viewport_width=720
+window/size/viewport_height=1280
+window/handheld/orientation=1
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
+
+[rendering]
+
+renderer/rendering_method="mobile"
+renderer/rendering_method.mobile="mobile"

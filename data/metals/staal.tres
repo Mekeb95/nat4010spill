@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MetalData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/schemas/metal_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"staal"
+display_name = "Stål"
+nickname = "Myntskytter"
+effect = 0
+base_magnitude = 8.0
+base_duration = 0
+charge_cost = 1
+powerburn_multiplier = 2.0
+malmkraft_scale = 0.25
+in_v1 = true
+description = "Direkte skade på et fiende-stack. Skalerer med Malmkraft."

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CreatureData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/schemas/creature_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"asketrell"
+display_name = "Asketrell-milits"
+emoji = "🪓"
+tier = 1
+max_hp = 6
+attack = 3
+defense = 2
+dmg_min = 1
+dmg_max = 2
+speed = 4
+is_ranged = false
+shots = 0
+is_flying = false
+retaliations = 1
+growth = 14
+cost_gold = 40
+cost_malm = 0
