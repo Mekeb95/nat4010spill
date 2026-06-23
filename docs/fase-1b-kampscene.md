@@ -17,16 +17,29 @@
 - 6-kreatur-roster i `data/creatures/` (asketrell, bueskytter, takehund, griff,
   orsk_banker, askejotn).
 
-## Arbeidsflyt (besluttet)
+## Arbeidsflyt — autonom skjermbilde-loop (besluttet + VERIFISERT)
 
-**Bygg scenen i kode** (som `scenes/main_menu/main_menu.gd`), boot headless for å fange
-feil, så **kjører brukeren spillet og limer inn et skjermbilde** — da ser jeg resultatet
-og itererer. Ingen MCP (GDAI valgt bort: donasjon + krever `uv`; gratis Node-MCP gir
-ikke skjermbilder). GodotPrompter-skills installeres av brukeren (`claude plugins
-... jame581/skillsmith`) og er tilgjengelig etter restart.
+Bevist på hovedmenyen: jeg kan se Godot-spillet selv via **web-eksport + Playwright**,
+uten GDAI/MCP og uten at brukeren tar skjermbilder. Loopen:
 
-For å se scenen: enklest å midlertidig la hovedmenyens **«Ny run»** laste kampscenen med
-en hardkodet kamp (eller sett `combat.tscn` som main_scene mens vi jobber).
+1. Bygg/endre scenen i kode (som `scenes/main_menu/main_menu.gd`).
+2. `./tools/export_web.sh` → web-bygg i `build/web/` (tråder av; ekskluderer tester/GUT).
+3. `python3 tools/serve_web.py 8099 build/web` (kjør i bakgrunnen).
+4. Playwright: `browser_navigate` til `http://127.0.0.1:8099/index.html`, vent ~6–8 s,
+   `browser_take_screenshot` → les PNG-en. Konsoll-loggen fanger GDScript-feil i
+   nettleseren. For mobil/portrett-sjekk: sett viewport til f.eks. 400×800.
+5. Boot også headless (`godot --headless --path . --quit-after 5`) for å fange feil tidlig.
+
+Alt er på plass og persistent: Godot 4.6.3 + **web-eksportmaler installert**
+(`~/.local/share/godot/export_templates/4.6.3.stable/`, kun web-malene), `export_presets.cfg`
+(preset «Web»), `tools/serve_web.py`, `tools/export_web.sh`. ⚠️ `/tmp` er RAM-disk (3 GB) —
+ikke pakk ut hele tpz-en der.
+
+Manuelt skjermbilde fra bruker er fallback; **Vercel-deploy** (build/web er statisk, tråder
+av → ingen header-krav) kan gi en telefon-testbar URL når vi vil.
+
+For å se scenen under utvikling: la hovedmenyens **«Ny run»** laste kampscenen med en
+hardkodet kamp (eller sett `combat.tscn` som main_scene midlertidig).
 
 ## Hva som skal bygges
 
@@ -57,7 +70,9 @@ Start med en **hardkodet kamp** (f.eks. spiller: 10 asketrell + 5 bueskytter mot
 - `./run_tests.sh` skal forbli grønt (ikke rør `core/combat`-logikken; scenen bare leser
   den).
 - Boot headless (`godot --headless --path . --quit-after 5`) skal være feilfri.
-- Brukeren kjører `godot --path .`, spiller en runde, deler skjermbilde.
+- Visuell verifisering via web-eksport + Playwright (se Arbeidsflyt over) — jeg ser
+  resultatet selv. Brukeren kan i tillegg kjøre `godot --path .` lokalt eller åpne en
+  Vercel-URL på telefonen.
 
 ## Kickoff for ny økt (lim inn)
 
