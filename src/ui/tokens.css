@@ -1,0 +1,48 @@
+/* Tavle: skiferbunn, krittlinjer, fargekritt per region. Bevisst kun mørkt tema. */
+:root {
+  color-scheme: dark;
+  /* flater */
+  --board: #17221f;
+  --board-2: #1f2d29;
+  --board-3: #2a3c37;
+  --board-4: #344a44;
+  /* kritt */
+  --chalk: #eef0e6;
+  --chalk-dim: #a8b6ae;
+  --chalk-faint: #6f7f77;
+  --line: rgba(238, 240, 230, 0.16);
+  --line-strong: rgba(238, 240, 230, 0.34);
+  /* regionkritt */
+  --r-energi: #ffb454;
+  --r-stoffer: #7cc8ff;
+  --r-liv: #93df84;
+  --r-praksis: #63e0cf;
+  --r-teknologi: #ffe166;
+  --r-kropp: #ff8fa6;
+  --r-jorda: #c4a6ff;
+  --r-didaktikk: #ffd3a3;
+  /* semantikk */
+  --good: #8fe39b;
+  --bad: #ff7d6e;
+  --warn: #ffd166;
+  --hp: #ff6f6f;
+  --energy: #ffb454;
+  --heat: #c9785d;
+  --xp: #c4a6ff;
+  --gold: #ffe166;
+  /* type */
+  --f-display: 'Caveat Brush', 'Comic Sans MS', 'Segoe Print', cursive;
+  --f-body: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --f-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  /* skala */
+  --t-xs: 0.78rem;
+  --t-s: 0.9rem;
+  --t-m: 1rem;
+  --t-l: 1.2rem;
+  --t-xl: 1.6rem;
+  --t-xxl: 2.3rem;
+  --r-s: 8px;
+  --r-m: 14px;
+  --tap: 48px;
+  --gutter: 16px;
+}

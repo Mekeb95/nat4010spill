@@ -1,0 +1,705 @@
+<title>Nøkkelvokteren</title>
+<meta name="theme-color" content="#17221f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat+Brush&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* src/ui/tokens.css */
+/* Tavle: skiferbunn, krittlinjer, fargekritt per region. Bevisst kun mørkt tema. */
+:root {
+  color-scheme: dark;
+  /* flater */
+  --board: #17221f;
+  --board-2: #1f2d29;
+  --board-3: #2a3c37;
+  --board-4: #344a44;
+  /* kritt */
+  --chalk: #eef0e6;
+  --chalk-dim: #a8b6ae;
+  --chalk-faint: #6f7f77;
+  --line: rgba(238, 240, 230, 0.16);
+  --line-strong: rgba(238, 240, 230, 0.34);
+  /* regionkritt */
+  --r-energi: #ffb454;
+  --r-stoffer: #7cc8ff;
+  --r-liv: #93df84;
+  --r-praksis: #63e0cf;
+  --r-teknologi: #ffe166;
+  --r-kropp: #ff8fa6;
+  --r-jorda: #c4a6ff;
+  --r-didaktikk: #ffd3a3;
+  /* semantikk */
+  --good: #8fe39b;
+  --bad: #ff7d6e;
+  --warn: #ffd166;
+  --hp: #ff6f6f;
+  --energy: #ffb454;
+  --heat: #c9785d;
+  --xp: #c4a6ff;
+  --gold: #ffe166;
+  /* type */
+  --f-display: 'Caveat Brush', 'Comic Sans MS', 'Segoe Print', cursive;
+  --f-body: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --f-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  /* skala */
+  --t-xs: 0.78rem;
+  --t-s: 0.9rem;
+  --t-m: 1rem;
+  --t-l: 1.2rem;
+  --t-xl: 1.6rem;
+  --t-xxl: 2.3rem;
+  --r-s: 8px;
+  --r-m: 14px;
+  --tap: 48px;
+  --gutter: 16px;
+}
+
+/* src/ui/base.css */
+/* Grunnstil og delte komponenter. Mini-spill kan bruke disse klassene fritt. */
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--board);
+  color: var(--chalk);
+  font-family: var(--f-body);
+  font-size: var(--t-m);
+  line-height: 1.5;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+body::before { /* krittstøv og svake ruter */
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(238,240,230,0.06), transparent 60%),
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 100% 100%, 32px 32px, 32px 32px;
+  opacity: 0.35;
+}
+* { box-sizing: border-box; }
+button, input, select, textarea { font: inherit; color: inherit; }
+code { font-family: var(--f-mono); font-size: 0.92em; background: var(--board-3); padding: 0 0.3em; border-radius: 4px; }
+sup, sub { line-height: 0; }
+
+#app { position: relative; z-index: 1; min-height: 100%; max-width: 560px; margin: 0 auto; padding-inline: var(--gutter); padding-block: 12px 28px; }
+
+.h-display { font-family: var(--f-display); font-weight: 400; letter-spacing: 0.01em; line-height: 1.1; text-wrap: balance; margin: 0; }
+h1.h-display { font-size: var(--t-xxl); }
+h2.h-display { font-size: var(--t-xl); }
+h3.h-display { font-size: var(--t-l); }
+.label { font-family: var(--f-mono); font-size: var(--t-xs); text-transform: uppercase; letter-spacing: 0.08em; color: var(--chalk-dim); }
+.muted { color: var(--chalk-dim); }
+.small { font-size: var(--t-s); }
+.num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+
+.stack { display: flex; flex-direction: column; gap: 12px; }
+.stack-s { display: flex; flex-direction: column; gap: 6px; }
+.row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.row > * { min-width: 0; }
+.grow { flex: 1 1 auto; }
+.spacer { flex: 1; }
+
+.btn {
+  min-height: var(--tap);
+  padding: 10px 16px;
+  border-radius: var(--r-m);
+  border: 2px solid var(--line-strong);
+  background: var(--board-2);
+  color: var(--chalk);
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.08s ease, background 0.15s ease, border-color 0.15s ease;
+  text-align: center;
+}
+.btn:active { transform: scale(0.97); }
+.btn:focus-visible { outline: 3px solid var(--warn); outline-offset: 2px; }
+.btn:disabled { opacity: 0.45; cursor: default; transform: none; }
+.btn.primary { background: var(--chalk); color: var(--board); border-color: var(--chalk); }
+.btn.ghost { background: transparent; }
+.btn.block { width: 100%; }
+.btn.small { min-height: 38px; padding: 6px 12px; font-size: var(--t-s); }
+
+.option {
+  display: block; width: 100%; text-align: left;
+  min-height: var(--tap); padding: 12px 14px;
+  border-radius: var(--r-m); border: 2px solid var(--line-strong);
+  background: var(--board-2); color: var(--chalk); cursor: pointer;
+  touch-action: manipulation; line-height: 1.35;
+}
+.option:active { transform: scale(0.99); }
+.option:focus-visible { outline: 3px solid var(--warn); outline-offset: 2px; }
+.option.selected { border-color: var(--warn); background: var(--board-3); }
+.option.correct { border-color: var(--good); background: color-mix(in srgb, var(--good) 18%, var(--board-2)); }
+.option.wrong { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 16%, var(--board-2)); }
+.option.dim { opacity: 0.4; }
+
+.card { background: var(--board-2); border: 1px solid var(--line); border-radius: var(--r-m); padding: 14px; }
+.chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 999px; border: 1px solid var(--line-strong); font-size: var(--t-xs); font-family: var(--f-mono); white-space: nowrap; }
+
+.feedback { border-radius: var(--r-m); padding: 12px 14px; border: 2px solid var(--line-strong); background: var(--board-3); }
+.feedback.good { border-color: var(--good); }
+.feedback.bad { border-color: var(--bad); }
+
+.bar { position: relative; height: 12px; border-radius: 999px; background: var(--board-4); overflow: hidden; }
+.bar > i { position: absolute; inset: 0 auto 0 0; display: block; border-radius: 999px; transition: width 0.35s ease; }
+
+.toast-wrap { position: fixed; left: 0; right: 0; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; align-items: center; gap: 6px; z-index: 50; pointer-events: none; padding-inline: 16px; }
+.toast { background: var(--chalk); color: var(--board); padding: 8px 14px; border-radius: 999px; font-weight: 700; box-shadow: 0 6px 20px rgba(0,0,0,.4); animation: toastIn .25s ease; max-width: 100%; }
+@keyframes toastIn { from { transform: translateY(12px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+/* src/ui/question.css */
+.q-prompt { font-size: 1.08rem; line-height: 1.45; }
+.q-figure { display: flex; justify-content: center; }
+.q-figure svg { max-width: 100%; height: auto; max-height: 200px; }
+.q-head .lvl { color: var(--xp); border-color: color-mix(in srgb, var(--xp) 50%, transparent); }
+.opt-key { display: inline-grid; place-items: center; width: 1.6em; height: 1.6em; margin-right: 10px; border-radius: 6px; background: var(--board-4); font-family: var(--f-mono); font-size: 0.8em; vertical-align: 0.05em; }
+.opt-box { display: inline-block; width: 1.1em; height: 1.1em; margin-right: 10px; border: 2px solid var(--chalk-dim); border-radius: 4px; vertical-align: -0.15em; }
+.option.selected .opt-box { background: var(--warn); border-color: var(--warn); }
+.tf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.tf-row .option { text-align: center; }
+.order-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.order-pool { display: flex; flex-direction: column; gap: 6px; padding: 8px; border: 2px dashed var(--line-strong); border-radius: var(--r-m); }
+.order-pool:empty { display: none; }
+.pool-item { background: var(--board); }
+.sort-legend { display: flex; flex-wrap: wrap; gap: 6px; }
+.sort-row { display: flex; flex-direction: column; gap: 6px; padding: 8px 10px; border-radius: var(--r-m); border: 2px solid var(--line); background: var(--board-2); }
+.sort-row.correct { border-color: var(--good); }
+.sort-row.wrong { border-color: var(--bad); }
+.sort-t { min-width: 0; }
+.segs { display: flex; gap: 6px; flex-wrap: wrap; }
+.seg { flex: 1 1 0; min-width: 0; min-height: 40px; padding: 6px 8px; border-radius: 10px; border: 2px solid var(--line-strong); background: var(--board); color: var(--chalk-dim); font-size: var(--t-s); font-weight: 700; cursor: pointer; touch-action: manipulation; overflow-wrap: anywhere; }
+.seg.on { background: var(--chalk); color: var(--board); border-color: var(--chalk); }
+.seg.want { border-color: var(--good); color: var(--good); }
+.num-row { display: flex; gap: 8px; align-items: center; }
+.num-in { flex: 1 1 auto; min-width: 0; min-height: var(--tap); padding: 8px 12px; border-radius: var(--r-m); border: 2px solid var(--line-strong); background: var(--board); font-size: 1.2rem; }
+.num-in:focus { outline: 3px solid var(--warn); outline-offset: 1px; }
+.num-in.correct { border-color: var(--good); }
+.num-in.wrong { border-color: var(--bad); }
+.num-unit { font-family: var(--f-mono); color: var(--chalk-dim); }
+.fb-title { font-size: var(--t-xl); }
+.feedback.good .fb-title { color: var(--good); }
+.feedback.bad .fb-title { color: var(--bad); }
+.q-body.locked .option { cursor: default; }
+
+</style>
+
+<div id="app" aria-live="polite"></div>
+<div class="toast-wrap" id="toasts"></div>
+<script>
+/* ===== src/core/00-ns.js ===== */
+/* Nøkkelvokteren — globalt navnerom og registre.
+   Lastes FØRST. Alle andre filer registrerer seg her. Ingen moduler/bundler:
+   tools/build.mjs limer filene sammen i fast rekkefølge (se docs/CONTRACT.md). */
+(function () {
+  'use strict';
+  const NG = (window.NG = window.NG || {});
+
+  /* ---------- Innholdsregistre ---------- */
+  const store = { questions: [], concepts: [], myths: [], enemies: [], events: [], prompts: [], items: [] };
+  function adder(key) {
+    return function (list) {
+      if (!Array.isArray(list)) list = [list];
+      for (const x of list) store[key].push(x);
+    };
+  }
+  NG.content = {
+    store,
+    addQuestions: adder('questions'),
+    addConcepts: adder('concepts'),
+    addMyths: adder('myths'),
+    addEnemies: adder('enemies'),
+    addEvents: adder('events'),
+    addPrompts: adder('prompts'),
+    addItems: adder('items'),
+  };
+
+  /* ---------- Mini-spill ---------- */
+  const minigames = [];
+  NG.minigames = {
+    list: minigames,
+    register(def) { minigames.push(def); },
+    get(id) { return minigames.find((m) => m.id === id) || null; },
+    forRegion(r) { return minigames.filter((m) => m.region === r); },
+  };
+
+  /* ---------- Grafikk (SVG-strenger) ---------- */
+  const art = {};
+  NG.art = {
+    map: art,
+    add(id, svg) { art[id] = svg; },
+    get(id) { return art[id] || art['_fallback'] || ''; },
+  };
+
+  /* ---------- CSS-injeksjon (mini-spill og moduler kan ha egen CSS) ---------- */
+  NG.css = function (text) {
+    const s = document.createElement('style');
+    s.textContent = text;
+    document.head.appendChild(s);
+  };
+
+  /* ---------- Frøsatt RNG (mulberry32) ---------- */
+  NG.makeRng = function (seed) {
+    let a = (typeof seed === 'number' ? seed : hashStr(String(seed))) >>> 0;
+    const next = function () {
+      a |= 0; a = (a + 0x6d2b79f5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+    return {
+      next,
+      int(lo, hi) { return lo + Math.floor(next() * (hi - lo + 1)); },
+      pick(arr) { return arr[Math.floor(next() * arr.length)]; },
+      shuffle(arr) {
+        const b = arr.slice();
+        for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(next() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; }
+        return b;
+      },
+      chance(p) { return next() < p; },
+    };
+  };
+  function hashStr(s) {
+    let h = 2166136261;
+    for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return h >>> 0;
+  }
+  NG.hashStr = hashStr;
+
+  /* ---------- DOM-hjelpere ---------- */
+  // el('div', {class:'x', onclick: fn, html:'<b>..</b>'}, [children|string])
+  NG.el = function (tag, attrs, children) {
+    const e = document.createElement(tag);
+    if (attrs) {
+      for (const k in attrs) {
+        const v = attrs[k];
+        if (v == null || v === false) continue;
+        if (k === 'class') e.className = v;
+        else if (k === 'html') e.innerHTML = v;
+        else if (k === 'text') e.textContent = v;
+        else if (k === 'style' && typeof v === 'object') Object.assign(e.style, v);
+        else if (k.startsWith('on') && typeof v === 'function') e.addEventListener(k.slice(2), v);
+        else e.setAttribute(k, v === true ? '' : v);
+      }
+    }
+    if (children != null) {
+      if (!Array.isArray(children)) children = [children];
+      for (const c of children) {
+        if (c == null || c === false) continue;
+        e.appendChild(typeof c === 'string' || typeof c === 'number' ? document.createTextNode(String(c)) : c);
+      }
+    }
+    return e;
+  };
+
+  // Mini-markup for innhold: **fet**, *kursiv*, `kode`, ^hevet^, ~senket~, linjeskift.
+  NG.md = function (text) {
+    if (text == null) return '';
+    let s = String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+    s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    s = s.replace(/\^([^^\s]{1,8})\^/g, '<sup>$1</sup>');
+    s = s.replace(/~([^~\s]{1,8})~/g, '<sub>$1</sub>');
+    s = s.replace(/\n/g, '<br>');
+    return s;
+  };
+
+  NG.clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+  NG.fmt = (n, d) => Number(n).toLocaleString('nb-NO', { maximumFractionDigits: d == null ? 1 : d });
+})();
+
+;
+/* ===== src/core/01-regions.js ===== */
+/* Regioner, kartposisjoner og opplåsing. Fargene speiles i src/ui/tokens.css (--r-<id>). */
+(function () {
+  'use strict';
+  NG.REGIONS = [
+    { id: 'energi', name: 'Energidalen', sheet: 'Energi', color: 'var(--r-energi)', boss: 'evighetsmaskinen',
+      x: 22, y: 78, unlock: [], blurb: 'Hvor blir energien av? Følg den fra sola til spillvarmen.' },
+    { id: 'stoffer', name: 'Stoffgruvene', sheet: 'Stoffer', color: 'var(--r-stoffer)', boss: 'alkymisten',
+      x: 74, y: 80, unlock: [], blurb: 'Atomer, bindinger og reaksjoner — der ingenting forsvinner.' },
+    { id: 'liv', name: 'Livsskogen', sheet: 'Livet på jorda', color: 'var(--r-liv)', boss: 'pustetrollet',
+      x: 18, y: 52, unlock: ['energi'], blurb: 'Stoff går i kretsløp, energi strømmer gjennom.' },
+    { id: 'praksis', name: 'Utforskertårnet', sheet: 'Naturvitenskapelige praksiser', color: 'var(--r-praksis)', boss: 'dogmatikeren',
+      x: 50, y: 60, unlock: ['energi', 'stoffer'], unlockAny: true, blurb: 'Spørsmål, data, modeller og argumenter.' },
+    { id: 'teknologi', name: 'Verkstedet', sheet: 'Teknologi', color: 'var(--r-teknologi)', boss: 'buggen',
+      x: 80, y: 52, unlock: ['stoffer'], blurb: 'Design, prototyper og programmering som utforsker.' },
+    { id: 'kropp', name: 'Kroppsbyen', sheet: 'Kropp og helse', color: 'var(--r-kropp)', boss: 'kvakksalveren',
+      x: 26, y: 28, unlock: ['liv'], blurb: 'Celler, systemer og kritisk helseinformasjon.' },
+    { id: 'jorda', name: 'Himmelfjellet', sheet: 'Jorda og universet', color: 'var(--r-jorda)', boss: 'arstidsdragen',
+      x: 74, y: 26, unlock: ['praksis'], blurb: 'Fra big bang til årstider og drivhuseffekt.' },
+    { id: 'didaktikk', name: 'Akademiet', sheet: 'Språk, begreper og undervisning', color: 'var(--r-didaktikk)', boss: 'hverdagsspraket',
+      x: 50, y: 9, unlock: [], needBosses: 5, blurb: 'Finalen: fra ord til begrep — og fra student til lærer.' },
+  ];
+  NG.region = (id) => NG.REGIONS.find((r) => r.id === id);
+  NG.isUnlocked = function (state, r) {
+    const beaten = state.bossesBeaten || {};
+    if (r.needBosses) return Object.keys(beaten).length >= r.needBosses;
+    if (!r.unlock.length) return true;
+    return r.unlockAny ? r.unlock.some((u) => beaten[u]) : r.unlock.every((u) => beaten[u]);
+  };
+})();
+
+/* Begrepsstigen fra NAT4010 (ord → begrep). Indeks = kortnivå / spørsmålsnivå. */
+NG.LADDER = ['Ukjent', 'Gjenkjenne', 'Definere', 'Nettverk', 'Anvende', 'Overføre'];
+
+;
+/* ===== src/core/05-audio.js ===== */
+/* Små synth-lyder med WebAudio. Ingen filer. Starter først etter brukerinteraksjon. */
+(function () {
+  'use strict';
+  let ctx = null;
+  let muted = false;
+  try { muted = localStorage.getItem('ng.muted') === '1'; } catch (e) { /* ingen lagring */ }
+
+  function ac() {
+    if (muted) return null;
+    if (!ctx) {
+      try { ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return null; }
+    }
+    if (ctx.state === 'suspended') ctx.resume().catch(() => {});
+    return ctx;
+  }
+  function tone(freq, dur, type, vol, when, slide) {
+    const c = ac(); if (!c) return;
+    const t = c.currentTime + (when || 0);
+    const o = c.createOscillator(); const g = c.createGain();
+    o.type = type || 'triangle';
+    o.frequency.setValueAtTime(freq, t);
+    if (slide) o.frequency.exponentialRampToValueAtTime(slide, t + dur);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol || 0.12, t + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(c.destination);
+    o.start(t); o.stop(t + dur + 0.02);
+  }
+  const SFX = {
+    click: () => tone(660, 0.05, 'square', 0.04),
+    good: () => { tone(523, 0.09, 'triangle', 0.1); tone(784, 0.14, 'triangle', 0.1, 0.08); },
+    bad: () => { tone(220, 0.18, 'sawtooth', 0.06, 0, 150); },
+    hit: () => tone(140, 0.12, 'square', 0.08, 0, 70),
+    crit: () => { tone(880, 0.06, 'square', 0.07); tone(1320, 0.12, 'square', 0.07, 0.05); },
+    coin: () => { tone(988, 0.06, 'square', 0.05); tone(1319, 0.1, 'square', 0.05, 0.06); },
+    level: () => { [523, 659, 784, 1047].forEach((f, i) => tone(f, 0.16, 'triangle', 0.09, i * 0.09)); },
+    heal: () => tone(392, 0.3, 'sine', 0.08, 0, 784),
+    boss: () => { tone(110, 0.5, 'sawtooth', 0.07, 0, 82); tone(165, 0.5, 'sawtooth', 0.05, 0.1, 110); },
+    win: () => { [392, 523, 659, 784, 1047].forEach((f, i) => tone(f, 0.2, 'triangle', 0.09, i * 0.1)); },
+    lose: () => { [392, 330, 262, 196].forEach((f, i) => tone(f, 0.25, 'triangle', 0.08, i * 0.14)); },
+  };
+  NG.sfx = function (name) { try { (SFX[name] || SFX.click)(); } catch (e) { /* lyd er valgfritt */ } };
+  NG.audio = {
+    get muted() { return muted; },
+    setMuted(m) { muted = !!m; try { localStorage.setItem('ng.muted', muted ? '1' : '0'); } catch (e) { /* */ } },
+  };
+})();
+
+;
+/* ===== src/core/10-mgapi.js ===== */
+/* API-et som hvert mini-spill får i start(root, api). Se docs/CONTRACT.md. */
+(function () {
+  'use strict';
+  NG.toast = function (text, ms) {
+    const wrap = document.getElementById('toasts');
+    if (!wrap) return;
+    const t = NG.el('div', { class: 'toast', text });
+    wrap.appendChild(t);
+    setTimeout(() => t.remove(), ms || 2200);
+  };
+
+  NG.conceptById = function (id) {
+    return NG.content.store.concepts.find((c) => c.id === id) || null;
+  };
+
+  NG.makeMinigameApi = function (opts) {
+    opts = opts || {};
+    const seed = opts.seed != null ? opts.seed : Date.now() % 1e9;
+    let finished = false;
+    return {
+      seed,
+      rng: NG.makeRng(seed),
+      difficulty: opts.difficulty || 1, // 1–3, stiger med regionsbesøk/nivå
+      el: NG.el,
+      md: NG.md,
+      sfx: NG.sfx,
+      toast: NG.toast,
+      concept: NG.conceptById,
+      // result: { score: 0..1, correct?: n, total?: n, notes?: 'kort oppsummering av hva spilleren lærte/bommet på' }
+      done(result) {
+        if (finished) return;
+        finished = true;
+        const r = Object.assign({ score: 0 }, result || {});
+        r.score = NG.clamp(Number(r.score) || 0, 0, 1);
+        if (opts.onDone) opts.onDone(r);
+      },
+      get finished() { return finished; },
+    };
+  };
+})();
+
+;
+/* ===== src/ui/question.js ===== */
+/* Spørsmålsvisning for alle spørsmålstyper. Brukes av kamp, solgløtt, repetisjon og dev-harness.
+   NG.renderQuestion(root, q, opts) -> { submit() }
+   opts: { rng, eliminate: n (Partikkelblikket: fjern n gale mc-alternativ), onAnswer(res), onContinue(), continueLabel }
+   res: { correct: bool, partial: 0..1, picked } */
+(function () {
+  'use strict';
+  const el = (...a) => NG.el(...a);
+
+  function parseNum(s) {
+    if (s == null) return NaN;
+    s = String(s).trim().replace(/\s/g, '').replace(',', '.').replace('−', '-');
+    // tillat 1e3, 1,2·10^3 skrives som 1.2e3
+    return s === '' ? NaN : Number(s);
+  }
+  NG.parseNum = parseNum;
+
+  NG.checkAnswer = function (q, picked) {
+    switch (q.type) {
+      case 'mc': return { correct: picked === q.answer, partial: picked === q.answer ? 1 : 0 };
+      case 'tf': return { correct: picked === q.answer, partial: picked === q.answer ? 1 : 0 };
+      case 'multi': {
+        const want = new Set(q.answer); const got = new Set(picked);
+        let hit = 0; let wrong = 0;
+        got.forEach((i) => (want.has(i) ? hit++ : wrong++));
+        const ok = hit === want.size && wrong === 0;
+        return { correct: ok, partial: Math.max(0, (hit - wrong) / want.size) };
+      }
+      case 'order': {
+        let pos = 0;
+        picked.forEach((it, i) => { if (it === i) pos++; });
+        return { correct: pos === q.items.length, partial: pos / q.items.length };
+      }
+      case 'sort': {
+        let ok = 0;
+        q.items.forEach((it, i) => { if (picked[i] === it.b) ok++; });
+        return { correct: ok === q.items.length, partial: ok / q.items.length };
+      }
+      case 'num': {
+        const v = parseNum(picked);
+        if (!isFinite(v)) return { correct: false, partial: 0 };
+        const tolAbs = q.abs != null ? q.abs : Math.abs(q.answer) * (q.tol != null ? q.tol : 0.02);
+        const ok = Math.abs(v - q.answer) <= tolAbs + 1e-12;
+        return { correct: ok, partial: ok ? 1 : 0 };
+      }
+    }
+    return { correct: false, partial: 0 };
+  };
+
+  NG.renderQuestion = function (root, q, opts) {
+    opts = opts || {};
+    const rng = opts.rng || NG.makeRng(Date.now());
+    root.innerHTML = '';
+    const wrap = el('div', { class: 'q stack' });
+    const head = el('div', { class: 'row q-head' }, [
+      el('span', { class: 'chip', text: q.topic || 'Spørsmål' }),
+      q.level ? el('span', { class: 'chip lvl', title: 'Nivå på begrepsstigen', text: NG.LADDER ? NG.LADDER[q.level] : 'nivå ' + q.level }) : null,
+    ]);
+    wrap.appendChild(head);
+    if (q.figure) wrap.appendChild(el('div', { class: 'q-figure', html: q.figure.trim().startsWith('<') ? q.figure : NG.art.get(q.figure) }));
+    wrap.appendChild(el('div', { class: 'q-prompt', html: NG.md(q.prompt) }));
+    const body = el('div', { class: 'q-body stack-s' });
+    wrap.appendChild(body);
+    const fb = el('div', { class: 'q-fb' });
+    wrap.appendChild(fb);
+    root.appendChild(wrap);
+
+    let answered = false;
+    function finish(picked, markFn) {
+      if (answered) return;
+      answered = true;
+      const res = NG.checkAnswer(q, picked);
+      res.picked = picked;
+      body.classList.add('locked');
+      markFn(res);
+      NG.sfx(res.correct ? 'good' : 'bad');
+      showFeedback(res, picked);
+      if (opts.onAnswer) opts.onAnswer(res);
+    }
+
+    function showFeedback(res, picked) {
+      const box = el('div', { class: 'feedback ' + (res.correct ? 'good' : 'bad') + ' stack-s' });
+      box.appendChild(el('div', { class: 'h-display fb-title', text: res.correct ? pickPraise(rng) : (res.partial > 0 ? 'Delvis riktig' : 'Ikke helt') }));
+      if (!res.correct && q.why && q.type === 'mc' && q.why[picked] != null) {
+        box.appendChild(el('div', { class: 'fb-why', html: '<span class="label">Ditt svar</span><br>' + NG.md(q.why[picked]) }));
+      }
+      if (!res.correct) box.appendChild(el('div', { class: 'fb-right', html: '<span class="label">Riktig</span><br>' + NG.md(rightText(q)) }));
+      box.appendChild(el('div', { class: 'fb-explain', html: NG.md(q.explain || '') }));
+      if (q.source) box.appendChild(el('div', { class: 'small muted', text: 'Kilde: ' + q.source }));
+      if (opts.onContinue) {
+        const b = el('button', { class: 'btn primary block', text: opts.continueLabel || 'Videre', onclick: () => { NG.sfx('click'); opts.onContinue(res); } });
+        box.appendChild(b);
+        setTimeout(() => { try { b.focus({ preventScroll: true }); } catch (e) { /* */ } }, 50);
+      }
+      fb.appendChild(box);
+      setTimeout(() => { try { box.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (e) { /* */ } }, 60);
+    }
+
+    const r = RENDER[q.type];
+    if (!r) body.appendChild(el('div', { class: 'feedback bad', text: 'Ukjent spørsmålstype: ' + q.type }));
+    else r(body, q, rng, finish, opts);
+    return { get answered() { return answered; } };
+  };
+
+  const PRAISE = ['Riktig!', 'Helt rett!', 'Presist!', 'Godt resonnert!', 'Nettopp!', 'Sterkt!'];
+  function pickPraise(rng) { return rng.pick(PRAISE); }
+
+  function rightText(q) {
+    switch (q.type) {
+      case 'mc': return q.options[q.answer];
+      case 'tf': return q.answer ? 'Sant' : 'Usant';
+      case 'multi': return q.answer.map((i) => q.options[i]).join(' · ');
+      case 'order': return q.items.map((t, i) => (i + 1) + '. ' + t).join('\n');
+      case 'sort': return q.buckets.map((b, bi) => '**' + b + ':** ' + q.items.filter((it) => it.b === bi).map((it) => it.t).join(', ')).join('\n');
+      case 'num': return NG.fmt(q.answer, 4) + (q.unit ? ' ' + q.unit : '');
+    }
+    return '';
+  }
+
+  const RENDER = {
+    mc(body, q, rng, finish, opts) {
+      let order = q.options.map((_, i) => i);
+      if (q.shuffle !== false) order = rng.shuffle(order);
+      const hidden = new Set();
+      if (opts.eliminate) {
+        const wrong = rng.shuffle(order.filter((i) => i !== q.answer));
+        wrong.slice(0, Math.min(opts.eliminate, wrong.length - 1)).forEach((i) => hidden.add(i));
+      }
+      const btns = [];
+      order.forEach((i, k) => {
+        const b = el('button', { class: 'option' + (hidden.has(i) ? ' dim' : ''), disabled: hidden.has(i) || null,
+          html: '<span class="opt-key">' + 'ABCDEF'[k] + '</span>' + NG.md(q.options[i]),
+          onclick: () => finish(i, () => {
+            btns.forEach(([j, bb]) => {
+              bb.disabled = true;
+              if (j === q.answer) bb.classList.add('correct');
+              else if (j === i) bb.classList.add('wrong');
+              else bb.classList.add('dim');
+            });
+          }) });
+        btns.push([i, b]);
+        body.appendChild(b);
+      });
+    },
+
+    tf(body, q, rng, finish) {
+      const row = el('div', { class: 'tf-row' });
+      const mk = (val, label) => el('button', { class: 'option tf', html: label, onclick: () => finish(val, () => {
+        row.querySelectorAll('button').forEach((b) => { b.disabled = true; });
+        tBtn.classList.add(q.answer === true ? 'correct' : (val === true ? 'wrong' : 'dim'));
+        fBtn.classList.add(q.answer === false ? 'correct' : (val === false ? 'wrong' : 'dim'));
+      }) });
+      const tBtn = mk(true, '<strong>Sant</strong>');
+      const fBtn = mk(false, '<strong>Usant</strong>');
+      row.append(tBtn, fBtn);
+      body.appendChild(row);
+    },
+
+    multi(body, q, rng, finish) {
+      body.appendChild(el('div', { class: 'small muted', text: 'Velg alle som stemmer.' }));
+      const order = q.shuffle === false ? q.options.map((_, i) => i) : rng.shuffle(q.options.map((_, i) => i));
+      const sel = new Set();
+      const btns = [];
+      order.forEach((i) => {
+        const b = el('button', { class: 'option', 'aria-pressed': 'false', html: '<span class="opt-box"></span>' + NG.md(q.options[i]),
+          onclick: () => {
+            if (sel.has(i)) sel.delete(i); else sel.add(i);
+            b.classList.toggle('selected', sel.has(i));
+            b.setAttribute('aria-pressed', String(sel.has(i)));
+            go.disabled = sel.size === 0;
+          } });
+        btns.push([i, b]); body.appendChild(b);
+      });
+      const go = el('button', { class: 'btn primary block', text: 'Svar', disabled: true, onclick: () => finish([...sel], () => {
+        go.remove();
+        const want = new Set(q.answer);
+        btns.forEach(([i, b]) => {
+          b.disabled = true;
+          if (want.has(i)) b.classList.add('correct');
+          else if (sel.has(i)) b.classList.add('wrong');
+          else b.classList.add('dim');
+        });
+      }) });
+      body.appendChild(go);
+    },
+
+    order(body, q, rng, finish) {
+      body.appendChild(el('div', { class: 'small muted', text: 'Trykk i riktig rekkefølge. Trykk på et valgt steg for å angre.' }));
+      let pool = rng.shuffle(q.items.map((_, i) => i));
+      // unngå at stokket rekkefølge tilfeldigvis er riktig
+      if (pool.every((v, i) => v === i) && pool.length > 1) pool = pool.slice(1).concat(pool[0]);
+      const chosen = [];
+      const list = el('ol', { class: 'order-list' });
+      const poolBox = el('div', { class: 'order-pool' });
+      const go = el('button', { class: 'btn primary block', text: 'Svar', disabled: true });
+      function draw() {
+        list.innerHTML = '';
+        chosen.forEach((i, k) => list.appendChild(el('li', {}, el('button', { class: 'option order-item', html: '<span class="opt-key">' + (k + 1) + '</span>' + NG.md(q.items[i]),
+          onclick: () => { chosen.splice(k, 1); pool.push(i); NG.sfx('click'); draw(); } }))));
+        poolBox.innerHTML = '';
+        pool.forEach((i, k) => poolBox.appendChild(el('button', { class: 'option pool-item', html: NG.md(q.items[i]),
+          onclick: () => { pool.splice(k, 1); chosen.push(i); NG.sfx('click'); draw(); } })));
+        go.disabled = pool.length > 0;
+        list.hidden = chosen.length === 0;
+      }
+      go.onclick = () => finish(chosen.slice(), () => {
+        go.remove(); poolBox.remove();
+        [...list.querySelectorAll('button')].forEach((b, k) => { b.disabled = true; b.classList.add(chosen[k] === k ? 'correct' : 'wrong'); });
+      });
+      body.append(list, poolBox, go);
+      draw();
+    },
+
+    sort(body, q, rng, finish) {
+      body.appendChild(el('div', { class: 'small muted', text: 'Plasser hvert element i riktig kategori.' }));
+      const order = rng.shuffle(q.items.map((_, i) => i));
+      const picked = q.items.map(() => -1);
+      const rows = [];
+      const legend = el('div', { class: 'sort-legend' }, q.buckets.map((b, bi) => el('span', { class: 'chip sort-b' + bi, text: 'ABCDE'[bi] + ' = ' + b })));
+      body.appendChild(legend);
+      order.forEach((i) => {
+        const segs = q.buckets.map((b, bi) => el('button', { class: 'seg sort-b' + bi, 'aria-label': b, title: b, text: q.buckets.length > 3 ? 'ABCDE'[bi] : b,
+          onclick: () => {
+            picked[i] = bi;
+            segs.forEach((s, sj) => s.classList.toggle('on', sj === bi));
+            NG.sfx('click');
+            go.disabled = picked.some((p) => p < 0);
+          } }));
+        const row = el('div', { class: 'sort-row' }, [el('div', { class: 'sort-t', html: NG.md(q.items[i].t) }), el('div', { class: 'segs' }, segs)]);
+        rows.push([i, row, segs]);
+        body.appendChild(row);
+      });
+      const go = el('button', { class: 'btn primary block', text: 'Svar', disabled: true, onclick: () => finish(picked.slice(), () => {
+        go.remove();
+        rows.forEach(([i, row, segs]) => {
+          segs.forEach((s) => { s.disabled = true; });
+          row.classList.add(picked[i] === q.items[i].b ? 'correct' : 'wrong');
+          if (picked[i] !== q.items[i].b) segs[q.items[i].b].classList.add('want');
+        });
+      }) });
+      body.appendChild(go);
+    },
+
+    num(body, q, rng, finish) {
+      const inp = el('input', { class: 'num-in num', type: 'text', inputmode: 'decimal', autocomplete: 'off', enterkeyhint: 'done', placeholder: 'Svar', 'aria-label': 'Tallsvar', id: 'num-' + q.id });
+      const unit = q.unit ? el('span', { class: 'num-unit', text: q.unit }) : null;
+      const go = el('button', { class: 'btn primary', text: 'Svar' });
+      const submit = () => {
+        if (!isFinite(parseNum(inp.value))) { NG.toast('Skriv et tall (komma eller punktum går fint)'); return; }
+        finish(inp.value, (res) => { inp.disabled = true; go.remove(); inp.classList.add(res.correct ? 'correct' : 'wrong'); });
+      };
+      go.onclick = submit;
+      inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') submit(); });
+      body.appendChild(el('div', { class: 'num-row' }, [inp, unit, go]));
+      if (q.hint) body.appendChild(el('div', { class: 'small muted', html: NG.md(q.hint) }));
+    },
+  };
+})();
+
+</script>
