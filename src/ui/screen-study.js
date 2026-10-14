@@ -96,9 +96,11 @@
       });
     }
     function finish() {
-      if (p.fromSol && right >= 2) {
-        const hp = Math.min(NG.maxHp(s) - s.hp, 15); s.hp += hp; NG.gainXp(s, 20);
-        NG.toast('Godt repetert: +' + hp + ' HP og +20 XP');
+      // Solgløtt «Studer»: bonus-XP per riktige svar, bare én gang per node
+      if (p.fromSol && right && (!NG.claimNode || NG.claimNode(s, 'studyClaimed'))) {
+        const xp = 15 * right; const ups = NG.gainXp(s, xp);
+        NG.toast('Godt repetert: +' + xp + ' XP');
+        if (ups) NG.announce({ levelUps: ups });
       }
       NG.save();
       if (p.fromSol && s.run) NG.nodeDone();

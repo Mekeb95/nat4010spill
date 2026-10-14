@@ -1,0 +1,87 @@
+/* Kamp-tillegg: evneknapper som alltid får plass (360–430 px), info-knapper, relikvier, elite-modifikatorer.
+   Lastes FØR game.css (alfabetisk), så kampregler prefikses med .scr-combat for å vinne. */
+
+/* Evner: fast rutenett med like høye knapper */
+.scr-combat .abilities { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 6px; margin-bottom: 12px; }
+@media (max-width: 340px) { .scr-combat .abilities { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.abw { position: relative; display: flex; min-width: 0; }
+.scr-combat .ab { flex: 1; min-width: 0; width: 100%; min-height: 58px; height: 100%; padding: 12px 4px 5px; gap: 3px; justify-content: space-between; }
+.scr-combat .ab-n { display: block; max-width: 100%; font-size: 0.74rem; line-height: 1.1; text-align: center; hyphens: manual; -webkit-hyphens: manual; overflow-wrap: anywhere; word-break: normal; }
+.ab-meta { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; line-height: 1.1; } /* prikker over tall — likt på alle bredder/tekststørrelser */
+.ab-l { font-size: 0.5rem; letter-spacing: 0; color: var(--xp); white-space: nowrap; min-height: 1.1em; }
+.scr-combat .ab-c { font-size: 0.66rem; white-space: nowrap; }
+.ab-i { position: absolute; top: -8px; right: -5px; width: 21px; height: 21px; border-radius: 50%; padding: 0; display: grid; place-items: center;
+  font: 700 0.72rem/1 var(--f-mono); font-style: italic; color: var(--board); background: var(--chalk-dim); border: 2px solid var(--board); cursor: pointer; z-index: 2; touch-action: manipulation; }
+.ab-i::after { content: ''; position: absolute; inset: -9px; } /* større trykkflate */
+.ab-i:active { background: var(--chalk); }
+
+/* HUD-en står fast øverst også i kamp, så HP-endringer synes mens du leser forklaringen */
+.hud-slot { display: contents; }
+
+/* Planen (intensjonen) er trykkbar */
+.scr-combat button.intent { background: none; text-align: left; font: inherit; font-size: 0.85rem; cursor: pointer; }
+.intent.i-mytekall strong, .intent.i-utlading strong { color: var(--bad); }
+.intent.i-forskanser strong { color: var(--r-stoffer); }
+.intent.i-energityv strong { color: var(--energy); }
+.intent.i-ladeopp strong { color: var(--warn); }
+.intent.i-utlading { border-color: var(--bad); border-style: solid; }
+
+/* Elite-modifikatorer */
+.en-title { flex-wrap: wrap; row-gap: 4px; }
+.mod-chip { cursor: pointer; background: transparent; color: var(--warn); border-color: var(--warn); font: inherit; font-size: 0.75rem; }
+
+/* Statuschips */
+.scr-combat .cb-status { flex-wrap: wrap; gap: 4px; min-height: 26px; margin-block: 8px 10px; }
+.scr-combat .cb-status:empty { min-height: 0; margin-block: 6px; }
+.st-infect { color: var(--bad); border-color: var(--bad); }
+.st-myth { color: var(--r-jorda); border-color: var(--r-jorda); }
+
+/* Relikvierad i kampen */
+.relic-row { display: flex; flex-wrap: nowrap; gap: 5px; margin-top: 8px; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent); mask-image: linear-gradient(90deg, #000 88%, transparent); padding-right: 16px; }
+.relic-row::-webkit-scrollbar { display: none; }
+.relic-row .relic-ic { flex: 0 0 auto; }
+.relic-row[hidden] { display: none; }
+.relic-ic { width: 34px; height: 34px; padding: 4px; border-radius: 9px; background: var(--board-2); border: 1.5px solid var(--line-strong); color: var(--gold); cursor: pointer; touch-action: manipulation; }
+.relic-ic.perm { border-style: dashed; color: var(--chalk-dim); }
+.relic-art { width: 100%; height: 100%; }
+.r-vanlig { --rar: var(--chalk-dim); }
+.r-sjelden { --rar: var(--r-stoffer); }
+.r-episk { --rar: var(--xp); }
+.r-boss { --rar: var(--bad); }
+.relic-ic.run { border-color: var(--rar); color: var(--rar); }
+.chip.rar { color: var(--rar, var(--chalk-dim)); border-color: var(--rar, var(--line-strong)); font-size: 0.7rem; }
+
+/* «Velg én av tre» */
+.relic-pick { border: 1.5px solid var(--gold); }
+.relic-card { display: flex; gap: 10px; align-items: flex-start; text-align: left; width: 100%; padding: 10px; border-radius: 12px; border: 1.5px solid var(--rar, var(--line-strong)); background: var(--board-3); color: var(--chalk); cursor: pointer; font: inherit; }
+.relic-card .loot-art { color: var(--rar, var(--gold)); }
+.relic-card:disabled { opacity: 0.4; cursor: default; }
+.relic-card.picked { opacity: 1; box-shadow: 0 0 0 3px color-mix(in srgb, var(--rar, var(--gold)) 40%, transparent); }
+.rc-head { flex-wrap: wrap; gap: 6px; align-items: center; }
+
+/* Sekken: evner og relikvier */
+.ab-line, .relic-line { width: 100%; text-align: left; background: none; border: 0; border-top: 1px dashed var(--line); padding: 8px 0 4px; color: var(--chalk); cursor: pointer; font: inherit; }
+.ab-line.locked { opacity: 0.5; }
+.ab-line .loot-art, .relic-line .loot-art { color: var(--rar, var(--gold)); }
+.ab-pips { font-size: 0.7rem; }
+.ab-levels { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.ab-levels li { display: flex; gap: 8px; align-items: baseline; padding: 5px 8px; border-radius: 8px; border: 1px solid var(--line); color: var(--chalk-faint); }
+.ab-levels li.on { color: var(--chalk); border-color: color-mix(in srgb, var(--xp) 60%, transparent); }
+.ab-levels li.next { color: var(--chalk-dim); border-style: dashed; border-color: var(--xp); }
+.ab-lv { flex: none; width: 1.4em; height: 1.4em; border-radius: 50%; display: grid; place-items: center; font-size: 0.72rem; background: var(--board-4); color: var(--chalk); }
+.ab-levels li.on .ab-lv { background: var(--xp); color: var(--board); }
+.ab-line, .relic-line { flex-wrap: nowrap; }
+.ab-line > .grow, .relic-line > .grow { flex: 1 1 0; min-width: 0; }
+.ab-line > .chip { flex: none; align-self: center; }
+.scr-sekk .stat-row { flex-wrap: nowrap; }
+.scr-sekk .stat-row > .grow { flex: 1 1 0; }
+
+/* Hint og Sekk: samme oppbygning som evnene (prikkrad + tall), så knappene ser like ut */
+.ab-l-hint { color: var(--warn); }
+.ab-l-bag { color: var(--chalk-dim); letter-spacing: 1px; }
+.scr-sekk .sekk-head { flex-wrap: nowrap; }
+.scr-sekk .sekk-head > .grow { flex: 1 1 0; }
+
+/* Seier/nederlag: liten fiende ved siden av overskriften (ikke over) */
+.end-head { flex-wrap: nowrap; }
+.end-head > .grow { flex: 1 1 0; }

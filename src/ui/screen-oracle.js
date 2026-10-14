@@ -79,12 +79,19 @@
       } else selfAssess();
     };
 
-    function reward(score) {
+    // self = egenvurdering (uten Claude): kortene løftes høyst til nivå 3 (Nettverk).
+    // XP gis bare én gang per oppgave per dag, så Orakelet ikke kan «farmes».
+    function reward(score, self) {
       done[pr.id] = Math.max(done[pr.id] || 0, score);
       s.counters.oracle++;
-      const xp = 10 + 15 * score;
-      const ups = NG.gainXp(s, xp);
-      const cardUps = NG.updateCards(s, { concepts: pr.concepts || [], level: score >= 2 ? 5 : 3 }, score >= 2);
+      const today = NG.today();
+      if (!s.oracleXp || s.oracleXp.date !== today) s.oracleXp = { date: today, ids: [] };
+      const first = s.oracleXp.ids.indexOf(pr.id) < 0;
+      if (first) s.oracleXp.ids.push(pr.id);
+      const xp = first ? Math.round(10 + 15 * score) : 0;
+      const ups = xp ? NG.gainXp(s, xp) : 0;
+      if (!first) NG.toast('Du har allerede fått XP for denne oppgaven i dag.');
+      const cardUps = NG.updateCards(s, { concepts: pr.concepts || [], level: self ? 3 : (score >= 2 ? 5 : 3) }, score >= 2);
       NG.save();
       NG.announce({ cardUps, levelUps: ups });
       NG.sfx(score >= 2 ? 'win' : 'coin');
@@ -111,7 +118,7 @@
       const pick = el('div', { class: 'stack-s' }, [el('span', { class: 'label', text: 'Egenvurdering: hvor godt traff du?' })]);
       [['Bommet', 0], ['Delvis', 1], ['Godt', 2], ['Presist', 3]].forEach(([n, v]) => pick.appendChild(el('button', { class: 'option', text: n, onclick: () => {
         pick.querySelectorAll('button').forEach((b) => { b.disabled = true; });
-        const xp = reward(v); NG.toast('+' + xp + ' XP');
+        const xp = reward(v, true); if (xp) NG.toast('+' + xp + ' XP');
       } })));
       out.appendChild(pick);
     }

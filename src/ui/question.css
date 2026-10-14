@@ -17,7 +17,7 @@
 .sort-row.wrong { border-color: var(--bad); }
 .sort-t { min-width: 0; }
 .segs { display: flex; gap: 6px; flex-wrap: wrap; }
-.seg { flex: 1 1 0; min-width: 0; min-height: 40px; padding: 6px 8px; border-radius: 10px; border: 2px solid var(--line-strong); background: var(--board); color: var(--chalk-dim); font-size: var(--t-s); font-weight: 700; cursor: pointer; touch-action: manipulation; overflow-wrap: anywhere; }
+.seg { flex: 1 1 0; min-width: 0; min-height: 44px; padding: 6px 8px; border-radius: 10px; border: 2px solid var(--line-strong); background: var(--board); color: var(--chalk-dim); font-size: var(--t-s); font-weight: 700; cursor: pointer; touch-action: manipulation; overflow-wrap: anywhere; }
 .seg.on { background: var(--chalk); color: var(--board); border-color: var(--chalk); }
 .seg.want { border-color: var(--good); color: var(--good); }
 .num-row { display: flex; gap: 8px; align-items: center; }
