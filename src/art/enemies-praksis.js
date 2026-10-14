@@ -139,9 +139,9 @@ ${eye(51, 40, 6, -2.5, -1)}${eye(69, 41, 7.5, 3, 1.5)}
 ${eye(53, 40, 4, 1, 1)}${eye(67, 40, 4, 1, 1)}
 <path d="M48 38h10M62 38h10" stroke-width="3"/>
 <path d="M50 47q10 8 20 0" stroke-width="3"/><path d="M58 51q3 4 6 0" stroke="var(--bad)" stroke-width="2.5"/>
-<path d="M82 60q12 4 14 14"/>
-<g transform="rotate(115 100 72)"><path d="M96 58v8l-8 14h24l-8-14v-8Z" ${f(0.45, 'var(--good)')} stroke-width="3"/><path d="M95 58h10" stroke-width="3"/></g>
-<path d="M112 70q4 14 0 30" stroke="var(--good)" stroke-width="4"/>
+<path d="M82 60q8 4 6 12"/>
+<g transform="rotate(115 92 70)"><path d="M88 58v8l-8 14h24l-8-14v-8Z" ${f(0.45, 'var(--good)')} stroke-width="3"/><path d="M87 58h10" stroke-width="3"/></g>
+<path d="M104 77q4 12 2 26" stroke="var(--good)" stroke-width="4"/>
 <path d="M96 108q8-4 22 0" ${f(0.4, 'var(--good)')} stroke="var(--good)" stroke-width="3"/>
 <circle cx="104" cy="102" r="2" stroke="var(--good)" stroke-width="1.8"/><circle cx="112" cy="100" r="1.5" stroke="var(--good)" stroke-width="1.5"/>
 <path d="M100 96q-4-6 0-10M110 92q4-6 0-10" stroke="var(--chalk-faint)" stroke-width="2.5"/>`);

@@ -114,7 +114,7 @@
     app.style.setProperty('--rc', reg.color);
     app.appendChild(el('div', { class: 'row lab-head' }, [
       NG.artEl('node-lab', 'ph-icon'),
-      el('div', { class: 'grow stack-s' }, [el('span', { class: 'label', text: 'Laben · ' + reg.name }), el('h1', { class: 'h-display', text: m.title })]),
+      el('div', { class: 'grow stack-s' }, [el('span', { class: 'label', text: 'Laben · ' + reg.name + ' · ' + m.title })]),
       el('button', { class: 'btn ghost small', text: p.inRun ? 'Hopp over' : 'Avbryt', onclick: () => { stop(); p.inRun ? NG.nodeDone() : NG.go('labs'); } }),
     ]));
     const root = el('div', { class: 'mg-root' });
