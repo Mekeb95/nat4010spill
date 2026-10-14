@@ -27,6 +27,8 @@ function files(dir) {
 const fakeEl = () => new Proxy(function () {}, { get: (t, k) => (k === Symbol.toPrimitive ? () => '' : fakeEl()), apply: () => fakeEl(), set: () => true });
 const sandbox = { console, Math, Date, JSON, Number, String, Array, Object, Set, Map, setTimeout: () => 0, clearTimeout: () => {}, localStorage: { getItem: () => null, setItem: () => {} } };
 sandbox.window = sandbox;
+sandbox.addEventListener = () => {};
+sandbox.removeEventListener = () => {};
 sandbox.document = { createElement: () => fakeEl(), head: fakeEl(), getElementById: () => null, addEventListener: () => {} };
 vm.createContext(sandbox);
 const load = [...files('core'), ...files('art'), ...files('content'), ...files('minigames')];
