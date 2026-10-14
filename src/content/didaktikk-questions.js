@@ -75,7 +75,7 @@
     { id: 'didaktikk.ord.08', region: R, topic: T1, concepts: ['di-hverdagssprak'], level: 3, type: 'tf', myth: 'myte.didaktikk-hverdagssprak',
       prompt: 'Påstand: Hverdagsspråk bør forbys i naturfagtimen.',
       answer: false,
-      explain: 'Feil. Hverdagsspråket er elevenes inngang til faget og stedet forestillingene bor. Undervisningen bygger bro fra hverdagsspråk til fagspråk – å forby det ene gir elevene ingen å bygge fra.' },
+      explain: 'Feil. Hverdagsspråket er elevenes inngang til faget og stedet forestillingene bor. Undervisningen bygger bro fra hverdagsspråk til fagspråk – å forby det ene gir elevene ingenting å bygge fra.' },
     { id: 'didaktikk.ord.09', region: R, topic: T1, concepts: ['di-hverdagssprak'], level: 3, type: 'sort',
       prompt: 'Sorter utsagnene.',
       buckets: ['Hverdagsspråk', 'Fagspråk'],

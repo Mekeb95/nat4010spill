@@ -767,7 +767,7 @@
         2: 'Mengdene er konstante, men ikke nødvendigvis like. Likevekten kan ligge langt mot produktsiden eller utgangsstoffsiden.',
         3: 'Det er en balansert reaksjonslikning, som gjelder alle reaksjoner. Ordet «likevekt» betyr noe annet.',
       },
-      explain: 'I en likevekt (⇌) dannes produktene like raskt som de omdannes tilbake til utgangsstoffer. På makronivå ser alt stille ut, på mikronivå er det full aktivitet. Et eksempel er CO₂ i en lukket brusflaske: CO₂ går stadig mellom gassen og væsken.',
+      explain: 'I en likevekt (⇌) dannes produktene like raskt som de omdannes tilbake til utgangsstoffer. På makronivå ser alt stille ut, på mikronivå er det full aktivitet. Et eksempel er en lukket brusflaske: CO₂ reagerer stadig med vannet til karbonsyre (CO₂ + H₂O ⇌ H₂CO₃), og karbonsyre spaltes tilbake like raskt.',
     },
     {
       id: 'stoffer.reak.09', region: R, topic: T_REAK, concepts: ['kjemisk-reaksjon', 'massebevaringsloven', 'utgangsstoff'], level: 3, type: 'order',

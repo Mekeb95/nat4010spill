@@ -44,7 +44,7 @@
       buckets: ['Tilbakemelding om kvalitet', 'Fremovermelding', 'Gir lite å lære av'],
       items: [
         { t: '«Du har skilt observasjon og slutning tydelig i tabellen.»', b: 0 },
-        { t: '«Grafen har enheter på begge aksene og et passende skala.»', b: 0 },
+        { t: '«Grafen har enheter på begge aksene og en passende skala.»', b: 0 },
         { t: '«Neste gang: bruk ‹fordi› for å knytte resultatet til varmeledning.»', b: 1 },
         { t: '«Prøv å forklare hvorfor kurven flater ut ved 0 °C.»', b: 1 },
         { t: '«Bra jobba!»', b: 2 },

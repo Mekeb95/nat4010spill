@@ -136,7 +136,7 @@
       const label = {}; TH.nodes.forEach(([id, l]) => { label[id] = l.replace('- ', ''); });
 
       // Layout: noder på en ellipse, stokket rekkefølge
-      const VW = 340, VH = 300;
+      const VW = 340, VH = 350;
       const order = rng.shuffle(TH.nodes.map((n) => n[0]));
       const nodes = {};
       order.forEach((id, i) => {
@@ -145,8 +145,8 @@
         const lines = wrapLabel(raw);
         const w = Math.max(76, Math.max(...lines.map((s) => s.length)) * 7.6 + 18);
         const h = Math.max(42, lines.length * 15 + 16);
-        let cx = VW / 2 + Math.cos(ang) * 112;
-        let cy = VH / 2 + Math.sin(ang) * 112;
+        let cx = VW / 2 + Math.cos(ang) * 118;
+        let cy = VH / 2 + Math.sin(ang) * 146;
         cx = NG.clamp(cx, w / 2 + 4, VW - w / 2 - 4);
         cy = NG.clamp(cy, h / 2 + 4, VH - h / 2 - 4);
         nodes[id] = { id, lines, w, h, cx, cy };
@@ -195,10 +195,18 @@
           const p1 = clip(A, B.cx, B.cy); const p2 = clip(B, A.cx, A.cy);
           s += `<path class="bn-edge" d="M${p1[0].toFixed(1)} ${p1[1].toFixed(1)}L${p2[0].toFixed(1)} ${p2[1].toFixed(1)}" marker-end="url(#bn-arr)"/>`;
         });
+        const placed = Object.values(nodes).map((n) => [n.cx - n.w / 2, n.cy - n.h / 2, n.w, n.h]);
+        const hits = (r) => placed.some((q) => r[0] < q[0] + q[2] && q[0] < r[0] + r[2] && r[1] < q[1] + q[3] && q[1] < r[1] + r[3]);
         edges.forEach((e) => {
           const A = nodes[e.a]; const B = nodes[e.b];
-          const mx = (A.cx + B.cx) / 2; const my = (A.cy + B.cy) / 2;
           const w = e.w.length * 5.3 + 10;
+          let mx = 0; let my = 0; let r = null;
+          for (const t of [0.5, 0.36, 0.64, 0.26, 0.74, 0.5]) {
+            mx = A.cx + (B.cx - A.cx) * t; my = A.cy + (B.cy - A.cy) * t;
+            r = [mx - w / 2, my - 8, w, 16];
+            if (!hits(r)) break;
+          }
+          placed.push(r);
           s += `<g class="bn-elab"><rect x="${(mx - w / 2).toFixed(1)}" y="${(my - 8).toFixed(1)}" width="${w.toFixed(1)}" height="16" rx="5"/><text x="${mx.toFixed(1)}" y="${(my + 3.5).toFixed(1)}" text-anchor="middle">${esc(e.w)}</text></g>`;
         });
         Object.values(nodes).forEach((n) => {
