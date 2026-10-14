@@ -106,10 +106,10 @@ ${eye(51, 40, 6, -2.5, -1)}${eye(69, 41, 7.5, 3, 1.5)}
 
   /* Hypotesehaien (elite): haien kaster piler i blinde — «en hypotese er bare en vill gjetning». */
   add('hypotesehaien', `<path d="M4 104q8-6 16 0t16 0 16 0 16 0 16 0 16 0 16 0" stroke="var(--r-stoffer)" stroke-width="3"/>
-<circle cx="24" cy="26" r="17" ${f(0.12, 'var(--chalk)')}/><circle cx="24" cy="26" r="10" ${f(0.35, 'var(--bad)')} stroke-width="3"/><circle cx="24" cy="26" r="3.5" fill="var(--chalk)" stroke="none"/>
-<path d="M52 12l-6 6M8 58l6-5M100 20l6 6" stroke-width="3"/>
-<path d="M46 18l-3-1 1-3M14 53l-1 3 3 1M106 26l3 1-1 3" stroke="var(--bad)" stroke-width="2"/>
-<path d="M42 66L36 38l22 16" ${f(0.4)}/>
+<circle cx="54" cy="18" r="14" ${f(0.12, 'var(--chalk)')}/><circle cx="54" cy="18" r="8" ${f(0.35, 'var(--bad)')} stroke-width="3"/><circle cx="54" cy="18" r="3" fill="var(--chalk)" stroke="none"/>
+<path d="M26 10l-6 6M86 6l6 6M8 60l6-5" stroke-width="3"/>
+<path d="M20 16l-3-1 1-3M92 12l3 1-1 3M14 55l-1 3 3 1" stroke="var(--bad)" stroke-width="2"/>
+<path d="M40 68L22 46l32 8" ${f(0.4)}/>
 <path d="M12 106c6-26 22-46 46-54 16-5 34-3 48 6-6 6-16 10-28 10 8 4 12 10 10 16-14 0-28 4-38 12-4 4-8 8-10 10Z" ${f(0.36)}/>
 <path d="M78 68l22-9-10 22Z" fill="var(--board)" stroke-width="2.5"/>
 <path d="M82 67l2 4 3-5 3 4 3-5 3 3M84 76l3-3 1 4 3-4" stroke-width="2"/>

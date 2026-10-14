@@ -32,7 +32,7 @@
         "Stillingsenergi – potensiell energi",
         "Varme – temperatur",
         "Energi – kraft",
-        "Masse – vekt",
+        "Masse – vekt (kilogram)",
       ],
       answer: 0,
       why: { 1: 'Varme er energioverføring; temperatur er et mål på partiklenes gjennomsnittlige bevegelsesenergi – to begreper.', 2: 'Kraft (N) og energi (J) er ulike begreper; å blande dem er en kjent elevforestilling.', 3: 'I hverdagen brukes «vekt» om masse, men i fysikken er vekt en kraft (N) og masse en mengde stoff (kg).' },
@@ -136,7 +136,7 @@
     { id: 'didaktikk.stige.05', region: R, topic: T2, concepts: ['di-begrepsstigen'], level: 4, type: 'mc',
       prompt: 'Du vil lage en oppgave som prøver om elevene kan **overføre** begrepet varme(overføring). Hvilken er best?',
       options: [
-        "«Isbit i ullsokk eller uten – hvilken smelter først, og hvorfor?»",
+        "«Isbit i ullsokk eller uten – hvilken smelter først?»",
         "«Skriv definisjonen av varme med egne ord.»",
         "«Hva er forskjellen på varme og temperatur?»",
         "«Nevn tre måter varme kan overføres på.»",

@@ -32,7 +32,7 @@
     sett90: { code: 'sett T = 90', cls: '' },
     sett20: { code: 'sett T = 20', cls: '' },
     gjenta: { code: 'gjenta 30 ganger:', cls: 'loop' },
-    oppdater: { code: 'T = T − k · (T − 20)', cls: '' },
+    oppdater: { code: 'T = T − k·(T − 20)', cls: '' },
     tegn: { code: 'tegn punkt (t, T)', cls: '' },
     hvis: { code: 'hvis T < 60: varsle', cls: 'cond' },
   };
@@ -150,7 +150,7 @@
         c.strokeStyle = dim; c.fillStyle = dim; c.lineWidth = 1;
         for (const v of [20, 40, 60, 80]) { c.globalAlpha = 0.35; c.beginPath(); c.moveTo(L, y(v)); c.lineTo(W - R, y(v)); c.stroke(); c.globalAlpha = 1; c.fillText(String(v), 6, y(v) + 4); }
         for (const t of [0, 10, 20, 30]) c.fillText(String(t), x(t) - 6, H - 8);
-        c.fillText('min', W - R - 22, H - 8);
+        c.fillText('min', x(25) - 10, H - 8);
         c.fillText('°C', 6, T + 2);
         c.setLineDash([5, 5]); c.strokeStyle = cssVar('--r-stoffer', '#7cf'); c.globalAlpha = 0.7;
         c.beginPath(); c.moveTo(L, y(ROOM)); c.lineTo(W - R, y(ROOM)); c.stroke(); c.setLineDash([]); c.globalAlpha = 1;
@@ -196,7 +196,7 @@
         prog.forEach((id, i) => {
           const line = el('div', { class: 'kl-line' + (g >= 0 && i > g ? ' in' : '') });
           line.append(
-            el('div', { class: 'kl-code ' + BLOCKS[id].cls, text: BLOCKS[id].code.replace('k ·', 'k·') }),
+            el('div', { class: 'kl-code ' + BLOCKS[id].cls, text: BLOCKS[id].code }),
             el('button', { class: 'kl-ib', 'aria-label': 'Flytt opp', text: '↑', disabled: i === 0 || null, onclick: () => { sfx('click'); [prog[i - 1], prog[i]] = [prog[i], prog[i - 1]]; renderBuild(); } }),
             el('button', { class: 'kl-ib', 'aria-label': 'Flytt ned', text: '↓', disabled: i === prog.length - 1 || null, onclick: () => { sfx('click'); [prog[i + 1], prog[i]] = [prog[i], prog[i + 1]]; renderBuild(); } }),
             el('button', { class: 'kl-ib', 'aria-label': 'Fjern', text: '✕', onclick: () => { sfx('click'); prog.splice(i, 1); renderBuild(); } }),
@@ -226,9 +226,7 @@
           const box = el('div', { class: 'feedback good small', html: md('**Det virker!** Variabelen `T` husker temperaturen fra runde til runde, og løkka gjentar ett tidssteg (1 min) 30 ganger. Men kurven passer ikke med målingene ennå.') });
           renderBuild(box);
           const btn = wrap.querySelector('#kl-run');
-          btn.textContent = 'Videre: juster k';
-          btn.id = 'kl-next';
-          btn.onclick = () => { sfx('click'); renderFit(); };
+          btn.replaceWith(el('button', { class: 'btn primary block', id: 'kl-next', text: 'Videre: juster k', onclick: () => { sfx('click'); renderFit(); } }));
         } else {
           sfx('bad');
           renderBuild(el('div', { class: 'feedback bad small', html: '<strong>Feilsøking:</strong> ' + md(dia) + (lastRun.err ? '<br><span class="muted">Feilmelding: ' + lastRun.err + '.</span>' : '') }));

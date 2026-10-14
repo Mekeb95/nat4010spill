@@ -85,7 +85,7 @@
     { id: 'didaktikk.plan.09', region: R, topic: T, concepts: ['di-kompetansemal', 'di-mal-aktivitet'], level: 5, type: 'mc',
       prompt: 'Kompetansemål: «bruke programmering til å utforske naturfaglige fenomener». Hvilken kombinasjon av læringsmål og aktivitet henger best sammen?',
       options: [
-        "Mål: «sammenligne en avkjølingssimulering med egne målinger». Elevene måler og programmerer.",
+        "Mål: «sammenligne simulert og målt avkjøling». Elevene måler og koder.",
         "Mål: «kunne programmere». Elevene lager et spill i Scratch.",
         "Mål: «forstå avkjøling». Elevene ser en animasjon av avkjøling.",
         "Mål: «kjenne til micro:bit». Elevene får se en micro:bit.",
