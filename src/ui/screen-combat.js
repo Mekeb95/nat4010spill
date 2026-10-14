@@ -138,7 +138,7 @@
         NG.floatText(arena.querySelector('.en-stage'), '−' + out.dealt + (out.crit ? '!' : ''), out.crit || out.finisher ? 'crit' : 'dmg');
       }
       if (out.taken) {
-        setTimeout(() => { NG.sfx('hit'); document.body.classList.add('hurt'); setTimeout(() => document.body.classList.remove('hurt'), 350); }, 250);
+        setTimeout(() => { NG.sfx('hit'); const fl = el('div', { class: 'hurt-flash' }); document.body.appendChild(fl); setTimeout(() => fl.remove(), 450); }, 250);
         say(NG.makeRng(c.turn + 3).pick(c.def.taunts || ['Ha!']));
         NG.floatText(hudSlot, '−' + out.taken + ' HP', 'hurt-t');
       } else if (out.blocked) say('…!');
@@ -161,6 +161,7 @@
       const ups = NG.gainXp(s, rw.xp);
       s.joule += rw.joule; if (s.run) s.run.joule += rw.joule;
       if (rw.energy) s.energy += rw.energy;
+      s.hp = Math.min(NG.maxHp(s), s.hp + rw.heal);
       if (rw.item) s.items[rw.item] = (s.items[rw.item] || 0) + 1;
       if (rw.relic && !NG.hasRelic(s, rw.relic)) s.relics.push(rw.relic);
       s.counters.wins++;
@@ -179,7 +180,7 @@
         ])]),
         c.def.defeat ? el('div', { class: 'card stack-s' }, [el('span', { class: 'label', text: 'Faglig poeng' }), el('div', { html: NG.md(c.def.defeat) })]) : null,
         el('div', { class: 'card rw-grid' }, [
-          rwCell('+' + rw.xp, 'XP'), rwCell('+' + rw.joule, '◆ joule'), rwCell(c.correct + '/' + c.answered, 'riktige (' + acc + ' %)'), rwCell('×' + c.bestStreak, 'beste rekke'),
+          rwCell('+' + rw.xp, 'XP'), rwCell('+' + rw.joule, '◆ joule'), rwCell(c.correct + '/' + c.answered, 'riktige · beste rekke ×' + c.bestStreak), rwCell('+' + rw.heal, 'HP i pusterommet'),
         ]),
         rw.relic ? lootRow(NG.item(rw.relic), 'Ny varig gjenstand!') : null,
         rw.item ? lootRow(NG.item(rw.item), 'Lagt i sekken') : null,

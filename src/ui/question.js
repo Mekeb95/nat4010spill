@@ -50,7 +50,7 @@
     opts = opts || {};
     const rng = opts.rng || NG.makeRng(Date.now());
     root.innerHTML = '';
-    const wrap = el('div', { class: 'q stack' });
+    const wrap = el('div', { class: 'q stack', 'data-qid': q.id });
     const head = el('div', { class: 'row q-head' }, [
       el('span', { class: 'chip', text: q.topic || 'Spørsmål' }),
       q.level ? el('span', { class: 'chip lvl', title: 'Nivå på begrepsstigen', text: NG.LADDER ? NG.LADDER[q.level] : 'nivå ' + q.level }) : null,
@@ -127,7 +127,7 @@
       }
       const btns = [];
       order.forEach((i, k) => {
-        const b = el('button', { class: 'option' + (hidden.has(i) ? ' dim' : ''), disabled: hidden.has(i) || null,
+        const b = el('button', { class: 'option' + (hidden.has(i) ? ' dim' : ''), 'data-i': i, disabled: hidden.has(i) || null,
           html: '<span class="opt-key">' + 'ABCDEF'[k] + '</span>' + NG.md(q.options[i]),
           onclick: () => finish(i, () => {
             btns.forEach(([j, bb]) => {
@@ -144,7 +144,7 @@
 
     tf(body, q, rng, finish) {
       const row = el('div', { class: 'tf-row' });
-      const mk = (val, label) => el('button', { class: 'option tf', html: label, onclick: () => finish(val, () => {
+      const mk = (val, label) => el('button', { class: 'option tf', 'data-v': String(val), html: label, onclick: () => finish(val, () => {
         row.querySelectorAll('button').forEach((b) => { b.disabled = true; });
         tBtn.classList.add(q.answer === true ? 'correct' : (val === true ? 'wrong' : 'dim'));
         fBtn.classList.add(q.answer === false ? 'correct' : (val === false ? 'wrong' : 'dim'));
@@ -161,7 +161,7 @@
       const sel = new Set();
       const btns = [];
       order.forEach((i) => {
-        const b = el('button', { class: 'option', 'aria-pressed': 'false', html: '<span class="opt-box"></span>' + NG.md(q.options[i]),
+        const b = el('button', { class: 'option', 'data-i': i, 'aria-pressed': 'false', html: '<span class="opt-box"></span>' + NG.md(q.options[i]),
           onclick: () => {
             if (sel.has(i)) sel.delete(i); else sel.add(i);
             b.classList.toggle('selected', sel.has(i));
@@ -197,7 +197,7 @@
         chosen.forEach((i, k) => list.appendChild(el('li', {}, el('button', { class: 'option order-item', html: '<span class="opt-key">' + (k + 1) + '</span>' + NG.md(q.items[i]),
           onclick: () => { chosen.splice(k, 1); pool.push(i); NG.sfx('click'); draw(); } }))));
         poolBox.innerHTML = '';
-        pool.forEach((i, k) => poolBox.appendChild(el('button', { class: 'option pool-item', html: NG.md(q.items[i]),
+        pool.forEach((i, k) => poolBox.appendChild(el('button', { class: 'option pool-item', 'data-i': i, html: NG.md(q.items[i]),
           onclick: () => { pool.splice(k, 1); chosen.push(i); NG.sfx('click'); draw(); } })));
         go.disabled = pool.length > 0;
         list.hidden = chosen.length === 0;
@@ -225,7 +225,7 @@
             NG.sfx('click');
             go.disabled = picked.some((p) => p < 0);
           } }));
-        const row = el('div', { class: 'sort-row' }, [el('div', { class: 'sort-t', html: NG.md(q.items[i].t) }), el('div', { class: 'segs' }, segs)]);
+        const row = el('div', { class: 'sort-row', 'data-b': q.items[i].b }, [el('div', { class: 'sort-t', html: NG.md(q.items[i].t) }), el('div', { class: 'segs' }, segs)]);
         rows.push([i, row, segs]);
         body.appendChild(row);
       });

@@ -94,7 +94,7 @@
         if (rw.energy > 0) { s.energy += rw.energy; lines.push('+' + rw.energy + ' J'); }
         else { const e = Math.min(s.energy, -rw.energy); s.energy -= e; s.heat += e; lines.push('−' + e + ' J (til spillvarme)'); }
       }
-      if (rw.item) { const it = NG.item(rw.item); if (it) { if (it.kind === 'relic') { if (!NG.hasRelic(s, it.id)) s.relics.push(it.id); } else s.items[it.id] = (s.items[it.id] || 0) + 1; lines.push(it.name); } }
+      if (rw.item) { const it = NG.item(rw.item) || NG.item(String(rw.item).replace(/^item-/, '')); if (it) { if (it.kind === 'relic') { if (!NG.hasRelic(s, it.id)) s.relics.push(it.id); } else s.items[it.id] = (s.items[it.id] || 0) + 1; lines.push(it.name); } }
       // Begrepene i hendelsen telles som et svar på nivå 4
       if (ev.concepts && ev.concepts.length) NG.announce({ cardUps: NG.updateCards(s, { concepts: ev.concepts, level: 4 }, !!ch.correct) });
       NG.save();
@@ -113,7 +113,7 @@
     const maxE = NG.maxEnergy(s);
     const radiated = s.heat;
     const gained = Math.max(0, maxE - s.energy);
-    const healed = Math.min(NG.maxHp(s) - s.hp, Math.round(NG.maxHp(s) * 0.3));
+    const healed = Math.min(NG.maxHp(s) - s.hp, Math.round(NG.maxHp(s) * 0.5));
     s.heat = 0; s.energy = Math.max(s.energy, maxE); s.hp += healed;
     NG.save();
     NG.sfx('heal');
@@ -137,7 +137,7 @@
     const s = NG.state();
     const rng = NG.runRng(s, 7);
     const region = s.run ? s.run.region : 'energi';
-    const j = rng.int(12, 30);
+    const j = rng.int(8, 18);
     s.joule += j; if (s.run) s.run.joule += j;
     const items = ['matpakke', 'kakao', 'repetisjonskort'];
     const itemId = rng.pick(items);

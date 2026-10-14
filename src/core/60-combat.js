@@ -61,7 +61,7 @@
       return c.q;
     },
 
-    baseDamage(s) { return 7 + 3 * s.stats.forstaelse + s.level; },
+    baseDamage(s) { return 5 + 2 * s.stats.forstaelse + 0.5 * s.level; },
 
     useAbility(s, c, id) {
       const ab = NG.ABILITIES.find((a) => a.id === id);
@@ -113,11 +113,11 @@
       const part = res.correct ? 1 : (res.partial || 0) * 0.5;
       if (part > 0) {
         let dmg = NG.Combat.baseDamage(s);
-        dmg *= 1 + 0.15 * Math.min(c.streak, 5);
+        dmg *= 1 + 0.1 * Math.min(c.streak, 5);
         let cardSum = 0;
         for (const id of q.concepts || []) { const k = s.cards[id]; if (k) cardSum += k.lvl; }
-        dmg *= Math.min(1.5, 1 + 0.04 * cardSum);
-        if (q.level >= 5) dmg *= 1.5; else if (q.level >= 4) dmg *= 1.3;
+        dmg *= Math.min(1.3, 1 + 0.03 * cardSum);
+        if (q.level >= 5) dmg *= 1.3; else if (q.level >= 4) dmg *= 1.15;
         if (c.region === 'stoffer' && NG.hasRelic(s, 'periodesystem')) dmg *= 1.25;
         if (c.double && res.correct) { dmg *= 2; out.notes.push('Repetisjonskortet doblet skaden!'); }
         if (c.ghost && res.correct) dmg *= 1.2;
@@ -131,7 +131,7 @@
       if (c.peb) {
         if (res.correct) {
           if (c.peb >= 3) {
-            const fin = Math.round(NG.Combat.baseDamage(s) * 2.5);
+            const fin = Math.round(NG.Combat.baseDamage(s) * 2.2);
             out.dealt += fin; out.finisher = true; c.peb = 0;
             out.notes.push('Påstand, evidens og begrunnelse sitter: knusende argument (+' + fin + ')!');
           } else { c.peb++; out.notes.push(['', 'Påstand ✓', 'Evidens ✓'][c.peb - 1] || ''); }
@@ -151,8 +151,8 @@
         const atk = c.enemy.atk * c.enraged;
         let dmg = 0;
         if (intent === 'vent') dmg = res.correct ? 0 : atk * (1 - (res.partial || 0) * 0.5);
-        else if (intent === 'slag') dmg = res.correct ? atk * 0.5 : atk * 1.2;
-        else if (intent === 'storslag') dmg = res.correct ? atk * 1.0 : atk * 1.7;
+        else if (intent === 'slag') dmg = res.correct ? atk * 0.35 : atk * 1.2;
+        else if (intent === 'storslag') dmg = res.correct ? atk * 0.7 : atk * 1.6;
         if (dmg > 0 && !res.correct && c.wrongBlocked) { c.wrongBlocked = false; dmg = 0; out.blocked = true; out.notes.push('Vernebrillene tok støyten.'); }
         if (dmg > 0 && c.shield) { c.shield = false; dmg = 0; out.blocked = true; out.notes.push('Grubletegningen skjermet deg.'); }
         if (dmg > 0 && NG.hasRelic(s, 'termos')) dmg *= 0.8;
@@ -168,11 +168,11 @@
 
     // Belønning ved seier
     rewards(s, c) {
-      const tierXp = { normal: 22, elite: 45, boss: 110 }[c.tier] || 22;
-      let xp = tierXp + 3 * c.bestStreak;
+      const tierXp = { normal: 15, elite: 30, boss: 80 }[c.tier] || 15;
+      let xp = tierXp + 2 * c.bestStreak;
       if (NG.hasRelic(s, 'kalorimeter')) xp = Math.round(xp * 1.15);
-      const j = { normal: c.rng.int(10, 18), elite: c.rng.int(28, 40), boss: 80 }[c.tier] || 12;
-      const out = { xp, joule: j, item: null, relic: null, energy: 0 };
+      const j = { normal: c.rng.int(6, 12), elite: c.rng.int(18, 28), boss: 60 }[c.tier] || 8;
+      const out = { xp, joule: j, item: null, relic: null, energy: 0, heal: Math.round(NG.maxHp(s) * 0.08) };
       if (NG.hasRelic(s, 'solcelle')) out.energy = 5;
       if (c.tier === 'elite' || c.tier === 'boss') {
         const unowned = NG.ITEMS.filter((i) => i.kind === 'relic' && !NG.hasRelic(s, i.id));

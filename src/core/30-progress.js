@@ -5,10 +5,10 @@
   const BOX_DAYS = [0, 1, 2, 4, 8, 16, 32];
 
   /* ---------- Avledede verdier ---------- */
-  NG.maxHp = (s) => 50 + 10 * s.stats.utholdenhet + 4 * s.level + (NG.hasRelic(s, 'termos') ? 0 : 0);
+  NG.maxHp = (s) => 60 + 10 * s.stats.utholdenhet + 5 * s.level;
   NG.maxEnergy = (s) => 40 + 6 * s.stats.nysgjerrighet + (NG.hasRelic(s, 'solcelle') ? 10 : 0);
   NG.hintsPerFight = (s) => 1 + Math.floor(s.stats.nysgjerrighet / 2) + (NG.hasRelic(s, 'notatbok') ? 1 : 0);
-  NG.xpNeed = (lvl) => 50 + 35 * lvl;
+  NG.xpNeed = (lvl) => 60 + 45 * lvl;
   NG.hasRelic = (s, id) => (s.relics || []).indexOf(id) >= 0;
 
   /* ---------- XP og nivå ---------- */
@@ -130,7 +130,7 @@
     if (res.correct) s.counters.correct++;
     NG.srsUpdate(s, q, res.correct);
     const cardUps = NG.updateCards(s, q, res.correct);
-    const xp = res.correct ? 4 + 2 * q.level : Math.round(1 + 3 * (res.partial || 0));
+    const xp = res.correct ? 2 + q.level : Math.round(1 + 2 * (res.partial || 0));
     const levelUps = NG.gainXp(s, xp);
     return { xp, cardUps, levelUps };
   };

@@ -119,7 +119,7 @@
 
   NG.minigames.register({
     id: ID, region: 'stoffer', title: 'Reaksjonsbalansen', icon: 'scale',
-    concepts: ['reaksjonslikning', 'balansering', 'massebevaringsloven', 'kjemiens-tre-nivaer'],
+    concepts: ['reaksjonslikning', 'massebevaringsloven', 'kjemiens-tre-nivaer', 'kjemisk-reaksjon'],
     blurb: 'Balanser reaksjonslikninger med koeffisienter — og se at ingen atomer forsvinner.',
     minutes: 3,
     start(root, api) {

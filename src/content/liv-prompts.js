@@ -1,0 +1,22 @@
+/* Livsskogen — Orakel-oppgaver (fritekst vurdert mot påstand–evidens–begrunnelse). */
+(function () {
+  'use strict';
+  NG.content.addPrompts([
+    { id: 'liv.or.1', region: 'liv', concepts: ['celleanding', 'netto-gassutveksling', 'fotosyntese'],
+      prompt: 'En elev sier: «Planter lager oksygen om dagen og karbondioksid om natta.» Forklar for eleven hva som er riktig og hva som er feil i påstanden.',
+      rubric: 'Påstand: planter produserer CO₂ hele døgnet; det er netto gassutveksling som snur. Evidens: planteceller har mitokondrier; røtter lever uten lys; måling med bromtymolblått/CO₂-måler. Begrunnelse: celleånding trenger sukker og O₂, ikke mørke; om dagen er fotosyntesen større enn celleåndingen. Skiller «produserer» og «avgir netto» (gjerne med pengeanalogi). Anerkjenner det som er riktig: netto avgis O₂ om dagen og CO₂ om natta.',
+      model: 'Du har rett i at planta netto gir fra seg oksygen om dagen og karbondioksid om natta. Men den *produserer* CO₂ hele døgnet, fordi celleåndingen i alle cellene aldri stopper – den trenger sukker og oksygen, ikke mørke. Om dagen er fotosyntesen mye større, så regnskapet blir CO₂ inn og O₂ ut. Det er som lommepenger: får du 100 og bruker 40, har du brukt penger selv om du netto fikk 60.' },
+    { id: 'liv.or.2', region: 'liv', concepts: ['stoffkretslop-energistrom', 'tiprosentregelen', 'nedbrytere'],
+      prompt: 'Forklar hvorfor vi sier at «stoff går i kretsløp, men energi strømmer gjennom» et økosystem. Bruk en konkret næringskjede som eksempel.',
+      rubric: 'Påstand: atomer gjenbrukes, energi går én vei fra sol til varme. Evidens: eksempel på kjede (f.eks. gress–hare–rev–sopp); ca. 10 % per ledd; nedbrytere frigjør CO₂ og næringssalter. Begrunnelse: energi omdannes til varme i celleånding (2. lov, lav kvalitet) og kan ikke drive fotosyntese; sola må fylle på. Unngår «energi brukes opp».',
+      model: 'Karbonatomene i gresset havner i haren, så i reven, og når reven dør, slipper nedbryterne dem ut som CO₂ som nytt gress kan ta opp – stoffet går rundt. Energien følger en annen vei: lyset blir kjemisk energi i gresset, og i hvert ledd går omtrent 90 % ut som varme fra celleåndingen. Varmen er spredt og lavverdig, og gresset kan ikke bruke den. Derfor må sola fylle på hver dag.' },
+    { id: 'liv.or.3', region: 'liv', concepts: ['karbonlager', 'nedbryting', 'karbonkretslop'],
+      prompt: 'Forklar hvorfor oppvarming av myr og permafrost kan forsterke klimaendringene. Bruk begrepene nedbrytning og karbonlager.',
+      rubric: 'Påstand: varmere/tørrere forhold øker nedbrytningen og frigjør lagret karbon, som gir mer oppvarming (positiv tilbakekobling). Evidens: jord ca. 2700 Gt C mot luft 780 Gt; myr er kald, våt, sur og oksygenfattig. Begrunnelse: nedbrytere arbeider raskere med varme og oksygen; karbon flyttes fra langsom til rask del av kretsløpet; CO₂ (og CH₄) forsterker drivhuseffekten.',
+      model: 'Myr og permafrost har lagret karbon i tusenvis av år fordi nedbrytningen der er svært treg: kaldt, vått, surt og lite oksygen. Jorda inneholder mer karbon enn lufta og plantene til sammen. Blir det varmere – eller tørrere – får nedbryterne bedre forhold, og karbonet slippes ut som CO₂ og metan. Det forsterker drivhuseffekten, gir mer oppvarming og enda mer nedbrytning: en positiv tilbakekobling.' },
+    { id: 'liv.or.4', region: 'liv', concepts: ['nedbrytingsforsok', 'tea-bag-index'],
+      prompt: 'Planlegg et nedbrytningsforsøk med teposer for en 8. klasse som skal undersøke om fuktighet påvirker nedbrytningen. Hva endrer, måler og holder dere likt, og hvorfor trenger dere flere poser?',
+      rubric: 'Uavhengig variabel: fuktighet/vanning. Avhengig: massetap (veiing før/etter). Kontrollvariabler: temperatur, jordtype, tetype, dybde, tid. Gjentak: flere poser per behandling for å se spredning. Begrunnelse: bare én variabel endres, ellers kan forskjellen ikke tilskrives fuktighet. Gjerne: undersøkbart spørsmål og hypotese, kobling til borgerforskning.',
+      model: 'Spørsmål: Brytes grønn te raskere ned i fuktig enn i tørr jord? Vi fyller seks potter med samme jord, graver ned en tepose på samme dybde i hver og setter alle i samme rom. Tre potter vannes daglig, tre lite. Etter 60 dager tørker og veier vi teen og regner ut massetapet. Alt annet holdes likt, så forskjellen kan knyttes til fuktigheten. Tre poser per behandling viser oss hvor mye resultatene varierer tilfeldig.' },
+  ]);
+})();

@@ -114,6 +114,8 @@ for (const ev of S.events) {
   if (!REG.has(ev.region)) E(`Hendelse ${ev.id}: ukjent region`);
   if (!Array.isArray(ev.choices) || ev.choices.length < 2) E(`Hendelse ${ev.id}: trenger ≥2 valg`);
   else if (!ev.choices.some((c) => c.correct)) E(`Hendelse ${ev.id}: ingen riktige valg`);
+  for (const c of ev.choices || []) if (c.reward && c.reward.item && !NG.ITEMS.find((i) => i.id === c.reward.item || 'item-' + i.id === c.reward.item)) E(`Hendelse ${ev.id}: ukjent gjenstand ${c.reward.item}`);
+  for (const c of ev.concepts || []) if (!conceptIds.has(c)) W(`Hendelse ${ev.id}: begrep '${c}' finnes ikke`);
 }
 for (const pr of S.prompts) { uniq('prompt', pr.id); if (!pr.prompt || !pr.rubric) E(`Orakel ${pr.id}: mangler prompt/rubric`); }
 for (const mg of NG.minigames.list) {

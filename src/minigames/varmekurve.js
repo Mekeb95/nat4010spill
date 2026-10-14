@@ -9,6 +9,7 @@
 .mg-varmekurve .vk-info { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 .mg-varmekurve .vk-temp { font-family: var(--f-mono); font-size: var(--t-l); font-weight: 600; color: var(--r-energi); min-width: 7.5em; }
 .mg-varmekurve .vk-where { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.mg-varmekurve .vk-where[hidden] { display: none; }
 .mg-varmekurve .vk-where span { padding: 6px 8px; border-radius: 10px; border: 2px solid var(--line); font-size: var(--t-s); color: var(--chalk-faint); text-align: center; }
 .mg-varmekurve .vk-where span.on { border-color: var(--r-energi); color: var(--chalk); background: color-mix(in srgb, var(--r-energi) 16%, transparent); }
 .mg-varmekurve .vk-burn { min-height: 56px; font-size: var(--t-l); }
@@ -36,7 +37,7 @@
 
   NG.minigames.register({
     id: ID, region: 'energi', title: 'Varmekurven', icon: 'flame',
-    concepts: ['faseovergang', 'temperatur', 'indre-energi', 'smeltevarme', 'kinetisk-energi', 'partikkelmodellen'],
+    concepts: ['faseovergang-energi', 'faseovergang-partikler', 'temperatur', 'indre-energi', 'kinetisk-energi', 'partikkelmodellen'],
     blurb: 'Varm opp is og finn ut hvorfor termometeret står stille selv om brenneren går.',
     minutes: 3,
     start(root, api) {
@@ -195,7 +196,7 @@
         ctx.strokeStyle = C.chalk; ctx.lineWidth = 2; ctx.lineCap = 'round';
         ctx.beginPath(); ctx.moveTo(gx0, gy0 - 4); ctx.lineTo(gx0, gy1); ctx.lineTo(gx1 + 2, gy1); ctx.stroke();
         ctx.fillStyle = C.dim; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
-        ctx.fillText('°C', 4, 0);
+        ctx.fillText('°C', gx0 + 6, 2);
         ctx.textAlign = 'right';
         ctx.fillText('tid med brenner på →', gx1, gy1 + 6);
         // faselinjer (vises når de er nådd)
@@ -379,7 +380,7 @@
       }
 
       function askFinal() {
-        burner = false; burnBtn.textContent = 'Ferdig oppvarmet'; burnBtn.classList.remove('on');
+        burner = false; burnBtn.textContent = 'Ferdig oppvarmet'; burnBtn.classList.remove('on'); note.textContent = '';
         const qs = [{
           type: 'mc', topic: 'Temperatur', miss: 'temperatur vs. indre energi',
           prompt: '**Hva er det termometeret egentlig måler?**',
