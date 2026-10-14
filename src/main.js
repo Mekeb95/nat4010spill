@@ -1,6 +1,7 @@
 /* Oppstart. */
 (function () {
   'use strict';
+  try { document.documentElement.lang = 'nb'; } catch (e) { /* */ }
   if (window.NG_DEV) return; // dev-harness tar over
   NG.load();
   // Skyen kan ha nyere lagring (annen enhet). Bytt bare hvis spilleren står på tittel/leir.

@@ -111,7 +111,7 @@
     { id: 'teknologi.kode.11', region: R, topic: T2, concepts: ['tek-simulering', 'tek-lokke'], level: 4, type: 'num',
       prompt: 'Populasjonsmodell (50 % vekst per år). Hva skrives ut?\n' + code('N = 100\nfor ar in range(3):\n    N = N + 0.5 * N\nprint(N)'),
       answer: 337.5, tol: 0.005, unit: 'individer',
-      explain: '100 → 150 → 225 → **337,5**. Hver runde ganges N med 1,5 (eksponentiell vekst). At svaret har en halv kanin, viser at modellen er en forenkling.' },
+      explain: '100 → 150 → 225 → **337,5**. Hver runde ganges N med 1,5 (eksponentiell vekst). At svaret har en halvt individ, viser at modellen er en forenkling.' },
     { id: 'teknologi.kode.12', region: R, topic: T2, concepts: ['tek-lokke', 'tek-variabel', 'tek-algoritme'], level: 3, type: 'num',
       prompt: 'Hva skrives ut?\n' + code('malinger = [12, 15, 18]\nsum = 0\nfor m in malinger:\n    sum = sum + m\nprint(sum / len(malinger))'),
       answer: 15, abs: 0.01, unit: '',

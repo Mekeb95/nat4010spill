@@ -42,7 +42,7 @@
         "Forklar at det er celleåndingen som lager energien.",
       ],
       answer: 0,
-      why: { 1: 'Planter omdanner energi og lagrer den i kjemiske bindinger – de har mye med energi å gjøre.', 2: 'At formuleringen er utbredt, gjør den ikke riktig; energibevaring utelukker at energi lages.', 3: 'Celleåndingen omdanner også bare energi; den skaper ingen.' },
+      why: { 1: 'Planter omdanner lysenergi til kjemisk energi i glukose (sammen med O₂) – de har mye med energi å gjøre.', 2: 'At formuleringen er utbredt, gjør den ikke riktig; energibevaring utelukker at energi lages.', 3: 'Celleåndingen omdanner også bare energi; den skaper ingen.' },
       explain: 'Biologiske prosesser **omdanner** energi; de lager den ikke. Energikjeden viser hvor energien kommer fra, og skillet mellom stoff (som lages) og energi (som omdannes) blir tydelig.' },
     { id: 'didaktikk.ef.06', region: R, topic: T, concepts: ['di-elevforestilling'], level: 3, type: 'mc', myth: 'myte.energi-er-stoff',
       prompt: 'Eleven sier: «Energien ligger som en slags væske i batteriet og renner ut gjennom ledningene.» Hvilken forestilling er dette?',

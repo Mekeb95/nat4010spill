@@ -48,7 +48,7 @@
       options: ['Lysenergi blir til kjemisk energi', 'Kjemisk energi blir til lysenergi', 'Varme blir til kjemisk energi', 'Planta lager ny energi av vann og CO₂'], answer: 0,
       myth: 'myte.biologi-lager-energi',
       why: { 1: 'Det er omvendt – det er lys som fanges og lagres.', 2: 'Planter kan ikke bruke spredt varme til å lage sukker; de trenger lys (høyverdig energi).', 3: 'Energi kan ikke lages. CO₂ og vann har lite kjemisk energi; energien i sukkeret kommer fra lyset.' },
-      explain: 'Energi lages ikke, den omdannes. I fotosyntesen fanger klorofyllet lysenergi, og den lagres som kjemisk energi i bindingene i sukkeret (og O₂). Det er denne energien hele næringskjeden lever på.' },
+      explain: 'Energi lages ikke, den omdannes. I fotosyntesen fanger klorofyllet lysenergi, og den lagres som kjemisk energi i systemet sukker + O₂ (sukkeret og oksygenet har til sammen mer kjemisk energi enn CO₂ og vann). Det er denne energien hele næringskjeden lever på.' },
     { id: 'liv.foto.08', topic: FC, concepts: ['celleanding', 'fotosyntese'], level: 3, type: 'mc',
       prompt: 'Når driver en plante celleånding?',
       options: ['Hele døgnet, i alle levende celler', 'Bare om natta', 'Bare om dagen, når den har nok sukker', 'Aldri – planter har fotosyntese i stedet'], answer: 0,

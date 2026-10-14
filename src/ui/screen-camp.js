@@ -98,9 +98,11 @@
     const tiles = [
       { id: 'repetisjon', label: 'Repetisjon', sub: due ? due + ' venter' : 'Ingenting forfalt', art: 'node-sol', badge: due || null, go: () => NG.go('review') },
       { id: 'begrep', label: 'Begrepsveggen', sub: known + ' / ' + NG.content.store.concepts.length + ' kort', art: 'item-begrepskort', go: () => NG.go('wall') },
+      { id: 'eksamen', label: 'Eksamenstrening', sub: 'Øv mot deleksamenene', art: 'item-notatbok', go: () => NG.go('exams') },
       { id: 'orakel', label: 'Orakelet', sub: 'Forklar med egne ord', art: 'item-lupe', go: () => NG.go('oracle') },
-      { id: 'lager', label: 'Materiallageret', sub: s.joule + ' ◆ å handle for', art: 'item-kalorimeter', go: () => NG.go('shop') },
+      { id: 'lager', label: 'Materiallageret', sub: s.joule + ' ◆ å handle for', art: 'item-solcelle', go: () => NG.go('shop') },
       { id: 'lab', label: 'Laben', sub: 'Øv på mini-spill', art: 'node-lab', go: () => NG.go('labs') },
+      { id: 'sekk', label: 'Ryggsekken', sub: s.statPoints ? s.statPoints + ' poeng å fordele' : 'Egenskaper og ting', art: 'item-kalorimeter', badge: s.statPoints || null, go: () => NG.go('sekk', { back: { name: 'camp' } }) },
       { id: 'ark', label: 'Nøkkelarkene', sub: beaten + ' restaurert', art: 'icon-didaktikk', go: () => NG.go('sheets') },
     ];
     app.appendChild(el('section', { class: 'tiles' }, tiles.map((t) => el('button', { class: 'tile', id: 'tile-' + t.id, onclick: () => { NG.sfx('click'); t.go(); } }, [

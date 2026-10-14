@@ -128,7 +128,7 @@
       prompt: 'Du går ned 5 kg fett. Hvor blir det meste av massen av?',
       options: ['Den pustes ut som CO₂', 'Den blir omdannet til ren energi', 'Den forsvinner med svetten', 'Den går ut med avføringen'], answer: 0,
       myth: 'myte.kropp-fett-blir-energi',
-      why: { 1: 'Masse blir ikke til energi i kjemiske prosesser – atomene er bevart. Energien som var lagret i bindingene frigjøres, men atomene må et sted.', 2: 'Svette er mest vann og salter. Noe av vannet fra fettnedbrytningen kan gå ut slik, men ikke det meste av massen.', 3: 'Fett som er lagret i kroppen, går ikke tilbake til tarmen.' },
+      why: { 1: 'Masse blir ikke til energi i kjemiske prosesser – atomene er bevart. Kjemisk energi frigjøres (produktene CO₂ og vann har sterkere bindinger), men atomene må et sted.', 2: 'Svette er mest vann og salter. Noe av vannet fra fettnedbrytningen kan gå ut slik, men ikke det meste av massen.', 3: 'Fett som er lagret i kroppen, går ikke tilbake til tarmen.' },
       explain: 'Fett består av C, H og O. I celleåndingen blir karbonet CO₂ og hydrogenet vann. Beregninger (Meerman & Brown 2014) viser at ca. 84 % av massen forlater kroppen som CO₂ via lungene. Et flott eksempel på massebevaring i biologien.' },
 
     /* ================= Nervesystem og muskler ================= */

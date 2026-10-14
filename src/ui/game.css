@@ -53,10 +53,10 @@
 .map-node.active .map-ring { animation: pulse 1.6s ease-in-out infinite; }
 @keyframes pulse { 50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--rc) 30%, transparent); } }
 .tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
-.tile { position: relative; display: grid; grid-template-columns: 40px 1fr; grid-template-rows: auto auto; column-gap: 10px; align-items: center; text-align: left; padding: 10px 12px; min-height: 64px; border-radius: var(--r-m); border: 1px solid var(--line-strong); background: var(--board-2); color: var(--chalk); cursor: pointer; }
+.tile { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left; padding: 10px 12px; min-height: 64px; border-radius: var(--r-m); border: 1px solid var(--line-strong); background: var(--board-2); color: var(--chalk); cursor: pointer; }
 .tile:active { transform: scale(0.98); }
-.tile-art { grid-row: span 2; width: 40px; height: 40px; color: var(--chalk-dim); }
-.tile-l { font-weight: 700; line-height: 1.2; }
+.tile-art { width: 26px; height: 26px; color: var(--chalk-dim); margin-bottom: 2px; }
+.tile-l { font-weight: 700; line-height: 1.2; hyphens: auto; min-width: 0; max-width: 100%; }
 .tile-s { line-height: 1.2; min-width: 0; overflow-wrap: anywhere; }
 .tile-badge { position: absolute; top: -6px; right: -4px; background: var(--bad); color: var(--board); font-weight: 700; border-radius: 999px; padding: 0 7px; font-size: 0.8rem; }
 .daily { margin-top: 12px; }

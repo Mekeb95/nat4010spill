@@ -29,7 +29,7 @@
     { id: 'kropp.dna.05', topic: DG, concepts: ['gen', 'arv'], level: 4, type: 'sort',
       prompt: 'Sorter egenskapene: bestemmes de **mest av arv**, **mest av miljø**, eller **tydelig av begge**?',
       buckets: ['Mest arv', 'Mest miljø', 'Både arv og miljø'],
-      items: [{ t: 'Blodtype', b: 0 }, { t: 'Om du har fregner-anlegg (fargegener)', b: 0 }, { t: 'Morsmål', b: 1 }, { t: 'Et arr etter et sykkelfall', b: 1 }, { t: 'Kroppshøyde', b: 2 }, { t: 'Risiko for diabetes type 2', b: 2 }, { t: 'Kondisjon', b: 2 }],
+      items: [{ t: 'Blodtype', b: 0 }, { t: 'Anlegg for fregner', b: 0 }, { t: 'Morsmål', b: 1 }, { t: 'Et arr etter et sykkelfall', b: 1 }, { t: 'Kroppshøyde', b: 2 }, { t: 'Risiko for diabetes type 2', b: 2 }, { t: 'Kondisjon', b: 2 }],
       explain: 'Noen egenskaper er nesten rent genetiske (blodtype), andre nesten rent miljøbestemte (språk, arr). De fleste – som høyde, kondisjon og risiko for vanlige sykdommer – påvirkes tydelig av begge. Høyde er sterkt arvelig, men bedre ernæring har gjort generasjoner høyere.' },
     { id: 'kropp.dna.06', topic: DG, concepts: ['gen', 'dna'], level: 4, type: 'mc',
       prompt: 'Eneggede tvillinger har likt DNA. Likevel får den ene astma og den andre ikke. Hva viser dette?',

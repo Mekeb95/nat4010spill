@@ -17,7 +17,7 @@
       why: {
         0: 'Det beskriver indre energi. «Kroppen har mye varme» er hverdagsspråk.',
         1: 'Det er temperatur.',
-        2: 'Det er også temperatur, sett på partikkelnivå.',
+        2: 'Det beskriver temperatur på partikkelnivå: temperaturen er et mål for denne gjennomsnittsenergien.',
       },
       explain: 'Varme er en *prosess*: energi som går fra varmere til kaldere fordi det er en temperaturforskjell. En ting kan ikke «ha» varme, like lite som en innsjø «har» regn – regnet er det som kom inn.',
     },
@@ -176,7 +176,7 @@
       ],
       answer: 2,
       why: {
-        0: 'Smelting krever 334 kJ – mest av de tre bare hvis man tror is er «hardest».',
+        0: 'Smelting krever 334 kJ – det minste av de tre. Mange tror smelting er mest krevende fordi is er hard.',
         1: 'Oppvarmingen krever 4180 · 100 = 418 kJ. Stort temperaturspenn betyr ikke mest energi.',
         3: 'Tallene er svært ulike: 334, 418 og 2260 kJ.',
       },

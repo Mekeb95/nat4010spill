@@ -3,15 +3,55 @@
   'use strict';
   const el = (...a) => NG.el(...a);
 
+  /* ---------- Eksamenstrening: spørsmål gruppert etter NAT4010-deleksamenene ---------- */
+  NG.EXAMS = [
+    { id: 'd1', name: 'Deleksamen 1 · Energi og elevforestillinger', desc: 'Energiformer, overføring/omdanning, termofysikk, energikvalitet — og elevenes forestillinger om energi.',
+      match: (q) => q.region === 'energi' || (q.region === 'didaktikk' && /Elevforestillinger/.test(q.topic)) || (q.region === 'liv' && /Næringskjeder|Fotosyntese/.test(q.topic)) },
+    { id: 'd2', name: 'Deleksamen 2 · Språk og begreper', desc: 'Ord og begrep, begrepsstigen, ordkort, begrepsvegg, bindeord og støttestrukturer.',
+      match: (q) => q.region === 'didaktikk' && /Ord og begrep|Begrepsstigen|Språkaktiviteter/.test(q.topic) },
+    { id: 'd3', name: 'Deleksamen 3 · HMS og stoffer', desc: 'Risikovurdering og sikkerhet i forsøk — og stoffene og reaksjonene du jobber med.',
+      match: (q) => (q.region === 'praksis' && /HMS/.test(q.topic)) || q.region === 'stoffer' },
+    { id: 'd4', name: 'Deleksamen 4 · Modeller', desc: 'Modeller av og for, styrker og begrensninger, partikkelmodellen og kjemiens tre nivåer.',
+      match: (q) => /Modell|Kjemiens tre nivåer|Faser og partikkelmodellen|Simulering/.test(q.topic) },
+    { id: 'd5', name: 'Deleksamen 5 · Programmering', desc: 'Programmering for å utforske naturfaglige fenomener: kodelesing, simulering, sensorer og feilsøking.',
+      match: (q) => q.region === 'teknologi' && /Program|Kodelesing|Simulering|Sensorer|Feilsøking/.test(q.topic) },
+    { id: 'pr', name: 'Praksiser og utforsking', desc: 'Utforskende arbeid, hypoteser, variabelkontroll, observasjon vs. slutning, argumentasjon og NOS.',
+      match: (q) => q.region === 'praksis' && !/HMS/.test(q.topic) },
+    { id: 'pl', name: 'Planlegging, vurdering og refleksjon', desc: 'Læringsmål som kan vurderes, sammenheng mål–aktivitet, vurdering for læring, Hva? Hva så? Hva nå?',
+      match: (q) => q.region === 'didaktikk' && /Undervisningsplanlegging|Vurdering|Refleksjon/.test(q.topic) },
+  ];
+
+  NG.screen('exams', (app) => {
+    const s = NG.state();
+    app.appendChild(NG.hud(s));
+    app.appendChild(el('div', { class: 'row' }, [el('h1', { class: 'h-display grow', text: 'Eksamenstrening' }), el('button', { class: 'btn ghost small', text: 'Leiren', onclick: () => NG.go('camp') })]));
+    app.appendChild(el('p', { class: 'small muted', text: 'Øv målrettet mot deleksamenene. 12 spørsmål per økt — det du bommer på kommer først, så det du ikke har sett.' }));
+    const list = el('div', { class: 'stack-s' });
+    for (const ex of NG.EXAMS) {
+      const qs = NG.content.store.questions.filter(ex.match);
+      const seen = qs.filter((q) => s.srs[q.id]);
+      const solid = qs.filter((q) => s.srs[q.id] && s.srs[q.id].box >= 3).length;
+      list.appendChild(el('button', { class: 'option stack-s exam-row', onclick: () => NG.go('review', { exam: ex.id, count: 12 }) }, [
+        el('strong', { text: ex.name }),
+        el('span', { class: 'small muted', text: ex.desc }),
+        el('div', { class: 'row small' }, [el('div', { class: 'bar grow' }, el('i', { style: { width: (qs.length ? 100 * solid / qs.length : 0) + '%', background: 'var(--good)' } })),
+          el('span', { class: 'num', text: solid + '/' + qs.length + ' sikre · ' + seen.length + ' sett' })]),
+      ]));
+    }
+    app.appendChild(list);
+  });
+
   /* ---------- Repetisjon ---------- */
   NG.screen('review', (app, p) => {
     const s = NG.state();
     const count = p.count || 10;
     const rng = NG.makeRng(Date.now());
-    let queue = NG.dueQuestions(s, p.region || null);
+    const exam = p.exam ? NG.EXAMS.find((e) => e.id === p.exam) : null;
+    const inScope = (q) => (!p.region || q.region === p.region) && (!exam || exam.match(q));
+    let queue = NG.dueQuestions(s, p.region || null).filter(inScope);
     if (queue.length < count) {
       // fyll på med svake/usette spørsmål
-      const pool = NG.content.store.questions.filter((q) => (!p.region || q.region === p.region) && queue.indexOf(q) < 0);
+      const pool = NG.content.store.questions.filter((q) => inScope(q) && queue.indexOf(q) < 0);
       const scored = pool.map((q) => {
         const r = s.srs[q.id];
         let w = r ? (r.wrong - r.right * 0.6 + (6 - r.box)) : 2.5;
@@ -27,7 +67,7 @@
     const box = el('div');
     app.append(NG.hud(s), el('div', { class: 'stack' }, [
       el('div', { class: 'row' }, [
-        el('div', { class: 'grow stack-s' }, [el('span', { class: 'label', text: p.region ? NG.region(p.region).name : 'Alle regioner' }), el('h1', { class: 'h-display', text: p.fromSol ? 'Repetisjon i solgløttet' : 'Repetisjon' })]),
+        el('div', { class: 'grow stack-s' }, [el('span', { class: 'label', text: exam ? exam.name : p.region ? NG.region(p.region).name : 'Alle regioner' }), el('h1', { class: 'h-display', text: p.fromSol ? 'Repetisjon i solgløttet' : exam ? 'Eksamenstrening' : 'Repetisjon' })]),
         el('button', { class: 'btn ghost small', text: 'Avslutt', onclick: () => finish() }),
       ]),
       el('div', { class: 'bar' }, prog), head, box,
@@ -68,9 +108,10 @@
           el('h1', { class: 'h-display', text: 'Ferdig repetert' }),
           el('div', { class: 'card rw-grid' }, [cell(right + '/' + i, 'riktige'), cell(String(NG.dueQuestions(s).length), 'forfalt nå')]),
           el('p', { class: 'small muted', text: 'Spørsmål du svarte riktig på kommer tilbake om 1, 2, 4, 8 … dager. Feil kommer tilbake om ti minutter.' }),
-          el('button', { class: 'btn primary block', text: 'Til leiren', onclick: () => NG.go('camp') }),
+          exam ? el('button', { class: 'btn primary block', text: 'Én økt til', onclick: () => NG.go('review', Object.assign({}, p, { _: Date.now() })) }) : null,
+          el('button', { class: 'btn block' + (exam ? '' : ' primary'), text: exam ? 'Til eksamenstreningen' : 'Til leiren', onclick: () => NG.go(exam ? 'exams' : 'camp') }),
         ]));
-      } else NG.go('camp');
+      } else NG.go(exam ? 'exams' : 'camp');
     }
     function cell(v, l) { return el('div', { class: 'rw' }, [el('strong', { class: 'num', text: v }), el('span', { class: 'small muted', text: l })]); }
   });
