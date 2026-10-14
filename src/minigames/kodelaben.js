@@ -389,7 +389,7 @@
         const score = NG.clamp((buildScore + fitScore + qOk) / total, 0, 1);
         const correct = (buildScore >= 0.7 ? 1 : 0) + (fitScore > 0.8 ? 1 : 0) + qOk;
         result = {
-          score, correct, total,
+          score: Math.round(score * 100) / 100, correct, total,
           notes: `Bygde simuleringen etter ${runs} kjøring(er); k = ${NG.fmt(k, 3)} mot beste ${NG.fmt(bestK, 3)} (avvik ${NG.fmt(fitRms, 1)} °C); spørsmål ${qOk}/${quiz.length} (løkke/variabel/betingelse/modellens begrensninger).`,
         };
         wrap.innerHTML = '';

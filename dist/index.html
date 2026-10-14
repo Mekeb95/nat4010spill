@@ -2066,10 +2066,10 @@ ${eye(51, 40, 6, -2.5, -1)}${eye(69, 41, 7.5, 3, 1.5)}
 
   /* Hypotesehaien (elite): haien kaster piler i blinde — «en hypotese er bare en vill gjetning». */
   add('hypotesehaien', `<path d="M4 104q8-6 16 0t16 0 16 0 16 0 16 0 16 0 16 0" stroke="var(--r-stoffer)" stroke-width="3"/>
-<circle cx="24" cy="26" r="17" ${f(0.12, 'var(--chalk)')}/><circle cx="24" cy="26" r="10" ${f(0.35, 'var(--bad)')} stroke-width="3"/><circle cx="24" cy="26" r="3.5" fill="var(--chalk)" stroke="none"/>
-<path d="M52 12l-6 6M8 58l6-5M100 20l6 6" stroke-width="3"/>
-<path d="M46 18l-3-1 1-3M14 53l-1 3 3 1M106 26l3 1-1 3" stroke="var(--bad)" stroke-width="2"/>
-<path d="M42 66L36 38l22 16" ${f(0.4)}/>
+<circle cx="54" cy="18" r="14" ${f(0.12, 'var(--chalk)')}/><circle cx="54" cy="18" r="8" ${f(0.35, 'var(--bad)')} stroke-width="3"/><circle cx="54" cy="18" r="3" fill="var(--chalk)" stroke="none"/>
+<path d="M26 10l-6 6M86 6l6 6M8 60l6-5" stroke-width="3"/>
+<path d="M20 16l-3-1 1-3M92 12l3 1-1 3M14 55l-1 3 3 1" stroke="var(--bad)" stroke-width="2"/>
+<path d="M40 68L22 46l32 8" ${f(0.4)}/>
 <path d="M12 106c6-26 22-46 46-54 16-5 34-3 48 6-6 6-16 10-28 10 8 4 12 10 10 16-14 0-28 4-38 12-4 4-8 8-10 10Z" ${f(0.36)}/>
 <path d="M78 68l22-9-10 22Z" fill="var(--board)" stroke-width="2.5"/>
 <path d="M82 67l2 4 3-5 3 4 3-5 3 3M84 76l3-3 1 4 3-4" stroke-width="2"/>
@@ -3305,7 +3305,7 @@ ${shadow(50)}
     { id: 'didaktikk.plan.09', region: R, topic: T, concepts: ['di-kompetansemal', 'di-mal-aktivitet'], level: 5, type: 'mc',
       prompt: 'Kompetansemål: «bruke programmering til å utforske naturfaglige fenomener». Hvilken kombinasjon av læringsmål og aktivitet henger best sammen?',
       options: [
-        "Mål: «sammenligne en avkjølingssimulering med egne målinger». Elevene måler og programmerer.",
+        "Mål: «sammenligne simulert og målt avkjøling». Elevene måler og koder.",
         "Mål: «kunne programmere». Elevene lager et spill i Scratch.",
         "Mål: «forstå avkjøling». Elevene ser en animasjon av avkjøling.",
         "Mål: «kjenne til micro:bit». Elevene får se en micro:bit.",
@@ -3440,10 +3440,10 @@ ${shadow(50)}
     { id: 'didaktikk.vur.03', region: R, topic: T1, concepts: ['di-tilbakemelding'], level: 3, type: 'mc', myth: 'myte.didaktikk-ros',
       prompt: 'Hvilken tilbakemelding på en forsøksrapport fremmer læring best?',
       options: [
-        "«Du skiller resultat og drøfting. Neste steg: bruk ‹fordi›.»",
-        "«Flink! Dette var en veldig fin rapport.»",
-        "«Bra jobba, du er skikkelig smart i naturfag.»",
-        "«5− (godt arbeid)»",
+        "«Tydelig skille mellom resultat og drøfting. Neste steg: bruk ‹fordi›.»",
+        "«Flink! Dette var en veldig fin og ryddig rapport.»",
+        "«Bra jobba, du er skikkelig smart i naturfag, du.»",
+        "«5− (godt arbeid, du er på god vei)»",
       ],
       answer: 0,
       why: { 1: 'Hyggelig, men eleven vet ikke hva som var bra eller hva neste steg er.', 2: 'Ros av personen (selvnivået) gir minst læringseffekt og kan gjøre eleven redd for å feile.', 3: 'En karakter alene sier ingenting om hvordan eleven kan bli bedre.' },
@@ -3700,7 +3700,7 @@ ${shadow(50)}
         "Stillingsenergi – potensiell energi",
         "Varme – temperatur",
         "Energi – kraft",
-        "Masse – vekt",
+        "Masse – vekt (kilogram)",
       ],
       answer: 0,
       why: { 1: 'Varme er energioverføring; temperatur er et mål på partiklenes gjennomsnittlige bevegelsesenergi – to begreper.', 2: 'Kraft (N) og energi (J) er ulike begreper; å blande dem er en kjent elevforestilling.', 3: 'I hverdagen brukes «vekt» om masse, men i fysikken er vekt en kraft (N) og masse en mengde stoff (kg).' },
@@ -3804,7 +3804,7 @@ ${shadow(50)}
     { id: 'didaktikk.stige.05', region: R, topic: T2, concepts: ['di-begrepsstigen'], level: 4, type: 'mc',
       prompt: 'Du vil lage en oppgave som prøver om elevene kan **overføre** begrepet varme(overføring). Hvilken er best?',
       options: [
-        "«Isbit i ullsokk eller uten – hvilken smelter først, og hvorfor?»",
+        "«Isbit i ullsokk eller uten – hvilken smelter først?»",
         "«Skriv definisjonen av varme med egne ord.»",
         "«Hva er forskjellen på varme og temperatur?»",
         "«Nevn tre måter varme kan overføres på.»",
@@ -6650,7 +6650,7 @@ ${shadow(50)}
       explain: 'Melkeveien er en spiralgalakse med 100–400 milliarder stjerner. Det lysende båndet over himmelen en mørk høstkveld er galaksen sett fra innsiden.' },
     { id: 'jorda.univ.03', topic: UN, concepts: ['stjerne', 'planet'], level: 2, type: 'mc',
       prompt: 'Hva er den viktigste forskjellen på en stjerne og en planet?',
-      options: ['En stjerne lyser selv fordi atomkjerner smelter sammen i den; en planet reflekterer lys', 'Stjerner er alltid mindre enn planeter', 'Planeter blinker, stjerner gjør det ikke', 'Stjerner går i bane rundt planeter'], answer: 0,
+      options: ['En stjerne lyser selv ved fusjon; en planet reflekterer lys', 'Stjerner er alltid mindre og kaldere enn planeter', 'Planeter blinker på himmelen, mens stjerner lyser rolig', 'Stjerner går i bane rundt planeter, ikke omvendt'], answer: 0,
       why: { 1: 'Det er omvendt: selv små stjerner er mye større enn jorda.', 2: 'Det er stjernene som blinker mest (de er punktformede og lyset forstyrres av lufta); planetene lyser roligere.', 3: 'Planeter går i bane rundt stjerner.' },
       explain: 'I stjernens kjerne smelter hydrogen sammen til helium (fusjon), og litt masse blir til energi som sendes ut som stråling. Planeter har ikke slik fusjon og lyser bare fordi de reflekterer stjernens lys.' },
     { id: 'jorda.univ.04', topic: UN, concepts: ['stjerne', 'solsystem'], level: 2, type: 'tf',
@@ -6662,7 +6662,7 @@ ${shadow(50)}
       explain: 'Sola har ca. 109 ganger jordas diameter. Solsystemet strekker seg langt forbi Neptun. Melkeveien er ca. 100 000 lysår på tvers, og det observerbare universet har milliarder av slike galakser.' },
     { id: 'jorda.univ.06', topic: UN, concepts: ['big-bang'], level: 3, type: 'mc',
       prompt: 'Hvor i universet skjedde big bang?',
-      options: ['Overalt – det er rommet selv som har utvidet seg fra en tett tilstand', 'På ett bestemt sted, og galaksene flyr ut fra det punktet', 'Midt i Melkeveien', 'Ingen vet, men forskerne leter etter eksplosjonsstedet'], answer: 0,
+      options: ['Overalt – det er rommet selv som utvider seg', 'På ett bestemt sted, og galaksene flyr ut fra det punktet', 'Midt i Melkeveien, der det sorte hullet er', 'Ingen vet, men forskerne leter etter eksplosjonsstedet'], answer: 0,
       myth: 'myte.jorda-bigbang-eksplosjon',
       why: { 1: 'Bildet av en eksplosjon i et tomt rom er den vanligste misoppfatningen. Det finnes ikke noe sentrum.', 2: 'Melkeveien er en helt vanlig galakse; fra alle galakser ser det ut som om de andre fjerner seg.', 3: 'Det finnes ikke noe eksplosjonssted å lete etter – hele rommet var «stedet».' },
       explain: 'Tenk på rosiner i en hevende deig: hver rosin ser alle andre fjerne seg, og ingen av dem er i sentrum. Big bang beskriver at hele rommet var svært tett og varmt og har utvidet seg siden.' },
@@ -6672,16 +6672,16 @@ ${shadow(50)}
       explain: 'Tre sterke evidenslinjer: rødforskyvningen (Hubble), den kosmiske bakgrunnsstrålingen (oppdaget 1965) og mengden lette grunnstoffer. Det finnes ikke noe sentrum å se, og stjernebildene endrer seg sakte over tusenvis av år.' },
     { id: 'jorda.univ.08', topic: UN, concepts: ['solsystem', 'planet'], level: 3, type: 'mc',
       prompt: 'Hvordan ble solsystemet dannet, ifølge dagens forklaring?',
-      options: ['En sky av gass og støv trakk seg sammen av tyngdekraften for ca. 4,5 milliarder år siden; sola ble dannet i midten og planetene av restene rundt', 'Planetene ble slynget ut fra sola etter big bang', 'Sola fanget planetene da de fløy forbi', 'Solsystemet ble dannet samtidig med big bang'], answer: 0,
+      options: ['En sky av gass og støv trakk seg sammen av tyngdekraften', 'Planetene ble slynget ut fra sola som glødende klumper', 'Sola fanget planetene da de fløy forbi i rommet', 'Hele solsystemet ble dannet samtidig med big bang'], answer: 0,
       why: { 1: 'Planetene består av stoffer (som jern og silikater) som ikke kunne kommet direkte fra sola.', 2: 'Planetene går i nesten samme plan og samme retning – det tyder på felles opprinnelse, ikke tilfeldig innfanging.', 3: 'Solsystemet er ca. 9 milliarder år yngre enn universet.' },
-      explain: 'Planetene går i samme retning og nesten samme plan rundt sola, som en rest av den roterende skiven av gass og støv. Tunge grunnstoffer som jern i jorda ble laget i tidligere stjerner.' },
+      explain: 'For ca. 4,5 milliarder år siden trakk en sky av gass og støv seg sammen; sola ble dannet i midten og planetene av restene rundt. Planetene går i samme retning og nesten samme plan rundt sola, som en rest av den roterende skiven av gass og støv. Tunge grunnstoffer som jern i jorda ble laget i tidligere stjerner.' },
     { id: 'jorda.univ.09', topic: UN, concepts: ['stjerne', 'solsystem'], level: 4, type: 'num',
       prompt: 'Avstanden fra sola til jorda er ca. 150 millioner km. Lyset går 300 000 km/s. Hvor mange minutter bruker sollyset til jorda?',
       answer: 8.3, tol: 0.03, unit: 'min', hint: 't = s / v, og del på 60 for å få minutter.',
       explain: '150 000 000 km / 300 000 km/s = 500 s. 500 / 60 ≈ 8,3 min. Ser du på sola (ikke gjør det uten beskyttelse!), ser du den slik den var for drøyt 8 minutter siden.' },
     { id: 'jorda.univ.10', topic: UN, concepts: ['stjerne', 'galakse'], level: 4, type: 'mc',
       prompt: 'Du ser en stjerne som er 100 lysår unna. Hva ser du egentlig?',
-      options: ['Lys som forlot stjernen for 100 år siden', 'Stjernen slik den ser ut akkurat nå', 'Lys som vil nå stjernen om 100 år', 'Lys som har reist i 100 dager'], answer: 0,
+      options: ['Lys som forlot stjernen for 100 år siden', 'Stjernen slik den ser ut akkurat i dette øyeblikket', 'Lys som vil nå fram til stjernen om 100 år', 'Lys som har reist i 100 dager'], answer: 0,
       why: { 1: 'Lyset bruker tid. Hva som skjer med stjernen nå, kan vi først se om 100 år.', 2: 'Lyset går fra stjernen til oss, ikke omvendt.', 3: 'Et lysår er en avstand: hvor langt lyset går på ett *år*.' },
       explain: 'Et lysår er avstanden lyset går på ett år (ca. 9,5 billioner km). Jo lenger ut vi ser, jo lenger tilbake i tid ser vi – det gjør at astronomer kan studere universets historie.' },
     { id: 'jorda.univ.11', topic: UN, concepts: ['stjerne', 'planet', 'mane', 'galakse'], level: 3, type: 'sort',
@@ -6691,14 +6691,14 @@ ${shadow(50)}
       explain: '«Aftenstjernen» Venus er en planet som reflekterer sollys – hverdagsspråket kaller den stjerne. Europa går i bane rundt Jupiter og er derfor en måne. Melkeveien og Andromeda er galakser med milliarder av stjerner.' },
     { id: 'jorda.univ.12', topic: UN, concepts: ['big-bang', 'big-bang-teorien'], level: 5, type: 'mc',
       prompt: 'En elev sier: «Big bang er jo bare en teori – ingen var der og så det.» Hva er det beste svaret?',
-      options: ['«I naturvitenskap er en teori en godt underbygd forklaring. Vi kan teste den mot observasjoner, som bakgrunnsstrålingen som ble forutsagt før den ble funnet.»', '«Du har rett, det er bare en gjetning.»', '«Det er bevist, så det finnes ingen grunn til å stille spørsmål.»', '«Det har ingenting å si hva man tror.»'], answer: 0,
+      options: ['«En teori er en testet forklaring – den forutsa bakgrunnsstrålingen før den ble funnet.»', '«Du har rett, en teori er bare en gjetning – vi kan ikke vite noe sikkert.»', '«Det er bevist, så det finnes ingen grunn til å stille spørsmål ved det.»', '«Det har ingenting å si hva man tror – vi kan uansett ikke vite.»'], answer: 0,
       why: { 1: 'Blander hverdagsbetydningen av «teori» (gjetning) med den naturvitenskapelige.', 2: 'Naturvitenskap beviser ikke endelige sannheter; kunnskapen er sikker, men åpen for revisjon. Spørsmål er velkomne.', 3: 'Avviser elevens spørsmål i stedet for å vise hva slags evidens vi har.' },
       explain: 'Ingen var til stede, men teorien gir forutsigelser som kan testes: at fjerne galakser fjerner seg, at det finnes en svak bakgrunnsstråling, og hvor mye hydrogen og helium det skal være. Alt dette stemmer med målinger. Det er et godt eksempel på naturvitenskapens egenart.' },
 
     /* ================= Døgn og årstider ================= */
     { id: 'jorda.arst.01', topic: DA, concepts: ['dogn'], level: 1, type: 'mc',
       prompt: 'Hvorfor har vi dag og natt?',
-      options: ['Jorda roterer om sin egen akse én gang i døgnet', 'Sola går rundt jorda én gang i døgnet', 'Jorda går rundt sola én gang i døgnet', 'Månen skygger for sola om natta'], answer: 0,
+      options: ['Jorda roterer om sin egen akse', 'Sola går rundt jorda én gang i døgnet', 'Jorda går rundt sola én gang i døgnet', 'Månen skygger for sola på nattsiden'], answer: 0,
       myth: 'myte.jorda-dag-natt-sola',
       why: { 1: 'Det ser slik ut fra jorda, men det er jorda som roterer.', 2: 'Jorda bruker ett *år* på en runde rundt sola.', 3: 'Månen gir bare sjeldne solformørkelser, ikke natt.' },
       explain: 'Siden som vender mot sola, har dag. Rotasjonen mot øst gjør at sola ser ut til å stå opp i øst og gå ned i vest.' },
@@ -6724,7 +6724,7 @@ ${shadow(50)}
       explain: 'Sant. Avstanden er ca. 147 millioner km i januar og ca. 152 millioner km i juli – en forskjell på drøyt 3 %. Det er for lite til å forklare årstidene.' },
     { id: 'jorda.arst.06', topic: DA, concepts: ['arstid', 'aksehelning'], level: 4, type: 'mc',
       prompt: 'I desember er det sommer i Australia og vinter i Norge. Hva viser dette?',
-      options: ['At årstidene ikke kan skyldes avstanden til sola – da ville hele jorda hatt samme årstid samtidig', 'At Australia ligger nærmere sola', 'At sola skinner mer på den sørlige halvkulen', 'At årstidene er tilfeldige'], answer: 0,
+      options: ['At avstanden til sola ikke kan forklare årstidene', 'At Australia ligger nærmere sola enn Norge gjør', 'At sola skinner mer på den sørlige halvkulen', 'At årstidene er tilfeldige og varierer fra år til år'], answer: 0,
       myth: 'myte.jorda-arstider-avstand',
       why: { 1: 'Avstanden mellom Norge og Australia er ubetydelig sammenlignet med avstanden til sola.', 2: 'Over året får begge halvkuler omtrent like mye sollys; i desember er det sør som heller mot sola.', 3: 'Årstidene følger et helt forutsigbart mønster.' },
       explain: 'Hvis avstanden var forklaringen, ville hele jorda hatt sommer samtidig. Motsatte årstider på halvkulene er sterk evidens for at aksehelningen er årsaken.' },
@@ -6738,12 +6738,12 @@ ${shadow(50)}
       explain: '90 − 59,9 + 23,4 = 53,5°. Ved vintersolverv trekker du fra 23,4° i stedet: 6,7°. Forskjellen i solhøyde – og i daglengde – er nøkkelen til årstidene.' },
     { id: 'jorda.arst.09', topic: DA, concepts: ['aksehelning', 'dogn'], level: 4, type: 'mc',
       prompt: 'Hvorfor er det midnattssol i Tromsø om sommeren?',
-      options: ['Nordpolen heller mot sola, så områdene nord for polarsirkelen er i sollys hele døgnet', 'Tromsø er nærmere sola om sommeren', 'Jorda slutter å rotere om sommeren', 'Sola går i en annen bane om sommeren'], answer: 0,
+      options: ['Nordpolen heller mot sola, så nordområdene er i lys hele døgnet', 'Tromsø kommer nærmere sola om sommeren enn resten av landet', 'Jorda roterer saktere om sommeren, så dagen blir lengre', 'Sola går i en høyere bane over Nord-Norge om sommeren'], answer: 0,
       why: { 1: 'Avstandsforskjellen mellom Tromsø og Oslo er ubetydelig i forhold til avstanden til sola.', 2: 'Jorda roterer hele tiden; Tromsø roterer rundt i et belyst område.', 3: 'Det er jorda som går i bane, og banen er den samme hele året.' },
       explain: 'Når den nordlige delen av aksen heller mot sola, roterer områdene nord for polarsirkelen (66,6° N) rundt uten å komme inn i skyggesiden. Om vinteren skjer det motsatte: mørketid.' },
     { id: 'jorda.arst.10', topic: DA, concepts: ['aksehelning', 'arstid', 'dogn'], level: 4, type: 'mc',
       prompt: 'Tenk deg at jordaksen ikke hellet i det hele tatt. Hva ville skjedd?',
-      options: ['Nesten ingen årstider, og dag og natt ville vært omtrent 12 timer overalt hele året', 'Evig sommer i Norge', 'Ingen dag og natt', 'Jorda ville kommet nærmere sola'], answer: 0,
+      options: ['Nesten ingen årstider, og like lange dager og netter hele året', 'Evig sommer i Norge, fordi sola ville stått høyt hele året', 'Ingen dag og natt, fordi sola ville stått stille på himmelen', 'Jorda ville kommet nærmere sola og blitt varmere'], answer: 0,
       why: { 1: 'Uten helning ville sola stått like lavt hele året i Norge – mer som vår og høst hele tiden.', 2: 'Dag og natt skyldes rotasjonen, ikke helningen.', 3: 'Helningen påvirker ikke avstanden.' },
       explain: 'Helningen er det som gir variasjon i solhøyde og daglengde gjennom året. Uten den ville bare den lille avstandsvariasjonen gitt små, globale svingninger.' },
     { id: 'jorda.arst.11', topic: DA, concepts: ['dogn', 'arstid', 'manefase'], level: 4, type: 'sort',
@@ -6753,20 +6753,20 @@ ${shadow(50)}
       explain: 'Rotasjonen gir døgnrytmen. Helningen sammen med ferden rundt sola gir årstider, ulik daglengde og midnattssol. Månens ferd rundt jorda endrer vinkelen vi ser den solbelyste halvdelen fra – månefasene.' },
     { id: 'jorda.arst.12', topic: DA, concepts: ['arstid', 'aksehelning'], level: 5, type: 'mc',
       prompt: 'En elev sier: «Det er sommer fordi jorda er nærmere sola.» Hva er den beste lærerresponsen?',
-      options: ['«Hvis det stemte – hvilken årstid burde det da vært i Australia nå? La oss sjekke.»', '«Feil. Det er aksehelningen.»', '«Det stemmer delvis.»', '«Det er fordi sola er varmere om sommeren.»'], answer: 0,
+      options: ['«Hvis det stemte – hvilken årstid burde det da vært i Australia nå?»', '«Feil. Det er aksehelningen. Det står i boka, så skriv det ned.»', '«Det stemmer delvis – avstanden betyr litt, helningen mer.»', '«Det er fordi sola er varmere og lyser sterkere om sommeren.»'], answer: 0,
       myth: 'myte.jorda-arstider-avstand',
       why: { 1: 'Riktig fasit, men uten evidens eller begrunnelse lever misoppfatningen videre – den er svært seiglivet, også blant voksne.', 2: 'Avstanden har nesten ingen betydning; å si «delvis» bekrefter misoppfatningen.', 3: 'Bytter én misoppfatning med en annen.' },
       explain: 'Et spørsmål som får eleven til å utlede en konsekvens av sin egen idé – og så sjekke den mot evidens – er sterkere enn å gi fasiten. Motsatte årstider på halvkulene og at jorda er nærmest sola i januar, er to gode evidenser.' },
     { id: 'jorda.arst.13', topic: DA, concepts: ['arstid', 'aksehelning'], level: 5, type: 'mc',
       prompt: 'Du lyser med en lommelykt på et ark – først rett ovenfra, så på skrå. Hvilken modell for årstidene er dette, og hva er en viktig begrensning?',
-      options: ['Den viser at skrå stråler sprer energien over et større areal; den viser ikke daglengde eller hvorfor vinkelen endres gjennom året', 'Den viser at sola er nærmere om sommeren; den har ingen begrensninger', 'Den viser jordas rotasjon; begrensningen er at lykta er for svak', 'Den viser månefaser; begrensningen er at arket er flatt'], answer: 0,
+      options: ['Skrå stråler sprer energien over større areal; den viser ikke daglengde', 'Sola er nærmere om sommeren; modellen har ingen begrensninger', 'Jordas rotasjon gir dag og natt; begrensningen er at lykta er for svak', 'Månefasene; begrensningen er at arket er flatt og ikke rundt'], answer: 0,
       why: { 1: 'Lykta holdes like langt unna – modellen handler om vinkel, ikke avstand. Alle modeller har begrensninger.', 2: 'Modellen viser ikke rotasjon; lyskilden står stille.', 3: 'Modellen handler om innfallsvinkel, ikke månen.' },
       explain: 'Lommelyktmodellen er en god modell *for* å forstå innfallsvinkel: samme lys over større areal gir mindre energi per m². Men den sier ingenting om aksehelningen, banen eller daglengden. Å drøfte styrker og begrensninger ved modeller står i kompetansemålet.' },
 
     /* ================= Månen og tidevann ================= */
     { id: 'jorda.mane.01', topic: MT, concepts: ['manefase', 'mane'], level: 2, type: 'mc',
       prompt: 'Hvorfor ser månen ut til å endre form gjennom måneden?',
-      options: ['Vi ser ulike deler av den halvdelen av månen som er belyst av sola', 'Jordas skygge dekker ulike deler av månen', 'Skyer dekker deler av månen', 'Månen roterer og har en mørk og en lys side som snus mot oss'], answer: 0,
+      options: ['Vi ser ulike deler av månens solbelyste halvdel', 'Jordas skygge dekker ulike deler av månen', 'Skyer og støv i atmosfæren dekker deler av månen', 'Månen roterer og snur en mørk og en lys side mot oss'], answer: 0,
       myth: 'myte.jorda-manefaser-skygge',
       why: { 1: 'Jordas skygge treffer månen bare ved måneformørkelse, ved fullmåne.', 2: 'Skyer skjuler månen tilfeldig; fasene er regelmessige.', 3: 'Månen viser oss alltid samme side. Det er belysningen fra sola som endrer seg, ikke hvilken side vi ser.' },
       explain: 'Halve månen er alltid belyst. Når månen går rundt jorda, ser vi den belyste halvdelen fra ulike vinkler – fra nesten ingenting (nymåne) til hele (fullmåne).' },
@@ -6780,7 +6780,7 @@ ${shadow(50)}
       explain: 'Fra nymåne vokser den belyste delen vi ser, til fullmåne etter ca. to uker, og så avtar den igjen. En hel syklus tar ca. 29,5 døgn.' },
     { id: 'jorda.mane.04', topic: MT, concepts: ['manefase', 'mane'], level: 4, type: 'mc',
       prompt: 'Fullmånen står alltid opp omtrent når sola går ned. Hvorfor?',
-      options: ['Ved fullmåne står månen på motsatt side av jorda fra sola', 'Månen lyser bare når sola er borte', 'Sola dytter månen opp når den går ned', 'Det er tilfeldig'], answer: 0,
+      options: ['Ved fullmåne står månen motsatt av sola', 'Månen lyser bare når sola er borte fra himmelen', 'Sola dytter månen opp over horisonten når den går ned', 'Det er tilfeldig og skjer bare noen ganger i året'], answer: 0,
       why: { 1: 'Månen kan godt sees på dagtid, f.eks. ved halvmåne – den reflekterer sollys også da.', 2: 'Sola og månen påvirker ikke hverandres oppgang slik.', 3: 'Det følger direkte av geometrien ved fullmåne.' },
       explain: 'For å se hele den belyste siden må vi stå mellom sola og månen. Da er månen rett «bak» oss når sola går ned, og den står opp i øst når sola går ned i vest.' },
     { id: 'jorda.mane.05', topic: MT, concepts: ['manefase', 'mane'], level: 3, type: 'num',
@@ -6789,12 +6789,12 @@ ${shadow(50)}
       explain: '29,5 / 2 ≈ 14,8 døgn. Fullmånen er halvveis, når månen står motsatt av sola.' },
     { id: 'jorda.mane.06', topic: MT, concepts: ['flo-og-fjaere', 'gravitasjon'], level: 3, type: 'mc',
       prompt: 'Hva er hovedårsaken til flo og fjære?',
-      options: ['Månens (og solas) tyngdekraft trekker ulikt på ulike deler av jorda', 'Vinden blåser vannet inn mot land to ganger i døgnet', 'Jordskjelv under havet', 'Havet utvider seg når det blir varmt om dagen'], answer: 0,
+      options: ['Månens og solas tyngdekraft trekker ulikt på jorda', 'Vinden blåser vannet inn mot land to ganger i døgnet', 'Jordskjelv under havet skyver vannet fram og tilbake', 'Havet utvider seg når det blir varmt om dagen'], answer: 0,
       why: { 1: 'Vind kan gi stormflo, men tidevannet er regelmessig og følger månen, ikke været.', 2: 'Jordskjelv kan gi tsunamier, men de er sjeldne og uregelmessige.', 3: 'Termisk utvidelse er en årsak til langsom havnivåstigning, ikke til daglig tidevann.' },
       explain: 'Månen trekker sterkere på den siden av jorda som vender mot den enn på den andre. Forskjellen gir to «buler» av havvann – én mot månen og én på motsatt side. Jorda roterer under bulene, så de fleste steder får to flo og to fjære per døgn.' },
     { id: 'jorda.mane.07', topic: MT, concepts: ['flo-og-fjaere', 'manefase'], level: 4, type: 'mc',
       prompt: 'Når får vi springflo – ekstra stor forskjell mellom flo og fjære?',
-      options: ['Ved fullmåne og nymåne, når sol og måne står på linje med jorda', 'Bare ved fullmåne, fordi månen da lyser sterkest', 'Ved halvmåne', 'Om sommeren, når sola er nærmest'], answer: 0,
+      options: ['Ved fullmåne og nymåne, når sol og måne står på linje', 'Bare ved fullmåne, fordi månen da lyser sterkest', 'Ved halvmåne, når månen står på tvers av sola', 'Om sommeren, når jorda er nærmest sola'], answer: 0,
       why: { 1: 'Lyset har ingenting med tidevannet å gjøre – det er tyngdekraften. Nymåne gir like stor effekt.', 2: 'Ved halvmåne trekker sol og måne «på tvers», og forskjellen blir minst (nippflo).', 3: 'Jorda er nærmest sola i januar, og effekten av den lille avstandsforskjellen er liten.' },
       explain: 'Når sol, jord og måne står på linje, forsterker tidevannskreftene fra sola og månen hverandre. Ved halvmåne virker de i hver sin retning og delvis utligner hverandre.' },
     { id: 'jorda.mane.08', topic: MT, concepts: ['gravitasjon'], level: 3, type: 'tf',
@@ -6807,7 +6807,7 @@ ${shadow(50)}
       explain: '(6371/6771)² ≈ 0,941² ≈ 0,885 → ca. 88,5 %. Tyngdekraften er der i høyeste grad. «Vektløsheten» er fritt fall, ikke fravær av tyngdekraft.' },
     { id: 'jorda.mane.10', topic: MT, concepts: ['gravitasjon', 'mane'], level: 5, type: 'mc',
       prompt: 'En elev spør: «Hvorfor faller ikke månen ned på jorda, hvis jorda trekker på den?» Hva er den beste forklaringen?',
-      options: ['Månen faller hele tiden mot jorda, men den har så stor fart sidelengs at den hele tiden bommer – den går i bane', 'Det er ingen tyngdekraft så langt ute', 'Månen er for lett til å bli trukket', 'Sola trekker månen like mye den andre veien, så kreftene er i balanse'], answer: 0,
+      options: ['Den faller hele tiden, men har så stor fart sidelengs at den bommer', 'Det er ingen tyngdekraft så langt ute i rommet', 'Månen er for lett til at jorda klarer å trekke den til seg', 'Sola trekker månen like mye den andre veien, så kreftene er i balanse'], answer: 0,
       myth: 'myte.jorda-ingen-tyngdekraft',
       why: { 1: 'Det er nettopp jordas tyngdekraft som holder månen i bane. Uten den ville månen gått rett fram.', 2: 'Masse påvirker ikke om noe faller; alle ting faller like fort uten luftmotstand.', 3: 'Sola trekker både jorda og månen; det er ikke dette som hindrer månen i å falle ned.' },
       explain: 'Newtons kanonkule-tankeeksperiment: skyter du en kule fort nok vannrett, krummer jorda seg bort like fort som kula faller. Månen og romstasjonen er i fritt fall rundt jorda.' },
@@ -6829,7 +6829,7 @@ ${shadow(50)}
     /* ================= Platetektonikk og geologi ================= */
     { id: 'jorda.geo.01', topic: PG, concepts: ['jordskorpe', 'platetektonikk'], level: 1, type: 'mc',
       prompt: 'Hva består jordas ytre skall av, ifølge platetektonikkteorien?',
-      options: ['Store plater som beveger seg i forhold til hverandre', 'Ett helt, ubevegelig skall', 'Flytende lava', 'Is og vann'], answer: 0,
+      options: ['Plater som beveger seg i forhold til hverandre', 'Ett helt, sammenhengende og ubevegelig skall', 'Flytende lava med en tynn, stivnet hinne på toppen', 'Is og vann som har frosset fast til stein'], answer: 0,
       myth: 'myte.jorda-kontinenter-stille',
       why: { 1: 'Jordskjelv, vulkaner og målinger med GPS viser at skallet er delt og i bevegelse.', 2: 'Mantelen under platene er i hovedsak fast stein som kan sige langsomt; flytende magma finnes bare lokalt.', 3: 'Is og vann ligger oppå skorpa; skorpa selv er stein.' },
       explain: 'Jordskorpa og øverste del av mantelen er delt i ca. et dusin store og mange små plater som beveger seg noen centimeter i året.' },
@@ -6844,7 +6844,7 @@ ${shadow(50)}
       explain: 'Granitt (størknet dypt nede) og basalt (størknet lava) er magmatiske. Sandstein og kalkstein er dannet av avsatte korn og skall. Gneis og marmor er omdannet fra andre bergarter under høy temperatur og trykk – marmor fra kalkstein.' },
     { id: 'jorda.geo.04', topic: PG, concepts: ['platetektonikk'], level: 3, type: 'mc',
       prompt: 'Hva driver platebevegelsene?',
-      options: ['Varme fra jordas indre: langsomme strømmer i mantelen, og at tunge plater synker ned og trekker resten etter seg', 'Månens tyngdekraft', 'Jordskjelv dytter platene', 'Vind og havstrømmer'], answer: 0,
+      options: ['Varme fra jordas indre og tunge plater som synker', 'Månens tyngdekraft, som drar platene rundt', 'Jordskjelv som dytter platene fra hverandre', 'Vind og havstrømmer som skyver på kontinentene'], answer: 0,
       why: { 1: 'Månen gir tidevann også i berggrunnen, men det er alt for svakt og periodisk til å drive platene.', 2: 'Jordskjelv er en *følge* av platebevegelsene, ikke årsaken.', 3: 'Vind og hav virker bare på overflaten og har ikke nok kraft.' },
       explain: 'Jordas indre er varmt (radioaktivt henfall og restvarme fra dannelsen). Varmen gir svært langsomme strømmer i den faste, men seige mantelen. Kald, tung havbunnsplate som synker ned i mantelen (subduksjon), trekker også platen etter seg.' },
     { id: 'jorda.geo.05', topic: PG, concepts: ['platetektonikkteorien'], level: 3, type: 'multi',
@@ -6869,18 +6869,18 @@ ${shadow(50)}
       explain: '500 000 000 cm / 2,5 cm/år = 200 000 000 år = 200 millioner år. Det stemmer godt med fossiler og alderen på den eldste havbunnen i Atlanterhavet.' },
     { id: 'jorda.geo.10', topic: PG, concepts: ['platetektonikk', 'jordskorpe'], level: 4, type: 'mc',
       prompt: 'Island har mange vulkaner og en sprekkdal tvers over øya. Hva er forklaringen?',
-      options: ['Island ligger på Den midtatlantiske ryggen der to plater glir fra hverandre og magma presses opp', 'Island ligger der to plater kolliderer og danner fjell', 'Islands vulkaner skyldes at det er kaldt der', 'Island er et gammelt kontinent som synker'], answer: 0,
+      options: ['Den ligger der to plater glir fra hverandre', 'Island ligger der to plater kolliderer og danner fjell', 'Vulkanene skyldes at kulden får berggrunnen til å sprekke', 'Island er et gammelt kontinent som sakte synker i havet'], answer: 0,
       why: { 1: 'Kollisjon gir fjellkjeder og ofte vulkaner, men Island ligger ved en spredningsrygg.', 2: 'Klimaet har ingenting med vulkanismen å gjøre.', 3: 'Island er tvert imot ung – bygd opp av lava de siste ca. 20 millioner årene.' },
       explain: 'Ved midthavsryggen glir den nordamerikanske og den eurasiske platen fra hverandre. Magma fra mantelen fyller opp åpningen, og ny skorpe dannes. Island er et sjeldent sted der ryggen ligger over havet.' },
     { id: 'jorda.geo.11', topic: PG, concepts: ['platetektonikk', 'geologisk-kretslop'], level: 4, type: 'mc',
       prompt: 'Den norske fjellkjeden er svært gammel. Hvordan ble den dannet?',
-      options: ['To kontinentplater kolliderte for ca. 400 millioner år siden; siden har erosjon og hevning formet fjellene', 'Fjellene har alltid vært der', 'Isbreene skjøv opp fjellene i siste istid', 'En stor vulkan i Jotunheimen'], answer: 0,
+      options: ['To kontinentplater kolliderte for ca. 400 millioner år siden', 'Fjellene har alltid vært der, slik de ser ut i dag', 'Isbreene skjøv opp fjellene foran seg i siste istid', 'En stor vulkan i Jotunheimen bygde dem opp av lava'], answer: 0,
       myth: 'myte.jorda-kontinenter-stille',
       why: { 1: 'Bergartene viser at de har vært begravd, foldet og løftet – fjell dannes og brytes ned.', 2: 'Isbreene har gravd ut daler og fjorder, men ikke løftet fjellene.', 3: 'De fleste norske fjell er ikke vulkaner, men foldet og omdannet berggrunn.' },
-      explain: 'Den kaledonske fjellkjeden ble dannet da det gamle kontinentet Baltica kolliderte med Laurentia (Nord-Amerika og Grønland). De samme fjellrøttene finnes i dag på begge sider av Atlanterhavet – evidens for at havet åpnet seg senere.' },
+      explain: 'Siden kollisjonen har erosjon og hevning formet fjellene. Den kaledonske fjellkjeden ble dannet da det gamle kontinentet Baltica kolliderte med Laurentia (Nord-Amerika og Grønland). De samme fjellrøttene finnes i dag på begge sider av Atlanterhavet – evidens for at havet åpnet seg senere.' },
     { id: 'jorda.geo.12', topic: PG, concepts: ['platetektonikk', 'platetektonikkteorien'], level: 5, type: 'mc',
       prompt: 'En elev sier: «Kontinentene kan ikke flytte på seg. Jeg har aldri sett Norge bevege seg.» Hva er det beste svaret?',
-      options: ['«Bevegelsen er like rask som neglene dine vokser – du ser ikke det heller. Men med GPS kan vi måle noen centimeter i året. Hva blir det på 200 millioner år?»', '«Du tar feil, kontinentene flyter på lava.»', '«Det er bare en teori.»', '«Det har du rett i; det er havet som beveger seg.»'], answer: 0,
+      options: ['«Den er like rask som neglene dine vokser – men GPS kan måle den.»', '«Du tar feil, kontinentene flyter rundt på et hav av lava.»', '«Det er bare en teori, så du kan godt mene noe annet.»', '«Det har du rett i; det er havet som beveger seg, ikke landet.»'], answer: 0,
       myth: 'myte.jorda-kontinenter-stille',
       why: { 1: 'Mantelen er i hovedsak fast stein som siger langsomt – «flyter på lava» er en ny misoppfatning.', 2: 'Undergraver en godt underbygd teori med hverdagsbetydningen av «teori».', 3: 'Bekrefter misoppfatningen.' },
       explain: 'Eleven har en gyldig observasjon – vi ser ikke bevegelsen. Et godt svar tar observasjonen på alvor, gir en sammenligning eleven kjenner og viser til målbar evidens. Regnestykket (2,5 cm/år · 200 mill. år = 5000 km) gjør tidsskalaen konkret.' },
@@ -6901,7 +6901,7 @@ ${shadow(50)}
       explain: '15 − (−19) = 34 grader. Uten den naturlige drivhuseffekten ville det meste av vannet på jorda vært is, og grunnlaget for liv helt annerledes.' },
     { id: 'jorda.atm.04', topic: AD, concepts: ['drivhuseffekt', 'drivhusgass'], level: 3, type: 'mc',
       prompt: 'Hvordan virker drivhuseffekten?',
-      options: ['Sollys slipper gjennom atmosfæren og varmer jorda; jorda sender ut varmestråling som drivhusgasser tar opp og delvis sender tilbake', 'Drivhusgassene lager varme selv', 'Varmen kommer inn gjennom hullet i ozonlaget og blir fanget', 'Drivhusgassene stopper sollyset før det når bakken'], answer: 0,
+      options: ['Drivhusgasser tar opp varmestråling fra jorda og sender noe tilbake', 'Drivhusgassene lager varme selv når sola skinner på dem', 'Varmen kommer inn gjennom hullet i ozonlaget og blir fanget', 'Drivhusgassene stopper sollyset før det når bakken'], answer: 0,
       why: { 1: 'Gassene lager ikke energi; de forsinker at energien slipper ut igjen.', 2: 'Ozonhullet slipper inn mer UV, men er ikke mekanismen bak drivhuseffekten.', 3: 'Da ville jorda blitt kaldere. Drivhusgassene slipper sollyset gjennom, men fanger varmestrålingen på vei ut.' },
       explain: 'Sollyset er mest synlig lys som atmosfæren slipper gjennom. Jorda stråler ut infrarød stråling. Drivhusgasser (vanndamp, CO₂, metan …) absorberer den og sender en del tilbake mot bakken. Likevekten blir da ved en høyere temperatur.' },
     { id: 'jorda.atm.05', topic: AD, concepts: ['drivhusgass'], level: 3, type: 'multi',
@@ -6910,7 +6910,7 @@ ${shadow(50)}
       explain: 'Drivhusgasser er molekyler som kan ta opp infrarød stråling. N₂ og O₂ – 99 % av lufta – gjør det nesten ikke. Vanndamp er den viktigste drivhusgassen totalt, men mengden styres av temperaturen; CO₂ er den viktigste vi mennesker endrer direkte.' },
     { id: 'jorda.atm.06', topic: AD, concepts: ['drivhuseffekt'], level: 3, type: 'mc',
       prompt: 'Hva er forskjellen på ozonhullet og drivhuseffekten?',
-      options: ['Ozonhullet slipper inn mer UV-stråling; drivhuseffekten handler om at varmestråling fra jorda holdes tilbake', 'De er det samme problemet', 'Ozonhullet er årsaken til drivhuseffekten', 'Drivhuseffekten skaper ozonhullet'], answer: 0,
+      options: ['Ozonhullet gjelder UV inn; drivhuseffekten gjelder varmestråling ut', 'De er det samme problemet, bare med to ulike navn', 'Ozonhullet er årsaken til drivhuseffekten', 'Drivhuseffekten skaper ozonhullet ved å varme opp lufta'], answer: 0,
       myth: 'myte.jorda-ozonhull-drivhus',
       why: { 1: 'En svært vanlig sammenblanding. De har ulike årsaker og ulike konsekvenser.', 2: 'Ozonhullet skyldes KFK-gasser og påvirker UV, ikke varmestrålingen ut.', 3: 'Ozonnedbrytningen skyldes klor fra KFK-gasser.' },
       explain: 'Ozonlaget i stratosfæren fanger UV-stråling. KFK-gasser brøt ned ozon, men etter Montreal-protokollen (1987) er laget i ferd med å lege seg. Drivhuseffekten skyldes andre gasser og en annen type stråling.' },
@@ -6923,23 +6923,23 @@ ${shadow(50)}
       explain: '140 / 280 = 0,50 → 50 % økning. Selv om CO₂ fortsatt bare er ca. 0,04 % av lufta, er det en stor relativ endring i en viktig drivhusgass.' },
     { id: 'jorda.atm.09', topic: AD, concepts: ['drivhuseffekt'], level: 4, type: 'mc',
       prompt: '«Drivhuseffekten er farlig og må stoppes.» Hva er mest faglig presist?',
-      options: ['Den naturlige drivhuseffekten er livsviktig; det er den menneskeskapte forsterkningen som gir klimaendringer', 'Påstanden er helt riktig', 'Drivhuseffekten finnes ikke', 'Drivhuseffekten er farlig bare om sommeren'], answer: 0,
+      options: ['Den naturlige er livsviktig; det er forsterkningen som er problemet', 'Påstanden er helt riktig: all drivhuseffekt er skadelig', 'Drivhuseffekten finnes ikke – den er en modell', 'Drivhuseffekten er farlig bare om sommeren, når sola står høyt'], answer: 0,
       myth: 'myte.jorda-drivhuseffekt-skadelig',
       why: { 1: 'Uten drivhuseffekt ville jorda hatt ca. −19 °C i snitt.', 2: 'Den er grundig målt og forstått siden 1800-tallet (Fourier, Tyndall, Arrhenius).', 3: 'Drivhuseffekten virker hele året, dag og natt.' },
       explain: 'Skillet mellom den naturlige og den forsterkede drivhuseffekten er avgjørende. Mer CO₂ og andre drivhusgasser gjør at mer varmestråling holdes tilbake, og den globale middeltemperaturen øker.' },
     { id: 'jorda.atm.10', topic: AD, concepts: ['drivhusgass', 'atmosfaere'], level: 5, type: 'mc',
       prompt: 'N₂ og O₂ utgjør 99 % av atmosfæren, men er ikke drivhusgasser. Hva er forklaringen på molekylnivå?',
-      options: ['Molekyler med to like atomer endrer ikke ladningsfordelingen når de vibrerer, så de tar nesten ikke opp infrarød stråling', 'De er for lette til å holde på varme', 'De finnes bare høyt oppe i atmosfæren', 'De reflekterer all varmestråling tilbake til verdensrommet'], answer: 0,
+      options: ['De endrer ikke ladningsfordeling når de vibrerer, så de tar ikke opp IR', 'De er for lette molekyler til å kunne holde på varme', 'De finnes bare høyt oppe i atmosfæren, over drivhusgassene', 'De reflekterer all varmestråling tilbake til verdensrommet'], answer: 0,
       why: { 1: 'Massen avgjør ikke; vanndamp er lettere enn både N₂ og O₂, men en sterk drivhusgass.', 2: 'N₂ og O₂ er godt blandet i hele den nedre atmosfæren.', 3: 'De slipper infrarød stråling nesten uhindret gjennom – de verken tar opp eller reflekterer den.' },
       explain: 'For å ta opp infrarød stråling må molekylet få en endring i ladningsfordeling (dipol) når det vibrerer. CO₂, H₂O og CH₄ har slike vibrasjoner; symmetriske toatomige molekyler som N₂ og O₂ har det ikke. Her møtes kjemi (bindinger) og jordfag.' },
 
     /* ================= Klima og vær ================= */
     { id: 'jorda.klima.01', topic: KV, concepts: ['klima', 'vaer'], level: 1, type: 'mc',
       prompt: 'Hva er klima?',
-      options: ['Gjennomsnittlig vær over lang tid, vanligvis 30 år', 'Været i dag', 'Været neste uke', 'Temperaturen i lufta'], answer: 0,
+      options: ['Gjennomsnittlig vær over lang tid', 'Været slik det er her og nå i dag', 'Været som er meldt for neste uke', 'Temperaturen i lufta akkurat nå'], answer: 0,
       myth: 'myte.jorda-vaer-klima',
       why: { 1: 'Været i dag er nettopp vær, ikke klima.', 2: 'Værvarsel handler om vær; klima er statistikk over lang tid.', 3: 'Temperatur er én værfaktor; klima omfatter gjennomsnitt og variasjon i mange faktorer.' },
-      explain: 'Klima beskriver hva som er normalt (og hvor mye det varierer) for et sted over tid, f.eks. normalperioden 1991–2020.' },
+      explain: 'Klima er gjennomsnittet over lang tid, vanligvis 30 år. Det beskriver hva som er normalt (og hvor mye det varierer) for et sted over tid, f.eks. normalperioden 1991–2020.' },
     { id: 'jorda.klima.02', topic: KV, concepts: ['klima', 'vaer'], level: 2, type: 'sort',
       prompt: 'Sorter utsagnene: handler de om **vær** eller **klima**?',
       buckets: ['Vær', 'Klima'],
@@ -6947,12 +6947,12 @@ ${shadow(50)}
       explain: 'Vær er her og nå (timer, dager, uker). Klima er gjennomsnitt og trender over mange år.' },
     { id: 'jorda.klima.03', topic: KV, concepts: ['klimaendring', 'drivhuseffekt'], level: 3, type: 'mc',
       prompt: 'Hva er hovedårsaken til den globale oppvarmingen de siste ca. 150 årene?',
-      options: ['Utslipp av drivhusgasser, særlig CO₂ fra fossilt brensel, som forsterker drivhuseffekten', 'At jorda er kommet nærmere sola', 'Hullet i ozonlaget', 'Naturlige svingninger i solaktiviteten alene'], answer: 0,
+      options: ['Utslipp av drivhusgasser, særlig CO₂ fra fossilt brensel', 'At jorda er kommet nærmere sola de siste 150 årene', 'Hullet i ozonlaget, som slipper inn mer varme', 'Naturlige svingninger i solaktiviteten alene'], answer: 0,
       why: { 1: 'Jordbanen har ikke endret seg merkbart på 150 år.', 2: 'Ozonhullet påvirker UV, ikke drivhuseffekten.', 3: 'Solaktiviteten måles direkte og har ikke økt i perioden med sterkest oppvarming.' },
       explain: 'Målt økning i CO₂, kjent fysikk for infrarød stråling og «fingeravtrykk» (f.eks. at den øvre atmosfæren kjøles mens den nedre varmes) peker på menneskeskapte drivhusgasser.' },
     { id: 'jorda.klima.04', topic: KV, concepts: ['klima', 'vaer'], level: 4, type: 'mc',
       prompt: '«Det var den kaldeste vinteren på lenge – global oppvarming er tull.» Hva er feilen i argumentet?',
-      options: ['Én vinter er vær på ett sted; klima er gjennomsnittet for hele jorda over flere tiår', 'Det er ingen feil', 'Kalde vintre beviser at det blir varmere', 'Vinteren teller ikke i klimastatistikken'], answer: 0,
+      options: ['Én vinter på ett sted er vær, ikke klima', 'Det er ingen feil – kalde vintre motbeviser oppvarming', 'Kalde vintre beviser tvert imot at det blir varmere', 'Vinteren teller ikke med i klimastatistikken'], answer: 0,
       myth: 'myte.jorda-vaer-klima',
       why: { 1: 'Argumentet blander vær og klima.', 2: 'En enkelt kald vinter verken beviser eller motbeviser en trend.', 3: 'Alle årstider er med i klimastatistikken.' },
       explain: 'Variasjon fra år til år er stor. Klimatrender ser vi bare i lange tidsserier og store områder. Det er som terninger: ett kast sier lite om gjennomsnittet.' },
@@ -6963,12 +6963,12 @@ ${shadow(50)}
       explain: 'Is på land som smelter, tilfører havet nytt vann, og varmt vann tar mer plass. Havis flyter allerede og fortrenger like mye vann som den inneholder, så den gir nesten ingen stigning når den smelter. Mer regn over havet er bare vann som går i kretsløp.' },
     { id: 'jorda.klima.06', topic: KV, concepts: ['klimaendring', 'drivhuseffekt'], level: 5, type: 'mc',
       prompt: 'Når snø og is smelter i Arktis, blir overflaten mørkere. Hvordan påvirker det oppvarmingen?',
-      options: ['Mørk overflate tar opp mer sollys, så det blir varmere og mer is smelter – en positiv tilbakekobling', 'Mørk overflate reflekterer mer, så det blir kaldere', 'Det har ingen betydning, fordi sola står lavt i Arktis', 'Det gir mer is, fordi mørke flater fryser raskere'], answer: 0,
+      options: ['Mørk overflate tar opp mer sollys, så mer is smelter', 'Mørk overflate reflekterer mer sollys, så det blir kaldere', 'Det har ingen betydning, fordi sola står lavt i Arktis', 'Det gir mer is, fordi mørke flater fryser raskere'], answer: 0,
       why: { 1: 'Det er omvendt: lyse flater (snø, is) reflekterer mest.', 2: 'Sola står lavt, men om sommeren skinner den døgnet rundt, og endringen er stor.', 3: 'Mørke flater tar opp mer energi og varmes mer.' },
       explain: 'Snø reflekterer opptil 80–90 % av sollyset, åpent hav bare ca. 6 %. Mindre is gir mer oppvarming som gir enda mindre is. Slike tilbakekoblinger er en grunn til at Arktis varmes raskere enn resten av jorda.' },
     { id: 'jorda.klima.07', topic: KV, concepts: ['klima', 'vaer', 'klimaendring'], level: 5, type: 'mc',
       prompt: 'En elev spør: «Hvordan kan forskere si noe om klimaet om 50 år når de ikke engang kan spå været om to uker?» Hva er det beste svaret?',
-      options: ['«Været er kaotisk i detalj, men klimaet er gjennomsnitt styrt av energibalansen. Jeg kan ikke si om du får sekser på neste terningkast, men jeg kan si at snittet over 1000 kast blir ca. 3,5.»', '«De kan egentlig ikke det.»', '«Klimamodellene er mye bedre enn værmodellene fordi de har kraftigere datamaskiner.»', '«Fordi klima og vær er det samme, bare over lengre tid.»'], answer: 0,
+      options: ['«Ett terningkast kan ikke spås, men snittet av 1000 kast kan.»', '«De kan egentlig ikke det – klimamodellene er bare gjetning.»', '«Klimamodellene er bedre fordi de har kraftigere datamaskiner.»', '«Fordi klima og vær er det samme, bare over lengre tid.»'], answer: 0,
       myth: 'myte.jorda-vaer-klima',
       why: { 1: 'Klimaframskrivinger fra 1970- og 80-tallet har truffet den observerte oppvarmingen godt.', 2: 'Det handler ikke om datakraft, men om at gjennomsnitt er forutsigbare selv om enkelthendelser ikke er det.', 3: 'Klima er statistikk over været – men det gjør det nettopp forutsigbart på en annen måte enn enkeltdager.' },
       explain: 'Det er et skille mellom å forutsi enkelthendelser (vær) og statistikk/energibalanse (klima). Terninganalogien er en modell som gjør skillet konkret – men husk å drøfte begrensningen: klimaet er ikke helt tilfeldig, det styres av fysikk.' },
@@ -9653,10 +9653,10 @@ ${shadow(50)}
     { id: 'praksis.5e.02', region: R, topic: T2, concepts: ['pr-5e'], level: 2, type: 'mc',
       prompt: 'Hva er hovedhensikten med **Engage**-fasen?',
       options: [
-        'Å vekke nysgjerrighet og få fram elevenes forkunnskaper og forestillinger.',
-        'Å gi elevene de riktige definisjonene.',
-        'Å teste hva elevene har lært.',
-        'Å la elevene bruke kunnskapen i nye situasjoner.',
+        "Å vekke nysgjerrighet og få fram forkunnskaper.",
+        "Å gi elevene de riktige definisjonene fra start.",
+        "Å teste hva elevene har lært i forløpet.",
+        "Å la elevene bruke kunnskapen i nye situasjoner.",
       ],
       answer: 0,
       why: { 1: 'Definisjonene kommer i Explain, etter at elevene har erfaringer å knytte dem til.', 2: 'Det er Evaluate.', 3: 'Det er Elaborate.' },
@@ -10045,10 +10045,10 @@ ${shadow(50)}
     { id: 'praksis.spm.08', region: R, topic: T2, concepts: ['pr-undersokbart-sporsmal', 'pr-variabelkontroll'], level: 4, type: 'mc',
       prompt: 'En elev spør: «Liker planter musikk?» Hvilken omformulering gjør spørsmålet undersøkbart?',
       options: [
-        "Blir karse med musikk høyere på sju dager enn karse uten, når alt annet er likt?",
+        "Blir karse med musikk høyere på sju dager enn karse uten?",
         "Hvilken type musikk liker planter best – klassisk eller pop?",
         "Hvorfor liker planter musikk bedre enn stillhet?",
-        "Kan planter høre lyder på samme måte som dyr?",
+        "Kan planter høre lyder på samme måte som dyr kan?",
       ],
       answer: 0,
       why: { 1: '«Liker» er fortsatt ikke målbart, og spørsmålet antar svaret.', 2: '«Hvorfor» forutsetter at de liker musikk – spørsmålet er ikke undersøkt ennå.', 3: 'Mer presist, men det er fortsatt uklart hva som skal måles og hvordan.' },
@@ -10067,10 +10067,10 @@ ${shadow(50)}
     { id: 'praksis.spm.10', region: R, topic: T2, concepts: ['pr-hypotese'], level: 3, type: 'mc', myth: 'myte.praksis-hypotese-gjetning',
       prompt: 'Hypotesehaien sier: «En hypotese er bare en gjetning, så alle hypoteser er like gode.» Hva gjør én hypotese bedre enn en annen?',
       options: [
-        'At den er begrunnet i kunnskap og kan testes med data.',
-        'At den viser seg å være riktig.',
-        'At den er formulert med fagord.',
-        'At læreren har godkjent den.',
+        "At den er begrunnet og kan testes.",
+        "At den viser seg å være riktig etter forsøket.",
+        "At den er formulert med presise fagord.",
+        "At læreren har godkjent den på forhånd.",
       ],
       answer: 0,
       why: { 1: 'En god hypotese kan godt bli avkreftet – kvaliteten avgjøres før testen.', 2: 'Fagord kan pynte en dårlig hypotese; det er begrunnelsen som teller.', 3: 'Godkjenning er en klasseromsrutine, ikke et faglig kvalitetskriterium.' },
@@ -12742,10 +12742,10 @@ ${shadow(50)}
     { id: 'teknologi.prog.02', region: R, topic: T1, concepts: ['tek-variabel'], level: 2, type: 'mc',
       prompt: 'Hva er en **variabel** i programmering?',
       options: [
-        'Et navngitt lager for en verdi som kan endres mens programmet kjører.',
-        'Det samme som en uavhengig variabel i et forsøk.',
-        'En instruksjon som gjentas.',
-        'En verdi som aldri kan endres.',
+        "Et navngitt lager for en verdi som kan endres.",
+        "Det samme som en uavhengig variabel i et forsøk.",
+        "En instruksjon som gjentas flere ganger.",
+        "En verdi som aldri kan endres mens programmet kjører.",
       ],
       answer: 0,
       why: { 1: 'Samme ord, ulike begreper! En programvariabel er et lager; i et forsøk er en variabel en størrelse som kan variere.', 2: 'Det er en løkke.', 3: 'Det kalles en konstant.' },
@@ -12765,10 +12765,10 @@ ${shadow(50)}
     { id: 'teknologi.prog.04', region: R, topic: T1, concepts: ['tek-funksjon-kode'], level: 3, type: 'mc',
       prompt: 'Hvorfor er det nyttig å lage en **funksjon** i et program?',
       options: [
-        'Koden kan gjenbrukes med ulike inndata, og programmet blir lettere å lese og feilsøke.',
-        'Programmet kjører alltid raskere.',
-        'Funksjoner fjerner alle feil.',
-        'Uten funksjoner kan ikke programmet kjøre.',
+        "Koden kan gjenbrukes og blir lettere å lese.",
+        "Programmet kjører alltid mye raskere med funksjoner.",
+        "Funksjoner fjerner alle feil i programmet.",
+        "Uten funksjoner kan ikke programmet kjøre i det hele tatt.",
       ],
       answer: 0,
       why: { 1: 'Fart er ikke hovedpoenget; det kan til og med bli litt tregere.', 2: 'En funksjon kan inneholde feil som alt annet – men feilen må bare rettes ett sted.', 3: 'Korte programmer kan godt kjøre uten egne funksjoner.' },
@@ -12870,10 +12870,10 @@ ${shadow(50)}
     { id: 'teknologi.feil.03', region: R, topic: T3, concepts: ['tek-feilsoking', 'tek-variabel'], level: 3, type: 'mc', myth: 'myte.tek-off-by-one',
       prompt: 'Programmet skal summere målingene, men skriver bare ut den siste målingen. Hva er feilen?\n' + code('malinger = [12, 15, 18]\nfor m in malinger:\n    sum = 0\n    sum = sum + m\nprint(sum)'),
       options: [
-        '`sum = 0` står inne i løkka, så summen nullstilles hver runde. Den må flyttes over løkka.',
-        'Løkka kjører for få ganger.',
-        '`print` må stå inne i løkka.',
-        'Listen må sorteres først.',
+        "`sum = 0` står inne i løkka og nullstiller summen.",
+        "Løkka kjører for få ganger til å få med alle målingene.",
+        "`print` må stå inne i løkka for å få med alt.",
+        "Listen må sorteres før den kan summeres.",
       ],
       answer: 0,
       why: { 1: 'Løkka kjører tre ganger – problemet er hva som skjer i hver runde.', 2: 'Da skrives tre tall ut, men summen er fortsatt feil.', 3: 'Rekkefølgen på målingene påvirker ikke summen.' },
@@ -12881,10 +12881,10 @@ ${shadow(50)}
     { id: 'teknologi.feil.04', region: R, topic: T3, concepts: ['tek-lokke', 'tek-feilsoking'], level: 3, type: 'mc', myth: 'myte.tek-uendelig',
       prompt: 'Hva er problemet med koden?\n' + code('t = 90\nwhile t > 20:\n    print(t)'),
       options: [
-        't endres aldri inne i løkka, så betingelsen er alltid sann – løkka går for alltid.',
-        'Løkka kjører aldri, fordi 90 er større enn 20.',
-        'Programmet skriver ut 90, 89, 88 … ned til 21.',
-        'Det mangler `else`.',
+        "t endres aldri, så løkka går for alltid.",
+        "Løkka kjører aldri, fordi 90 er større enn 20.",
+        "Programmet skriver ut 90, 89, 88 … ned til 21.",
+        "Det mangler en `else` etter løkka.",
       ],
       answer: 0,
       why: { 1: 'Den kjører nettopp *fordi* 90 > 20 – og den slutter aldri.', 2: 'Det skjer bare hvis t blir mindre i løkka, f.eks. `t = t - 1`.', 3: '`while` trenger ingen `else`.' },
@@ -12903,10 +12903,10 @@ ${shadow(50)}
     { id: 'teknologi.feil.06', region: R, topic: T3, concepts: ['tek-feilsoking'], level: 5, type: 'mc',
       prompt: 'En elev har endret fire linjer i koden samtidig, og nå virker programmet. «Jeg vet ikke hva som var feil, men det funker!» Hva er det beste lærersvaret?',
       options: [
-        '«Flott at det virker! Sett tilbake én endring om gangen og test – da finner du ut hva som faktisk var feilen, og lærer noe du kan bruke neste gang.»',
-        '«Det viktigste er at det virker. Gå videre.»',
-        '«Skriv hele programmet på nytt.»',
-        '«Spør en medelev om svaret.»',
+        "«Sett tilbake én endring om gangen og test – finn den virkelige feilen.»",
+        "«Det viktigste er at det virker. Gå videre til neste oppgave.»",
+        "«Skriv hele programmet på nytt, så er du sikker på at det er riktig.»",
+        "«Spør en medelev om svaret, så slipper du å lete selv.»",
       ],
       answer: 0,
       why: { 1: 'Da lærer eleven ingenting om feilen, og kan ha introdusert nye feil.', 2: 'Overdrevet – og eleven lærer fortsatt ikke hva som var galt.', 3: 'Kan hjelpe, men eleven bør selv utvikle en strategi.' },
@@ -12926,10 +12926,10 @@ ${shadow(50)}
     { id: 'teknologi.sim.01', region: R, topic: T1, concepts: ['tek-simulering'], level: 3, type: 'mc', myth: 'myte.tek-simulering',
       prompt: 'Hvorfor kalles en simulering av kaffens avkjøling en **modell**?',
       options: [
-        'Den bygger på forenklinger og forutsetninger (konstant romtemperatur, fast avkjølingskonstant, ingen fordampning) og representerer bare deler av virkeligheten.',
-        'Fordi den er laget på en datamaskin.',
-        'Fordi den alltid gir nøyaktig samme svar som målingene.',
-        'Fordi den ser ut som en kaffekopp på skjermen.',
+        "Den bygger på forenklinger og forutsetninger.",
+        "Fordi den er laget og kjøres på en datamaskin.",
+        "Fordi den alltid gir nøyaktig samme svar som målingene.",
+        "Fordi den ser ut som en kaffekopp på skjermen.",
       ],
       answer: 0,
       why: { 1: 'Datamaskinen er verktøyet; det er forenklingene som gjør det til en modell.', 2: 'Tvert imot – avvik fra målingene er normalt og lærerikt.', 3: 'Grafikk er presentasjon, ikke modell.' },
@@ -12941,10 +12941,10 @@ ${shadow(50)}
     { id: 'teknologi.sim.03', region: R, topic: T1, concepts: ['tek-tidssteg', 'tek-simulering'], level: 5, type: 'mc', myth: 'myte.tek-simulering',
       prompt: 'Elevene simulerer fritt fall med tidssteg dt = 0,1 s. Hver runde oppdaterer de først farten, så posisjonen: `v = v + g·dt` og `s = s + v·dt`. Etter 1 s gir simuleringen 5,40 m, mens s = ½gt² gir 4,91 m. Hva er forklaringen?',
       options: [
-        'Hvert steg bruker farten ved *slutten* av steget for hele steget, så strekningen blir for stor. Mindre dt gir svar nærmere 4,91 m.',
-        'Simuleringen har en syntaksfeil.',
-        'Formelen s = ½gt² er feil.',
-        'Luftmotstand er tatt med i simuleringen.',
+        "Farten ved slutten av steget brukes for hele steget.",
+        "Simuleringen har en syntaksfeil som gir feil tall.",
+        "Formelen s = ½gt² er feil for fritt fall.",
+        "Luftmotstand er tatt med i simuleringen.",
       ],
       answer: 0,
       why: { 1: 'Programmet kjører – avviket er en egenskap ved metoden, ikke en skrivefeil.', 2: 'Formelen er eksakt for fritt fall uten luftmotstand.', 3: 'Luftmotstand ville gitt *kortere* strekning, ikke lengre.' },
@@ -12952,10 +12952,10 @@ ${shadow(50)}
     { id: 'teknologi.sim.04', region: R, topic: T1, concepts: ['tek-simulering', 'tek-variabel'], level: 4, type: 'mc',
       prompt: 'Avkjølingsmodellen `T = T - k·(T - romtemp)` per minutt. Elevene vil simulere kaffe i en god termos. Hva bør de endre?',
       options: [
-        'Gjøre k mindre – energien overføres langsommere når isolasjonen er bedre.',
-        'Gjøre k større.',
-        'Øke romtemperaturen til 90 °C.',
-        'Fjerne løkka.',
+        "Gjøre k mindre.",
+        "Gjøre k større, siden termosen er bedre.",
+        "Øke romtemperaturen til 90 °C.",
+        "Fjerne løkka, så kaffen ikke kjølner.",
       ],
       answer: 0,
       why: { 1: 'Større k gir raskere avkjøling – som en tynn papirkopp.', 2: 'Det endrer omgivelsene, ikke koppen – og er ikke realistisk.', 3: 'Uten løkka går ikke tiden framover i simuleringen.' },
@@ -12963,10 +12963,10 @@ ${shadow(50)}
     { id: 'teknologi.sim.05', region: R, topic: T1, concepts: ['tek-simulering'], level: 5, type: 'mc', myth: 'myte.tek-simulering',
       prompt: 'Populasjonsmodellen `N = N + r·N` gir harer som vokser i det uendelige. En elev sier: «Simuleringen viser at hareparken blir full av milliarder harer.» Hva er den beste responsen?',
       options: [
-        '«Modellen forutsetter ubegrenset mat og plass. Hva skjer hvis vi legger inn en bæreevne – en grense for hvor mange harer området kan fø?»',
-        '«Simuleringen har rett – sånn er eksponentiell vekst.»',
-        '«Simuleringen er feil, så vi dropper den.»',
-        '«Vi må bruke en raskere datamaskin.»',
+        "«Modellen mangler en grense – hva om vi legger inn bæreevne?»",
+        "«Simuleringen har rett – sånn er eksponentiell vekst.»",
+        "«Simuleringen er feil, så vi dropper den helt.»",
+        "«Vi må bruke en raskere datamaskin for å få riktig svar.»",
       ],
       answer: 0,
       why: { 1: 'Simuleringen gjør det modellen sier – men modellen mangler begrensende faktorer.', 2: 'Modellen er nyttig innenfor sitt gyldighetsområde og kan forbedres.', 3: 'Datakraften er ikke problemet; forutsetningene er det.' },
@@ -12985,10 +12985,10 @@ ${shadow(50)}
     { id: 'teknologi.sim.07', region: R, topic: T1, concepts: ['tek-simulering', 'tek-microbit'], level: 5, type: 'mc', myth: 'myte.tek-bare-koding',
       prompt: 'Buggen sier: «Programmering i naturfag er bare å lære å kode.» Hvilket undervisningsopplegg viser best at han tar feil?',
       options: [
-        'Elevene måler kaffens temperatur med en sensor, programmerer en avkjølingsmodell, sammenligner modell og målinger og justerer k til de stemmer.',
-        'Elevene lager et spill i Scratch.',
-        'Elevene programmerer micro:biten til å vise et smilefjes.',
-        'Elevene lærer syntaksen i Python med oppgaver fra en nettside.',
+        "Elevene måler avkjøling, programmerer en modell og sammenligner.",
+        "Elevene lager et eget spill i Scratch fra bunnen av.",
+        "Elevene programmerer micro:biten til å vise et smilefjes.",
+        "Elevene lærer syntaksen i Python med oppgaver fra en nettside.",
       ],
       answer: 0,
       why: { 1: 'Morsomt og lærerikt, men uten naturfaglig fenomen å utforske.', 2: 'Et fint første steg, men ingen utforsking av et fenomen.', 3: 'Syntaks er verktøyet, ikke målet.' },
@@ -12996,10 +12996,10 @@ ${shadow(50)}
     { id: 'teknologi.sim.08', region: R, topic: T1, concepts: ['tek-simulering', 'tek-tidssteg'], level: 5, type: 'mc',
       prompt: 'Elevene skriver `while T > 20:` i avkjølingssimuleringen (`T = T - 0.1·(T - 20)`, romtemperatur 20 °C). Hvorfor er dette en dårlig stoppbetingelse?',
       options: [
-        'T nærmer seg 20 °C stadig saktere, men når det i teorien aldri – løkka kan gå svært lenge.',
-        'T synker under 20 °C med en gang.',
-        'Løkka kjører aldri, fordi T starter over 20.',
-        'Det er ingenting galt med den.',
+        "T når aldri 20 °C i modellen – løkka kan gå svært lenge.",
+        "T synker under 20 °C allerede etter første runde.",
+        "Løkka kjører aldri, fordi T starter over 20.",
+        "Det er ingenting galt med den stoppbetingelsen.",
       ],
       answer: 0,
       why: { 1: 'Endringen er proporsjonal med T − 20, så T kan ikke gå under 20 i modellen.', 2: 'Den kjører nettopp fordi T > 20 i starten.', 3: 'Den nærmer seg grensen asymptotisk – i praksis avhenger det av avrunding i datamaskinen.' },
@@ -13014,10 +13014,10 @@ ${shadow(50)}
     { id: 'teknologi.sens.02', region: R, topic: T2, concepts: ['tek-sensor', 'tek-microbit'], level: 4, type: 'mc',
       prompt: 'Elevene vil bruke micro:bitens innebygde temperatursensor til å måle temperaturen i kakao. Hvorfor er det problematisk?',
       options: [
-        'Sensoren sitter i prosessorbrikken og måler omtrent kortets temperatur – og micro:biten tåler ikke væske. De trenger en ekstern, vanntett probe.',
-        'micro:biten har ingen temperatursensor.',
-        'Sensoren måler bare i Fahrenheit.',
-        'Det er ikke problematisk – den er laget for væsker.',
+        "Den måler brikkens temperatur og tåler ikke væske.",
+        "micro:biten har ingen innebygd temperatursensor.",
+        "Sensoren måler bare i Fahrenheit, ikke celsius.",
+        "Det er ikke problematisk – den er laget for væsker.",
       ],
       answer: 0,
       why: { 1: 'Den har en – men den er ikke laget for å måle væsker.', 2: 'Enheten bestemmes av programmet, ikke sensoren.', 3: 'Elektronikk og væske er en dårlig kombinasjon.' },
@@ -13025,10 +13025,10 @@ ${shadow(50)}
     { id: 'teknologi.sens.03', region: R, topic: T2, concepts: ['tek-sensor', 'tek-microbit'], level: 4, type: 'mc',
       prompt: 'Elevene skal logge hvordan en kopp kaffe avkjøles over 30 minutter. Hvor ofte bør de måle?',
       options: [
-        'For eksempel hvert 10.–30. sekund – ofte nok til å fange den raske endringen i starten, uten unødvendig mye data.',
-        'Én gang i starten og én gang på slutten.',
-        'Tusen ganger i sekundet.',
-        'Én gang hvert tiende minutt.',
+        "Omtrent hvert 10.–30. sekund.",
+        "Én gang i starten og én gang på slutten.",
+        "Tusen ganger i sekundet for å få best mulig data.",
+        "Én gang hvert tiende minutt.",
       ],
       answer: 0,
       why: { 1: 'To punkter viser ikke kurvens form – og formen er hele poenget.', 2: 'Temperaturen endrer seg ikke så raskt; det gir bare enorme datamengder.', 3: 'Bare fire målinger – den raske avkjølingen i starten blir borte.' },
@@ -13036,10 +13036,10 @@ ${shadow(50)}
     { id: 'teknologi.sens.04', region: R, topic: T2, concepts: ['tek-sensor', 'tek-betingelse', 'tek-aktuator'], level: 3, type: 'mc',
       prompt: 'micro:bit-programmet skal varsle med lyd når lysnivået i drivhuset blir for lavt. Hvilken kombinasjon trengs?',
       options: [
-        'Lyssensor (sensor) → betingelse i en evig løkke (styring) → høyttaler (aktuator)',
-        'Høyttaler → lyssensor → knapp',
-        'Bare en lyssensor',
-        'Akselerometer → LED',
+        "Lyssensor → betingelse i løkke → høyttaler",
+        "Høyttaler → lyssensor → knapp",
+        "Bare en lyssensor, uten mer",
+        "Akselerometer → betingelse → LED",
       ],
       answer: 0,
       why: { 1: 'Rekkefølgen er snudd: måling må komme før handling.', 2: 'Uten styring og aktuator blir det ingen varsling.', 3: 'Akselerometeret måler bevegelse, ikke lys.' },
@@ -13047,10 +13047,10 @@ ${shadow(50)}
     { id: 'teknologi.sens.05', region: R, topic: T2, concepts: ['tek-sensor', 'tek-microbit'], level: 5, type: 'mc', myth: 'myte.tek-bare-koding',
       prompt: 'Hvilket forsøk bruker micro:bit best som verktøy for **utforsking** i naturfag?',
       options: [
-        'Elevene undersøker om lysmengden påvirker temperaturen under ulike takmaterialer, og logger begge med micro:bit i hver modell.',
-        'Elevene lager et navneskilt som ruller over LED-skjermen.',
-        'Elevene lager en terning som viser tilfeldige tall.',
-        'Elevene programmerer et smilefjes når man trykker på knapp A.',
+        "Elevene logger lys og temperatur under ulike takmaterialer.",
+        "Elevene lager et navneskilt som ruller over LED-skjermen.",
+        "Elevene lager en terning som viser tilfeldige tall.",
+        "Elevene programmerer et smilefjes når man trykker på knapp A.",
       ],
       answer: 0,
       why: { 1: 'Fin introduksjon til programmering, men intet fenomen undersøkes.', 2: 'Morsomt – men det er sannsynlighet i matematikk, ikke utforsking av et naturfaglig fenomen.', 3: 'Et første skritt, men ingen utforsking.' },
@@ -13058,10 +13058,10 @@ ${shadow(50)}
     { id: 'teknologi.sens.06', region: R, topic: T2, concepts: ['tek-sensor'], level: 1, type: 'mc',
       prompt: 'Hva gjør en **sensor**?',
       options: [
-        'Den måler noe i omgivelsene og gjør det om til et signal.',
-        'Den beveger noe, som en motor.',
-        'Den lagrer programmet.',
-        'Den gir strøm til systemet.',
+        "Den måler noe i omgivelsene.",
+        "Den beveger noe, som en motor.",
+        "Den lagrer programmet som kjøres.",
+        "Den gir strøm til hele systemet.",
       ],
       answer: 0,
       why: { 1: 'Det er en aktuator.', 2: 'Programmet lagres i mikrokontrollerens minne.', 3: 'Det er strømkilden, f.eks. et batteri.' },
@@ -13081,7 +13081,12 @@ ${shadow(50)}
   NG.content.addQuestions([
     { id: 'teknologi.des.01', region: R, topic: T1, concepts: ['tek-brukerbehov', 'tek-designprosess'], level: 1, type: 'mc',
       prompt: 'Hvor starter en teknologisk utviklingsprosess?',
-      options: ['Med et brukerbehov eller problem', 'Med å velge materiale', 'Med å bygge prototypen', 'Med å teste produktet'],
+      options: [
+        "Med et brukerbehov",
+        "Med å velge materiale",
+        "Med å bygge prototypen",
+        "Med å teste produktet",
+      ],
       answer: 0,
       why: { 1: 'Materialvalget avhenger av hva løsningen skal klare – det kommer senere.', 2: 'Man må vite hva prototypen skal løse før man bygger.', 3: 'Testing forutsetter at noe er laget – og krav å teste mot.' },
       explain: 'Alt starter med **brukerbehovet**: hvem er løsningen for, og hvilket problem skal den løse? Behovet styrer kravspesifikasjonen, som igjen styrer resten.' },
@@ -13092,10 +13097,10 @@ ${shadow(50)}
     { id: 'teknologi.des.03', region: R, topic: T1, concepts: ['tek-kravspesifikasjon'], level: 2, type: 'mc',
       prompt: 'Hva er en kravspesifikasjon?',
       options: [
-        'En liste over krav løsningen skal oppfylle – helst målbare og testbare.',
-        'En tegning av produktet.',
-        'Bruksanvisningen til produktet.',
-        'En beskrivelse av hvordan prototypen ble bygd.',
+        "En liste over målbare krav til løsningen.",
+        "En nøyaktig tegning av produktet.",
+        "Bruksanvisningen til produktet.",
+        "En beskrivelse av hvordan prototypen ble bygd.",
       ],
       answer: 0,
       why: { 1: 'En tegning viser én mulig løsning, ikke hva løsningen må klare.', 2: 'Bruksanvisningen skrives for brukeren til slutt.', 3: 'Det er en prosessbeskrivelse/logg.' },
@@ -13120,10 +13125,10 @@ ${shadow(50)}
     { id: 'teknologi.des.06', region: R, topic: T1, concepts: ['tek-prototyp'], level: 3, type: 'mc', myth: 'myte.tek-fossefall',
       prompt: 'Hva er hovedhensikten med en prototyp?',
       options: [
-        'Å teste ideer tidlig og billig, så man lærer før man lager det endelige produktet.',
-        'Å ha noe pent å vise fram på presentasjonen.',
-        'Å spare tid ved å hoppe over testing.',
-        'Å lage det ferdige produktet i full størrelse.',
+        "Å teste ideer tidlig og billig.",
+        "Å ha noe pent å vise fram på presentasjonen.",
+        "Å spare tid ved å hoppe over testing.",
+        "Å lage det ferdige produktet i full størrelse.",
       ],
       answer: 0,
       why: { 1: 'En prototyp kan være stygg – poenget er å lære.', 2: 'Prototypen finnes nettopp for å bli testet.', 3: 'Det ferdige produktet kommer etter at prototypene har gitt svar.' },
@@ -13131,10 +13136,10 @@ ${shadow(50)}
     { id: 'teknologi.des.07', region: R, topic: T1, concepts: ['tek-designprosess', 'tek-prototyp'], level: 4, type: 'mc', myth: 'myte.tek-fossefall',
       prompt: 'Ei elevgruppe brukte fire uker på å bygge en ferdig vannrakett etter første tegning. På presentasjonsdagen gikk den i stykker ved oppskyting. Hvilken plan ville vært bedre?',
       options: [
-        'Raske, enkle prototyper allerede første uke, testing etter hver endring, og forbedring i flere runder.',
-        'En enda mer detaljert tegning før bygging.',
-        'Dyrere materialer fra starten.',
-        'Utsette presentasjonen til raketten var ferdig.',
+        "Enkle prototyper tidlig og testing i flere runder.",
+        "En enda mer detaljert tegning før bygging.",
+        "Dyrere og sterkere materialer fra starten av.",
+        "Utsette presentasjonen til raketten var ferdig.",
       ],
       answer: 0,
       why: { 1: 'Ingen tegning fanger alt – mange problemer viser seg først ved testing.', 2: 'Dyrere materialer løser ikke ukjente svakheter i designet.', 3: 'Problemet er arbeidsmåten, ikke fristen.' },
@@ -13142,10 +13147,10 @@ ${shadow(50)}
     { id: 'teknologi.des.08', region: R, topic: T1, concepts: ['tek-brukerbehov', 'tek-kravspesifikasjon'], level: 4, type: 'mc', myth: 'myte.tek-kravlos',
       prompt: 'Elevene skal lage en matboks for eldre med leddgikt. De har allerede tegnet en boks med app, blålys og høyttaler. Hva bør du be dem gjøre?',
       options: [
-        'Gå tilbake til brukerbehovet: intervju eller observer en bruker, og lag krav som «kan åpnes med én hånd uten å vri».',
-        'Legge til enda flere funksjoner.',
-        'Velge en penere farge.',
-        'Bygge den med en gang – det haster.',
+        "Gå tilbake og kartlegge brukerbehovet først.",
+        "Legge til enda flere funksjoner så den passer flere.",
+        "Velge en penere farge som eldre liker.",
+        "Bygge den med en gang – det haster.",
       ],
       answer: 0,
       why: { 1: 'Flere funksjoner kan gjøre den vanskeligere å bruke for målgruppa.', 2: 'Farge kan være et virkemiddel, men løser ikke at behovet ikke er kartlagt.', 3: 'Å bygge feil løsning raskt er ingen fordel.' },
@@ -13153,10 +13158,10 @@ ${shadow(50)}
     { id: 'teknologi.des.09', region: R, topic: T1, concepts: ['tek-kvalitet', 'tek-kravspesifikasjon'], level: 3, type: 'mc',
       prompt: 'Hvordan vurderer man best **kvaliteten** på en teknologisk løsning?',
       options: [
-        'Ved å teste den mot kravspesifikasjonen og brukerbehovet.',
-        'Ved å se hvor dyr den var å lage.',
-        'Ved å telle hvor mange funksjoner den har.',
-        'Ved å spørre designeren om hen er fornøyd.',
+        "Ved å teste den mot kravene.",
+        "Ved å se hvor dyr den var å lage.",
+        "Ved å telle hvor mange funksjoner den har.",
+        "Ved å spørre designeren om hen er fornøyd.",
       ],
       answer: 0,
       why: { 1: 'Pris sier lite om hvor godt den virker.', 2: 'Mange funksjoner kan gi dårligere kvalitet for brukeren.', 3: 'Designerens mening er ikke en uavhengig test.' },
@@ -13164,10 +13169,10 @@ ${shadow(50)}
     { id: 'teknologi.des.10', region: R, topic: T1, concepts: ['tek-designprosess', 'tek-materialegenskap'], level: 5, type: 'mc',
       prompt: 'Hvordan kan et designoppdrag («lag en kakaotermos») også bli utforskende naturfag?',
       options: [
-        'Elevene undersøker isolasjonsmaterialer i kontrollerte forsøk (samme vannmengde og starttemperatur, én variabel om gangen) og bruker dataene til å velge materiale.',
-        'Elevene velger materialet de synes ser best ut.',
-        'Læreren forteller hvilket materiale som er best, så elevene kan bygge.',
-        'Elevene leser om termoser på nettet og kopierer en.',
+        "Elevene tester isolasjonsmaterialer kontrollert og velger ut fra data.",
+        "Elevene velger materialet de synes ser best ut.",
+        "Læreren forteller hvilket materiale som er best, så elevene kan bygge.",
+        "Elevene leser om termoser på nettet og kopierer en.",
       ],
       answer: 0,
       why: { 1: 'Utseende kan være et krav, men gir ingen naturfaglig utforsking.', 2: 'Da forsvinner både utforskingen og designvalget.', 3: 'Kopiering hopper over både behov, krav og testing.' },
@@ -13195,10 +13200,10 @@ ${shadow(50)}
     { id: 'teknologi.ffm.03', region: R, topic: T2, concepts: ['tek-mekanisme', 'tek-funksjon'], level: 3, type: 'mc',
       prompt: 'Hva er **mekanismen** i en nøtteknekker?',
       options: [
-        'En vektstang: lang arm gir stor kraft nær omdreiningspunktet, der nøtta ligger.',
-        'Å knuse nøtteskall.',
-        'Den er laget av stål.',
-        'Den er formet som to armer.',
+        "En vektstang med langt håndtak",
+        "Å knuse nøtteskall",
+        "Den er laget av stål",
+        "Den er formet som to armer",
       ],
       answer: 0,
       why: { 1: 'Det er funksjonen – hva den skal gjøre.', 2: 'Det er materialet.', 3: 'Det er formen.' },
@@ -13227,10 +13232,10 @@ ${shadow(50)}
     { id: 'teknologi.ffm.07', region: R, topic: T2, concepts: ['tek-kvalitet', 'tek-materiale'], level: 5, type: 'mc',
       prompt: 'Elevene vil gjøre termosen sin mer bærekraftig. Hvilket tiltak har trolig størst effekt over hele livsløpet?',
       options: [
-        'Lage den slik at lokk og pakning kan byttes, så termosen kan repareres og brukes i mange år.',
-        'Male den grønn.',
-        'Legge til en liten skjerm som viser temperaturen.',
-        'Pakke den i ekstra papp.',
+        "Gjøre lokk og pakning utskiftbare.",
+        "Male den grønn så den signaliserer miljø.",
+        "Legge til en liten skjerm som viser temperaturen.",
+        "Pakke den godt inn i ekstra papp.",
       ],
       answer: 0,
       why: { 1: 'Farge er et virkemiddel, men endrer ikke ressursbruken.', 2: 'Elektronikk øker ressursbruken og gjør produktet vanskeligere å resirkulere.', 3: 'Mer emballasje gir mer avfall.' },
@@ -13239,10 +13244,10 @@ ${shadow(50)}
     { id: 'teknologi.sys.01', region: R, topic: T3, concepts: ['tek-system'], level: 2, type: 'mc',
       prompt: 'Hva er et teknologisk **system**?',
       options: [
-        'Deler som virker sammen for å utføre en funksjon, ofte beskrevet som input → prosess → output.',
-        'En enkelt komponent, som en skrue.',
-        'Et dataprogram.',
-        'En bruksanvisning.',
+        "Deler som virker sammen for en funksjon.",
+        "En enkelt komponent, som en skrue.",
+        "Et dataprogram som styrer en maskin.",
+        "En bruksanvisning for en maskin.",
       ],
       answer: 0,
       why: { 1: 'En enkelt komponent er en del av et system.', 2: 'Et program kan være en del av et system, men systemer kan også være helt mekaniske.', 3: 'En bruksanvisning beskriver et system, men er ikke ett.' },
@@ -13290,10 +13295,10 @@ ${shadow(50)}
     { id: 'teknologi.sys.06', region: R, topic: T3, concepts: ['tek-tilbakekobling'], level: 4, type: 'mc',
       prompt: 'Temperaturen i et rom med termostatstyrt ovn svinger litt opp og ned rundt innstilt verdi. Hvorfor?',
       options: [
-        'Ovnen slås av og på: når sensoren melder for lavt, slås den på – men det tar tid før rommet reagerer, så temperaturen går litt over og under.',
-        'Termostaten er ødelagt.',
-        'Sensoren måler feil hele tiden.',
-        'Energi forsvinner fra ovnen.',
+        "Av/på-styring og forsinkelse gir litt svingning.",
+        "Termostaten er ødelagt og bør byttes.",
+        "Sensoren måler feil hele tiden.",
+        "Energi forsvinner fra ovnen underveis.",
       ],
       answer: 0,
       why: { 1: 'Svingningene er normale for av/på-regulering.', 2: 'Sensoren kan måle helt riktig; svingningen kommer av forsinkelse i systemet.', 3: 'Energien overføres til rommet og videre ut – den forsvinner ikke.' },
@@ -13301,10 +13306,10 @@ ${shadow(50)}
     { id: 'teknologi.sys.07', region: R, topic: T3, concepts: ['tek-system', 'tek-sensor'], level: 3, type: 'mc', myth: 'myte.tek-svartboks',
       prompt: 'Svartboksen sier: «Mobilen vet hvilken vei den står fordi den er smart.» Hva er en bedre forklaring?',
       options: [
-        'Et akselerometer måler tyngdekraftens retning, og programmet snur skjermbildet ut fra målingen.',
-        'Mobilen har kunstig intelligens som gjetter.',
-        'Skjermen er laget av et materiale som snur seg selv.',
-        'Mobilen lytter etter hvordan du holder den.',
+        "En sensor måler retningen, og programmet snur bildet.",
+        "Mobilen har kunstig intelligens som gjetter.",
+        "Skjermen er laget av et materiale som snur seg selv.",
+        "Mobilen lytter etter hvordan du holder den.",
       ],
       answer: 0,
       why: { 1: 'Det trengs ingen KI – en enkel betingelse på sensorverdien holder.', 2: 'Skjermbildet snus av programvaren, ikke av materialet.', 3: 'Mikrofonen har ingenting med retningen å gjøre.' },
@@ -13312,10 +13317,10 @@ ${shadow(50)}
     { id: 'teknologi.sys.08', region: R, topic: T3, concepts: ['tek-system', 'tek-mekanisme'], level: 5, type: 'mc', myth: 'myte.tek-svartboks',
       prompt: 'Du vil at elevene skal utforske teknologiske systemer som består av deler som virker sammen. Hvilken aktivitet treffer best?',
       options: [
-        'Elevene skrur fra hverandre en gammel ting (vekkerklokke, leke), tegner delsystemene og forklarer hvordan delene virker sammen.',
-        'Elevene ser en film om fabrikker.',
-        'Elevene skriver ned definisjonen av «system».',
-        'Elevene kjøper en ferdig robot og lar den kjøre.',
+        "Elevene skrur fra hverandre en gammel ting og kartlegger delene.",
+        "Elevene ser en film om hvordan fabrikker fungerer.",
+        "Elevene skriver ned og lærer definisjonen av «system».",
+        "Elevene kjøper en ferdig robot og lar den kjøre.",
       ],
       answer: 0,
       why: { 1: 'En film kan gi bakgrunn, men elevene utforsker ikke selv.', 2: 'Definisjonen er lavt på begrepsstigen.', 3: 'Roboten forblir en svartboks hvis ingen åpner den.' },
@@ -14832,7 +14837,7 @@ ${shadow(50)}
     sett90: { code: 'sett T = 90', cls: '' },
     sett20: { code: 'sett T = 20', cls: '' },
     gjenta: { code: 'gjenta 30 ganger:', cls: 'loop' },
-    oppdater: { code: 'T = T − k · (T − 20)', cls: '' },
+    oppdater: { code: 'T = T − k·(T − 20)', cls: '' },
     tegn: { code: 'tegn punkt (t, T)', cls: '' },
     hvis: { code: 'hvis T < 60: varsle', cls: 'cond' },
   };
@@ -14950,7 +14955,7 @@ ${shadow(50)}
         c.strokeStyle = dim; c.fillStyle = dim; c.lineWidth = 1;
         for (const v of [20, 40, 60, 80]) { c.globalAlpha = 0.35; c.beginPath(); c.moveTo(L, y(v)); c.lineTo(W - R, y(v)); c.stroke(); c.globalAlpha = 1; c.fillText(String(v), 6, y(v) + 4); }
         for (const t of [0, 10, 20, 30]) c.fillText(String(t), x(t) - 6, H - 8);
-        c.fillText('min', W - R - 22, H - 8);
+        c.fillText('min', x(25) - 10, H - 8);
         c.fillText('°C', 6, T + 2);
         c.setLineDash([5, 5]); c.strokeStyle = cssVar('--r-stoffer', '#7cf'); c.globalAlpha = 0.7;
         c.beginPath(); c.moveTo(L, y(ROOM)); c.lineTo(W - R, y(ROOM)); c.stroke(); c.setLineDash([]); c.globalAlpha = 1;
@@ -14996,7 +15001,7 @@ ${shadow(50)}
         prog.forEach((id, i) => {
           const line = el('div', { class: 'kl-line' + (g >= 0 && i > g ? ' in' : '') });
           line.append(
-            el('div', { class: 'kl-code ' + BLOCKS[id].cls, text: BLOCKS[id].code.replace('k ·', 'k·') }),
+            el('div', { class: 'kl-code ' + BLOCKS[id].cls, text: BLOCKS[id].code }),
             el('button', { class: 'kl-ib', 'aria-label': 'Flytt opp', text: '↑', disabled: i === 0 || null, onclick: () => { sfx('click'); [prog[i - 1], prog[i]] = [prog[i], prog[i - 1]]; renderBuild(); } }),
             el('button', { class: 'kl-ib', 'aria-label': 'Flytt ned', text: '↓', disabled: i === prog.length - 1 || null, onclick: () => { sfx('click'); [prog[i + 1], prog[i]] = [prog[i], prog[i + 1]]; renderBuild(); } }),
             el('button', { class: 'kl-ib', 'aria-label': 'Fjern', text: '✕', onclick: () => { sfx('click'); prog.splice(i, 1); renderBuild(); } }),
@@ -15026,9 +15031,7 @@ ${shadow(50)}
           const box = el('div', { class: 'feedback good small', html: md('**Det virker!** Variabelen `T` husker temperaturen fra runde til runde, og løkka gjentar ett tidssteg (1 min) 30 ganger. Men kurven passer ikke med målingene ennå.') });
           renderBuild(box);
           const btn = wrap.querySelector('#kl-run');
-          btn.textContent = 'Videre: juster k';
-          btn.id = 'kl-next';
-          btn.onclick = () => { sfx('click'); renderFit(); };
+          btn.replaceWith(el('button', { class: 'btn primary block', id: 'kl-next', text: 'Videre: juster k', onclick: () => { sfx('click'); renderFit(); } }));
         } else {
           sfx('bad');
           renderBuild(el('div', { class: 'feedback bad small', html: '<strong>Feilsøking:</strong> ' + md(dia) + (lastRun.err ? '<br><span class="muted">Feilmelding: ' + lastRun.err + '.</span>' : '') }));
@@ -16219,6 +16222,7 @@ ${shadow(50)}
       };
 
       const minN = d >= 2 ? 5 : 4;
+      const f2 = (x) => x.toFixed(2).replace('.', ',');
       let ended = false; let raf = 0; let last = 0;
       const cur = { L: rng.pick([40, 50, 60]), m: rng.pick(MASSES), a: rng.pick([10, 20]) };
       const rows = [];
@@ -16327,7 +16331,7 @@ ${shadow(50)}
           const c = (k) => (p && p[k] !== x[k] ? 'ch' : '');
           tbody.appendChild(el('tr', {}, [
             el('td', { text: String(i + 1) }), el('td', { class: c('L'), text: String(x.L) }), el('td', { class: c('m'), text: String(x.m) }),
-            el('td', { class: c('a'), text: x.a + '°' }), el('td', { text: NG.fmt(x.ten, 2) }), el('td', { class: 't', text: NG.fmt(x.T, 3) }),
+            el('td', { class: c('a'), text: x.a + '°' }), el('td', { text: f2(x.ten) }), el('td', { class: 't', text: x.T.toFixed(3).replace('.', ',') }),
           ]));
         });
         api.sfx('coin');
@@ -16335,7 +16339,7 @@ ${shadow(50)}
       }
 
       /* ---------- canvas ---------- */
-      const H = 220; let W = 340; let ctx = null;
+      const H = 200; let W = 340; let ctx = null;
       function fit() {
         const dpr = Math.min(window.devicePixelRatio || 1, 3);
         W = cv.clientWidth || 340;
@@ -16348,7 +16352,7 @@ ${shadow(50)}
         const T = period(set.L, set.a);
         const th0 = set.a * Math.PI / 180;
         const th = th0 * Math.cos(2 * Math.PI * simT / T);
-        const maxPx = Math.min(H - 40, (W / 2 - 20) / Math.sin(70 * Math.PI / 180));
+        const maxPx = Math.min(H - 30, (W / 2 - 20) / Math.sin(70 * Math.PI / 180));
         const Lpx = 24 + (set.L / 120) * (maxPx - 24);
         const px = W / 2; const py = 14;
         ctx.clearRect(0, 0, W, H);
@@ -16363,17 +16367,17 @@ ${shadow(50)}
         ctx.strokeStyle = C.dim; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(bx, by); ctx.stroke();
         const r = 6 + Math.sqrt(set.m / 50) * 3.5;
         ctx.fillStyle = C.bob; ctx.beginPath(); ctx.arc(bx, by, r, 0, 6.29); ctx.fill();
-        ctx.fillStyle = C.dim; ctx.font = '11px ' + C.mono; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
-        ctx.fillText(`L = ${set.L} cm`, 8, 8); ctx.fillText(`m = ${set.m} g`, 8, 24); ctx.fillText(`utslag ${set.a}°`, 8, 40);
+        ctx.fillStyle = C.dim; ctx.font = '11px ' + C.mono; ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+        ctx.fillText(`L = ${set.L} cm`, 8, H - 38); ctx.fillText(`m = ${set.m} g`, 8, H - 22); ctx.fillText(`utslag ${set.a}°`, 8, H - 6);
         if (meas) {
           ctx.textAlign = 'right'; ctx.fillStyle = C.warn; ctx.font = '600 15px ' + C.mono;
-          ctx.fillText('⏱ ' + NG.fmt(meas.t, 2) + ' s', W - 8, 8);
+          ctx.fillText('⏱ ' + f2(meas.t) + ' s', W - 8, 8);
           ctx.font = '11px ' + C.mono; ctx.fillStyle = C.dim;
           ctx.fillText('svingning ' + Math.min(10, Math.floor(meas.t / meas.T)) + '/10', W - 8, 28);
         } else if (rows.length) {
           const lr = rows[rows.length - 1];
-          ctx.textAlign = 'right'; ctx.fillStyle = C.dim; ctx.font = '11px ' + C.mono;
-          ctx.fillText('siste: 10T = ' + NG.fmt(lr.ten, 2) + ' s', W - 8, 8);
+          ctx.textAlign = 'right'; ctx.textBaseline = 'bottom'; ctx.fillStyle = C.dim; ctx.font = '11px ' + C.mono;
+          ctx.fillText('siste: 10T = ' + f2(lr.ten) + ' s', W - 8, H - 6);
         }
       }
       function loop(now) {

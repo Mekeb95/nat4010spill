@@ -715,7 +715,7 @@
         const correct = found.length + riskOk + (qOk ? 1 : 0);
         const score = NG.clamp((findPts + riskOk + (qOk ? 1 : 0)) / total, 0, 1);
         result = {
-          score, correct, total,
+          score: Math.round(score * 100) / 100, correct, total,
           notes: `${S.name}: fant ${found.length}/${nHaz} farer (${falseAlarms} falske alarmer); risikovurdering ${riskOk}/${2 * riskRes.length}; ${qOk ? 'merking/SDS riktig' : 'bommet på merking/SDS'}.` +
             (found.length < nHaz ? ' Oversett: ' + hazards.filter((h) => !found.includes(h)).map((h) => HAZ[h].name.toLowerCase()).join(', ') + '.' : ''),
         };

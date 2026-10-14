@@ -54,6 +54,7 @@
       };
 
       const minN = d >= 2 ? 5 : 4;
+      const f2 = (x) => x.toFixed(2).replace('.', ',');
       let ended = false; let raf = 0; let last = 0;
       const cur = { L: rng.pick([40, 50, 60]), m: rng.pick(MASSES), a: rng.pick([10, 20]) };
       const rows = [];
@@ -162,7 +163,7 @@
           const c = (k) => (p && p[k] !== x[k] ? 'ch' : '');
           tbody.appendChild(el('tr', {}, [
             el('td', { text: String(i + 1) }), el('td', { class: c('L'), text: String(x.L) }), el('td', { class: c('m'), text: String(x.m) }),
-            el('td', { class: c('a'), text: x.a + '°' }), el('td', { text: NG.fmt(x.ten, 2) }), el('td', { class: 't', text: NG.fmt(x.T, 3) }),
+            el('td', { class: c('a'), text: x.a + '°' }), el('td', { text: f2(x.ten) }), el('td', { class: 't', text: x.T.toFixed(3).replace('.', ',') }),
           ]));
         });
         api.sfx('coin');
@@ -170,7 +171,7 @@
       }
 
       /* ---------- canvas ---------- */
-      const H = 220; let W = 340; let ctx = null;
+      const H = 200; let W = 340; let ctx = null;
       function fit() {
         const dpr = Math.min(window.devicePixelRatio || 1, 3);
         W = cv.clientWidth || 340;
@@ -183,7 +184,7 @@
         const T = period(set.L, set.a);
         const th0 = set.a * Math.PI / 180;
         const th = th0 * Math.cos(2 * Math.PI * simT / T);
-        const maxPx = Math.min(H - 40, (W / 2 - 20) / Math.sin(70 * Math.PI / 180));
+        const maxPx = Math.min(H - 30, (W / 2 - 20) / Math.sin(70 * Math.PI / 180));
         const Lpx = 24 + (set.L / 120) * (maxPx - 24);
         const px = W / 2; const py = 14;
         ctx.clearRect(0, 0, W, H);
@@ -198,17 +199,17 @@
         ctx.strokeStyle = C.dim; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(bx, by); ctx.stroke();
         const r = 6 + Math.sqrt(set.m / 50) * 3.5;
         ctx.fillStyle = C.bob; ctx.beginPath(); ctx.arc(bx, by, r, 0, 6.29); ctx.fill();
-        ctx.fillStyle = C.dim; ctx.font = '11px ' + C.mono; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
-        ctx.fillText(`L = ${set.L} cm`, 8, 8); ctx.fillText(`m = ${set.m} g`, 8, 24); ctx.fillText(`utslag ${set.a}°`, 8, 40);
+        ctx.fillStyle = C.dim; ctx.font = '11px ' + C.mono; ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+        ctx.fillText(`L = ${set.L} cm`, 8, H - 38); ctx.fillText(`m = ${set.m} g`, 8, H - 22); ctx.fillText(`utslag ${set.a}°`, 8, H - 6);
         if (meas) {
           ctx.textAlign = 'right'; ctx.fillStyle = C.warn; ctx.font = '600 15px ' + C.mono;
-          ctx.fillText('⏱ ' + NG.fmt(meas.t, 2) + ' s', W - 8, 8);
+          ctx.fillText('⏱ ' + f2(meas.t) + ' s', W - 8, 8);
           ctx.font = '11px ' + C.mono; ctx.fillStyle = C.dim;
           ctx.fillText('svingning ' + Math.min(10, Math.floor(meas.t / meas.T)) + '/10', W - 8, 28);
         } else if (rows.length) {
           const lr = rows[rows.length - 1];
-          ctx.textAlign = 'right'; ctx.fillStyle = C.dim; ctx.font = '11px ' + C.mono;
-          ctx.fillText('siste: 10T = ' + NG.fmt(lr.ten, 2) + ' s', W - 8, 8);
+          ctx.textAlign = 'right'; ctx.textBaseline = 'bottom'; ctx.fillStyle = C.dim; ctx.font = '11px ' + C.mono;
+          ctx.fillText('siste: 10T = ' + f2(lr.ten) + ' s', W - 8, H - 6);
         }
       }
       function loop(now) {
@@ -314,7 +315,7 @@
         cancelAnimationFrame(raf);
         const t = tested();
         const nTested = ['L', 'm', 'a'].filter((k) => t[k]).length;
-        const fairFrac = rows.length > 1 ? fair / (rows.length - 1) : 0;
+        const fairFrac = fair + unfair ? fair / (fair + unfair) : 0; // gjentak straffes ikke
         const total = qTotal + 2;
         const correct = qCorrect + (fairFrac >= 0.75 ? 1 : 0) + (nTested === 3 ? 1 : 0);
         const score = (qCorrect + fairFrac + nTested / 3) / total;
