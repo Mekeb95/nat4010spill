@@ -96,7 +96,7 @@
       explain: 'Ozonlaget i stratosfæren fanger UV-stråling. KFK-gasser brøt ned ozon, men etter Montreal-protokollen (1987) er laget i ferd med å lege seg. Drivhuseffekten skyldes andre gasser og en annen type stråling.' },
     { id: 'jorda.atm.07', topic: AD, concepts: ['drivhuseffekt', 'klimaendring'], level: 4, type: 'tf',
       prompt: 'CO₂-innholdet i atmosfæren har økt fra ca. 280 ppm før industrialiseringen til over 420 ppm i dag.', answer: true,
-      explain: 'Sant. Økningen er målt direkte siden 1958 (Mauna Loa) og i luftbobler i isborkjerner for tidligere tider. Den skyldes hovedsakelig forbrenning av fossilt brensel og avskoging.' },
+      explain: 'Sant. Økningen er målt direkte siden 1958 (Mauna Loa) og i luftbobler i iskjerner for tidligere tider. Den skyldes hovedsakelig forbrenning av fossilt brensel og avskoging.' },
     { id: 'jorda.atm.08', topic: AD, concepts: ['klimaendring', 'drivhusgass'], level: 4, type: 'num',
       prompt: 'CO₂ i lufta har økt fra ca. 280 ppm til ca. 420 ppm. Hvor mange prosent økning er det?',
       answer: 50, abs: 1, unit: '%', hint: '(420 − 280) / 280',

@@ -139,16 +139,14 @@
       const VW = 340, VH = 350;
       const order = rng.shuffle(TH.nodes.map((n) => n[0]));
       const nodes = {};
+      const SLOTS = [[170, 36], [66, 112], [274, 112], [170, 182], [66, 252], [274, 252], [170, 318]];
       order.forEach((id, i) => {
-        const ang = -Math.PI / 2 + (i / order.length) * Math.PI * 2;
         const raw = TH.nodes.find((n) => n[0] === id)[1];
         const lines = wrapLabel(raw);
         const w = Math.max(76, Math.max(...lines.map((s) => s.length)) * 7.6 + 18);
         const h = Math.max(42, lines.length * 15 + 16);
-        let cx = VW / 2 + Math.cos(ang) * 118;
-        let cy = VH / 2 + Math.sin(ang) * 146;
-        cx = NG.clamp(cx, w / 2 + 4, VW - w / 2 - 4);
-        cy = NG.clamp(cy, h / 2 + 4, VH - h / 2 - 4);
+        const cx = NG.clamp(SLOTS[i][0], w / 2 + 4, VW - w / 2 - 4);
+        const cy = NG.clamp(SLOTS[i][1], h / 2 + 4, VH - h / 2 - 4);
         nodes[id] = { id, lines, w, h, cx, cy };
       });
       function wrapLabel(s) {
