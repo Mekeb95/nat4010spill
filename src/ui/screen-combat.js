@@ -14,6 +14,44 @@
   }
   NG.longPress = longPress;
 
+  // «Velg én av tre» — ekspedisjonsrelikvier etter elite/boss. Brukes på seiersskjermen og på kartet
+  // (hvis appen ble lukket før du valgte: valget ligger i s.run.pendingRelics). onDone(id|null) etter valg.
+  NG.relicChoice = function (ids, onDone) {
+    const s = NG.state();
+    ids = (ids || []).filter((id) => NG.runRelic(id));
+    const box = el('div', { class: 'card stack-s relic-pick' }, [
+      el('div', { class: 'row' }, [el('span', { class: 'label grow', text: 'Velg én av tre' }), el('span', { class: 'small muted', text: 'varer ut ekspedisjonen' })]),
+    ]);
+    const cards = ids.map((id) => {
+      const d = NG.runRelic(id);
+      const b = el('button', { class: 'relic-card r-' + d.rarity, 'data-relic': id, onclick: () => pick(id, b) }, [
+        NG.artEl(d.art, 'loot-art sm'),
+        el('div', { class: 'grow stack-s' }, [
+          el('div', { class: 'row rc-head' }, [el('strong', { text: d.name }), el('span', { class: 'chip rar', text: NG.RARITY[d.rarity].name })]),
+          el('span', { class: 'small', text: d.desc }),
+          el('span', { class: 'small muted', html: NG.md(d.lore) }),
+        ]),
+      ]);
+      return b;
+    });
+    const skip = el('button', { class: 'btn ghost small', text: 'Hopp over', onclick: () => { done(); NG.toast('Du lot relikviene ligge.'); if (onDone) onDone(null); } });
+    let over = false;
+    function done() { over = true; cards.forEach((b) => { b.disabled = true; }); skip.remove(); if (s.run) { delete s.run.pendingRelics; NG.save(); } }
+    function pick(id, b) {
+      if (over) return;
+      const d = NG.gainRelic(s, id);
+      done();
+      b.classList.add('picked');
+      NG.burst(b.querySelector('.loot-art'));
+      if (d) { NG.sfx('coin'); NG.toast(d.name + ' er med deg resten av ekspedisjonen.', null, 'spark'); }
+      NG.save();
+      if (onDone) setTimeout(() => onDone(id), NG.reducedMotion() ? 0 : 450);
+    }
+    cards.forEach((b) => box.appendChild(b));
+    box.appendChild(el('div', { class: 'row' }, [el('span', { class: 'spacer' }), skip]));
+    return box;
+  };
+
   NG.screen('combat', (app, p) => {
     const s = NG.state();
     // Beskyttelse: en kamp i en ekspedisjon som allerede er avgjort, skal ikke kunne startes på nytt.
@@ -31,7 +69,7 @@
     let busy = false;
     let settled = null;
 
-    const hudSlot = el('div');
+    const hudSlot = el('div', { class: 'hud-slot' }); // display: contents → HUD-en blir klebrig også i kamp
     const enemyArt = NG.artEl(c.def.art || c.def.id, 'en-art tier-' + c.tier);
     const enemyHp = el('i', { style: { background: 'var(--bad)' } });
     const enemyHpTxt = el('span', { class: 'num small' });
@@ -113,10 +151,10 @@
           NG.toast(r.msg);
           if (r.ok) {
             NG.sfx('click'); NG.save();
-            if (r.up) abilityUp(r.up);
             if (ab.id === 'blikk') showQuestion(true);
             if (r.hint) showHint(true);
             refresh();
+            if (r.up) abilityUp(r.up);
           } else NG.sfx('bad');
         } }, [
           el('span', { class: 'ab-n', html: ab.short || ab.name }),
@@ -126,20 +164,26 @@
         longPress(wrap, () => NG.showAbility(ab.id));
         abil.appendChild(wrap);
       }
-      const hintBtn = el('button', { class: 'ab', disabled: locked || c.hints <= 0 || null, onclick: () => showHint(false) },
-        [el('span', { class: 'ab-n', text: 'Hint' }), el('span', { class: 'ab-meta' }, el('span', { class: 'ab-c num', text: c.hints + ' igjen' }))]);
+      // Hint og Sekk får samme oppbygning som evnene: navn øverst, prikkrad + tall nederst
+      const dots = (n, max) => '●'.repeat(Math.min(n, 5)) + '○'.repeat(Math.max(0, Math.min(5, max) - Math.min(n, 5)));
+      const hintMax = Math.max(c.hints, NG.hintsPerFight(s));
+      const hintBtn = el('button', { class: 'ab ab-plain', disabled: locked || c.hints <= 0 || null, 'aria-label': 'Hint, ' + c.hints + ' igjen', onclick: () => showHint(false) },
+        [el('span', { class: 'ab-n', text: 'Hint' }), el('span', { class: 'ab-meta' }, [el('span', { class: 'ab-l ab-l-hint', 'aria-hidden': 'true', text: dots(c.hints, hintMax) }), el('span', { class: 'ab-c num', text: c.hints + ' igjen' })])]);
       abil.appendChild(el('div', { class: 'abw' }, [hintBtn, el('button', { class: 'ab-i', type: 'button', 'aria-label': 'Om hint', text: 'i', onclick: () => NG.sheet('Hint', el('div', { class: 'stack small' }, [
         el('p', { text: 'Et hint viser begrepskortene spørsmålet bygger på — definisjonen, ikke svaret. Du har ' + NG.hintsPerFight(s) + ' hint per kamp (mer med høy Nysgjerrighet og Feynmans notatbok).' }),
         NG.hasRelic(s, 'mikroskop') ? el('p', { text: 'Mikroskopet: hintet fjerner også ett galt alternativ på flervalg.' }) : null,
       ])) })]));
+      const kinds = NG.combatItems().filter((it) => s.items[it.id] > 0).length;
       const nItems = NG.combatItems().reduce((a, it) => a + (s.items[it.id] || 0), 0);
-      abil.appendChild(el('div', { class: 'abw' }, el('button', { class: 'ab', disabled: locked || !nItems || null, onclick: items },
-        [el('span', { class: 'ab-n', text: 'Sekk' }), el('span', { class: 'ab-meta' }, el('span', { class: 'ab-c num', text: nItems + ' ting' }))])));
+      abil.appendChild(el('div', { class: 'abw' }, el('button', { class: 'ab ab-plain', disabled: locked || !nItems || null, 'aria-label': 'Sekk, ' + nItems + ' ting', onclick: items },
+        [el('span', { class: 'ab-n', text: 'Sekk' }), el('span', { class: 'ab-meta' }, [el('span', { class: 'ab-l ab-l-bag', 'aria-hidden': 'true', text: '■'.repeat(Math.min(kinds, 5)) }), el('span', { class: 'ab-c num', text: nItems + ' ting' })])])));
     }
 
     function abilityUp(u) {
       NG.sfx('level');
-      NG.toast('Evne opp! ' + NG.abilityUpText(u), 4200);
+      NG.toast('Evne opp! ' + NG.abilityUpText(u), 3600, 'spark');
+      const b = abil.querySelector('[data-ab="' + u.id + '"]');
+      if (b) { NG.replay(b, 'ab-up'); NG.burst(b, 'small'); }
     }
 
     function intentSheet() {
@@ -219,24 +263,31 @@
       s.counters.bestStreak = Math.max(s.counters.bestStreak, c.streak);
       if (c.over) settle(); // seier/nederlag lagres med en gang, før spilleren trykker «Videre»
       NG.save();
-      // animasjon
-      if (out.dealt) {
-        NG.sfx(out.crit || out.finisher ? 'crit' : 'hit');
-        enemyArt.classList.remove('shake'); void enemyArt.offsetWidth; enemyArt.classList.add('shake');
-        NG.floatText(arena.querySelector('.en-stage'), '−' + out.dealt + (out.crit ? '!' : ''), out.crit || out.finisher ? 'crit' : 'dmg');
-      }
-      if (out.taken) {
-        setTimeout(() => { NG.sfx('hit'); const fl = el('div', { class: 'hurt-flash' }); document.body.appendChild(fl); setTimeout(() => fl.remove(), 450); }, 250);
-        say(NG.makeRng(c.turn + 3).pick(c.def.taunts || ['Ha!']));
-        NG.floatText(hudSlot, '−' + out.taken + ' HP', 'hurt-t');
-      } else if (out.blocked) say('…!');
-      else if (res.correct) say(['Grr…', 'Hmpf.', 'Det … stemmer vel.', 'Argh!'][c.turn % 4]);
       out.notes.forEach((n, i) => n && setTimeout(() => NG.toast(n), 300 + i * 500));
       out.abilityUps.forEach((u, i) => setTimeout(() => abilityUp(u), 600 + i * 900));
       if (out.phase) setTimeout(() => { NG.sfx('boss'); NG.toast(out.phase, 3500); }, 600);
       NG.announce(rec);
       if (!settled) refresh();
       else { renderAbilities(); hudSlot.innerHTML = ''; hudSlot.appendChild(NG.hud(s, { noNav: true })); enemyHp.style.width = (100 * c.enemy.hp / c.enemy.maxHp) + '%'; enemyHpTxt.textContent = c.enemy.hp + '/' + c.enemy.maxHp; }
+      // Animasjoner (etter at HUD-en er tegnet på nytt). Alt er CSS (transform/opacity), ≤ 0,4 s, og blokkerer aldri svar.
+      const stage = arena.querySelector('.en-stage');
+      if (out.dealt) {
+        const big = out.crit || out.finisher;
+        NG.sfx(big ? 'crit' : 'hit');
+        NG.replay(enemyArt, 'shake');
+        NG.replay(enemyHp.parentNode, 'flash-hit');
+        NG.floatText(stage, '−' + out.dealt + (out.crit ? '!' : ''), big ? 'crit' : 'dmg');
+        if (big) { NG.burst(enemyArt); NG.replay(arena, 'arena-crit'); }
+        if (c.over === 'win') setTimeout(() => enemyArt.classList.add('dissolve'), 260);
+      }
+      if (out.taken) {
+        setTimeout(() => { NG.sfx('hit'); const fl = el('div', { class: 'hurt-flash' }); document.body.appendChild(fl); setTimeout(() => fl.remove(), 450); }, 120);
+        say(NG.makeRng(c.turn + 3).pick(c.def.taunts || ['Ha!']));
+        NG.replay(enemyArt, 'lunge');
+        NG.floatText(hudSlot.querySelector('.hud') || hudSlot, '−' + out.taken + ' HP', 'hurt-t');
+      } else if (out.blocked) { say('…!'); NG.floatText(hudSlot.querySelector('.hud') || hudSlot, 'Blokkert', 'block-t'); }
+      else if (res.correct) say(['Grr…', 'Hmpf.', 'Det … stemmer vel.', 'Argh!'][c.turn % 4]);
+      if (c.over === 'lose') setTimeout(() => app.classList.add('cb-lost'), 200);
     }
 
     function afterAnswer() {
@@ -289,9 +340,9 @@
       if (st.ups) NG.announce({ levelUps: st.ups });
       app.innerHTML = '';
       app.appendChild(NG.hud(s, { noNav: true }));
-      const relicBox = st.choices.length ? relicChoice(st.choices) : null;
+      const relicBox = st.choices.length ? NG.relicChoice(st.choices) : null;
       app.appendChild(el('div', { class: 'stack victory' }, [
-        el('div', { class: 'row' }, [NG.artEl(c.def.art || c.def.id, 'en-art small defeated'), el('div', { class: 'grow stack-s' }, [
+        el('div', { class: 'row end-head' }, [NG.artEl(c.def.art || c.def.id, 'en-art small defeated'), el('div', { class: 'grow stack-s' }, [
           el('span', { class: 'label', text: isBoss ? 'Boss beseiret' : 'Seier' }),
           el('h1', { class: 'h-display', text: c.def.name + ' er oppløst' }),
         ])]),
@@ -312,37 +363,6 @@
       ]));
     }
 
-    // «Velg én av tre» — ekspedisjonsrelikvier etter elite/boss
-    function relicChoice(ids) {
-      const box = el('div', { class: 'card stack-s relic-pick' }, [
-        el('div', { class: 'row' }, [el('span', { class: 'label grow', text: 'Velg én av tre' }), el('span', { class: 'small muted', text: 'varer ut ekspedisjonen' })]),
-      ]);
-      const cards = ids.map((id) => {
-        const d = NG.runRelic(id);
-        const b = el('button', { class: 'relic-card r-' + d.rarity, 'data-relic': id, onclick: () => pick(id, b) }, [
-          NG.artEl(d.art, 'loot-art sm'),
-          el('div', { class: 'grow stack-s' }, [
-            el('div', { class: 'row rc-head' }, [el('strong', { text: d.name }), el('span', { class: 'chip rar', text: NG.RARITY[d.rarity].name })]),
-            el('span', { class: 'small', text: d.desc }),
-            el('span', { class: 'small muted', html: NG.md(d.lore) }),
-          ]),
-        ]);
-        return b;
-      });
-      const skip = el('button', { class: 'btn ghost small', text: 'Hopp over', onclick: () => { done(); NG.toast('Du lot relikviene ligge.'); } });
-      function done() { cards.forEach((b) => { b.disabled = true; }); skip.remove(); if (s.run) { delete s.run.pendingRelics; NG.save(); } }
-      function pick(id, b) {
-        const d = NG.gainRelic(s, id);
-        done();
-        b.classList.add('picked');
-        if (d) { NG.sfx('coin'); NG.toast(d.name + ' er med deg resten av ekspedisjonen.'); }
-        NG.save();
-      }
-      cards.forEach((b) => box.appendChild(b));
-      box.appendChild(el('div', { class: 'row' }, [el('span', { class: 'spacer' }), skip]));
-      return box;
-    }
-
     function endLose() {
       const st = settle();
       const lost = st.lost || { lost: 0 };
@@ -351,7 +371,7 @@
       app.appendChild(NG.hud(s, { noNav: true }));
       const missed = [...c.used].map((id) => NG.content.store.questions.find((q) => q.id === id)).filter((q) => q && s.srs[q.id] && s.srs[q.id].due < Date.now() + 3600e3 && s.srs[q.id].box <= 1);
       app.appendChild(el('div', { class: 'stack' }, [
-        el('div', { class: 'row' }, [NG.artEl(c.def.art || c.def.id, 'en-art small'), el('div', { class: 'grow stack-s' }, [
+        el('div', { class: 'row end-head' }, [NG.artEl(c.def.art || c.def.id, 'en-art small'), el('div', { class: 'grow stack-s' }, [
           el('span', { class: 'label', text: 'Nederlag' }),
           el('h1', { class: 'h-display', text: c.def.name + ' vant denne gangen' }),
         ])]),

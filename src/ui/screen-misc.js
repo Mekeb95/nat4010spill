@@ -15,7 +15,7 @@
     app.appendChild(NG.hud(s, { noNav: true }));
     app.appendChild(el('div', { class: 'row' }, [el('h1', { class: 'h-display grow', text: 'Ryggsekken' }), el('button', { class: 'btn ghost small', text: 'Tilbake', onclick: back })]));
     const acc = s.counters.answered ? Math.round(100 * s.counters.correct / s.counters.answered) : 0;
-    app.appendChild(el('div', { class: 'card row' }, [NG.artEl('laerling', 'sekk-ava'), el('div', { class: 'grow stack-s' }, [
+    app.appendChild(el('div', { class: 'card row sekk-head' }, [NG.artEl('laerling', 'sekk-ava'), el('div', { class: 'grow stack-s' }, [
       el('strong', { class: 'h-display', style: { fontSize: 'var(--t-xl)' }, text: s.name + ' · nivå ' + s.level }),
       el('span', { class: 'small muted num', text: s.xp + ' / ' + NG.xpNeed(s.level) + ' XP til neste nivå' }),
       el('span', { class: 'small muted num', text: s.counters.answered + ' svar · ' + acc + ' % riktige · beste rekke ' + s.counters.bestStreak }),
@@ -27,7 +27,7 @@
         el('button', { class: 'btn small', disabled: !s.statPoints || null, 'aria-label': 'Øk ' + x.name, text: '+1', onclick: () => {
           s.stats[x.id]++; s.statPoints--;
           if (x.id === 'utholdenhet') s.hp += 10;
-          if (x.id === 'nysgjerrighet') s.energy += 6;
+          if (x.id === 'nysgjerrighet') NG.addEnergy(s, 6); // maks er allerede hevet med 6
           NG.sfx('level'); NG.save(); NG.go('sekk', p);
         } }),
       ]));

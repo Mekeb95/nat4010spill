@@ -193,9 +193,10 @@
       } else if (id === 'pumpe') {
         const amt = NG.pumpAmount(s);
         if (s.heat < amt) return { ok: false, msg: 'For lite spillvarme å hente (' + amt + ' J trengs)' };
+        if (s.energy >= NG.maxEnergy(s)) return { ok: false, msg: 'Du er full av energi' };
         s.energy -= cost; s.heat += cost; // drivenergien blir også til varme …
-        s.heat -= amt; s.energy += amt; // … og varmepumpa løfter varme tilbake til nyttig energi
-        out.msg = 'Varmepumpa løftet ' + amt + ' J ut av spillvarmen';
+        const got = NG.recoverHeat(s, amt); // … og varmepumpa løfter varme tilbake til nyttig energi (opp til maks)
+        out.msg = 'Varmepumpa løftet ' + got + ' J ut av spillvarmen';
         out.up = NG.abilityXp(s, 'pumpe', 2);
       }
       if (id !== 'pumpe') {
@@ -304,9 +305,9 @@
           if (c.charge >= 4) { c.charge = 0; const sp = Math.round(base); out.dealt += sp; out.notes.push('Van de Graaff: gnisten slo over (+' + sp + ')!'); }
         }
         if (has(s, 'bunsenbrenner') && c.streak >= 3) NG.addEnergy(s, 3);
-        if (c.abUsed.indexOf('blikk') >= 0 && NG.abilityLevel(s, 'blikk') >= 2 && s.heat > 0) { const g = Math.min(3, s.heat); s.heat -= g; s.energy += g; }
+        if (c.abUsed.indexOf('blikk') >= 0 && NG.abilityLevel(s, 'blikk') >= 2 && s.heat > 0) NG.recoverHeat(s, 3);
       } else {
-        if (has(s, 'feltdagbok') && s.heat > 0) { const g = Math.min(4, s.heat); s.heat -= g; s.energy += g; out.notes.push('Feltdagboka: du lærte av feilen (+' + g + ' J).'); }
+        if (has(s, 'feltdagbok') && s.heat > 0) { const g = NG.recoverHeat(s, 4); if (g) out.notes.push('Feltdagboka: du lærte av feilen (+' + g + ' J).'); }
         if (has(s, 'kontrollforsok') && q.topic) c.retryTopic = { topic: q.topic, region: q.region };
       }
 

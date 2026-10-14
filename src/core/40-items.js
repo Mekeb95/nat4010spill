@@ -122,7 +122,7 @@
     if (!it) return null;
     if (it.kind === 'relic') {
       if (!Array.isArray(s.relics)) s.relics = [];
-      if (s.relics.indexOf(id) < 0) { s.relics.push(id); if (id === 'solcelle') s.energy += 10; }
+      if (s.relics.indexOf(id) < 0) { s.relics.push(id); if (id === 'solcelle') NG.addEnergy(s, 10); } // maks er hevet med 10
     } else s.items[id] = (s.items[id] || 0) + 1;
     return it;
   };

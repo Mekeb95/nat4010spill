@@ -22,6 +22,12 @@
     if (heat > 0) s.heat += heat;
     return { gained, heat };
   };
+  // Hent energi tilbake fra spillvarmen (varmepumpe, Feltdagbok …), men aldri over maks. Returnerer J flyttet.
+  NG.recoverHeat = function (s, amount) {
+    const g = Math.max(0, Math.min(amount, s.heat, NG.maxEnergy(s) - s.energy));
+    s.heat -= g; s.energy += g;
+    return g;
+  };
 
   /* ---------- XP og nivå ---------- */
   // Returnerer antall nivåer opp.

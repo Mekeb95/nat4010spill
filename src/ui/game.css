@@ -8,7 +8,7 @@
 .hud-ava { width: 44px; height: 44px; border-radius: 50%; background: var(--board-3); padding: 2px; }
 .hud-lvl { display: flex; flex-direction: column; align-items: center; line-height: 1.1; }
 .hud-lvl strong { font-size: 1.15rem; }
-.hud-dot { position: absolute; top: -4px; left: 30px; background: var(--warn); color: var(--board); font-weight: 700; font-size: 0.7rem; border-radius: 999px; padding: 0 5px; }
+.hud-dot { position: absolute; top: -5px; left: -5px; background: var(--warn); color: var(--board); font-weight: 700; font-size: 0.7rem; border-radius: 999px; padding: 0 5px; }
 .hud-bars { flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .hud-row { display: flex; align-items: center; gap: 6px; }
 .hud-k { font-family: var(--f-mono); font-size: 0.7rem; width: 1.6em; color: var(--chalk-dim); }
@@ -16,8 +16,6 @@
 .hud-v.gold { color: var(--gold); }
 .bar.thin { height: 7px; }
 .ebar .heat { position: absolute; top: 0; bottom: 0; display: block; background: repeating-linear-gradient(135deg, var(--heat) 0 4px, color-mix(in srgb, var(--heat) 60%, var(--board-4)) 4px 8px); border-radius: 0 999px 999px 0; transition: all .35s ease; }
-.hurt-flash { position: fixed; inset: 0; pointer-events: none; z-index: 60; animation: hurt .45s ease forwards; }
-@keyframes hurt { 0% { box-shadow: inset 0 0 0 0 transparent; } 35% { box-shadow: inset 0 0 70px 14px color-mix(in srgb, var(--bad) 55%, transparent); } 100% { box-shadow: inset 0 0 0 0 transparent; } }
 
 /* Tittel / intro */
 .title-wrap { padding-top: 6vh; text-align: center; align-items: center; }
@@ -47,7 +45,7 @@
 .map-ring { width: 62px; height: 62px; border-radius: 50%; padding: 5px; background: conic-gradient(var(--rc) calc(var(--p) * 1%), var(--board-4) 0); display: grid; place-items: center; transition: transform .15s ease; }
 .map-node:active .map-ring { transform: scale(0.94); }
 .map-icon { width: 100%; height: 100%; border-radius: 50%; background: var(--board); color: var(--rc); padding: 9px; }
-.map-name { font-family: var(--f-display); font-size: 1.05rem; line-height: 1; text-align: center; text-shadow: 0 1px 2px var(--board); }
+.map-name { font-family: var(--f-display); font-size: clamp(0.88rem, 3.9vw, 1.05rem); line-height: 1; text-align: center; text-shadow: 0 1px 2px var(--board); max-width: 100%; overflow-wrap: anywhere; }
 .map-node.locked { opacity: 0.38; filter: grayscale(0.8); }
 .map-node.done .map-icon { box-shadow: 0 0 0 2px var(--rc), 0 0 18px color-mix(in srgb, var(--rc) 60%, transparent); }
 .map-node.active .map-ring { animation: pulse 1.6s ease-in-out infinite; }
@@ -56,7 +54,7 @@
 .tile { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left; padding: 10px 12px; min-height: 64px; border-radius: var(--r-m); border: 1px solid var(--line-strong); background: var(--board-2); color: var(--chalk); cursor: pointer; }
 .tile:active { transform: scale(0.98); }
 .tile-art { width: 26px; height: 26px; color: var(--chalk-dim); margin-bottom: 2px; }
-.tile-l { font-weight: 700; line-height: 1.2; hyphens: auto; min-width: 0; max-width: 100%; }
+.tile-l { font-weight: 700; line-height: 1.2; hyphens: auto; min-width: 0; max-width: 100%; font-size: clamp(0.92rem, 4.2vw, 1rem); overflow-wrap: anywhere; }
 .tile-s { line-height: 1.2; min-width: 0; overflow-wrap: anywhere; }
 .tile-badge { position: absolute; top: -6px; right: -4px; background: var(--bad); color: var(--board); font-weight: 700; border-radius: 999px; padding: 0 7px; font-size: 0.8rem; }
 .daily { margin-top: 12px; }

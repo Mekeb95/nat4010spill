@@ -7,13 +7,16 @@
 .abw { position: relative; display: flex; min-width: 0; }
 .scr-combat .ab { flex: 1; min-width: 0; width: 100%; min-height: 58px; height: 100%; padding: 12px 4px 5px; gap: 3px; justify-content: space-between; }
 .scr-combat .ab-n { display: block; max-width: 100%; font-size: 0.74rem; line-height: 1.1; text-align: center; hyphens: manual; -webkit-hyphens: manual; overflow-wrap: anywhere; word-break: normal; }
-.ab-meta { display: flex; align-items: baseline; justify-content: center; gap: 4px; flex-wrap: wrap; line-height: 1.1; }
-.ab-l { font-size: 0.46rem; letter-spacing: 0; color: var(--xp); white-space: nowrap; }
-.scr-combat .ab-c { font-size: 0.66rem; }
+.ab-meta { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; line-height: 1.1; } /* prikker over tall — likt på alle bredder/tekststørrelser */
+.ab-l { font-size: 0.5rem; letter-spacing: 0; color: var(--xp); white-space: nowrap; min-height: 1.1em; }
+.scr-combat .ab-c { font-size: 0.66rem; white-space: nowrap; }
 .ab-i { position: absolute; top: -8px; right: -5px; width: 21px; height: 21px; border-radius: 50%; padding: 0; display: grid; place-items: center;
   font: 700 0.72rem/1 var(--f-mono); font-style: italic; color: var(--board); background: var(--chalk-dim); border: 2px solid var(--board); cursor: pointer; z-index: 2; touch-action: manipulation; }
 .ab-i::after { content: ''; position: absolute; inset: -9px; } /* større trykkflate */
 .ab-i:active { background: var(--chalk); }
+
+/* HUD-en står fast øverst også i kamp, så HP-endringer synes mens du leser forklaringen */
+.hud-slot { display: contents; }
 
 /* Planen (intensjonen) er trykkbar */
 .scr-combat button.intent { background: none; text-align: left; font: inherit; font-size: 0.85rem; cursor: pointer; }
@@ -70,3 +73,13 @@
 .ab-line > .chip { flex: none; align-self: center; }
 .scr-sekk .stat-row { flex-wrap: nowrap; }
 .scr-sekk .stat-row > .grow { flex: 1 1 0; }
+
+/* Hint og Sekk: samme oppbygning som evnene (prikkrad + tall), så knappene ser like ut */
+.ab-l-hint { color: var(--warn); }
+.ab-l-bag { color: var(--chalk-dim); letter-spacing: 1px; }
+.scr-sekk .sekk-head { flex-wrap: nowrap; }
+.scr-sekk .sekk-head > .grow { flex: 1 1 0; }
+
+/* Seier/nederlag: liten fiende ved siden av overskriften (ikke over) */
+.end-head { flex-wrap: nowrap; }
+.end-head > .grow { flex: 1 1 0; }

@@ -54,7 +54,8 @@
 
 /* Handelsmann */
 .shop-row { flex-wrap: nowrap; gap: 10px; align-items: center; }
-.shop-row .stack-s { flex: 1 1 auto; }
-.shop-rar { align-self: flex-start; }
+.shop-row .stack-s { flex: 1 1 0; }
+.shop-row > .loot-art { align-self: flex-start; margin-top: 2px; }
+.shop-rar { align-self: flex-start; white-space: normal; border-radius: 12px; line-height: 1.3; padding-block: 3px; }
 .shop-row .shop-buy { flex: none; min-width: 64px; }
 .shop-row.sold { opacity: 0.45; }

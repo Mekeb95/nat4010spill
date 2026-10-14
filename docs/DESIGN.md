@@ -25,17 +25,33 @@ nøkkelarkene sammen igjen.
 | `didaktikk` | Akademiet | ord vs. begrep, begrepsstigen, nøkkelbegreper, ordkort/begrepsvegg/bindeord, elevforestillinger (Henriksen & Angell), grubletegninger, læringsmål som kan vurderes, vurdering, Hva?–Hva så?–Hva nå? | **Hverdagsspråket** (finale) |
 
 Rekkefølge på kartet: Energidalen og Stoffgruvene åpne fra start; resten låses opp
-ved å slå bossen i en tilgrensende region (se `src/core/data-regions.js`).
+ved å slå bossen i en tilgrensende region (se `src/core/01-regions.js`).
 Finalen (Akademiet) krever 5 bosser.
 
 ## Kjerneløkke
-1. **Kart** → velg region → **sti** av 6–8 noder (generert med frøsatt RNG per besøk).
-2. Nodetyper: ⚔ Kamp, ★ Elite, 🧪 Mini-spill (lab), ✉ Hendelse (valg med fagbegrunnelse),
-   ☀ Solgløtt (hvile: fyll energi + repetisjon), 🎁 Kiste, ☠ Boss.
-3. **Kamp** (turbasert): hver tur velger du handling. Angrep = svar på et spørsmål fra
-   regionens pott. Riktig → skade (skalert av Forståelse, combo og kortnivå). Feil →
-   Misforståelsen slår, og du **får alltid forklaringen** (læringen skjer her).
-4. Belønning: XP, joule (valuta), gjenstander, begrepskort-progresjon.
+1. **Leirkart** → velg region → **ekspedisjonskart** (frøsatt per besøk): 8 rader + boss øverst,
+   3–4 stier som deler seg og møtes (StS-stil, kryssfrie kanter). Du velger neste node langs en kant.
+   Rad 0 er alltid kamp, rad 4 kiste, siste rad før bossen Solgløtt. Minst én Handelsmann.
+2. Nodetyper: ⚔ Kamp, ★ Elite (fra rad 3–4), 🧪 Laben (mini-spill), ✉ Hendelse, 🎁 Kiste,
+   🏪 Handelsmann (kjøp for joule), ☀ Solgløtt, ☠ Boss. Hver node gir belønning bare én gang
+   (lagres på noden, så en lukket app ikke gir dobbel gevinst).
+3. **Kamp** (turbasert): svar på et spørsmål fra regionens pott. Riktig → skade (Forståelse, rekke,
+   kortnivå, relikvier). Feil → Misforståelsen slår, og du **får alltid forklaringen**.
+   Fiendens **plan** (intensjon) vises: Lurer, Slag, Storslag, Mytekall, Forskanser seg, Energityv,
+   Lader opp → Utlading. Eliter har modifikatorer (Seiglivet, Smittsom, Rask).
+4. Belønning: XP, joule (valuta), gjenstander, begrepskort-progresjon. Elite/boss gir
+   **«Velg én av tre»** ekspedisjonsrelikvier (valget overlever at appen lukkes — det vises på kartet).
+
+### Solgløtt
+Sola fyller **alltid** energien (spillvarmen stråles ut — energiregnskapet vises). Deretter velger
+du **én** ting: *Hvil* (+40 % HP), *Studer* (3 repetisjonsspørsmål, bonus-XP), *Tren* (mestring på
+svakeste evne) eller *Spør Orakelet* (når tilgjengelig).
+
+### Relikvier
+- **Varige** (Materiallageret, bossdrop): følger spilleren alltid.
+- **Ekspedisjonsrelikvier** (`NG.RUN_RELICS`, sjeldenhet vanlig/sjelden/episk/boss): varer ut
+  ekspedisjonen og forsvinner ved seier, død eller avbrudd. Kilder: «Velg én av tre» etter elite/boss
+  og Handelsmannen. Hver har en faglig begrunnelse (Seebeck-effekten, katalysatorer, Leitner …).
 
 ## Energiregnskapet (spillmekanikk som lærer 1. og 2. lov)
 Spilleren har **Energi (J)** som brukes på evner. Brukt energi forsvinner ikke — den
@@ -61,10 +77,15 @@ Spørsmål du bommer på kommer tilbake som **Gjenferd** i senere kamper og på 
 - Nivå opp: +1 poeng å fordele, full HP.
 
 ## Evner (koster energi → blir spillvarme)
+Evnene har **mestringsnivå 1–5** som følger spilleren mellom ekspedisjoner. Mestring: +2 når du
+bruker evnen og svarer riktig, +1 ved feil, og Solgløtt-trening. Hvert nivå gir en ny effekt
+(f.eks. billigere, gratis første bruk, sterkere skjold). Detaljark med «naturfaget bak» via «i»/hold inne.
 - **Partikkelblikket** (10 J): fjerner to gale alternativ.
-- **PEB-kombo** (25 J): tre spørsmål på rad; alle riktige → trippel skade.
-- **Grubletegning** (15 J): avslører Misforståelsens neste angrep og gir skjold.
-- **Varmepumpe** (gjenstand): 5 J inn, 15 J spillvarme tilbake til energi.
+- **Grubletegning** (15 J): avslører Misforståelsens neste trekk og gir skjold.
+- **PEB-kombo** (25 J): tre riktige på rad (påstand → evidens → begrunnelse) gir et knusende argument.
+- **Varmepumpe** (krever gjenstanden): løfter spillvarme tilbake til energi (opp til maks).
+- **Modellbygging** (20 J, låses opp på nivå 6): neste riktige svar gir ekstra skade per kortnivå.
+Energitilførsel går alltid via `NG.addEnergy` (overskudd blir spillvarme) og `NG.recoverHeat`.
 
 ## Orakelet (valgfritt, krever `sample`)
 På bosser og Solgløtt kan du skrive en forklaring med egne ord. Claude vurderer den mot
@@ -77,4 +98,12 @@ tilgjengelig, slik at fremgang følger brukeren mellom enheter. Nyeste tidsstemp
 ## Visuell identitet
 Tavle-estetikk: skiferblå-grønn tavle, krittskrift for overskrifter, hyperlesbar
 brødtekst, fargekritt per region. Kun mørkt tema (bevisst valg). Store berøringsflater
-(min 44px), portrett, én hånd.
+(min 44px), portrett, én hånd. Tekst skal alltid få plass i boksen sin på 360–430 px
+(norsk orddeling, `overflow-wrap: anywhere` på knapper/brikker, skriftstørrelse med `clamp`).
+
+**Bevegelse** (`src/ui/motion.css`): korte transform/opacity-animasjoner, ≤ 0,4 s etter et trykk,
+blokkerer aldri input — skjermovergang, treff (rist, rødt blink, flyttall, utbrudd ved kritisk),
+spilleren truffet (HUD-rist, HP-blink, vignett), fiendens pust og oppløsning, HUD-søyler som glir
+fra forrige verdi, nivå opp, evne opp, relikvie valgt, kiste, ny sti tegnes inn på kartet.
+Alt slås av med `prefers-reduced-motion`. Toasts ligger øverst under HUD-en, maks 2 synlige,
+og tar aldri imot trykk.

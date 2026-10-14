@@ -4,6 +4,7 @@
   const el = (...a) => NG.el(...a);
   const ROW_H = 86;   // px per rad på kartet
   const PAD = 34;     // luft over bossen og under startraden
+  let drawnStep = null; // siste steg som er tegnet inn med animasjon
 
   // Ikon for handelsmannen (markedsbod med markise og mynt) — registreres her hvis ingen grafikkfil har det
   if (!NG.art.map['node-butikk']) {
@@ -28,7 +29,14 @@
       el('button', { class: 'btn ghost small', text: 'Leiren', onclick: () => NG.go('camp') }),
     ]));
 
-    const choosable = NG.choosable(s);
+    // Uavklart «Velg én av tre» (appen ble lukket på seiersskjermen): velg før du går videre
+    const pending = Array.isArray(r.pendingRelics) ? r.pendingRelics.filter((id) => NG.runRelic && NG.runRelic(id)) : [];
+    if (Array.isArray(r.pendingRelics) && !pending.length) { delete r.pendingRelics; NG.save(); }
+    if (pending.length && NG.relicChoice) {
+      app.appendChild(el('p', { class: 'small muted', text: 'Du rakk ikke å velge relikvie etter forrige kamp. Velg én (eller hopp over) før du går videre.' }));
+      app.appendChild(NG.relicChoice(pending, () => NG.go('path')));
+    }
+    const choosable = pending.length ? [] : NG.choosable(s);
     const canIds = {}; choosable.forEach((n) => { canIds[n.id] = 1; });
     const cur = NG.runNode(s);
     const resume = cur && !cur.done;
@@ -44,6 +52,10 @@
     }
     const taken = {};
     for (let i = 1; i < r.path.length; i++) taken[r.path[i - 1] + '>' + r.path[i]] = 1;
+    // Den nyeste kanten tegnes inn (én gang per nytt steg) — viser hvor du nettopp gikk
+    const stepKey = r.seed + ':' + r.path.length;
+    const newEdge = r.path.length >= 2 && drawnStep !== stepKey && !NG.reducedMotion() ? r.path[r.path.length - 2] + '>' + r.path[r.path.length - 1] : null;
+    drawnStep = stepKey;
 
     const H = map.rows * ROW_H + PAD * 2;
     const pos = (n) => {
@@ -63,7 +75,12 @@
       if (taken[a + '>' + b]) cls = 'taken';
       else if (cur && cur.done && a === cur.id && canIds[b]) cls = 'open';
       else if (reach[a] && reach[b]) cls = 'ahead';
-      lines += `<line class="ml-${cls}" x1="${P[a].x.toFixed(2)}" y1="${P[a].y.toFixed(1)}" x2="${P[b].x.toFixed(2)}" y2="${P[b].y.toFixed(1)}" vector-effect="non-scaling-stroke"/>`;
+      const x1 = P[a].x.toFixed(2), y1 = P[a].y.toFixed(1), x2 = P[b].x.toFixed(2), y2 = P[b].y.toFixed(1);
+      if (newEdge === a + '>' + b) {
+        // SMIL: linjen vokser fra forrige node til den nye (respekterer redusert bevegelse via newEdge)
+        lines += `<line class="ml-taken ml-new" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" vector-effect="non-scaling-stroke">` +
+          `<animate attributeName="x2" from="${x1}" to="${x2}" dur="0.45s" fill="freeze"/><animate attributeName="y2" from="${y1}" to="${y2}" dur="0.45s" fill="freeze"/></line>`;
+      } else lines += `<line class="ml-${cls}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" vector-effect="non-scaling-stroke"/>`;
     });
     const svg = `<svg class="rmap-lines" viewBox="0 0 100 ${H}" preserveAspectRatio="none" aria-hidden="true">${lines}</svg>`;
     const wrap = el('div', { class: 'rmap', style: { height: H + 'px' }, html: svg });
@@ -76,7 +93,7 @@
       const st = can ? ' can' : n.done ? ' done' : reach[n.id] ? ' ahead' : ' gone';
       const label = n.type === 'boss' ? bossDef.name : can ? t.name : '';
       const b = el('button', {
-        class: 'mnode t-' + n.type + st + (here ? ' here' : ''),
+        class: 'mnode t-' + n.type + st + (here ? ' here' : '') + (here && newEdge ? ' arrive' : ''),
         style: { left: P[n.id].x + '%', top: P[n.id].y + 'px' },
         disabled: !can || null,
         'aria-label': t.name + (n.done ? ' (ferdig)' : can ? ' (kan velges)' : ''),
@@ -107,6 +124,7 @@
     })));
 
     setTimeout(() => {
+      if (pending.length) return; // relikvievalget står øverst — ikke rull bort fra det
       const n = app.querySelector('.mnode.can') || app.querySelector('.mnode.here');
       if (n) try { n.scrollIntoView({ block: 'center' }); } catch (e) { /* */ }
     }, 30);
@@ -142,7 +160,7 @@
     if (rw.joule) { s.joule = Math.max(0, s.joule + rw.joule); if (s.run && rw.joule > 0) s.run.joule += rw.joule; lines.push((rw.joule > 0 ? '+' : '') + rw.joule + ' ◆'); }
     if (rw.hp) { s.hp = NG.clamp(s.hp + rw.hp, 1, NG.maxHp(s)); lines.push((rw.hp > 0 ? '+' : '') + rw.hp + ' HP'); }
     if (rw.energy) {
-      if (rw.energy > 0) { s.energy += rw.energy; lines.push('+' + rw.energy + ' J'); }
+      if (rw.energy > 0) { const g = NG.addEnergy(s, rw.energy); lines.push('+' + g.gained + ' J' + (g.heat ? ' (' + g.heat + ' J ble spillvarme)' : '')); }
       else { const e = Math.min(s.energy, -rw.energy); s.energy -= e; s.heat += e; lines.push('−' + e + ' J (til spillvarme)'); }
     }
     if (rw.item) {
@@ -156,7 +174,7 @@
     if (NG.hasRelic(s, id)) return;
     if (typeof NG.gainRelic === 'function') { NG.gainRelic(s, id); return; }
     s.relics.push(id);
-    if (id === 'solcelle') s.energy += 10;
+    if (id === 'solcelle') NG.addEnergy(s, 10);
   }
 
   /* ---------- Hendelse ---------- */
@@ -281,6 +299,7 @@
     const s = NG.state();
     const node = NG.runNode(s);
     let loot = node && node.loot;
+    let fresh = false;
     if (!loot) {
       // Rull og gi belønningen én gang — lagres på noden
       const rng = NG.runRng(s, 7);
@@ -299,13 +318,14 @@
       if (node) node.loot = loot;
       NG.save();
       NG.sfx('coin');
+      fresh = true;
     }
     const it = NG.item(loot.itemId);
     const c = loot.concept ? NG.conceptById(loot.concept) : null;
     app.appendChild(NG.hud(s));
     app.appendChild(el('div', { class: 'stack' }, [
-      el('div', { class: 'row' }, [NG.artEl('node-kiste', 'ev-art'), el('div', { class: 'grow stack-s' }, [el('span', { class: 'label', text: 'Funn' }), el('h1', { class: 'h-display', text: 'Kiste' })])]),
-      it ? el('div', { class: 'card row' }, [NG.artEl(it.art, 'loot-art'), el('div', { class: 'grow stack-s' }, [el('strong', { text: it.name }), el('span', { class: 'small muted', text: it.desc })])]) : null,
+      el('div', { class: 'row' }, [NG.artEl('node-kiste', 'ev-art' + (fresh ? ' chest-open' : '')), el('div', { class: 'grow stack-s' }, [el('span', { class: 'label', text: 'Funn' }), el('h1', { class: 'h-display', text: 'Kiste' })])]),
+      it ? el('div', { class: 'card row' + (fresh ? ' loot-pop' : '') }, [NG.artEl(it.art, 'loot-art'), el('div', { class: 'grow stack-s' }, [el('strong', { text: it.name }), el('span', { class: 'small muted', text: it.desc })])]) : null,
       el('div', { class: 'card row' }, [el('strong', { class: 'num gold', text: '+' + loot.j + ' ◆' }), el('span', { class: 'small muted', text: 'joule til Materiallageret' })]),
       c ? el('div', { class: 'card stack-s' }, [
         el('span', { class: 'label', text: 'Begrepskort funnet — les det!' }),
