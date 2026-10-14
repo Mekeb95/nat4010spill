@@ -54,9 +54,9 @@
       id: 'energi.var.05', region: R, topic: 'Varme og temperatur', concepts: ['temperatur', 'varmeledning', 'nulte-lov'], level: 4, type: 'mc', myth: 'myte.metall-er-kaldt',
       prompt: 'Et skolebord har bordbein av metall og bordplate av tre. Det har stått i klasserommet hele natta. Bordbeinet føles kaldere. Hva er riktig forklaring?',
       options: [
-        'Bordbeinet er kaldere, fordi metall er et kaldt materiale.',
+        'Bordbeinet er kaldere, fordi metall er et kaldt materiale i seg selv.',
         'Metallet sender kulde inn i hånda raskere enn treet gjør.',
-        'Begge har samme temperatur, men metall leder energi raskere bort fra hånda.',
+        'Samme temperatur, men metall leder energi raskere bort fra hånda.',
         'Treet lager litt varme fordi det er et organisk materiale.',
       ],
       answer: 2,
@@ -153,7 +153,7 @@
       prompt: 'Is varmes med konstant effekt. Hvorfor står temperaturen stille på 0 °C en stund?',
       options: [
         'Varmekilden virker dårligere når den varmer noe som er kaldt.',
-        'Isen gir fra seg like mye varme til lufta som den får fra plata.',
+        'Isen gir fra seg like mye varme til lufta rundt som den får fra kokeplata.',
         'Energien går til å bryte bindinger, ikke til å øke farten til partiklene.',
         'Termometeret er tregt og henger etter den egentlige temperaturen.',
       ],
@@ -199,8 +199,8 @@
       prompt: 'Du gjentar forsøket «temperatur mot tilført energi» med dobbelt så mye vann. Hva skjer med kurven?',
       options: [
         'Den blir dobbelt så bratt.',
-        'Den får samme form, men strekkes til dobbel lengde langs energiaksen.',
-        'Platåene forsvinner fordi det er mer vann å dele energien på.',
+        'Samme form, men strekkes til dobbel lengde langs energiaksen.',
+        'Platåene forsvinner, fordi det er mer vann å fordele energien på.',
         'Kokepunktet flytter seg til 200 °C.',
       ],
       answer: 1,
@@ -232,8 +232,8 @@
       id: 'energi.var.19', region: R, topic: 'Faseoverganger', concepts: ['faseovergang-energi', 'temperatur', 'effekt'], level: 4, type: 'mc',
       prompt: 'Pastavannet koker. Du skrur kokeplata fra middels til maks. Hva skjer med vannets temperatur (vanlig lufttrykk)?',
       options: [
-        'Den stiger til godt over 100 °C, så pastaen blir fortere ferdig.',
-        'Den holder seg på ca. 100 °C; den ekstra energien går til raskere fordamping.',
+        'Den stiger til godt over 100 °C, slik at pastaen blir fortere ferdig.',
+        'Den holder seg på ca. 100 °C; ekstra energi gir raskere fordamping.',
         'Den synker, fordi mer damp tar med seg mer varme ut av kjelen.',
         'Den holder seg på 100 °C, fordi den ekstra energien forsvinner.',
       ],
@@ -256,7 +256,7 @@
       prompt: 'Før et forsøk tegner en elev hvordan temperaturen endrer seg når is varmes jevnt: en rett, skrå linje fra −20 °C til 120 °C. Hvilken oppfølging er best?',
       options: [
         'Gi eleven den riktige kurven å skrive av, så forestillingen ikke setter seg.',
-        'La eleven måle i smeltende is og forklare hvor energien går når termometeret står stille.',
+        'La eleven måle i smeltende is og forklare hvor energien går på platået.',
         'Si at linja er riktig, men at den bør være litt brattere i starten.',
         'Forklare at energien forsvinner på de flate strekkene av kurven.',
       ],
@@ -308,8 +308,8 @@
       id: 'energi.tr.01', region: R, topic: 'Varmetransport', concepts: ['varmeledning'], level: 2, type: 'mc',
       prompt: 'Hvorfor leder metaller varme godt?',
       options: [
-        'De har frie elektroner som frakter energi raskt gjennom stoffet.',
-        'Metaller er kalde og trekker derfor til seg varme.',
+        'De har frie elektroner som frakter energien raskt videre.',
+        'Metaller er kalde og trekker derfor varme til seg fra omgivelsene.',
         'Metaller er tunge, og tunge stoffer leder alltid best.',
         'Metallatomene lager litt varme når de blir berørt.',
       ],
@@ -393,10 +393,10 @@
       id: 'energi.tr.07', region: R, topic: 'Varmetransport', concepts: ['konveksjon', 'varme'], level: 4, type: 'mc', myth: 'myte.kulde-overfores',
       prompt: 'Hvorfor plasseres panelovner ofte under vinduet?',
       options: [
-        'Fordi kulda kommer inn gjennom vinduet og må stoppes akkurat der.',
+        'Fordi kulda kommer inn gjennom vindusglasset og må stoppes akkurat der.',
         'Fordi ovnen virker best når den får litt sollys på seg.',
         'Fordi strålingen fra ovnen da går lettere ut gjennom glasset.',
-        'Fordi varm luft stiger og motvirker den kalde lufta som synker langs glasset.',
+        'Fordi varm luft stiger og motvirker kald luft som synker langs glasset.',
       ],
       answer: 3,
       why: {
@@ -461,7 +461,7 @@
       options: [
         'Ingenting kan bli kaldere enn 0 °C, frysepunktet til vann.',
         'Ved 0 K har alle stoffer null energi og null bevegelse.',
-        'Metall er alltid litt kaldere enn tre som står i samme rom.',
+        'Metall er alltid litt kaldere enn tre, selv når de står i det samme rommet.',
         'Ting som ikke regulerer temperaturen selv, får omgivelsenes temperatur.',
       ],
       answer: 3,
@@ -476,7 +476,7 @@
       id: 'energi.td.05', region: R, topic: 'Termodynamikkens lover', concepts: ['entropi', 'energikvalitet'], level: 3, type: 'mc', myth: 'myte.energi-brukes-opp',
       prompt: 'Hva betyr det at **entropien** øker i en prosess?',
       options: [
-        'Energien forsvinner litt etter litt ut av universet.',
+        'Energien forsvinner litt etter litt ut av universet og blir borte.',
         'Energien blir mer spredt og vanskeligere å utnytte til arbeid.',
         'Temperaturen i systemet må stige for hver prosess.',
         'Energien samler seg og blir lettere å utnytte.',

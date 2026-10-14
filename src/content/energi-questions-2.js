@@ -147,7 +147,7 @@
         'Rette til «1200 kW per time», så blir enheten på regningen riktig.',
         'Si at kW og kWh betyr det samme i praksis, så formuleringen går fint.',
         'Forklare at kW er energien du bruker, mens kWh er prisen du betaler.',
-        'Spørre hva enheten måler, og regne på et apparat for å vise at kWh = kW · h.',
+        'Spørre hva enheten måler, og regne på et apparat: kWh = kW · h.',
       ],
       answer: 3,
       why: {
@@ -225,8 +225,8 @@
       id: 'energi.virk.04', region: R, topic: 'Virkningsgrad', concepts: ['virkningsgrad', 'energibevaring'], level: 3, type: 'mc', myth: 'myte.evighetsmaskin',
       prompt: 'Hvorfor kan virkningsgraden **i prinsippet** aldri være over 100 %?',
       options: [
-        'Fordi alle motorer har friksjon som alltid gir noe varmetap',
-        'Fordi nyttig energi er en del av den tilførte; energi kan ikke skapes',
+        'Fordi alle motorer har friksjon som alltid gir et visst varmetap til lufta',
+        'Fordi nyttig energi er en del av den tilførte, og energi ikke skapes',
         'Fordi elektrisk strøm alltid taper seg i ledningene på veien',
         'Det kan den – gode varmepumper har over 300 % virkningsgrad',
       ],
@@ -245,7 +245,7 @@
         'Strøm er en renere energiform enn bensin.',
         'Bensinmotoren må gå omveien om forbrenning og varme, og der er tapet stort.',
         'Elmotoren har ingen friksjon i det hele tatt.',
-        'Bensin inneholder lite energi per liter sammenlignet med batterier.',
+        'Bensin inneholder lite energi per liter sammenlignet med et fulladet batteri.',
       ],
       answer: 1,
       why: {
@@ -289,8 +289,8 @@
       prompt: 'Elbiler har regenerativ bremsing. Hva skjer egentlig?',
       options: [
         'Bremsingen skaper ny energi som lader batteriet.',
-        'Noe av bevegelsesenergien blir elektrisk energi i stedet for varme i bremsene.',
-        'Bremsene blir kaldere fordi energien forsvinner inn i bilen.',
+        'Noe av bevegelsesenergien blir elektrisk energi i stedet for varme.',
+        'Bremsene blir kaldere fordi energien forsvinner inn i bilen og blir borte.',
         'Batteriet får større kapasitet hver gang bilen bremser.',
       ],
       answer: 1,

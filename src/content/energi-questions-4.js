@@ -42,8 +42,8 @@
       options: [
         'At det ikke er noe tap noen steder i kjeden',
         'At virkningsgraden er 100 % i hvert ledd',
-        'At figuren er feil tegnet, fordi energi går tapt',
-        'Energibevaring: nyttig energi + spredt varme = det som kom inn',
+        'At figuren er feil tegnet, fordi energi går tapt underveis',
+        'Energibevaring: nyttig energi + varme = det som kom inn',
       ],
       answer: 3,
       why: {
@@ -69,10 +69,10 @@
       id: 'energi.kv.06', region: R, topic: 'Energikvalitet', concepts: ['energikvalitet', 'kjemisk-energi', 'energibevaring'], level: 5, type: 'mc', myth: 'myte.energi-brukes-opp',
       prompt: 'Læreren sier: «Etter sykkelturen finnes energien fra brødskiva fortsatt – som varme i lufta.» En elev svarer: «Da kan jeg bare spise lufta i stedet!» Hva er den beste faglige oppfølgingen?',
       options: [
-        'Lufta har egentlig ingen energi, så læreren tok feil på det punktet.',
+        'Lufta har egentlig ingen energi, så læreren tok feil på akkurat det punktet.',
         'Det går an i prinsippet, men det ville tatt veldig lang tid.',
         'Kroppen kan bare bruke energi som kommer fra levende ting.',
-        'Energien i lufta er spredt og lavverdig; kroppen trenger samlet kjemisk energi.',
+        'Energien i lufta er spredt og lavverdig; kroppen trenger samlet energi.',
       ],
       answer: 3,
       why: {
@@ -98,7 +98,7 @@
       prompt: 'En panelovn gjør 100 % av strømmen om til varme i rommet. Likevel sier mange at panelovner «sløser» med energi sammenlignet med varmepumper. Hva er den beste begrunnelsen?',
       options: [
         'Panelovnen har egentlig lav virkningsgrad, fordi mye av strømmen forsvinner i ovnen.',
-        'Panelovnen gjør høyverdig strøm rett om til varme; varmepumpa bruker den til å hente varme ute.',
+        'Panelovnen gjør høyverdig strøm rett om til varme; varmepumpa henter varme ute.',
         'Varmen fra en panelovn er av dårligere kvalitet og varmer derfor ikke like godt.',
         'Varmepumpa lager ny energi i tillegg til strømmen, mens panelovnen bare omdanner.',
       ],
@@ -284,9 +284,9 @@
       id: 'energi.emc.01', region: R, topic: 'E = mc²', concepts: ['masse-energi', 'straling'], level: 2, type: 'mc',
       prompt: 'Hva skjer i sola som gjør at den sender ut stråling?',
       options: [
-        'Hydrogen brenner med oksygen, som når vi brenner gass.',
+        'Hydrogen brenner med oksygen, slik som når vi brenner gass på komfyren.',
         'Uranatomer spaltes i solas kjerne.',
-        'Hydrogenkjerner smelter sammen til helium, og litt masse blir energi.',
+        'Hydrogenkjerner smelter sammen til helium; litt masse blir energi.',
         'Sola lager energi av ingenting fordi den er så varm.',
       ],
       answer: 2,
@@ -314,9 +314,9 @@
       prompt: 'En elev sier: «Hvis sola mister masse, bryter den jo massebevaringsloven. Da gjelder vel ikke energibevaring heller?» Hva er det beste svaret?',
       options: [
         'Ja, sola er et unntak der både masse og energi faktisk forsvinner.',
-        'Nei, sola mister ingen masse; den bare brenner opp hydrogenet sitt.',
+        'Nei, sola mister ingen masse; den bare brenner opp hydrogenet sitt etter hvert.',
         'Det er riktig, men det har ingen betydning for oss her på jorda.',
-        'Masse går over til energi; det er masse og energi samlet (E = mc²) som er bevart.',
+        'Masse kan gå over til energi; det er masse og energi samlet som er bevart.',
       ],
       answer: 3,
       why: {
@@ -350,9 +350,9 @@
       prompt: 'En 6.-klassing roper: «Lukk døra, du slipper inn kulda!» Hva er den faglig beste måten å bruke situasjonen på?',
       options: [
         'La uttrykket være; kulde og varme er like ekte i naturen.',
-        'Spørre hvilken vei energien går, og la elevene kjenne og måle hvor det trekker.',
+        'Spørre hvilken vei energien går, og la elevene kjenne hvor det trekker.',
         'Forklare at kulde består av egne kaldpartikler som strømmer inn.',
-        'Ignorere det – hverdagsspråket påvirker ikke den faglige forståelsen.',
+        'Ignorere det – hverdagsspråket påvirker ikke elevenes faglige forståelse.',
       ],
       answer: 1,
       why: {
@@ -368,7 +368,7 @@
       options: [
         'Godta formuleringen – mange lærebøker skriver det på den måten.',
         'Rette til «I celleåndingen lager planta energi» i stedet.',
-        'Spørre hvor energien kommer fra, og la eleven formulere at lys blir kjemisk energi.',
+        'Spørre hvor energien kommer fra, og la eleven koble den til lyset.',
         'Si at planter ikke trenger energi, fordi de ikke beveger seg rundt.',
       ],
       answer: 2,
@@ -414,9 +414,9 @@
       prompt: 'Hvilken aktivitet passer best for å utfordre forestillingen «energi brukes opp» på 9. trinn?',
       options: [
         'La elevene pugge definisjonen av energibevaring til en prøve.',
-        'Veie et fullt og et flatt batteri for å vise at energien er borte.',
+        'Veie et fullt og et flatt batteri for å vise at energien er blitt borte.',
         'Telle hvor mange ganger en sprettball spretter før den stopper.',
-        'La elevene tegne energiregnskap (Sankey) for en lommelykt der ut = inn.',
+        'La elevene tegne energiregnskap (Sankey) for en lommelykt: ut = inn.',
       ],
       answer: 3,
       why: {
@@ -431,7 +431,7 @@
       prompt: 'En elev sier: «Hvorfor må vi lære energibevaring? Den forklarer jo ingenting – vi ser at ting stopper.» Hva gir eleven best grunn til å endre mening?',
       options: [
         'Si at energibevaring står i læreplanen og kommer på prøven.',
-        'La eleven bruke bevaring til å forutsi farten til en fallende ball (v = √(2gh)) og sjekke med måling.',
+        'La eleven forutsi farten til en fallende ball med bevaring, og sjekke med måling.',
         'Si at eleven har rett: bevaring er bare en teoretisk idé uten praktisk bruk.',
         'Forklare at ting stopper fordi energien forsvinner, og at bevaring bare gjelder i verdensrommet.',
       ],

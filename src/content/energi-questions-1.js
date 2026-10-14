@@ -43,7 +43,7 @@
       id: 'energi.form.03', region: R, topic: 'Overføring og omdanning', concepts: ['energiomdanning', 'energioverforing'], level: 2, type: 'mc',
       prompt: 'Hva er forskjellen på **energiomdanning** og **energioverføring**?',
       options: [
-        'Omdanning: energien bytter form. Overføring: energien flytter fra ett system til et annet.',
+        'Omdanning: energien får ny form. Overføring: den flytter til et annet system.',
         'Omdanning: energien flytter til et annet system. Overføring: energien bytter form.',
         'Omdanning skjer bare i levende ting, mens overføring skjer bare i maskiner.',
         'Ved omdanning går energi tapt, mens ved overføring er energien bevart.',
@@ -92,10 +92,10 @@
       id: 'energi.form.06', region: R, topic: 'Energiformer', concepts: ['potensiell-energi', 'kinetisk-energi'], level: 3, type: 'mc', myth: 'myte.energi-krever-bevegelse',
       prompt: 'En stein ligger i ro på en hylle 2 m over gulvet. Hvilken påstand er faglig best?',
       options: [
-        'Steinen har stillingsenergi som kan bli bevegelsesenergi hvis den faller.',
+        'Steinen har stillingsenergi som blir til bevegelse hvis den faller.',
         'Steinen har ingen energi, fordi den ikke beveger seg.',
         'Steinen har energi bare så lenge hylla holder den oppe.',
-        'Steinen har kraft, men ikke energi, så lenge den ligger stille.',
+        'Steinen har en kraft på seg, men ikke energi, så lenge den ligger stille.',
       ],
       answer: 0,
       why: {
@@ -132,10 +132,10 @@
       id: 'energi.form.09', region: R, topic: 'Energiformer', concepts: ['kjemisk-energi', 'potensiell-energi'], level: 3, type: 'mc', myth: 'myte.energi-er-stoff',
       prompt: 'Termisk energi er bevegelse på mikronivå. Hva er da **kjemisk energi** på mikronivå?',
       options: [
-        'Bevegelsesenergi – atomene i maten vibrerer ekstra raskt',
+        'Bevegelsesenergi – atomene i maten vibrerer ekstra raskt hele tiden',
         'Et eget energistoff som ligger lagret inni molekylene',
         'En elektrisk strøm som går mellom atomene i molekylet',
-        'Stillingsenergi – knyttet til hvordan atomene er plassert og bundet',
+        'Stillingsenergi – knyttet til hvordan atomene er plassert',
       ],
       answer: 3,
       why: {
@@ -149,8 +149,8 @@
       id: 'energi.form.10', region: R, topic: 'Energiformer', concepts: ['kjemisk-energi', 'energiomdanning'], level: 4, type: 'mc', myth: 'myte.energi-er-stoff',
       prompt: 'En elev skriver: «Når cellene forbrenner glukose, frigjøres energien som var lagret i bindingene i glukosen.» Hva er den mest presise faglige kommentaren?',
       options: [
-        'Helt riktig – energien sitter i bindingene og slippes fri når de brytes.',
-        'Å bryte bindinger krever energi. Energi frigjøres fordi produktene danner sterkere bindinger.',
+        'Helt riktig – energien sitter i bindingene og slippes fri når bindingene brytes.',
+        'Bindingsbrudd krever energi; energi frigjøres fordi produktene får sterkere bindinger.',
         'Energien kommer bare fra oksygenet; glukosen bidrar ikke med energi.',
         'Energien lages i mitokondriene og fantes ikke før reaksjonen startet.',
       ],
@@ -240,9 +240,9 @@
       prompt: 'Du gnir hendene hardt mot hverandre, og de blir varme. Hvordan kom energien fra musklene inn i huden?',
       options: [
         'Ved varme: hendene var varmere enn lufta rundt dem.',
-        'Ved arbeid: kreftene virket langs en strekning, og friksjonen ga termisk energi.',
+        'Ved arbeid: kraft langs en strekning, og friksjonen ga termisk energi.',
         'Ved stråling fra det varme blodet inne i hendene.',
-        'Den kom ikke noe sted fra – friksjon lager varme av ingenting.',
+        'Den kom ikke noe sted fra – friksjonen lager termisk energi av ingenting.',
       ],
       answer: 1,
       why: {
@@ -256,7 +256,7 @@
       id: 'energi.form.18', region: R, topic: 'Overføring og omdanning', concepts: ['forste-hovedsetning', 'arbeid', 'indre-energi'], level: 4, type: 'mc',
       prompt: 'Når du pumper sykkeldekket, blir pumpa varm nederst, der lufta presses sammen. Hva er hovedforklaringen?',
       options: [
-        'Varmen fra hånda di ledes ned gjennom røret til bunnen av pumpa.',
+        'Varmen fra hånda di ledes ned gjennom metallrøret og samler seg i bunnen.',
         'Lufta som presses sammen, lager ny energi fordi trykket øker.',
         'Du gjør arbeid på lufta når du presser den sammen, og indre energi øker.',
         'Bare friksjonen mellom stempelet og røret varmer opp pumpa.',
@@ -381,8 +381,8 @@
       id: 'energi.mek.12', region: R, topic: 'Energibevaring', concepts: ['energibevaring', 'andre-hovedsetning'], level: 4, type: 'mc', myth: 'myte.energi-brukes-opp',
       prompt: 'Hvorfor kan en sprettball aldri sprette høyere enn der den ble sluppet fra, så lenge ingen dytter den?',
       options: [
-        'Den ville trengt mer energi enn den startet med, og noe blir termisk i hvert støt.',
-        'Tyngdekraften tar litt av energien til ballen for hvert sprett den gjør.',
+        'Den måtte hatt mer energi enn ved start, og noe blir termisk i hvert støt.',
+        'Tyngdekraften tar litt av energien til ballen for hvert eneste sprett den gjør.',
         'Ballen bruker opp spretten sin litt etter litt, til den er helt tom.',
         'Lufta skyver ballen ned med en kraft som øker for hvert sprett.',
       ],
@@ -400,7 +400,7 @@
       options: [
         'Godta svaret, siden eleven har brukt riktig formel og riktige tall.',
         'Si at svaret skal være 9,8 m/s fordi tyngdeakselerasjonen er 9,8 m/s².',
-        'Be eleven sjekke om 350 km/t er rimelig, og finne feilen i utregningen selv.',
+        'Be eleven sjekke om 350 km/t er rimelig, og finne feilen selv.',
         'Si at oppgaven ikke kan løses uten at man kjenner massen til steinen.',
       ],
       answer: 2,
@@ -430,8 +430,8 @@
       options: [
         'Bilen har dobbel kraft og dobbel fart, og 2 · 2 gir nettopp 4.',
         'Bremsene blir varme og virker stadig dårligere jo raskere du kjører.',
-        'Ved høy fart øker massen til bilen så mye at den blir tyngre å stoppe.',
-        'E~k~ firedobles, og med samme bremsekraft trengs fire ganger så lang strekning.',
+        'Ved høy fart øker massen til bilen så mye at den blir mye tyngre å stoppe.',
+        'E~k~ firedobles, og med lik bremsekraft trengs fire ganger så lang vei.',
       ],
       answer: 3,
       why: {
