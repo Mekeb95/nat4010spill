@@ -1,0 +1,203 @@
+/* Energidalen — begrepskort (nøkkelbegreper fra Naturfagsenterets energiark + pensum NAT4010). */
+(function () {
+  'use strict';
+  NG.content.addConcepts([
+    /* ---------- Nøkkelbegreper på energiarket (key: true) ---------- */
+    {
+      id: 'energibevaring', name: 'Energibevaring', region: 'energi', key: true,
+      def: 'Energi kan verken skapes eller forsvinne. I et isolert system er den totale energimengden konstant, uansett hvor mye energien omdannes eller overføres.',
+      example: 'Når en sprettball til slutt ligger stille, er all bevegelsesenergien blitt termisk energi i ballen, bakken og lufta – summen er den samme som da du slapp den.',
+      everyday: 'I hverdagen: «energisparing» og «energien er brukt opp». Fagspråket sier at energien er bevart; det vi bruker opp, er kvaliteten.',
+      related: ['energiomdanning', 'energioverforing', 'forste-hovedsetning', 'energikvalitet'],
+    },
+    {
+      id: 'energioverforing', name: 'Energioverføring', region: 'energi', key: true,
+      def: 'Energi flytter fra ett system (objekt) til et annet. Det skjer på tre måter: ved arbeid (en kraft virker over en strekning), ved varme (på grunn av temperaturforskjell) eller ved stråling.',
+      example: 'Hånda di overfører energi til kassa ved arbeid når du skyver den. Sola overfører energi til jorda ved stråling.',
+      related: ['arbeid', 'varme', 'straling', 'energiomdanning'],
+    },
+    {
+      id: 'energiomdanning', name: 'Energiomdanning', region: 'energi', key: true,
+      def: 'Energien skifter form, for eksempel fra potensiell til kinetisk energi eller fra kjemisk til termisk energi. Mengden er den samme før og etter.',
+      example: 'Et eple som faller: stillingsenergi omdannes til bevegelsesenergi. I en solcelle omdannes strålingsenergi til elektrisk energi.',
+      everyday: 'Hverdagsspråket sier at noe «lager» energi (kraftverk, mat, muskler). Fagspråket sier at de omdanner energi.',
+      related: ['energioverforing', 'energibevaring', 'energikjede'],
+    },
+    {
+      id: 'potensiell-energi', name: 'Potensiell energi (stillingsenergi)', region: 'energi', key: true,
+      def: 'Energi et system har på grunn av stilling eller form, f.eks. en løftet gjenstand i tyngdefeltet (Eₚ = mgh) eller en strukket strikk. På partikkelnivå er kjemisk energi og bindingsenergi også stillingsenergi.',
+      example: 'En bok på 2,0 kg på en hylle 1,5 m over gulvet har 2,0 · 9,81 · 1,5 ≈ 29 J mer stillingsenergi enn på gulvet.',
+      everyday: 'Mange elever tror en stein som ligger i ro «ikke har energi». Den har stillingsenergi – det merkes først når den faller.',
+      related: ['kinetisk-energi', 'energiomdanning', 'arbeid', 'kjemisk-energi'],
+    },
+    {
+      id: 'kinetisk-energi', name: 'Kinetisk energi (bevegelsesenergi)', region: 'energi', key: true,
+      def: 'Energi en gjenstand har fordi den beveger seg: Eₖ = ½mv². Farten står i andre potens, så dobbel fart gir fire ganger så mye bevegelsesenergi.',
+      example: 'Bremselengden firedobles når farten øker fra 50 til 100 km/t, fordi bevegelsesenergien som må omdannes i bremsene, firedobles.',
+      related: ['potensiell-energi', 'termisk-energi', 'energiomdanning'],
+    },
+    {
+      id: 'termisk-energi', name: 'Termisk energi', region: 'energi', key: true,
+      def: 'Den delen av den indre energien som skyldes at partiklene beveger seg (vibrerer, roterer, flytter seg). Mer termisk energi i et stoff betyr i hovedsak raskere partikler og høyere temperatur.',
+      example: 'Bremseklossene blir varme: bilens bevegelsesenergi er blitt termisk energi – partiklene i bremsene og lufta beveger seg raskere.',
+      everyday: 'Kalles ofte «varme» i dagligtale («det er mye varme i ovnen»). Faglig er varme overføringen, termisk energi er det systemet har.',
+      related: ['indre-energi', 'temperatur', 'varme', 'kinetisk-energi'],
+    },
+    {
+      id: 'kjemisk-energi', name: 'Kjemisk energi', region: 'energi', key: true,
+      def: 'Energi lagret i hvordan atomene er bundet sammen. Den frigjøres når stoffer reagerer og danner produkter med lavere kjemisk energi – ikke ved at bindinger brytes (å bryte bindinger krever energi).',
+      example: 'Glukose og oksygen har mer kjemisk energi enn karbondioksid og vann. Forskjellen frigjøres i celleåndingen og blir bl.a. bevegelse og kroppsvarme.',
+      everyday: 'Elever sier ofte at «energien sitter i maten» som et stoff. Energien er knyttet til systemet mat + oksygen, ikke til maten alene.',
+      related: ['potensiell-energi', 'energiomdanning', 'energibaerer', 'energikilde'],
+    },
+    {
+      id: 'elektrisk-energi', name: 'Elektrisk energi', region: 'energi', key: true,
+      def: 'Energi som overføres med elektrisk strøm, der ladde partikler drives gjennom en krets. Den er svært høyverdig: den kan omdannes til nesten hvilken som helst annen form med høy virkningsgrad.',
+      example: 'I en elmotor blir ca. 90 % av den elektriske energien til bevegelsesenergi; resten blir varme i viklinger og lagre.',
+      related: ['energikvalitet', 'energibaerer', 'effekt', 'virkningsgrad'],
+    },
+    {
+      id: 'energikvalitet', name: 'Energikvalitet', region: 'energi', key: true,
+      def: 'Et mål på hvor lett energien kan utnyttes til å gjøre arbeid. Samlet og ordnet energi (elektrisk, mekanisk) er høyverdig; spredt termisk energi ved omgivelsestemperatur er lavverdig. I alle prosesser synker den totale energikvaliteten.',
+      example: 'Brødskiva og den lunkne lufta etter sykkelturen kan inneholde like mange joule – men bare brødskiva kan sende deg opp bakken igjen.',
+      everyday: '«Energiforbruk» betyr faglig at energikvaliteten forbrukes, ikke at energimengden blir mindre.',
+      related: ['andre-hovedsetning', 'entropi', 'energibevaring', 'virkningsgrad'],
+    },
+    {
+      id: 'arbeid', name: 'Arbeid', region: 'energi', key: true,
+      def: 'Energioverføring ved at en kraft virker langs en strekning: W = F · s (når kraften peker i bevegelsesretningen). Enhet: joule, 1 J = 1 N · m. Arbeid er broen mellom kraft og energi.',
+      example: 'Skyver du en kasse med 250 N over 6,0 m, gjør du 1500 J arbeid. Holder du en tung sekk helt i ro, gjør du null arbeid på sekken.',
+      everyday: 'I hverdagen er «arbeid» alt som er slitsomt. I fysikken krever arbeid både kraft og forflytning i kraftens retning.',
+      related: ['energioverforing', 'effekt', 'potensiell-energi', 'forste-hovedsetning'],
+    },
+    {
+      id: 'varme', name: 'Varme', region: 'energi', key: true,
+      def: 'Energi som overføres fordi det er temperaturforskjell – alltid fra varmere til kaldere. Varme er noe som *skjer*, ikke noe en ting *har*.',
+      example: 'Kaffekoppen avgir varme til lufta i rommet til de har samme temperatur.',
+      everyday: 'I hverdagen: «det er mye varme i ovnen» og «lukk døra så ikke kulda kommer inn». Det ovnen har, er indre energi; og det som strømmer, er energi ut – ikke kulde inn.',
+      related: ['temperatur', 'indre-energi', 'energioverforing', 'varmeledning'],
+    },
+    {
+      id: 'straling', name: 'Stråling', region: 'energi', key: true,
+      def: 'Energioverføring med elektromagnetiske bølger (lys, infrarød stråling m.m.). Stråling trenger ikke noe stoff å gå gjennom, og alt som har en temperatur, sender ut stråling.',
+      example: 'Sollyset krysser 150 millioner km tomt rom på ca. 8 minutter. Du kjenner varmen fra et bål i ansiktet selv om lufta mellom er kald.',
+      related: ['energioverforing', 'varme', 'masse-energi', 'konveksjon'],
+    },
+    {
+      id: 'energibaerer', name: 'Energibærer', region: 'energi', key: true,
+      def: 'Noe som kan transportere eller lagre energi slik at den kan brukes et annet sted eller senere. En energibærer må lades eller produseres ved hjelp av en energikilde.',
+      example: 'Batterier, hydrogen laget ved elektrolyse og strøm i strømnettet er energibærere.',
+      related: ['energikilde', 'kjemisk-energi', 'elektrisk-energi'],
+    },
+    {
+      id: 'energikilde', name: 'Energikilde', region: 'energi', key: true,
+      def: 'Noe i naturen som inneholder energi som kan gjøres om til en form som er nyttig for mennesker – f.eks. sola, vind, vann i et magasin, olje, kull eller uran.',
+      example: 'Vannkraft er en energikilde: vann høyt oppe i et magasin har stillingsenergi som turbinen og generatoren gjør om til elektrisk energi.',
+      related: ['energibaerer', 'fornybar-energi', 'energikjede'],
+    },
+    {
+      id: 'energikjede', name: 'Energikjede', region: 'energi', key: true,
+      def: 'En beskrivelse av hvordan energi omdannes og overføres steg for steg fra en kilde til der den ender – nesten alltid som spredt varme. De fleste kjeder starter i sola. Egentlig er det et energinett: vi velger selv hva som er kilde og mottaker.',
+      example: 'Sola → gress (kjemisk) → ku → melk → muskler (bevegelse) → spredt varme i lufta.',
+      everyday: 'Elever tegner gjerne kjeden som om energien blir mindre og mindre. Totalen er konstant; det er den nyttige delen som smalner.',
+      related: ['energiomdanning', 'energikvalitet', 'virkningsgrad', 'energikilde'],
+    },
+
+    /* ---------- Pensumbegreper ---------- */
+    {
+      id: 'effekt', name: 'Effekt', region: 'energi',
+      def: 'Hvor fort energi overføres eller omdannes: P = E / t. Enhet: watt, 1 W = 1 J/s. Effekt sier hvor raskt, ikke hvor mye.',
+      example: 'En vannkoker på 2000 W omdanner 2000 J hvert sekund. En LED-pære på 8 W bruker like mye energi, bare 250 ganger saktere.',
+      everyday: '«Den ovnen har mye energi» – det man mener, er at den har stor effekt.',
+      related: ['kilowattime', 'arbeid', 'virkningsgrad'],
+    },
+    {
+      id: 'kilowattime', name: 'Kilowattime (kWh)', region: 'energi',
+      def: 'En energienhet: effekten 1 kW i én time. 1 kWh = 1000 J/s · 3600 s = 3 600 000 J = 3,6 MJ. Det er watt *ganger* time, ikke watt per time.',
+      example: 'En panelovn på 1500 W som står på i 8 timer, bruker 1,5 kW · 8 h = 12 kWh.',
+      everyday: 'Strømregningen er i kWh (energi). Effekttariffen handler om kW (hvor mye du bruker samtidig).',
+      related: ['effekt', 'elektrisk-energi'],
+    },
+    {
+      id: 'virkningsgrad', name: 'Virkningsgrad', region: 'energi',
+      def: 'Andelen av tilført energi som blir nyttig: η = nyttig energi / tilført energi. Den er alltid mindre enn 1 (100 %) i virkelige maskiner, og kan aldri være større.',
+      example: 'Glødepære: 60 J inn, 3 J lys ut, η = 5 %. Resten er ikke borte – den er blitt varme.',
+      everyday: 'Lav virkningsgrad betyr ikke at energi forsvinner, men at mye ender i en form vi ikke ville ha.',
+      related: ['energikvalitet', 'energikjede', 'effekt', 'andre-hovedsetning'],
+    },
+    {
+      id: 'temperatur', name: 'Temperatur', region: 'energi',
+      def: 'Et mål på partiklenes *gjennomsnittlige* bevegelsesenergi. Kelvin: T = t + 273 (t i °C). Temperatur avgjør hvilken vei varme går – fra høy til lav temperatur.',
+      example: 'Et badekar på 40 °C har lavere temperatur enn en kaffekopp på 95 °C, men mye mer indre energi.',
+      everyday: '«Metall er kaldt» – i fagspråket har metallbeinet og treplata samme temperatur; metallet føles kaldere fordi det leder energi raskere bort fra hånda.',
+      related: ['indre-energi', 'varme', 'nulte-lov', 'termisk-energi'],
+    },
+    {
+      id: 'indre-energi', name: 'Indre energi', region: 'energi',
+      def: 'Summen av all bevegelsesenergi og bindingsenergi (stillingsenergi) til partiklene i et stoff. Den avhenger av både temperatur, mengde og fase. Hvor mye én grad koster, er varmekapasiteten (Q = c · m · ΔT).',
+      example: 'Vann har c = 4180 J/(kg · °C), jern 450 J/(kg · °C): det koster over 9 ganger så mye energi å varme 1 kg vann én grad som 1 kg jern.',
+      everyday: '«Kroppen har mye varme» er hverdagsspråk for stor indre energi.',
+      related: ['temperatur', 'termisk-energi', 'forste-hovedsetning', 'faseovergang-energi'],
+    },
+    {
+      id: 'varmeledning', name: 'Varmeledning', region: 'energi',
+      def: 'Varmeoverføring gjennom et stoff ved at partikler som beveger seg raskt, støter i naboene sine uten at stoffet flytter seg. Metaller leder godt fordi frie elektroner frakter energien raskt.',
+      example: 'Teskjeen i kaffekoppen blir varm i skaftet. Ull og isopor leder dårlig fordi de holder på stillestående luft.',
+      related: ['varme', 'konveksjon', 'straling', 'temperatur'],
+    },
+    {
+      id: 'konveksjon', name: 'Strømning (konveksjon)', region: 'energi',
+      def: 'Varmeoverføring ved at et stoff (væske eller gass) flytter seg og tar energien med seg. Oppvarmet luft utvider seg, får lavere tetthet og stiger.',
+      example: 'Panelovnen under vinduet varmer lufta som stiger og sirkulerer i rommet. Golfstrømmen frakter energi nordover.',
+      related: ['varmeledning', 'straling', 'varme'],
+    },
+    {
+      id: 'faseovergang-energi', name: 'Faseoverganger og energi', region: 'energi',
+      def: 'Ved smelting og fordamping går tilført energi til å bryte bindinger mellom partiklene (økt bindingsenergi), ikke til å øke farten deres. Derfor står temperaturen stille. Energien per kg kalles spesifikk smeltevarme (vann 334 kJ/kg) og fordampningsvarme (vann 2260 kJ/kg).',
+      example: 'Is i et glass holder seg på 0 °C til den er smeltet, selv om rommet tilfører energi hele tiden. Svette kjøler fordi fordampingen henter energi fra huden.',
+      related: ['indre-energi', 'temperatur', 'varme'],
+    },
+    {
+      id: 'entropi', name: 'Entropi', region: 'energi',
+      def: 'Et mål på hvor spredt energien er – hvor mange måter partiklene kan fordele energien på. I et isolert system øker entropien i alle virkelige prosesser; høy entropi betyr lav energikvalitet.',
+      example: 'En kopp varm kaffe i et kaldt rom: energien sprer seg til rommet og kommer aldri av seg selv tilbake i koppen.',
+      related: ['andre-hovedsetning', 'energikvalitet'],
+    },
+    {
+      id: 'forste-hovedsetning', name: 'Termofysikkens 1. hovedsetning', region: 'energi',
+      def: 'Energibevaring for indre energi: ΔU = Q + W. Den indre energien endres med varmen som tilføres og arbeidet som gjøres *på* systemet.',
+      example: 'Sykkelpumpa blir varm: du gjør arbeid på lufta, og den indre energien øker uten at du tilfører varme.',
+      related: ['energibevaring', 'indre-energi', 'arbeid', 'varme'],
+    },
+    {
+      id: 'andre-hovedsetning', name: 'Termofysikkens 2. hovedsetning', region: 'energi',
+      def: 'Loven om energikvalitet: i alle virkelige prosesser synker den totale energikvaliteten (entropien øker). Varme går av seg selv bare fra varmt til kaldt. Den utelukker evighetsmaskiner.',
+      example: 'Sprettballen spretter lavere og lavere: litt mekanisk energi blir spredt termisk energi i hvert støt og kommer ikke tilbake.',
+      related: ['energikvalitet', 'entropi', 'varmepumpe', 'virkningsgrad'],
+    },
+    {
+      id: 'nulte-lov', name: 'Termofysikkens nulte lov', region: 'energi',
+      def: 'To systemer som er i termisk likevekt med et tredje, er i likevekt med hverandre. I praksis: ting som ikke selv regulerer temperaturen, får omgivelsenes temperatur over tid. Det er grunnlaget for at termometre virker.',
+      example: 'Bordbeinet av metall, bordplata av tre og lufta i klasserommet har alle ca. 21 °C – termometeret viser det samme på alle.',
+      related: ['temperatur', 'varme'],
+    },
+    {
+      id: 'masse-energi', name: 'E = mc²', region: 'energi',
+      def: 'Masse og energi henger sammen: E = mc². Når atomkjerner endrer sammensetning (fusjon, fisjon), går en liten del masse over til energi. c² er et enormt tall, så litt masse tilsvarer mye energi.',
+      example: 'I sola smelter hydrogenkjerner sammen til helium. Sola sender ut så mye stråling at den mister ca. 4 millioner tonn masse hvert sekund.',
+      related: ['straling', 'energibevaring', 'energikilde'],
+    },
+    {
+      id: 'varmepumpe', name: 'Varmepumpe', region: 'energi',
+      def: 'En maskin som bruker arbeid (elektrisk energi) til å flytte varme fra et kaldt sted til et varmere sted – «mot strømmen». Den leverer mer varme enn den bruker strøm, fordi mesteparten av varmen hentes fra omgivelsene.',
+      example: 'Med varmefaktor 3 gir 1 kWh strøm 3 kWh varme inne: 2 kWh er hentet fra uteluften. Et kjøleskap er en varmepumpe som flytter energi ut av skapet.',
+      related: ['andre-hovedsetning', 'energibevaring', 'varme'],
+    },
+    {
+      id: 'fornybar-energi', name: 'Fornybar energi', region: 'energi',
+      def: 'En energikilde er fornybar når den er del av de raske kretsløpene i naturen, slik at den ikke kan gå tom i et menneskelig tidsperspektiv (sol, vind, vannkraft, bølger, bioenergi).',
+      example: 'Vannkraft er fornybar fordi sola fordamper vann som regner ned i fjellet igjen. Olje og kull ble dannet over millioner av år og er ikke fornybare.',
+      related: ['energikilde', 'energikjede', 'energibaerer'],
+    },
+  ]);
+})();

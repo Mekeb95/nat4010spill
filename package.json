@@ -1,0 +1,9 @@
+{
+  "name": "nokkelvokteren",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "validate": "node tools/validate.mjs"
+  }
+}

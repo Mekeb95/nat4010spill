@@ -1,0 +1,36 @@
+/* Akademiet — misoppfatninger om språk, begreper, planlegging og vurdering (hos lærere og lærerstudenter). */
+(function () {
+  'use strict';
+  NG.content.addMyths([
+    { id: 'myte.didaktikk-definisjon', text: 'Kan eleven definisjonen, har eleven forstått begrepet.',
+      fix: 'Definisjonen er bare trinn 2 på begrepsstigen. Forståelse viser seg i nettverk, anvendelse og overføring – når eleven kan bruke begrepet i nye situasjoner.',
+      source: 'Haug & Mork 2021, kap. 2' },
+    { id: 'myte.didaktikk-ordflom', text: 'Jo flere nye begreper elevene møter på kort tid, jo mer lærer de.',
+      fix: 'Mange nye ord på en gang gir overflatelæring og kognitiv overbelastning. Velg få nøkkelbegreper og bruk dem over lang tid i ulike sammenhenger.',
+      source: 'Haug & Mork 2021; Mork & Erlien 2017' },
+    { id: 'myte.didaktikk-beskrive-forklare', text: 'Å beskrive et fenomen er det samme som å forklare det.',
+      fix: 'En beskrivelse sier hva som skjer. En forklaring sier hvorfor – med årsaker, mekanismer og bindeord som «fordi» og «derfor».',
+      source: 'NAT4010, vurderingskriterier' },
+    { id: 'myte.didaktikk-aktivitet', text: 'Bare elevene er aktive og har det gøy, lærer de naturfag.',
+      fix: 'Aktivitet er et middel, ikke et mål. Aktiviteten må henge sammen med et læringsmål som kan vurderes, og elevene må tenke med fagets ideer (minds-on).',
+      source: 'NAT4010; sammenheng mål–aktivitet' },
+    { id: 'myte.didaktikk-umalbart', text: '«Elevene skal forstå energi» er et godt læringsmål.',
+      fix: '«Forstå» kan ikke observeres direkte. Gode læringsmål sier hva eleven skal kunne *gjøre* – forklare, plassere, planlegge, vurdere – slik at målet kan vurderes.',
+      source: 'NAT4010, undervisningsplanlegging' },
+    { id: 'myte.didaktikk-fasit', text: 'Vurdering er prøver og karakterer på slutten av perioden.',
+      fix: 'Vurdering for læring skjer underveis: tilbakemeldinger, fremovermeldinger, egenvurdering og justering av undervisningen ut fra hva elevene viser.',
+      source: 'Gamlem 2021; Elever som forskere kap. 6' },
+    { id: 'myte.didaktikk-kildelos', text: 'Egen erfaring og magefølelse er nok til å begrunne fagdidaktiske valg.',
+      fix: 'Erfaring er verdifull, men valgene skal begrunnes med forskning og fagdidaktisk litteratur – det er et eget kriterium i oppgavene.',
+      source: 'NAT4010, vurderingskriterier' },
+    { id: 'myte.didaktikk-hverdagssprak', text: 'Hverdagsspråket er godt nok i naturfag – fagspråk er bare vanskelige ord.',
+      fix: 'Fagspråket gir presisjon og tilgang til fagets tenkemåter («energi overføres» i stedet for «kulda kommer inn»). Hverdagsspråket er utgangspunktet; undervisningen bygger bro til fagspråket.',
+      source: 'Mork & Erlien 2017; Henriksen & Angell 2019' },
+    { id: 'myte.didaktikk-retting', text: 'Elevforestillinger forsvinner når læreren har forklart det riktige svaret tydelig.',
+      fix: 'Forestillinger er robuste fordi de fungerer i hverdagen. Elevene må få dem fram, prøve dem mot erfaringer og se at fagforklaringen er bedre – grubletegninger, prediksjoner og diskusjon.',
+      source: 'Henriksen & Angell 2019' },
+    { id: 'myte.didaktikk-ros', text: '«Flink!» er den beste tilbakemeldingen – ros motiverer.',
+      fix: 'Generell ros av personen gir lite å lære av. Tilbakemelding om oppgaven og prosessen, med et konkret neste steg, fremmer læring mer.',
+      source: 'Gamlem 2021; Hattie & Timperley 2007' },
+  ]);
+})();
