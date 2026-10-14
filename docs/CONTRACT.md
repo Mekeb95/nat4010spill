@@ -22,7 +22,7 @@ node tools/shot.mjs <html> <png> [--click="css"]...  # skjermbilde i mobilformat
 
 ## Språk og faglig kvalitet
 - All tekst er **norsk bokmål**, presis og faglig korrekt på lærerutdanningsnivå (NAT4010).
-- Bruk fagbegrepene slik pensum bruker dem (se `docs/fagstoff/`). Skill hverdagsspråk og fagspråk.
+- Bruk fagbegrepene slik pensum bruker dem (fagstoffet holdes utenfor repoet). Skill hverdagsspråk og fagspråk.
 - Forklaringer skal *forklare* (hvorfor/mekanisme), ikke bare gjenta fasiten.
 - Distraktorer skal være **ekte elevforestillinger/misoppfatninger**, ikke tull. Forklar dem i `why`.
 - Tall: desimalkomma i tekst («9,81 m/s²»). Enheter alltid med. g = 9,81 m/s² med mindre annet står.

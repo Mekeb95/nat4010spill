@@ -6,7 +6,7 @@ og restaurer de åtte nøkkelarkene.
 
 - **Spill:** `dist/index.html` (én selvstendig fil) — også publisert som artifact.
 - **GitHub Pages + PWA:** `node tools/build.mjs` lager også `site/` (manifest, service worker, ikoner — virker offline og kan installeres på hjemskjermen). `.github/workflows/pages.yml` bygger og publiserer `site/` ved push til `main`.
-- **Design:** `docs/DESIGN.md` · **Modulkontrakt:** `docs/CONTRACT.md` · **Fiender:** `docs/ROSTER.md` · **Fagstoff:** `docs/fagstoff/`
+- **Design:** `docs/DESIGN.md` · **Modulkontrakt:** `docs/CONTRACT.md` · **Fiender:** `docs/ROSTER.md` · **Fagstoff:** (holdes utenfor repoet)
 
 ## Innhold
 8 regioner · 750 spørsmål (6 typer, begrepsstigens nivå 1–5) · 228 begrepskort · 64 fiender ·
