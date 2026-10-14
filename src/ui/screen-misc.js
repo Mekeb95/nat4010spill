@@ -167,6 +167,7 @@
     app.appendChild(el('div', { class: 'stack' }, [
       el('div', { class: 'card stack-s' }, [el('label', { class: 'label', for: 'set-name', text: 'Navnet ditt' }), el('div', { class: 'row' }, [name, el('button', { class: 'btn small', text: 'Lagre', onclick: () => { s.name = name.value.trim() || 'Lærling'; NG.save(); NG.toast('Lagret'); } })])]),
       el('div', { class: 'card row' }, [el('span', { class: 'grow', text: 'Lyd' }), el('button', { class: 'btn small', id: 'set-sound', text: NG.audio.muted ? 'Av' : 'På', onclick: (e) => { NG.audio.setMuted(!NG.audio.muted); e.target.textContent = NG.audio.muted ? 'Av' : 'På'; NG.sfx('click'); } })]),
+      installCard(),
       el('div', { class: 'card stack-s' }, [
         el('span', { class: 'label', text: 'Flytt fremgang' }),
         el('p', { class: 'small muted', text: NG.cloud ? 'Fremgangen din lagres i skyen og følger deg når du åpner spillet på en annen enhet. Koden under er en ekstra sikkerhetskopi.' : 'Fremgangen lagres i nettleseren på denne enheten. Kopier koden for å ta den med til en annen enhet.' }),
@@ -187,6 +188,23 @@
       el('button', { class: 'btn ghost block', text: 'Til tittelskjermen', onclick: () => NG.go('title') }),
     ]));
   });
+
+  function installCard() {
+    const standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone;
+    if (standalone) return null;
+    const ios = /iPhone|iPad|iPod/.test(navigator.userAgent);
+    if (NG.installPrompt) {
+      return el('div', { class: 'card row' }, [
+        el('div', { class: 'grow stack-s' }, [el('strong', { text: 'Installer appen' }), el('span', { class: 'small muted', text: 'Legg Nøkkelvokteren på hjemskjermen. Den virker også uten nett.' })]),
+        el('button', { class: 'btn small primary', text: 'Installer', onclick: () => { const p = NG.installPrompt; NG.installPrompt = null; p.prompt(); } }),
+      ]);
+    }
+    if (ios && location.protocol === 'https:') {
+      return el('div', { class: 'card stack-s' }, [el('strong', { text: 'Installer appen' }),
+        el('span', { class: 'small muted', text: 'Trykk på Del-knappen i Safari og velg «Legg til på Hjem-skjerm».' })]);
+    }
+    return null;
+  }
 
   /* ---------- Finale ---------- */
   NG.screen('finale', (app) => {

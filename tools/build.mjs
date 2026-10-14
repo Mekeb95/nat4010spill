@@ -3,7 +3,8 @@
 //   node tools/build.mjs              -> dist/index.html (fullt dokument) + dist/artifact.html (fragment for Artifact)
 //   node tools/build.mjs --mg=<id>    -> dist/mg-<id>.html (kjører bare mini-spillet <id> med stub-API, for testing)
 //   node tools/build.mjs --q=<region> -> dist/q-<region>.html (blar gjennom regionens spørsmål i spørsmålsvisningen)
-import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync, statSync, copyFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -63,12 +64,13 @@ ${js.replace(/<\/script/gi, '<\\/script')}
 ${extraTail || ''}`;
 }
 
-function full(body) {
+function full(body, head) {
   return `<!doctype html>
 <html lang="nb">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+${head || ''}
 </head>
 <body>
 ${body}
@@ -89,4 +91,26 @@ if (args.mg || args.q) {
   writeFileSync(join(dist, 'artifact.html'), body);
   writeFileSync(join(dist, 'index.html'), full(body));
   console.log('dist/index.html + dist/artifact.html', (body.length / 1024).toFixed(0) + ' KB,', jsFiles.length, 'js-filer');
+
+  // GitHub Pages / PWA: site/ med manifest, service worker og ikoner
+  const site = join(root, 'site');
+  if (!existsSync(site)) mkdirSync(site);
+  const pwa = join(root, 'pwa');
+  const version = createHash('sha256').update(body).digest('hex').slice(0, 12);
+  const pwaHead = `<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Nøkkelvokteren">
+<meta name="description" content="RPG-læringsspill i naturfag for NAT4010.">`;
+  const swReg = `<script>if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) { window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); }); }</script>`;
+  const siteHtml = full(page('', swReg), pwaHead);
+  writeFileSync(join(site, 'index.html'), siteHtml);
+  writeFileSync(join(site, 'sw.js'), readFileSync(join(pwa, 'sw.js'), 'utf8').replace('__VERSION__', version));
+  for (const f of ['manifest.webmanifest', 'icon.svg', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'apple-touch-icon.png']) copyFileSync(join(pwa, f), join(site, f));
+  writeFileSync(join(site, '.nojekyll'), '');
+  console.log('site/ (GitHub Pages + PWA) versjon', version);
 }

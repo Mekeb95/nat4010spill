@@ -5,6 +5,7 @@ Bekjemp Misforståelsene med påstand, evidens og begrunnelse, klatre på begrep
 og restaurer de åtte nøkkelarkene.
 
 - **Spill:** `dist/index.html` (én selvstendig fil) — også publisert som artifact.
+- **GitHub Pages + PWA:** `node tools/build.mjs` lager også `site/` (manifest, service worker, ikoner — virker offline og kan installeres på hjemskjermen). `.github/workflows/pages.yml` bygger og publiserer `site/` ved push til `main`.
 - **Design:** `docs/DESIGN.md` · **Modulkontrakt:** `docs/CONTRACT.md` · **Fiender:** `docs/ROSTER.md` · **Fagstoff:** `docs/fagstoff/`
 
 ## Innhold
