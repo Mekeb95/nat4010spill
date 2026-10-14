@@ -726,7 +726,7 @@
           el('div', { class: 'bar' }, [el('i', { style: { width: Math.round(score * 100) + '%', background: 'var(--r-praksis)' } })]),
           el('div', { class: 'small', text: `Farer funnet: ${found.length}/${nHaz} · falske alarmer: ${falseAlarms} · risikovurdering: ${riskOk}/${2 * riskRes.length} · merking: ${qOk ? 'riktig' : 'feil'}` }),
         ]));
-        wrap.appendChild(el('div', { class: 'feedback stack-s small', html:
+        wrap.appendChild(el('div', { class: 'feedback small', html:
           '<strong>Læringspoenget</strong><br>' +
           'En risikovurdering har tre steg: 1) <strong>finn farene</strong> (stoffer, utstyr, mennesker, rom), 2) <strong>vurder risikoen</strong> som sannsynlighet × konsekvens, og 3) <strong>velg tiltak</strong>. Prøv i denne rekkefølgen: fjern faren, bytt til noe tryggere, bruk tekniske tiltak (for eksempel avtrekk eller ildfast plate), lag rutiner, og bruk til slutt verneutstyr.<br>' +
           'Farepiktogrammene (CLP) gir et raskt varsel. Sikkerhetsdatabladet gir grunnlaget for vurderingen. ' +

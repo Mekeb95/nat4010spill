@@ -2,10 +2,9 @@
 (function () {
   'use strict';
   const R = 'var(--r-kropp)';
-  // Kritt-filter: lett ujevn kontur + kornete kritt. Id prefikses med figur-id (alt ligger inline i samme dokument).
-  const chalk = (id) => `<filter id="${id}-k" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".9" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.7" result="d"/><feColorMatrix in="n" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1.1 1.6" result="g"/><feComposite in="d" in2="g" operator="in"/></filter>`;
-  const add = (id, b) => NG.art.add(id, `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="var(--chalk)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><defs>${chalk(id)}</defs><g filter="url(#${id}-k)">${b}</g></svg>`);
-  const f = (o, c) => `fill="${c || R}" fill-opacity="${o == null ? 0.34 : o}"`;
+  // Hver figur får egen <svg>. SVG-interne id-er (gradienter) prefikses med figur-id.
+  const add = (id, b) => NG.art.add(id, `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="var(--chalk)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">${b}</svg>`);
+  const f = (o, c) => `fill="${c || R}" fill-opacity="${o == null ? 0.32 : o}"`;
   const eye = (x, y, r, px, py) => `<circle cx="${x}" cy="${y}" r="${r}" fill="var(--chalk)" stroke="none"/><circle cx="${x + (px || 0)}" cy="${y + (py || 0)}" r="${(r * 0.5).toFixed(1)}" fill="var(--board)" stroke="none"/>`;
   const shadow = (rx, cx) => `<ellipse cx="${cx || 60}" cy="111" rx="${rx || 30}" ry="4.5" fill="var(--chalk)" fill-opacity=".09" stroke="none"/>`;
   const spark = (x, y, s) => `<path d="M${x} ${y - s}v${2 * s}M${x - s} ${y}h${2 * s}" stroke-width="2.5"/>`;
