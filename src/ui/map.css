@@ -1,0 +1,60 @@
+/* Ekspedisjonskartet (forgreinet sti, boss øverst) + Solgløtt-valg og handelsmann. */
+.rmap { position: relative; margin: 4px 0 6px; border-radius: var(--r-m); background:
+  radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--bad) 10%, transparent), transparent 40%),
+  radial-gradient(ellipse at 50% 100%, color-mix(in srgb, var(--rc) 9%, transparent), transparent 45%);
+  overflow: hidden; }
+.rmap-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.rmap-lines line { stroke: var(--chalk-faint); stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 2 7; fill: none; }
+.rmap-lines .ml-dim { opacity: 0.28; }
+.rmap-lines .ml-ahead { stroke: var(--chalk-dim); opacity: 0.6; }
+.rmap-lines .ml-taken { stroke: var(--chalk); stroke-width: 3.5; stroke-dasharray: 9 5; opacity: 0.85; }
+.rmap-lines .ml-open { stroke: var(--rc); stroke-width: 3.5; stroke-dasharray: 7 6; animation: mapFlow 0.9s linear infinite; }
+@keyframes mapFlow { to { stroke-dashoffset: -13; } }
+
+.mnode { position: absolute; width: 50px; height: 50px; margin: -25px 0 0 -25px; padding: 7px; border-radius: 50%;
+  border: 2px solid var(--line-strong); background: var(--board-2); color: var(--chalk-dim); display: grid; place-items: center; z-index: 1; cursor: default;
+  -webkit-tap-highlight-color: transparent; transition: transform .15s ease; }
+.mnode-art { width: 100%; height: 100%; }
+.mnode-art svg { width: 100%; height: 100%; display: block; }
+.mnode.ahead { color: var(--chalk-dim); }
+.mnode.gone { color: color-mix(in srgb, var(--chalk) 22%, transparent); border-color: var(--line); border-style: dotted; background: var(--board); }
+.mnode.done { border-style: dashed; color: var(--chalk-faint); border-color: var(--line-strong); background: var(--board); }
+.mnode.here { opacity: 0.9; border-color: var(--chalk); border-style: solid; }
+.mnode-ok { position: absolute; right: -5px; top: -6px; width: 20px; height: 20px; border-radius: 50%; background: var(--board); border: 2px solid var(--good);
+  color: var(--good); font-size: 0.75rem; font-weight: 700; line-height: 16px; text-align: center; }
+.mnode.can { cursor: pointer; width: 56px; height: 56px; margin: -28px 0 0 -28px; color: var(--rc); border-color: var(--rc); border-width: 3px; background: var(--board-3);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--rc) 22%, transparent), 0 0 18px color-mix(in srgb, var(--rc) 35%, transparent); animation: mapPulse 1.6s ease-in-out infinite; z-index: 2; }
+.mnode.can:active { transform: scale(0.93); }
+@keyframes mapPulse { 50% { box-shadow: 0 0 0 9px color-mix(in srgb, var(--rc) 12%, transparent), 0 0 24px color-mix(in srgb, var(--rc) 45%, transparent); } }
+.mnode:disabled { cursor: default; }
+.mnode.t-elite:not(.done):not(.gone) { border-color: var(--warn); }
+.mnode.t-elite.ahead { color: var(--warn); }
+.mnode.t-sol.ahead { color: var(--gold); }
+.mnode.t-butikk.ahead { color: var(--gold); }
+.mnode.t-kiste.ahead { color: var(--good); }
+.mnode.t-boss { width: 68px; height: 68px; margin: -34px 0 0 -34px; padding: 9px; color: var(--bad); border-color: var(--bad); border-width: 3px; }
+.mnode.t-boss.can { width: 72px; height: 72px; margin: -36px 0 0 -36px; --rc: var(--bad); }
+.mnode.t-boss.gone { opacity: 0.85; border-style: solid; }
+.mnode-l { position: absolute; transform: translate(-50%, 31px); font-size: 0.72rem; font-weight: 700; color: var(--rc); white-space: nowrap; pointer-events: none; z-index: 3;
+  background: color-mix(in srgb, var(--board) 82%, transparent); padding: 0 5px; border-radius: 6px; }
+.mnode-l.boss { transform: translate(-50%, -62px); font-family: var(--f-display); font-size: 1.15rem; font-weight: 400; color: var(--bad); }
+.rmap-start { position: absolute; left: 0; right: 0; bottom: 4px; text-align: center; opacity: 0.7; }
+
+.rmap-legend { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line-strong); }
+.rmap-leg { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 4px 10px 4px 6px; border-radius: 999px; border: 1px solid var(--line-strong);
+  background: var(--board-2); color: var(--chalk); font-size: var(--t-xs); font-weight: 700; cursor: pointer; }
+.rmap-leg-art { width: 24px; height: 24px; color: var(--chalk-dim); }
+.rmap-leg.t-boss .rmap-leg-art { color: var(--bad); }
+.rmap-leg.t-elite .rmap-leg-art { color: var(--warn); }
+
+/* Solgløtt */
+.sol-q { margin: 0; }
+.sol-choice { display: flex; flex-wrap: nowrap; align-items: center; text-align: left; gap: 12px; min-height: 64px; }
+.sol-choice .loot-art { color: var(--gold); }
+
+/* Handelsmann */
+.shop-row { flex-wrap: nowrap; gap: 10px; align-items: center; }
+.shop-row .stack-s { flex: 1 1 auto; }
+.shop-rar { align-self: flex-start; }
+.shop-row .shop-buy { flex: none; min-width: 64px; }
+.shop-row.sold { opacity: 0.45; }

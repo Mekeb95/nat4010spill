@@ -52,7 +52,7 @@ for (let step = 0; step < STEPS; step++) {
     if (hasRun) await click('.run-banner');
     else { await click(`.map-node[aria-label^="${await page.evaluate((r) => NG.region(r).name, REGION)}"]`); await page.waitForTimeout(200); }
   }
-  else if (scr === 'path') { if (!(await click('.pnode.can'))) await click('.btn.ghost'); }
+  else if (scr === 'path') { if (!(await click('.mnode.can'))) await click('.btn.ghost'); }
   else if (['combat', 'review'].includes(scr)) {
     // svar på spørsmålet
     const fbBtn = page.locator('.q-fb .btn.primary');
@@ -94,10 +94,10 @@ for (let step = 0; step < STEPS; step++) {
   }
   else if (scr === 'lab') { await page.waitForTimeout(500); await shot('lab-inner'); if (!(await click('.lab-head .btn'))) await click('.btn.primary'); }
   else if (scr === 'event') { if (!(await click('.event .option:not([disabled])'))) await click('.btn.primary'); }
-  else if (['sol', 'chest', 'sheets', 'finale'].includes(scr)) { if (scr === 'sol') await click('.btn.ghost.block') ; else await click('.btn.primary') || await click('.btn'); }
+  else if (['sol', 'chest', 'sheets', 'finale'].includes(scr)) { if (scr === 'sol') { if (!(await click('.sol-choice[data-choice="hvil"]'))) await click('.btn.primary'); } else await click('.btn.primary') || await click('.btn'); }
   else { if (!(await click('.btn.primary'))) await click('.btn'); }
 }
-const state = await page.evaluate(() => { const s = NG.state(); return { level: s.level, xp: s.xp, hp: s.hp, answered: s.counters.answered, correct: s.counters.correct, wins: s.counters.wins, fights: s.counters.fights, labs: s.counters.labs, joule: s.joule, deaths: s.counters.deaths, run: s.run && { layer: s.run.layer }, cards: Object.keys(s.cards).length, beaten: Object.keys(s.bossesBeaten) }; });
+const state = await page.evaluate(() => { const s = NG.state(); return { level: s.level, xp: s.xp, hp: s.hp, answered: s.counters.answered, correct: s.counters.correct, wins: s.counters.wins, fights: s.counters.fights, labs: s.counters.labs, joule: s.joule, deaths: s.counters.deaths, run: s.run && { at: s.run.at, path: (s.run.path || []).length }, cards: Object.keys(s.cards).length, beaten: Object.keys(s.bossesBeaten) }; });
 console.log(JSON.stringify(state));
 console.log(errs.length ? [...new Set(errs)].join('\n') : 'ingen feil');
 console.log('skjermbilder:', outDir);
