@@ -56,7 +56,7 @@
       why: 'En energikjede viser at energien i bensinen (kjemisk energi) kommer fra sola via planter for millioner av år siden, og blir til bevegelse og varme i bilen. Energi er ikke knyttet til liv.',
       say: [
         { k: 'good', t: '«Hva skjer med bensinen når bilen kjører? La oss tegne hvor energien kommer fra og hvor den går.»', r: '«Hm … bensinen brenner, og da får bilen fart. Så energien er i bensinen, selv om den ikke lever?»' },
-        { k: 'tell', t: '«Det er feil. Bensin inneholder kjemisk energi. Det står i læreboka på side 40.»', r: '«Ok …» (Eleven skriver det ned, men vet ikke hvorfor.)' },
+        { k: 'tell', t: '«Det er feil. Bensin inneholder kjemisk energi, og det står i læreboka på side 40. Skriv det inn i boka di.»', r: '«Ok …» (Eleven skriver det ned, men vet ikke hvorfor.)' },
         { k: 'bad', t: '«Ja, det stemmer at levende ting har mer energi enn ting som ikke lever.»', r: '«Ja, steiner og biler er jo døde. De har ingenting.»' },
       ] },
     { m: 'bevegelse', ctx: 'En ball ligger oppå klasseromsskapet.',
@@ -65,7 +65,7 @@
       why: 'En grubletegning med ulike påstander om ballen på skapet får elevene til å argumentere. Ballen har stillingsenergi (potensiell energi) fordi noen gjorde arbeid da den ble løftet opp.',
       say: [
         { k: 'good', t: '«Hvor kommer farten fra når ballen faller? Var det noe der før den falt?»', r: '«Noen løftet den opp … så kanskje energien ble lagret da? Stillingsenergi?»' },
-        { k: 'tell', t: '«Den har potensiell energi, Ep = mgh. Skriv det ned i boka di nå.»', r: '«Hva betyr mgh igjen?» (Formelen henger ikke sammen med noe for eleven.)' },
+        { k: 'tell', t: '«Den har potensiell energi, Ep = mgh. Skriv formelen ned i boka di nå, så tar vi neste oppgave.»', r: '«Hva betyr mgh igjen?» (Formelen henger ikke sammen med noe for eleven.)' },
         { k: 'bad', t: '«Helt riktig, for energi er det samme som at noe er i bevegelse.»', r: '«Da har jeg ingen energi når jeg sover!»' },
       ] },
     { m: 'kraft', ctx: 'Etter en armbryting i friminuttet.',
@@ -74,7 +74,7 @@
       why: 'I hverdagen brukes «kraft» og «energi» om hverandre. I fagspråket er kraft et dytt eller drag (newton), mens energi er det som kan få noe til å skje (joule). Arbeid (W = F·s) er broen mellom dem.',
       say: [
         { k: 'good', t: '«Du kan dytte hardt på veggen uten at den flytter seg. Brukte du kraft? Fikk veggen energi?»', r: '«Jeg dyttet med kraft … men veggen fikk ikke fart. Så kraft og energi er ikke helt det samme?»' },
-        { k: 'tell', t: '«Kraft måles i newton og energi i joule, så de er to helt ulike størrelser.»', r: '«Ok, ulike enheter.» (Men eleven vet ikke hvordan de henger sammen.)' },
+        { k: 'tell', t: '«Kraft måles i newton og energi i joule, så de er to helt ulike størrelser. Skriv opp enhetene.»', r: '«Ok, ulike enheter.» (Men eleven vet ikke hvordan de henger sammen.)' },
         { k: 'bad', t: '«Ja, sterke folk har mye energi lagret i musklene sine, det er sant.»', r: '«Så vektløftere har mest energi i hele verden!»' },
       ] },
     { m: 'bevaring', ctx: 'Lommelykta har lyst hele natta på leirskolen.',
@@ -83,7 +83,7 @@
       why: 'Energikjeden batteri → elektrisk energi → lys og varme → litt varmere rom viser at energien ikke forsvinner. Den sprer seg og blir mindre nyttig fordi energikvaliteten synker.',
       say: [
         { k: 'good', t: '«Hvor ble det av energien? Ble lykta varm, og hvor ble det av alt lyset?»', r: '«Den ble varm … og lyset traff veggene. Så energien er i rommet, bare spredt utover?»' },
-        { k: 'tell', t: '«Energi kan ikke forsvinne. Det sier energibevaringsloven, så husk den.»', r: '«Men batteriet ER jo tomt …» (Eleven ser ikke sammenhengen.)' },
+        { k: 'tell', t: '«Energi kan ikke forsvinne. Det sier energibevaringsloven, så den må du huske til prøven.»', r: '«Men batteriet ER jo tomt …» (Eleven ser ikke sammenhengen.)' },
         { k: 'bad', t: '«Ja, derfor må vi spare på energien, så den ikke tar slutt på jorda.»', r: '«Så energien i hele verden blir mindre og mindre?»' },
       ] },
     { m: 'biologi', ctx: 'Klassen har sådd karse i vinduskarmen.',
@@ -92,7 +92,7 @@
       why: 'En energikjede som starter i sola viser at planten omdanner lysenergi til kjemisk energi. Planten lager stoff (glukose), men ikke energi.',
       say: [
         { k: 'good', t: '«Hvor får planten energien fra? Kan den gjøre fotosyntese inne i et mørkt skap?»', r: '«Nei, den trenger lys … så energien kommer fra sola, og planten gjør den om?»' },
-        { k: 'tell', t: '«Planter omdanner energi. De lager den ikke. Det er en viktig forskjell.»', r: '«Hva er egentlig forskjellen på å lage og å omdanne?»' },
+        { k: 'tell', t: '«Planter omdanner energi. De lager den ikke. Det er en viktig forskjell som du må huske.»', r: '«Hva er egentlig forskjellen på å lage og å omdanne?»' },
         { k: 'bad', t: '«Ja, plantene er naturens egne energifabrikker, det er helt riktig.»', r: '«Så hvis vi har nok planter, får vi uendelig med energi!»' },
       ] },
     { m: 'stoff', ctx: 'Matpakkelesing: det står kJ på brødposen.',
@@ -101,7 +101,7 @@
       why: 'Med partikkelmodellen kan du vise at maten består av molekyler. Den kjemiske energien henger sammen med hvordan atomene er bundet, og frigjøres når stoffene reagerer med oksygen i cellene. Energi er ikke et eget stoff.',
       say: [
         { k: 'good', t: '«Hva skjer med stoffene i maten inne i kroppen? Trenger cellene noe mer enn maten?»', r: '«Maten blir brutt ned … og reagerer med oksygen? Så det er stoffene som endrer seg, og da frigjøres energi?»' },
-        { k: 'tell', t: '«Energi er ikke et stoff, men en størrelse vi kan regne med. Husk det.»', r: '«Men det står jo kJ på brødposen?»' },
+        { k: 'tell', t: '«Energi er ikke et stoff, men en størrelse vi kan regne med. Husk det, for det kommer på prøven.»', r: '«Men det står jo kJ på brødposen?»' },
         { k: 'bad', t: '«Ja, og jo mer energisaft det er i maten, jo flere kalorier.»', r: '«Kan man helle energien over i en flaske da?»' },
       ] },
     { m: 'metall', ctx: 'Eleven legger hånda på bordbeinet og så på bordplaten.',
@@ -110,7 +110,7 @@
       why: 'Mål begge med termometer. De har samme temperatur, romtemperatur. Metall føles kaldere fordi det leder energi raskere bort fra hånda. Forsøket gir evidens som eleven må forklare.',
       say: [
         { k: 'good', t: '«Godt observert! Hva tror du et termometer viser på beinet og på plata? La oss teste.»', r: '«Begge viser 21 °C?! Men metallet føles kaldere … Kanskje det leder varmen ut av hånda fortere?»' },
-        { k: 'tell', t: '«Begge har romtemperatur. Det er bare følelsen din som lurer deg her.»', r: '«Men jeg KJENNER jo at det er kaldere …»' },
+        { k: 'tell', t: '«Begge har romtemperatur. Det er bare følelsen din som lurer deg her, så du kan ikke stole på den.»', r: '«Men jeg KJENNER jo at det er kaldere …»' },
         { k: 'bad', t: '«Ja, metall er et kaldt materiale. Derfor er kjøleskap laget av metall.»', r: '«Så metall er alltid kaldt, til og med om sommeren?»' },
       ] },
     { m: 'molekyl', ctx: 'Vannet koker i en kjele på kjøkkenbenken.',
@@ -119,7 +119,7 @@
       why: 'Partikkelmodellen viser at temperatur er et mål på den *gjennomsnittlige* bevegelsesenergien til veldig mange partikler. Ett molekyl har en fart, men ingen temperatur.',
       say: [
         { k: 'good', t: '«Hvordan beveger molekylene seg i kokende vann sammenlignet med kaldt? Kan ett molekyl ha temperatur?»', r: '«De beveger seg fortere … og temperaturen er et slags gjennomsnitt av alle sammen? Da kan ikke ett molekyl være «varmt».»' },
-        { k: 'tell', t: '«Molekyler er ikke varme. Temperatur gjelder bare for veldig mange partikler.»', r: '«Hvorfor det? Hvis alle er varme, er vel hver av dem varm?»' },
+        { k: 'tell', t: '«Molekyler er ikke varme. Temperatur gjelder bare for veldig mange partikler sammen, ikke for ett og ett molekyl.»', r: '«Hvorfor det? Hvis alle er varme, er vel hver av dem varm?»' },
         { k: 'bad', t: '«Ja, de varme molekylene blir større og lyser litt rødt når de koker.»', r: '«Så molekylene vokser når vannet koker?»' },
       ] },
     { m: 'kulde', ctx: 'Brus med isbiter i kantina.',

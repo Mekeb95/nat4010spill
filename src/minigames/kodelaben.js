@@ -295,9 +295,9 @@
         qs.push({
           prompt: 'Programmet varsler i **hver** runde etter at T har falt under 60 °C. Hvordan får du bare **ett** varsel?',
           opts: [
-            { t: 'Lag en variabel `varslet = usann` før løkka. Varsle bare hvis `T < 60` og `varslet` er usann, og sett så `varslet = sann`.', ok: true },
-            { t: 'Flytt `hvis`-blokka opp foran løkka.', why: 'Da sjekkes betingelsen bare én gang, mens T = 90. Programmet varsler aldri.' },
-            { t: 'Bytt `T < 60` med `T = 60`.', why: 'T endres i små hopp og blir nesten aldri nøyaktig 60,0. Da varsler programmet trolig aldri.' },
+            { t: 'Lag variabelen `varslet = usann` før løkka. Varsle bare hvis `T < 60` og `varslet` er usann, og sett så `varslet = sann`.', ok: true },
+            { t: 'Flytt `hvis`-blokka opp foran løkka, så den bare kjøres én gang før selve simuleringen starter.', why: 'Da sjekkes betingelsen bare én gang, mens T = 90. Programmet varsler aldri.' },
+            { t: 'Bytt `T < 60` med `T = 60`, slik at betingelsen bare slår til i det ene tidssteget der kaffen er nøyaktig 60 °C.', why: 'T endres i små hopp og blir nesten aldri nøyaktig 60,0. Da varsler programmet trolig aldri.' },
           ],
           explain: 'En betingelse sjekkes på nytt hver gang programmet kommer til den. Ekstra variabler («flagg») lar programmet huske hva som allerede har skjedd.',
         });
@@ -306,7 +306,7 @@
             prompt: 'Hva betyr det at oppdateringen står inni `gjenta 30 ganger`?',
             opts: [
               { t: 'Hver runde er ett tidssteg (1 min). Ny temperatur regnes ut fra forrige verdi, 30 ganger.', ok: true },
-              { t: 'Datamaskinen regner ut temperaturen etter 30 minutter direkte med én formel.', why: 'Simuleringen går steg for steg. Hvert steg bygger på det forrige.' },
+              { t: 'Datamaskinen regner ut temperaturen etter 30 minutter direkte, med én formel og helt uten mellomsteg.', why: 'Simuleringen går steg for steg. Hvert steg bygger på det forrige.' },
               { t: 'Den samme temperaturen tegnes 30 ganger.', why: 'T endres i hver runde fordi oppdateringen står inni løkka.' },
             ],
             explain: 'Løkka gjør simuleringen mulig: vi beskriver bare hva som skjer *i ett lite tidssteg*, og lar datamaskinen gjenta det.',
@@ -315,7 +315,7 @@
             prompt: 'Hvorfor må `sett T = 90` stå **før** løkka?',
             opts: [
               { t: 'T er en variabel som skal huske temperaturen fra runde til runde. Den skal bare få startverdien én gang.', ok: true },
-              { t: 'Fordi datamaskinen leser programmet nedenfra og opp.', why: 'Programmet kjøres ovenfra og ned. Det er en **sekvens**.' },
+              { t: 'Fordi datamaskinen egentlig leser programmet nedenfra og opp, så linja som står øverst, kjøres til slutt.', why: 'Programmet kjøres ovenfra og ned. Det er en **sekvens**.' },
               { t: 'Det spiller ingen rolle hvor den står.', why: 'Står den inni løkka, settes T tilbake til 90 i hver runde.' },
             ],
             explain: 'En variabel er et navngitt lager for en verdi som kan endres. Rekkefølgen (sekvensen) bestemmer når den endres.',
@@ -323,9 +323,9 @@
           {
             prompt: 'Hvorfor kommer T aldri under 20 °C i simuleringen?',
             opts: [
-              { t: 'Når T nærmer seg romtemperaturen, går temperaturforskjellen (T − 20) mot null. Da blir det nesten ingen energioverføring.', ok: true },
-              { t: 'Fordi løkka stopper når T er 20.', why: 'Løkka går alltid 30 ganger. Det er formelen som gjør at endringen blir stadig mindre.' },
-              { t: 'Fordi kaffen har brukt opp all varmen sin.', why: 'Varme er ikke noe kaffen *har*. Det er energi som overføres så lenge det er en temperaturforskjell.' },
+              { t: 'Når T nærmer seg 20 °C, går temperaturforskjellen (T − 20) mot null, og da blir det nesten ingen energioverføring.', ok: true },
+              { t: 'Fordi løkka har en innebygd sperre som stopper simuleringen så snart temperaturen har nådd romtemperatur, 20 °C.', why: 'Løkka går alltid 30 ganger. Det er formelen som gjør at endringen blir stadig mindre.' },
+              { t: 'Fordi kaffen etter hvert har brukt opp all varmen den hadde i seg, og da kan den ikke bli kaldere enn rommet.', why: 'Varme er ikke noe kaffen *har*. Det er energi som overføres så lenge det er en temperaturforskjell.' },
             ],
             explain: 'Varme er energi som overføres på grunn av temperaturforskjell. Uten forskjell blir det ingen netto overføring (termofysikkens nulte lov).',
           },
@@ -335,16 +335,16 @@
           prompt: 'I starten faller de målte temperaturene **raskere** enn modellen, og senere går de litt saktere. Hva er en sannsynlig forklaring?',
           opts: [
             { t: 'Når kaffen er veldig varm, tar fordamping fra overflaten med seg mye energi. Det er ikke med i modellen.', ok: true },
-            { t: 'Målingene er feil, for modellen har alltid rett.', why: 'Når data og modell ikke stemmer, er det like gjerne modellen som må forbedres. Den er en forenkling.' },
-            { t: 'Kulde strømmer raskere inn i varm kaffe.', why: 'Det er energi som overføres fra den varme kaffen til omgivelsene. «Kulde» overføres ikke.' },
+            { t: 'Målingene må være feil, for modellen bygger på en kjent naturlov, og da er det den som har rett.', why: 'Når data og modell ikke stemmer, er det like gjerne modellen som må forbedres. Den er en forenkling.' },
+            { t: 'Kulde fra rommet strømmer raskere inn i kaffen når forskjellen er stor, og det har modellen ikke tatt med.', why: 'Det er energi som overføres fra den varme kaffen til omgivelsene. «Kulde» overføres ikke.' },
           ],
           explain: 'Newtons avkjølingslov er en **modell**. Den passer godt når varmetapet er omtrent proporsjonalt med temperaturforskjellen. Fordamping, lokk, koppens materiale og omrøring er ikke med. En simulering er ikke virkeligheten, men et verktøy for å utforske den.',
         } : {
           prompt: 'Den simulerte kurven passer bra med målingene. Hva er den beste konklusjonen?',
           opts: [
-            { t: 'Modellen er en nyttig forenkling. Fordamping, lokk, koppens materiale og omrøring er ikke med, eller de er «gjemt» i k.', ok: true },
-            { t: 'Simuleringen beviser at Newtons avkjølingslov er sann.', why: 'At en modell passer med data, styrker den, men det beviser ingenting endelig.' },
-            { t: 'Samme k vil også passe for kaffe med lokk i en termokopp.', why: 'k avhenger av kopp, lokk og omgivelser. Da må modellen kalibreres på nytt.' },
+            { t: 'Modellen er en nyttig forenkling: fordamping, lokk, koppens materiale og omrøring er ikke med, eller er «gjemt» i k.', ok: true },
+            { t: 'Simuleringen beviser at Newtons avkjølingslov er sann, og at den gjelder for all slags avkjøling i alle situasjoner.', why: 'At en modell passer med data, styrker den, men det beviser ingenting endelig.' },
+            { t: 'Siden kurven passer så godt, vil den samme verdien av k også passe for kaffe med lokk i en termokopp.', why: 'k avhenger av kopp, lokk og omgivelser. Da må modellen kalibreres på nytt.' },
           ],
           explain: 'Newtons avkjølingslov er en **modell** med et gyldighetsområde. En simulering er ikke virkeligheten, men et verktøy for å utforske den. Styrker og begrensninger ved modeller er en del av kompetansemålet.',
         });

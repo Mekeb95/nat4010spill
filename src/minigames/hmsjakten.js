@@ -73,8 +73,8 @@
       p: 2, k: 3, ok: ['hoy'],
       risk: 'Sprut skjer ofte nok (middels sannsynlighet), og øyeskade er alvorlig → **høy risiko**.',
       tiltak: [
-        { t: 'Alle tar på vernebriller før forsøket starter – og beholder dem på til ryddingen er ferdig.', ok: true },
-        { t: 'Den som heller eller varmer, bruker briller; de som ser på, trenger ikke.', why: 'Sprut treffer også tilskuere. Regelen gjelder alle i rommet.' },
+        { t: 'Alle tar på vernebriller før start og har dem på til ryddingen er ferdig.', ok: true },
+        { t: 'Bare den som heller eller varmer bruker briller. De som bare ser på, kan stå litt unna benken i stedet.', why: 'Sprut treffer også tilskuere. Regelen gjelder alle i rommet.' },
         { t: 'Skyll øynene i øyedusjen hvis det spruter.', why: 'Det er beredskap (hva vi gjør etterpå), ikke et forebyggende tiltak.' },
       ],
     },
@@ -85,9 +85,9 @@
       p: 2, k: 3, ok: ['hoy'],
       risk: 'Det skjer ikke hver gang, men brannskade i ansiktet er alvorlig → **høy risiko**.',
       tiltak: [
-        { t: 'Sett opp langt hår og fjern løse skjerf/snorer før gassbrenneren tennes.', ok: true },
-        { t: 'Be eleven passe ekstra godt på.', why: '«Passe på» er et svakt tiltak. Fjern faren i stedet (sett opp håret).' },
-        { t: 'Ha brannteppe klart.', why: 'Brannteppe er beredskap. Det hindrer ikke at håret tar fyr.' },
+        { t: 'Sett opp håret før gassbrenneren tennes.', ok: true },
+        { t: 'Be eleven være ekstra forsiktig og passe godt på håret sitt mens flammen er tent.', why: '«Passe på» er et svakt tiltak. Fjern faren i stedet (sett opp håret).' },
+        { t: 'Ha brannteppet klart ved benken, så det er raskt å slukke hvis noe tar fyr.', why: 'Brannteppe er beredskap. Det hindrer ikke at håret tar fyr.' },
       ],
     },
     ror: {
@@ -97,9 +97,9 @@
       p: 2, k: 3, ok: ['hoy'],
       risk: 'Støtkoking er ikke uvanlig, og sprut i ansiktet er alvorlig → **høy risiko**.',
       tiltak: [
-        { t: 'Pek munningen mot veggen, bort fra alle, og varm forsiktig mens du beveger røret i flammen.', ok: true },
-        { t: 'Medeleven tar på vernebriller.', why: 'Briller hjelper, men det er bedre å fjerne selve faren: pek røret bort.' },
-        { t: 'Varm raskere, så blir det fort ferdig.', why: 'Rask, ujevn oppvarming øker faren for støtkoking.' },
+        { t: 'Pek munningen bort fra alle, og varm forsiktig mens du beveger røret.', ok: true },
+        { t: 'Medeleven tar på seg vernebriller og stiller seg litt lenger unna benken.', why: 'Briller hjelper, men det er bedre å fjerne selve faren: pek røret bort.' },
+        { t: 'Varm raskere og kraftigere, så blir oppvarmingen fort ferdig.', why: 'Rask, ujevn oppvarming øker faren for støtkoking.' },
       ],
     },
     brennbar: {
@@ -109,9 +109,9 @@
       p: 2, k: 3, ok: ['hoy'],
       risk: 'Damp kan nå flammen (middels), og brann er alvorlig → **høy risiko**.',
       tiltak: [
-        { t: 'Flytt etanolen bort fra flammen, eller la være å bruke åpen flamme der det brukes brannfarlige væsker.', ok: true },
-        { t: 'Sett korken på flaska og la den stå.', why: 'Kork hjelper litt, men flaska skal ikke stå ved flammen i det hele tatt.' },
-        { t: 'Skru ned flammen.', why: 'En liten flamme tenner også damp.' },
+        { t: 'Flytt etanolen langt unna flammen, eller dropp åpen flamme.', ok: true },
+        { t: 'Sett korken på flaska og la den stå der den står nå, ved siden av brenneren.', why: 'Kork hjelper litt, men flaska skal ikke stå ved flammen i det hele tatt.' },
+        { t: 'Skru ned flammen til den nesten ikke synes.', why: 'En liten flamme tenner også damp.' },
       ],
     },
     papir: {
@@ -121,9 +121,9 @@
       p: 2, k: 2, ok: ['middels', 'hoy'],
       risk: 'Gnister lander ofte på benken (middels), og en papirbrann er moderat til alvorlig → **middels til høy risiko**.',
       tiltak: [
-        { t: 'Rydd bort papir og annet brennbart før forsøket, og legg arket i en plastlomme et annet sted.', ok: true },
-        { t: 'Ha et glass vann klart til å slukke.', why: 'Det er beredskap. Fjern det brennbare først.' },
-        { t: 'Hold arket litt unna med hånda.', why: 'Hånda nær gnister og flamme er en ny fare.' },
+        { t: 'Rydd bort papir og annet brennbart fra benken før forsøket starter.', ok: true },
+        { t: 'Ha et glass vann klart ved siden av, så dere kan slukke raskt om papiret tar fyr.', why: 'Det er beredskap. Fjern det brennbare først.' },
+        { t: 'Hold arket litt unna med hånda mens stålulla brenner.', why: 'Hånda nær gnister og flamme er en ny fare.' },
       ],
     },
     underlag: {
@@ -134,8 +134,8 @@
       risk: 'Gnister faller nesten alltid (høy), og konsekvensen er brann i papiret → **høy risiko**.',
       tiltak: [
         { t: 'Bruk ildfast plate under og hold stålulla med tang.', ok: true },
-        { t: 'Bruk dobbelt papir.', why: 'Papir brenner uansett tykkelse.' },
-        { t: 'Brenn en mindre dott.', why: 'Mindre dott gir færre gnister, men underlaget må fortsatt være ildfast.' },
+        { t: 'Legg to eller tre lag med papir under, så tåler underlaget mer varme.', why: 'Papir brenner uansett tykkelse.' },
+        { t: 'Brenn en mindre dott stålull, så blir det færre gnister.', why: 'Mindre dott gir færre gnister, men underlaget må fortsatt være ildfast.' },
       ],
     },
     lukt: {
@@ -146,8 +146,8 @@
       risk: 'Det skjer lett (middels), og irriterte luftveier er moderat til alvorlig → **middels til høy risiko**.',
       tiltak: [
         { t: 'Gjør forsøket i avtrekk, og lær elevene vifteteknikken.', ok: true },
-        { t: 'Be eleven holde pusten.', why: 'Det er et svakt tiltak. Gassen skal fjernes med avtrekk.' },
-        { t: 'Åpne et vindu etter timen.', why: 'Det er for sent. Eksponeringen skjer under forsøket.' },
+        { t: 'Be eleven holde pusten mens hun eller han lukter over begeret.', why: 'Det er et svakt tiltak. Gassen skal fjernes med avtrekk.' },
+        { t: 'Åpne vinduene etter timen, så lufta i rommet blir byttet ut.', why: 'Det er for sent. Eksponeringen skjer under forsøket.' },
       ],
     },
     pipette: {
@@ -158,8 +158,8 @@
       risk: 'Det skjer lett (middels), og etseskade i munnen er alvorlig → **høy risiko**.',
       tiltak: [
         { t: 'Bruk peleusball eller pipettepumpe. Munnpipettering er forbudt.', ok: true },
-        { t: 'Sug forsiktig.', why: 'Selv forsiktig suging kan gi væske i munnen.' },
-        { t: 'Bruk mer fortynnet løsning.', why: 'Det reduserer konsekvensen litt, men munnpipettering er fortsatt uakseptabelt.' },
+        { t: 'Sug forsiktig og sakte, og stopp i god tid før væsken når toppen.', why: 'Selv forsiktig suging kan gi væske i munnen.' },
+        { t: 'Bruk mer fortynnet løsning, så blir det mindre farlig om noe kommer i munnen.', why: 'Det reduserer konsekvensen litt, men munnpipettering er fortsatt uakseptabelt.' },
       ],
     },
     kant: {
@@ -169,9 +169,9 @@
       p: 2, k: 3, ok: ['hoy'],
       risk: 'Flasker veltes lett (middels), og konsentrert syre gir alvorlige etseskader → **høy risiko**.',
       tiltak: [
-        { t: 'Kork på, flaska inn på benken (helst i avtrekket), og bare lærer håndterer konsentrert syre.', ok: true },
-        { t: 'Legg papir under i tilfelle søl.', why: 'Papir stopper ikke etsende syre.' },
-        { t: 'Elevene får beskjed om å ikke dulte borti.', why: '«Ikke dult borti» er et svakt tiltak når faren kan fjernes.' },
+        { t: 'Kork på, flaska inn i avtrekket, og bare læreren håndterer konsentrert syre.', ok: true },
+        { t: 'Legg tørkepapir under flaska, så tar papiret opp syra hvis den renner over.', why: 'Papir stopper ikke etsende syre.' },
+        { t: 'Si til elevene at de må passe seg så de ikke dulter borti flaska ved kanten.', why: '«Ikke dult borti» er et svakt tiltak når faren kan fjernes.' },
       ],
     },
     sol: {
@@ -182,7 +182,7 @@
       risk: 'Det er lite sannsynlig at det går galt (lav), men strømgjennomgang kan være alvorlig → **middels risiko**.',
       tiltak: [
         { t: 'Slå av, tørk opp, og plasser strømforsyningen unna væsker.', ok: true },
-        { t: 'Ta på hansker.', why: 'Vanlige laboratoriehansker beskytter ikke mot strøm.' },
+        { t: 'Alle tar på laboratoriehansker før de rører strømforsyningen.', why: 'Vanlige laboratoriehansker beskytter ikke mot strøm.' },
         { t: 'Fortsett: det er jo bare lav spenning til elektrodene.', why: 'Spenningen til elektrodene er lav, men strømforsyningen er koblet til 230 V.' },
       ],
     },
@@ -194,8 +194,8 @@
       risk: 'Gassen dannes helt sikkert (høy), og konsekvensen er irriterte luftveier (moderat) → **høy risiko**.',
       tiltak: [
         { t: 'Gjør det gassutviklende trinnet i avtrekksskap med avtrekket på.', ok: true },
-        { t: 'Åpne vinduet.', why: 'Lufting er et svakere tiltak enn avtrekk. Gassen passerer fortsatt ansiktene.' },
-        { t: 'Bruk vernebriller.', why: 'Briller beskytter øynene, ikke luftveiene.' },
+        { t: 'Åpne vinduene på vidt gap, så gassen luftes ut av rommet underveis.', why: 'Lufting er et svakere tiltak enn avtrekk. Gassen passerer fortsatt ansiktene.' },
+        { t: 'Alle bruker vernebriller hele tiden.', why: 'Briller beskytter øynene, ikke luftveiene.' },
       ],
     },
     etikett: {
@@ -205,8 +205,8 @@
       p: 2, k: 2, ok: ['middels', 'hoy'],
       risk: 'Forveksling skjer (middels), og konsekvensen avhenger av stoffet (moderat–alvorlig) → **middels til høy risiko**.',
       tiltak: [
-        { t: 'Ikke bruk stoffet. Lærer identifiserer eller kasserer det, og alle beholdere merkes med navn og farepiktogram.', ok: true },
-        { t: 'Lukt forsiktig for å finne ut hva det er.', why: 'Ukjente stoffer skal aldri luktes på eller smakes på for å identifiseres.' },
+        { t: 'Ikke bruk stoffet. Læreren identifiserer eller kasserer det, og all merking sjekkes.', ok: true },
+        { t: 'Lukt forsiktig på innholdet med vifteteknikken for å finne ut hva det er, og skriv det på.', why: 'Ukjente stoffer skal aldri luktes på eller smakes på for å identifiseres.' },
         { t: 'Skriv «Ukjent» på flaska og sett den tilbake.', why: 'Da gjenstår faren for neste klasse. Stoffet må identifiseres eller kasseres som farlig avfall.' },
       ],
     },
@@ -218,7 +218,7 @@
       risk: 'Det skjer sjelden (lav), og konsekvensen er moderat → **lav til middels risiko**. Regelen er likevel enkel å følge.',
       tiltak: [
         { t: 'Ingen mat eller drikke på laben. Den legges i sekken eller spises utenfor.', ok: true },
-        { t: 'Sett koppen lenger unna forsøket.', why: 'Kjemikalier og mat skal ikke være i samme rom.' },
+        { t: 'Sett koppen og matpakka helt i andre enden av benken, langt unna forsøket.', why: 'Kjemikalier og mat skal ikke være i samme rom.' },
         { t: 'Det er greit hvis det er lokk på.', why: 'Lokket hindrer ikke at hendene tar med seg kjemikalier til munnen.' },
       ],
     },
@@ -229,8 +229,8 @@
       p: 2, k: 2, ok: ['middels', 'hoy'],
       risk: 'Det skjer lett (middels), og konsekvensen er moderat (kutt, brann eller miljøskade) → **middels risiko**.',
       tiltak: [
-        { t: 'Ha merkede avfallsbeholdere (glass, tungmetall, og så videre) klare, og gå gjennom dem før forsøket.', ok: true },
-        { t: 'Lærer rydder alt etter timen.', why: 'Faren oppstår mens elevene rydder. Sortering må planlegges inn i forsøket.' },
+        { t: 'Ha merkede avfallsbeholdere klare, og gå gjennom sorteringen før forsøket.', ok: true },
+        { t: 'Læreren rydder og sorterer alt avfallet selv etter at elevene har gått.', why: 'Faren oppstår mens elevene rydder. Sortering må planlegges inn i forsøket.' },
         { t: 'Skyll alt ned i vasken med mye vann.', why: 'Tungmetaller og glødende eller skarpt avfall skal ikke i vasken eller søpla.' },
       ],
     },
@@ -241,8 +241,8 @@
       p: 2, k: 2, ok: ['middels'],
       risk: 'Snubling skjer (middels), og forsinket førstehjelp er moderat til alvorlig → **middels risiko**.',
       tiltak: [
-        { t: 'Sekker og jakker legges utenfor laben eller i hylle, og veien til nødutstyret holdes fri.', ok: true },
-        { t: 'Skyv sekkene inntil benken.', why: 'Da kan du fortsatt snuble i dem.' },
+        { t: 'Sekker legges utenfor laben eller i hylle, så veien til nødutstyret er fri.', ok: true },
+        { t: 'Skyv sekkene inn under benken eller helt inntil den, så de tar mindre plass.', why: 'Da kan du fortsatt snuble i dem.' },
         { t: 'Gå forsiktig.', why: 'Det er et svakt tiltak. Fjern faren.' },
       ],
     },
@@ -668,7 +668,7 @@
           fig: '<svg viewBox="0 0 80 80" width="88" height="88" aria-hidden="true"><path d="M40 6l34 34-34 34L6 40z" fill="var(--chalk)" stroke="var(--bad)" stroke-width="5"/><path d="M40 58c-10 0-14-8-10-16 2 4 4 5 6 5-2-8 2-14 8-18 0 6 4 8 6 12 2 4 2 17-10 17z" fill="var(--board)"/><path d="M26 60h28" stroke="var(--board)" stroke-width="3"/></svg>',
           opts: [
             { t: 'Brannfarlig: stoffet eller dampen tar lett fyr.', ok: true },
-            { t: 'Varmt: brannskadefare hvis du tar på flaska.', why: 'Piktogrammet beskriver stoffets egenskaper, ikke temperaturen på flaska.' },
+            { t: 'Varmt innhold: du kan brenne deg hvis du tar på flaska.', why: 'Piktogrammet beskriver stoffets egenskaper, ikke temperaturen på flaska.' },
             { t: 'Oksiderende: stoffet gir næring til brann.', why: 'Oksiderende har en flamme *over en sirkel*. Det er et annet piktogram.' },
           ],
           explain: 'CLP-piktogrammene (rød rombe) gir et raskt varsel. I **sikkerhetsdatabladet** står det mer: farer, verneutstyr, førstehjelp, lagring og avfall. Det er grunnlaget for risikovurderingen.',
