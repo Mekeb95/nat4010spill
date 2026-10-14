@@ -14,13 +14,63 @@
     app.innerHTML = '';
     app.className = 'scr-' + name;
     current = { name, params: params || {} };
+    if (HUBS.includes(name)) lastHub = name;
+    if (name !== 'title') arm();
+    try { if (NG.music) NG.music.auto(name, params || {}); } catch (e) { /* musikk er valgfritt */ }
     const r = screens[name];
     if (!r) { app.textContent = 'Ukjent skjerm: ' + name; return; }
     const ret = r(app, params || {});
     if (typeof ret === 'function') cleanup = ret;
     try { window.scrollTo(0, 0); } catch (e) { /* */ }
+    // Tilgjengelighet: flytt fokus til skjermens overskrift (uten synlig ramme/hopp).
+    const ae = document.activeElement;
+    if (!ae || ae === document.body || !document.contains(ae)) {
+      const h = app.querySelector('h1');
+      if (h) { h.setAttribute('tabindex', '-1'); try { h.focus({ preventScroll: true }); } catch (e) { /* */ } }
+    }
   };
   NG.current = () => current;
+
+  /* ---------- Tilbakeknapp (Android/nettleser) ----------
+     Én «felle»-oppføring i historikken: tilbake lukker et åpent ark eller går til en fornuftig forelder
+     i appen, i stedet for å lukke PWA-en. Ekspedisjon, kamp og noder blir stående (ingen flukt midt i
+     en kamp, og belønningsskjermer tegnes aldri på nytt). Av i iframe (Artifact-visning). */
+  const HUBS = ['title', 'camp', 'path'];
+  const STAY = ['path', 'combat', 'event', 'chest', 'sol', 'merchant'];
+  const SAFE_BACK = ['camp', 'path', 'labs', 'exams', 'sheets', 'wall', 'settings', 'shop', 'review'];
+  let lastHub = 'camp';
+  let armed = false;
+  const sheets = [];
+  const useHistory = (() => { try { return window.top === window && !!(window.history && history.pushState); } catch (e) { return false; } })();
+  function arm() {
+    if (!useHistory || armed) return;
+    try { history.pushState({ ng: 1 }, ''); armed = true; } catch (e) { /* */ }
+  }
+  function backTarget() {
+    const cur = current || { name: 'title', params: {} };
+    const n = cur.name, p = cur.params || {};
+    const s = NG.state && NG.state();
+    const run = s && s.run;
+    if (n === 'title') return null;
+    if (n === 'camp' || n === 'intro') return { name: 'title' };
+    if (STAY.includes(n) || (n === 'lab' && p.inRun)) return run || n === 'path' || n === 'combat' ? 'stay' : { name: 'camp' };
+    if (n === 'lab') return { name: 'labs' };
+    if (p.back && SAFE_BACK.includes(p.back.name) && p.back.name !== n) {
+      return p.back.name === 'path' && !run ? { name: 'camp' } : p.back;
+    }
+    return { name: lastHub === 'path' && run ? 'path' : 'camp' };
+  }
+  if (useHistory) {
+    window.addEventListener('popstate', () => {
+      armed = false;
+      const onTitle = !current || current.name === 'title';
+      if (sheets.length) { if (!onTitle) arm(); sheets[sheets.length - 1](); return; }
+      const t = backTarget();
+      if (!t) return; // tittelskjermen: tilbake lukker appen
+      if (t === 'stay') arm();
+      else NG.go(t.name, t.params); // NG.go setter fella på nytt (unntatt for tittelskjermen)
+    });
+  }
 
   /* ---------- Grafikk ---------- */
   NG.artEl = function (id, cls) {
@@ -65,8 +115,19 @@
   /* ---------- Modal-ark (bunnark på mobil) ---------- */
   NG.sheet = function (title, content, actions) {
     const back = el('div', { class: 'sheet-back', onclick: (e) => { if (e.target === back) close(); } });
-    const box = el('div', { class: 'sheet', role: 'dialog', 'aria-modal': 'true', 'aria-label': title });
-    function close() { back.remove(); document.removeEventListener('keydown', onKey); }
+    const box = el('div', { class: 'sheet', role: 'dialog', 'aria-modal': 'true', 'aria-label': title, tabindex: '-1' });
+    const prevFocus = document.activeElement;
+    let open = true;
+    function close() {
+      if (!open) return;
+      open = false;
+      back.remove(); document.removeEventListener('keydown', onKey);
+      const i = sheets.indexOf(close); if (i >= 0) sheets.splice(i, 1);
+      const tgt = prevFocus && prevFocus !== document.body && document.contains(prevFocus) ? prevFocus : document.querySelector('#app h1[tabindex]');
+      if (tgt && tgt.focus) try { tgt.focus({ preventScroll: true }); } catch (e) { /* */ }
+    }
+    sheets.push(close);
+    arm();
     function onKey(e) { if (e.key === 'Escape') close(); }
     document.addEventListener('keydown', onKey);
     box.appendChild(el('div', { class: 'row sheet-head' }, [
@@ -84,6 +145,7 @@
     }
     back.appendChild(box);
     document.body.appendChild(back);
+    try { box.focus({ preventScroll: true }); } catch (e) { /* */ }
     return { close, body };
   };
 

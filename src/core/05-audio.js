@@ -1,18 +1,26 @@
-/* Små synth-lyder med WebAudio. Ingen filer. Starter først etter brukerinteraksjon. */
+/* Små synth-lyder med WebAudio. Ingen filer. Starter først etter brukerinteraksjon.
+   Lydgraf: SFX → master → høyttaler; musikk (07-music.js) → egen musikkgain → master. */
 (function () {
   'use strict';
   let ctx = null;
+  let master = null;
   let muted = false;
   try { muted = localStorage.getItem('ng.muted') === '1'; } catch (e) { /* ingen lagring */ }
 
-  function ac() {
-    if (muted) return null;
+  // Felles AudioContext for SFX og musikk. Skal bare kalles fra (eller etter) en brukerhandling.
+  function context() {
     if (!ctx) {
-      try { ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return null; }
+      try {
+        ctx = new (window.AudioContext || window.webkitAudioContext)();
+        master = ctx.createGain();
+        master.gain.value = 1;
+        master.connect(ctx.destination);
+      } catch (e) { ctx = null; return null; }
     }
-    if (ctx.state === 'suspended') ctx.resume().catch(() => {});
+    if (ctx.state === 'suspended' && document.visibilityState !== 'hidden') ctx.resume().catch(() => {});
     return ctx;
   }
+  function ac() { return muted ? null : context(); }
   function tone(freq, dur, type, vol, when, slide) {
     const c = ac(); if (!c) return;
     const t = c.currentTime + (when || 0);
@@ -23,7 +31,7 @@
     g.gain.setValueAtTime(0.0001, t);
     g.gain.exponentialRampToValueAtTime(vol || 0.12, t + 0.01);
     g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    o.connect(g); g.connect(c.destination);
+    o.connect(g); g.connect(master);
     o.start(t); o.stop(t + dur + 0.02);
   }
   const SFX = {
@@ -39,9 +47,18 @@
     win: () => { [392, 523, 659, 784, 1047].forEach((f, i) => tone(f, 0.2, 'triangle', 0.09, i * 0.1)); },
     lose: () => { [392, 330, 262, 196].forEach((f, i) => tone(f, 0.25, 'triangle', 0.08, i * 0.14)); },
   };
-  NG.sfx = function (name) { try { (SFX[name] || SFX.click)(); } catch (e) { /* lyd er valgfritt */ } };
+  NG.sfx = function (name) {
+    try { (SFX[name] || SFX.click)(); } catch (e) { /* lyd er valgfritt */ }
+    try { if (NG.music && NG.music._onSfx) NG.music._onSfx(name); } catch (e) { /* */ }
+  };
   NG.audio = {
     get muted() { return muted; },
-    setMuted(m) { muted = !!m; try { localStorage.setItem('ng.muted', muted ? '1' : '0'); } catch (e) { /* */ } },
+    setMuted(m) {
+      muted = !!m; try { localStorage.setItem('ng.muted', muted ? '1' : '0'); } catch (e) { /* */ }
+      try { if (NG.music && NG.music._sync) NG.music._sync(); } catch (e) { /* */ }
+    },
+    context, // oppretter ved behov (uavhengig av lyd av/på)
+    get ready() { return !!ctx; },
+    get master() { return master; },
   };
 })();

@@ -59,6 +59,9 @@
     if (q.figure) wrap.appendChild(el('div', { class: 'q-figure', html: q.figure.trim().startsWith('<') ? q.figure : NG.art.get(q.figure) }));
     wrap.appendChild(el('div', { class: 'q-prompt', html: NG.md(q.prompt) }));
     const body = el('div', { class: 'q-body stack-s' });
+    // Rask dobbelttrykk på «Videre» skal ikke svare på neste spørsmål: ignorer trykk de første 250 ms.
+    const born = Date.now();
+    body.addEventListener('click', (e) => { if (Date.now() - born < 250) { e.stopPropagation(); e.preventDefault(); } }, true);
     wrap.appendChild(body);
     const fb = el('div', { class: 'q-fb' });
     wrap.appendChild(fb);

@@ -56,8 +56,8 @@ function page(extraHead, extraTail) {
 ${css}
 </style>
 ${extraHead || ''}
-<div id="app" aria-live="polite"></div>
-<div class="toast-wrap" id="toasts"></div>
+<div id="app"></div>
+<div class="toast-wrap" id="toasts" role="status" aria-live="polite"></div>
 <script>
 ${js.replace(/<\/script/gi, '<\\/script')}
 </script>
