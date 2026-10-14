@@ -243,6 +243,43 @@
     app.appendChild(el('div', { class: 'row' }, [el('h1', { class: 'h-display grow', text: 'Innstillinger' }), el('button', { class: 'btn ghost small', text: 'Leiren', onclick: () => NG.go('camp') })]));
     const name = el('input', { class: 'num-in', id: 'set-name', value: s.name, maxlength: '24', 'aria-label': 'Navn' });
     const code = el('textarea', { class: 'num-in code-area', id: 'set-code', rows: '3', 'aria-label': 'Lagringskode', placeholder: 'Lim inn en lagringskode for å hente fremgang fra en annen enhet' });
+    const picker = el('input', { type: 'file', accept: '.json,application/json,text/plain', hidden: true, 'aria-label': 'Velg sikkerhetskopi-fil', onchange: () => {
+      const f = picker.files && picker.files[0];
+      if (!f) return;
+      f.text().then((t) => {
+        if (NG.importSave(t)) { NG.toast('Fremgang hentet'); NG.go('camp'); } else NG.toast('Fila er ikke en gyldig sikkerhetskopi');
+      }, () => NG.toast('Klarte ikke å lese fila'));
+      picker.value = '';
+    } });
+    function shareFile() {
+      const f = NG.exportFile();
+      let file = null;
+      try { file = new File([f.text], f.name, { type: 'application/json' }); } catch (e) { file = null; }
+      if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+        navigator.share({ files: [file], title: 'Nøkkelvokteren – sikkerhetskopi' }).catch((e) => { if (e && e.name !== 'AbortError') download(f); });
+      } else download(f);
+    }
+    function download(f) {
+      const url = URL.createObjectURL(new Blob([f.text], { type: 'application/json' }));
+      const a = el('a', { href: url, download: f.name });
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 2000);
+      NG.toast('Sikkerhetskopi lagret');
+    }
+    function snapList() {
+      const snaps = NG.snapshots();
+      if (!snaps.length) return null;
+      return el('details', { class: 'stack-s' }, [
+        el('summary', { class: 'small', text: 'Automatiske kopier på denne enheten (' + snaps.length + ')' }),
+        el('div', { class: 'stack-s' }, snaps.map((x) => el('div', { class: 'row', style: { flexWrap: 'nowrap' } }, [
+          el('span', { class: 'small grow', text: new Date(x.t).toLocaleString('nb-NO', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) + ' · nivå ' + x.level + ' · ' + x.answered + ' svar' + (x.why !== 'auto' ? ' (' + x.why + ')' : '') }),
+          el('button', { class: 'btn small', style: { flexShrink: '0' }, text: 'Gjenopprett', onclick: () => {
+            if (!confirm('Bytte ut fremgangen med denne kopien? Nåværende fremgang tas vare på som en egen kopi.')) return;
+            if (NG.restoreSnapshot(x.i)) { NG.toast('Kopi gjenopprettet'); NG.go('camp'); } else NG.toast('Kopien kunne ikke leses');
+          } }),
+        ]))),
+      ]);
+    }
     app.appendChild(el('div', { class: 'stack' }, [
       el('div', { class: 'card stack-s' }, [el('label', { class: 'label', for: 'set-name', text: 'Navnet ditt' }), el('div', { class: 'row' }, [name, el('button', { class: 'btn small', text: 'Lagre', onclick: () => { s.name = name.value.trim() || 'Lærling'; NG.save(); NG.toast('Lagret'); } })])]),
       el('div', { class: 'card row' }, [el('span', { class: 'grow', text: 'Lyd' }), el('button', { class: 'btn small', id: 'set-sound', text: NG.audio.muted ? 'Av' : 'På', onclick: (e) => { NG.audio.setMuted(!NG.audio.muted); e.target.textContent = NG.audio.muted ? 'Av' : 'På'; NG.sfx('click'); } })]),
@@ -256,16 +293,25 @@
       ]) : null,
       installCard(),
       el('div', { class: 'card stack-s' }, [
-        el('span', { class: 'label', text: 'Flytt fremgang' }),
-        el('p', { class: 'small muted', text: NG.cloud ? 'Fremgangen din lagres i skyen og følger deg når du åpner spillet på en annen enhet. Koden under er en ekstra sikkerhetskopi.' : 'Fremgangen lagres i nettleseren på denne enheten. Kopier koden for å ta den med til en annen enhet.' }),
+        el('span', { class: 'label', text: 'Sikkerhetskopi og flytting' }),
+        el('p', { class: 'small muted', text: NG.cloud ? 'Fremgangen din lagres i skyen og følger deg når du åpner spillet på en annen enhet. En sikkerhetskopi-fil er en ekstra trygghet.' : 'Fremgangen lagres i appen på denne enheten og blir med når spillet oppdateres. For å flytte den: lagre eller del en sikkerhetskopi-fil, og hent den inn på den andre enheten.' }),
         el('div', { class: 'row' }, [
-          el('button', { class: 'btn small', text: 'Kopier min kode', onclick: () => {
-            const c = NG.exportSave(); code.value = c;
-            try { navigator.clipboard.writeText(c).then(() => NG.toast('Kopiert'), () => { code.select(); NG.toast('Merk og kopier teksten'); }); } catch (e) { code.select(); }
-          } }),
-          el('button', { class: 'btn small', text: 'Hent fra kode', onclick: () => { if (NG.importSave(code.value)) { NG.toast('Fremgang hentet'); NG.go('camp'); } else NG.toast('Ugyldig kode'); } }),
+          el('button', { class: 'btn small primary', text: 'Lagre / del fil', onclick: shareFile }),
+          el('button', { class: 'btn small', text: 'Hent fra fil', onclick: () => picker.click() }),
         ]),
-        code,
+        picker,
+        el('details', { class: 'stack-s' }, [
+          el('summary', { class: 'small', text: 'Bruk tekstkode i stedet' }),
+          el('div', { class: 'row' }, [
+            el('button', { class: 'btn small', text: 'Kopier min kode', onclick: () => {
+              const c = NG.exportSave(); code.value = c;
+              try { navigator.clipboard.writeText(c).then(() => NG.toast('Kopiert'), () => { code.select(); NG.toast('Merk og kopier teksten'); }); } catch (e) { code.select(); }
+            } }),
+            el('button', { class: 'btn small', text: 'Hent fra kode', onclick: () => { if (NG.importSave(code.value)) { NG.toast('Fremgang hentet'); NG.go('camp'); } else NG.toast('Ugyldig kode'); } }),
+          ]),
+          code,
+        ]),
+        snapList(),
       ]),
       el('div', { class: 'card stack-s' }, [
         el('span', { class: 'label', text: 'Om spillet' }),

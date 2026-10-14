@@ -104,8 +104,51 @@
   NG.save = function (opts) {
     if (!state) return;
     state.updated = Date.now();
-    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* privat modus o.l. */ }
+    const json = JSON.stringify(state);
+    try { localStorage.setItem(KEY, json); } catch (e) { /* privat modus o.l. */ }
+    autoSnapshot(json);
     scheduleDb(opts && opts.now);
+  };
+
+  /* ---------- Lokale sikkerhetskopier ----------
+     Én kopi per døgn (de siste SNAP_MAX), pluss en kopi rett før import/gjenoppretting,
+     slik at en feil import eller en ødelagt lagring kan rulles tilbake. */
+  const SNAPS = 'ng.snaps.v1';
+  const SNAP_MAX = 4;
+  function readSnaps() {
+    try { const a = JSON.parse(localStorage.getItem(SNAPS) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; }
+  }
+  function writeSnaps(a) {
+    // Fyller lagringen seg opp, kastes de eldste kopiene først.
+    while (a.length) {
+      try { localStorage.setItem(SNAPS, JSON.stringify(a)); return; } catch (e) { a.shift(); }
+    }
+    try { localStorage.removeItem(SNAPS); } catch (e) { /* */ }
+  }
+  function snapshot(json, why) {
+    if (!state || !(state.counters.answered > 0)) return;
+    const a = readSnaps();
+    a.push({ t: Date.now(), why: why || 'auto', level: state.level, answered: state.counters.answered, json });
+    writeSnaps(a.slice(-SNAP_MAX));
+  }
+  function autoSnapshot(json) {
+    const a = readSnaps();
+    const last = a.length ? a[a.length - 1] : null;
+    if (!last || new Date(last.t).toDateString() !== new Date().toDateString()) snapshot(json, 'auto');
+  }
+  NG.snapshots = function () {
+    return readSnaps().map((x, i) => ({ i, t: x.t, why: x.why, level: x.level, answered: x.answered })).reverse();
+  };
+  NG.restoreSnapshot = function (i) {
+    const x = readSnaps()[i];
+    if (!x) return false;
+    let s;
+    try { s = JSON.parse(x.json); } catch (e) { return false; }
+    if (!isObj(s) || !isObj(s.cards) || !isObj(s.counters) || !isObj(s.stats)) return false;
+    if (state) snapshot(JSON.stringify(state), 'før gjenoppretting');
+    state = fixVitals(migrate(s));
+    NG.save({ now: true });
+    return true;
   };
 
   NG.resetSave = function () {
@@ -115,13 +158,22 @@
     return state;
   };
 
+  NG.exportFile = function () {
+    const d = new Date();
+    const name = 'nokkelvokteren-' + d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0') + '.json';
+    return { name, text: JSON.stringify(state) };
+  };
+
   NG.exportSave = function () {
     try { return btoa(unescape(encodeURIComponent(JSON.stringify(state)))); } catch (e) { return ''; }
   };
   NG.importSave = function (code) {
     try {
-      const s = JSON.parse(decodeURIComponent(escape(atob(String(code).trim()))));
+      // Godtar både lagringskoden (base64) og innholdet i en sikkerhetskopi-fil (ren JSON).
+      const txt = String(code).trim();
+      const s = JSON.parse(txt.charAt(0) === '{' ? txt : decodeURIComponent(escape(atob(txt))));
       if (!isObj(s) || !isObj(s.cards) || !isObj(s.counters) || !isObj(s.stats)) return false;
+      if (state) snapshot(JSON.stringify(state), 'før import');
       state = fixVitals(migrate(s));
       NG.save({ now: true });
       return true;
