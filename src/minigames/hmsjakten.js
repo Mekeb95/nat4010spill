@@ -10,7 +10,8 @@
 .mg-hmsjakten .mg-hms-head { display: flex; flex-direction: column; gap: 4px; }
 .mg-hmsjakten .mg-hms-scene { position: relative; border-radius: var(--r-m); border: 2px solid var(--line-strong); overflow: hidden; background: var(--board); }
 .mg-hmsjakten .mg-hms-scene svg { display: block; width: 100%; height: auto; touch-action: manipulation; cursor: pointer; user-select: none; -webkit-user-select: none; }
-.mg-hmsjakten .c { fill: none; stroke: var(--chalk); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.mg-hmsjakten .c:not([fill]) { fill: none; }
+.mg-hmsjakten .c { stroke: var(--chalk); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 .mg-hmsjakten .cf { stroke: var(--chalk-faint); }
 .mg-hmsjakten .hit { fill: transparent; stroke: none; }
 .mg-hmsjakten .mark-bad { fill: none; stroke: var(--bad); stroke-width: 3; }
@@ -289,12 +290,12 @@
     g.push('<rect x="0" y="205" width="360" height="9" fill="var(--board-3)"/><path class="c" d="M0 205h360M0 214h360"/>');
     g.push('<path class="c cf" d="M6 214v46M96 214v46M186 214v46M276 214v46M354 214v46"/><path class="c cf" d="M86 236v8M106 236v8M266 236v8M286 236v8"/>');
     // nødutstyr på høyre vegg
-    g.push('<rect x="316" y="28" width="36" height="32" rx="4" fill="color-mix(in srgb, var(--good) 35%, transparent)" class="c"/><ellipse cx="334" cy="44" rx="10" ry="6" class="c"/><circle cx="334" cy="44" r="2.5" fill="var(--chalk)"/>');
-    g.push('<rect x="318" y="70" width="32" height="42" rx="4" fill="color-mix(in srgb, var(--bad) 40%, transparent)" class="c"/><path class="c" d="M324 80h20M324 88h20"/>');
+    g.push('<rect x="316" y="28" width="36" height="32" rx="4" fill="var(--good)" fill-opacity="0.35" class="c"/><ellipse cx="334" cy="44" rx="10" ry="6" class="c"/><circle cx="334" cy="44" r="2.5" fill="var(--chalk)"/>');
+    g.push('<rect x="318" y="70" width="32" height="42" rx="4" fill="var(--bad)" fill-opacity="0.40" class="c"/><path class="c" d="M324 80h20M324 88h20"/>');
 
     // S8 avtrekksskap
     g.push('<path class="c" d="M40 0v8M58 0v8"/><rect class="c" x="6" y="8" width="86" height="140" rx="4" fill="var(--board-2)"/>');
-    g.push('<rect class="c" x="14" y="40" width="70" height="64" rx="2" fill="color-mix(in srgb, var(--chalk) 6%, transparent)"/><path class="c cf" d="M14 72h70M22 112h54"/>');
+    g.push('<rect class="c" x="14" y="40" width="70" height="64" rx="2" fill="var(--chalk)" fill-opacity="0.06"/><path class="c cf" d="M14 72h70M22 112h54"/>');
     if (S.slots.S8) {
       const off = on('S8');
       g.push(`<circle cx="80" cy="22" r="6" fill="${off ? 'var(--bad)' : 'var(--good)'}"/><text x="68" y="26" text-anchor="end" font-size="11" font-family="var(--f-mono)" fill="var(--chalk-dim)">${off ? 'AV' : 'PÅ'}</text>`);
@@ -305,7 +306,7 @@
     }
 
     // S4 flaske (etikett)
-    g.push('<rect class="c" x="22" y="164" width="12" height="10" fill="var(--board-3)"/><rect class="c" x="16" y="174" width="24" height="31" rx="4" fill="color-mix(in srgb, var(--r-stoffer) 22%, transparent)"/>');
+    g.push('<rect class="c" x="22" y="164" width="12" height="10" fill="var(--board-3)"/><rect class="c" x="16" y="174" width="24" height="31" rx="4" fill="var(--r-stoffer)" fill-opacity="0.22"/>');
     if (!on('S4')) g.push('<rect x="19" y="181" width="18" height="16" fill="var(--chalk)" opacity=".85"/><path d="M28 183l6 6-6 6-6-6z" fill="none" stroke="var(--bad)" stroke-width="1.8"/>');
 
     // S1 elev til venstre (vernebriller)
@@ -318,7 +319,7 @@
     else if (s2 === 'lukt' && on('S2')) g.push(student(244, 'var(--r-energi)', true, 'short', 10));
     else g.push(student(262, 'var(--r-energi)', true, 'short'));
     if (s2 === 'pipette') {
-      g.push('<path class="c" d="M282 205v-14h18v14" fill="color-mix(in srgb, var(--r-stoffer) 25%, transparent)"/>');
+      g.push('<path class="c" d="M282 205v-14h18v14" fill="var(--r-stoffer)" fill-opacity="0.25"/>');
       if (on('S2')) g.push('<path d="M262 134L291 200" stroke="var(--chalk)" stroke-width="3" stroke-linecap="round"/><path class="c" d="M276 160l12 4"/>');
       else g.push('<path d="M266 162L291 200" stroke="var(--chalk)" stroke-width="3" stroke-linecap="round"/><circle cx="264" cy="157" r="7" fill="var(--bad)" opacity=".8"/><path class="c" d="M276 160l-8-2"/>');
     } else if (s2 === 'lukt') {
@@ -331,7 +332,7 @@
     // S3 apparat
     if (sc === 'oppvarming' || sc === 'staalull') {
       g.push('<rect class="c" x="196" y="182" width="12" height="23" fill="var(--board-3)"/><rect class="c" x="188" y="201" width="28" height="4"/>');
-      g.push('<path d="M202 182c-8-8-4-16 0-24 4 8 8 16 0 24z" fill="color-mix(in srgb, var(--r-energi) 70%, transparent)" stroke="var(--r-energi)" stroke-width="2"/>');
+      g.push('<path d="M202 182c-8-8-4-16 0-24 4 8 8 16 0 24z" fill="var(--r-energi)" fill-opacity="0.70" stroke="var(--r-energi)" stroke-width="2"/>');
     }
     if (sc === 'oppvarming') {
       if (on('S3')) g.push('<path d="M186 164L244 138" stroke="var(--chalk)" stroke-width="9" stroke-linecap="round" opacity=".9"/><path d="M188 163L244 138" stroke="var(--board)" stroke-width="4.5" stroke-linecap="round"/><circle cx="192" cy="161" r="3" fill="var(--r-liv)"/><path class="c" d="M154 184L214 151"/>');
@@ -342,14 +343,14 @@
       g.push('<path d="M176 168c6-6 14-2 12 4s-12 6-14 0 6-10 12-6" fill="none" stroke="var(--chalk-dim)" stroke-width="2.4"/><path class="c" d="M154 184L176 172"/>');
       g.push('<circle cx="170" cy="182" r="1.8" fill="var(--r-energi)"/><circle cx="186" cy="190" r="1.8" fill="var(--r-energi)"/><circle cx="178" cy="194" r="1.6" fill="var(--warn)"/><circle cx="192" cy="178" r="1.6" fill="var(--warn)"/>');
     } else if (sc === 'elektrolyse') {
-      g.push('<path class="c" d="M168 160v42q0 3 3 3h40q3 0 3-3v-42" /><path d="M170 172h42v30h-42z" fill="color-mix(in srgb, var(--r-stoffer) 35%, transparent)"/>');
+      g.push('<path class="c" d="M168 160v42q0 3 3 3h40q3 0 3-3v-42" /><path d="M170 172h42v30h-42z" fill="var(--r-stoffer)" fill-opacity="0.35"/>');
       g.push('<rect x="178" y="150" width="6" height="46" fill="var(--board-4)" class="c"/><rect x="198" y="150" width="6" height="46" fill="var(--board-4)" class="c"/>');
       g.push('<path d="M181 150c0-14 30-14 50 24M201 150c0-8 20-10 36 26" fill="none" stroke="var(--bad)" stroke-width="1.8"/>');
       g.push('<circle cx="206" cy="182" r="1.8" class="c"/><circle cx="208" cy="174" r="1.5" class="c"/><circle cx="206" cy="166" r="1.3" class="c"/>');
     } else if (sc === 'syrebase') {
       g.push('<rect class="c" x="166" y="200" width="56" height="5"/><path class="c" d="M216 200V60M216 92h-22"/>');
-      g.push('<rect class="c" x="188" y="62" width="8" height="104" fill="color-mix(in srgb, var(--chalk) 10%, transparent)"/><path class="c" d="M192 166v8M186 168h12"/>');
-      g.push('<path class="c" d="M186 176v8l-12 18h36l-12-18v-8z" fill="color-mix(in srgb, var(--r-kropp) 40%, transparent)"/>');
+      g.push('<rect class="c" x="188" y="62" width="8" height="104" fill="var(--chalk)" fill-opacity="0.10"/><path class="c" d="M192 166v8M186 168h12"/>');
+      g.push('<path class="c" d="M186 176v8l-12 18h36l-12-18v-8z" fill="var(--r-kropp)" fill-opacity="0.40"/>');
     }
 
     // S9
@@ -361,7 +362,7 @@
       else g.push(beaker(236));
     } else if (sc === 'elektrolyse') {
       g.push('<rect class="c" x="230" y="176" width="36" height="29" rx="3" fill="var(--board-3)"/><circle cx="240" cy="188" r="3.5" fill="var(--bad)"/><circle cx="256" cy="188" r="3.5" fill="var(--chalk)"/>');
-      if (on('S9')) g.push('<ellipse cx="248" cy="207" rx="26" ry="4" fill="color-mix(in srgb, var(--r-stoffer) 60%, transparent)"/><path d="M236 214v8M258 214v12M246 214v5" stroke="var(--r-stoffer)" stroke-width="2.4" stroke-linecap="round"/>');
+      if (on('S9')) g.push('<ellipse cx="248" cy="207" rx="26" ry="4" fill="var(--r-stoffer)" fill-opacity="0.60"/><path d="M236 214v8M258 214v12M246 214v5" stroke="var(--r-stoffer)" stroke-width="2.4" stroke-linecap="round"/>');
     } else if (sc === 'syrebase') {
       if (on('S9')) g.push('<g transform="rotate(22 252 204)">' + bottle(240, 'var(--bad)', false, true) + '</g><path d="M266 210v10" stroke="var(--r-stoffer)" stroke-width="2.4" stroke-linecap="round"/>');
       else g.push(bottle(240, 'var(--bad)', false));
@@ -370,18 +371,18 @@
     // S5 mat/drikke
     if (on('S5')) {
       const v = sc.length % 3;
-      if (v === 0) g.push('<rect class="c" x="314" y="176" width="18" height="29" rx="3" fill="color-mix(in srgb, var(--bad) 45%, transparent)"/><path class="c" d="M316 182h14"/>');
+      if (v === 0) g.push('<rect class="c" x="314" y="176" width="18" height="29" rx="3" fill="var(--bad)" fill-opacity="0.45"/><path class="c" d="M316 182h14"/>');
       else if (v === 1) g.push('<path class="c" d="M310 180h22l-3 25h-16z" fill="var(--board-3)"/><path class="c" d="M332 186c8 0 8 10 0 10"/><path class="c cf" d="M316 174c-3-4 3-6 0-10M326 174c-3-4 3-6 0-10"/>');
-      else g.push('<path class="c" d="M306 204l18-20 18 20z" fill="color-mix(in srgb, var(--r-energi) 35%, transparent)"/><path class="c" d="M312 198h24"/>');
+      else g.push('<path class="c" d="M306 204l18-20 18 20z" fill="var(--r-energi)" fill-opacity="0.35"/><path class="c" d="M312 198h24"/>');
     } else {
-      g.push('<path class="c" d="M316 205v-20q0-6 6-6h6q6 0 6 6v20z" fill="color-mix(in srgb, var(--chalk) 15%, transparent)"/><path class="c" d="M325 179v-8l12-6"/>');
+      g.push('<path class="c" d="M316 205v-20q0-6 6-6h6q6 0 6 6v20z" fill="var(--chalk)" fill-opacity="0.15"/><path class="c" d="M325 179v-8l12-6"/>');
     }
 
     // S6 avfall
     if (on('S6')) {
       g.push('<path class="c" d="M14 268h52l-6 54h-40z" fill="var(--board-3)"/>');
       if (S.waste === 'glass') g.push('<path class="c" d="M24 268l6-14 4 14M38 268l8-12 2 12M50 268l-2-10 6 10"/>');
-      else if (S.waste === 'kobber') g.push('<path d="M60 238l-14 22" stroke="var(--chalk)" stroke-width="2"/><path class="c" d="M56 226l14 8-6 12-14-8z"/><path d="M46 262q-2 6 2 10" stroke="var(--r-stoffer)" stroke-width="3" fill="none"/><ellipse cx="40" cy="270" rx="18" ry="3" fill="color-mix(in srgb, var(--r-stoffer) 60%, transparent)"/>');
+      else if (S.waste === 'kobber') g.push('<path d="M60 238l-14 22" stroke="var(--chalk)" stroke-width="2"/><path class="c" d="M56 226l14 8-6 12-14-8z"/><path d="M46 262q-2 6 2 10" stroke="var(--r-stoffer)" stroke-width="3" fill="none"/><ellipse cx="40" cy="270" rx="18" ry="3" fill="var(--r-stoffer)" fill-opacity="0.60"/>');
       else g.push('<path d="M30 262c4-6 14-6 18 0" fill="none" stroke="var(--chalk-dim)" stroke-width="2.4"/><circle cx="34" cy="262" r="2" fill="var(--r-energi)"/><circle cx="44" cy="260" r="2" fill="var(--warn)"/><path d="M38 254c-4-6 4-8 0-14" fill="none" stroke="var(--chalk-faint)" stroke-width="2"/>');
     } else {
       g.push('<path class="c" d="M18 274h44v48h-44z" fill="var(--board-3)"/><path class="c" d="M28 274v-8h24v8"/><rect x="24" y="284" width="32" height="24" fill="var(--chalk)" opacity=".85"/><path d="M40 287l9 9-9 9-9-9z" fill="none" stroke="var(--bad)" stroke-width="1.8"/>');
@@ -389,8 +390,8 @@
 
     // S7 sekker
     if (on('S7')) {
-      g.push('<path class="c" d="M262 322v-34q0-10 12-10h16q12 0 12 10v34z" fill="color-mix(in srgb, var(--r-jorda) 40%, transparent)"/><path class="c" d="M270 300h24"/>');
-      g.push('<path class="c" d="M310 324l4-30q2-8 12-8h10q10 0 10 8l2 30z" fill="color-mix(in srgb, var(--r-liv) 35%, transparent)"/>');
+      g.push('<path class="c" d="M262 322v-34q0-10 12-10h16q12 0 12 10v34z" fill="var(--r-jorda)" fill-opacity="0.40"/><path class="c" d="M270 300h24"/>');
+      g.push('<path class="c" d="M310 324l4-30q2-8 12-8h10q10 0 10 8l2 30z" fill="var(--r-liv)" fill-opacity="0.35"/>');
     }
 
     // treff-flater (usynlige)
@@ -403,14 +404,14 @@
   function student(cx, col, goggles, hair, lean) {
     const dy = lean || 0;
     const hy = 120 + dy;
-    let s = `<path class="c" d="M${cx - 20} 205l4-52q2-6 8-6h16q6 0 8 6l4 52" fill="color-mix(in srgb, ${col} 28%, transparent)"/>`;
+    let s = `<path class="c" d="M${cx - 20} 205l4-52q2-6 8-6h16q6 0 8 6l4 52" fill="${col}" fill-opacity="0.28"/>`;
     s += `<path class="c" d="M${cx} ${hy + 17}v10"/>`;
     if (hair === 'long') s += `<path d="M${cx - 17} ${hy - 4}c-6 24-2 44-10 60M${cx + 17} ${hy - 4}c6 24 4 40 10 52M${cx - 13} ${hy - 8}c-4 30-8 44-16 56" fill="none" stroke="var(--r-energi)" stroke-width="3" stroke-linecap="round"/>`;
     s += `<circle class="c" cx="${cx}" cy="${hy}" r="17" fill="var(--board-3)"/>`;
-    if (hair === 'bun') s += `<circle class="c" cx="${cx}" cy="${hy - 22}" r="7" fill="color-mix(in srgb, var(--r-energi) 40%, transparent)"/><path class="c" d="M${cx - 16} ${hy - 6}q16-14 32 0"/>`;
+    if (hair === 'bun') s += `<circle class="c" cx="${cx}" cy="${hy - 22}" r="7" fill="var(--r-energi)" fill-opacity="0.40"/><path class="c" d="M${cx - 16} ${hy - 6}q16-14 32 0"/>`;
     else if (hair === 'long') s += `<path d="M${cx - 17} ${hy - 4}q17-20 34 0" fill="none" stroke="var(--r-energi)" stroke-width="3"/>`;
     else s += `<path class="c" d="M${cx - 16} ${hy - 6}q16-16 32 0"/>`;
-    if (goggles) s += `<rect x="${cx - 15}" y="${hy - 4}" width="30" height="10" rx="4" fill="color-mix(in srgb, var(--r-praksis) 45%, transparent)" stroke="var(--r-praksis)" stroke-width="2"/>`;
+    if (goggles) s += `<rect x="${cx - 15}" y="${hy - 4}" width="30" height="10" rx="4" fill="var(--r-praksis)" fill-opacity="0.45" stroke="var(--r-praksis)" stroke-width="2"/>`;
     else s += `<circle cx="${cx - 6}" cy="${hy}" r="2" fill="var(--chalk)"/><circle cx="${cx + 6}" cy="${hy}" r="2" fill="var(--chalk)"/>`;
     s += `<path class="c" d="M${cx - 5} ${hy + 9}q5 3 10 0"/>`;
     return s;
@@ -418,13 +419,13 @@
   function bottle(x, col, flame, open) {
     let s = `<rect class="c" x="${x + 2}" y="168" width="10" height="9" fill="var(--board-3)"/>`;
     if (!open) s += `<rect x="${x + 1}" y="164" width="12" height="5" fill="var(--chalk-dim)"/>`;
-    s += `<rect class="c" x="${x - 4}" y="177" width="22" height="28" rx="4" fill="color-mix(in srgb, ${col} 18%, transparent)"/>`;
+    s += `<rect class="c" x="${x - 4}" y="177" width="22" height="28" rx="4" fill="${col}" fill-opacity="0.18"/>`;
     s += `<rect x="${x - 1}" y="182" width="16" height="16" fill="var(--chalk)" opacity=".9"/><path d="M${x + 7} 183l7 7-7 7-7-7z" fill="none" stroke="var(--bad)" stroke-width="1.8"/>`;
     if (flame) s += `<path d="M${x + 7} 194c-3-2-2-5 0-7 2 2 3 5 0 7z" fill="var(--board)"/>`;
     return s;
   }
   function beaker(x) {
-    return `<path class="c" d="M${x} 180v24h24v-24"/><path d="M${x + 1} 190h22v14h-22z" fill="color-mix(in srgb, var(--r-stoffer) 30%, transparent)"/>`;
+    return `<path class="c" d="M${x} 180v24h24v-24"/><path d="M${x + 1} 190h22v14h-22z" fill="var(--r-stoffer)" fill-opacity="0.30"/>`;
   }
 
   /* ---------------- Spillet ---------------- */
