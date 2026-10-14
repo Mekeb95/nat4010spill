@@ -25,7 +25,7 @@
       text: 'I kjemikalieskapet står en halvfull flaske uten etikett. En elev vil bruke den: «Det ser ut som vann!»',
       choices: [
         { label: 'Sett den til side, merk den «ukjent – ikke bruk», og lever den som farlig avfall etter skolens rutine.', correct: true,
-          result: 'Riktig. Et ukjent stoff kan ikke risikovurderes. Du finner en ny flaske med datablad i stoffkartoteket.', reward: { xp: 20, item: 'item-vernebriller' } },
+          result: 'Riktig. Et ukjent stoff kan ikke risikovurderes. Du finner en ny flaske med datablad i stoffkartoteket.', reward: { xp: 20, item: 'vernebriller' } },
         { label: 'Lukt forsiktig på den for å finne ut hva det er.', correct: false,
           result: 'Au! Flaska inneholdt ammoniakk. Å lukte på ukjente stoffer er aldri en sikker identifikasjon.', reward: { hp: -10 } },
         { label: 'Hell det i vasken med mye vann, så er problemet borte.', correct: false,

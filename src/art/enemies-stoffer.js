@@ -24,6 +24,7 @@ ${eye(54, 41, 4.5, 2, 0)}${eye(68, 41, 4.5, 2, 0)}
   NG.art.add('smeltemannen', `${H}
 <ellipse cx="60" cy="104" rx="50" ry="8" fill="var(--r-stoffer)" fill-opacity=".22" stroke-width="2.5"/>
 <path d="M38 36Q60 30 82 36L84 70Q86 82 92 90Q100 96 98 101Q60 108 22 101Q20 96 28 90Q34 82 36 70Z" fill="var(--r-stoffer)" fill-opacity=".3"/>
+<path d="M38 36l8-8h38l-2 8M84 28v36l-2 6" fill="var(--r-stoffer)" fill-opacity=".15" stroke-width="3"/>
 <path d="M44 42l4-4M76 46l3-3" stroke="var(--chalk)" stroke-width="2.5" opacity=".7"/>
 <path d="M37 41h46" stroke-width="3"/>
 <circle cx="50" cy="40" r="6" fill="var(--board)" stroke-width="2.5"/><circle cx="70" cy="40" r="6" fill="var(--board)" stroke-width="2.5"/>
@@ -162,13 +163,11 @@ ${eye(57, 38, 3.4, 1.4, 0)}${eye(71, 38, 3.4, 1.4, 0)}
 <path d="M92 98l-4 14M108 98l4 14M90 98h20" stroke-width="3"/>
 <path d="M100 96c-6-4-4-8 0-12c0 4 4 2 3 0c4 4 4 8-3 12Z" fill="var(--bad)" fill-opacity=".55" stroke="var(--bad)" stroke-width="2.5"/>
 <path d="M100 44C92 38 108 32 100 24C92 16 106 12 100 4M100 34c6 0 10-4 8-8M98 18c-6 0-8-4-6-8" stroke="var(--chalk-dim)" stroke-width="3"/>
-<path d="M32 60C24 62 18 58 14 52" stroke-width="7"/>
-<path d="M32 60C24 62 18 58 14 52" stroke="var(--board)" stroke-width="1"/>
-<path d="M14 52V40M2 44l24-8" stroke-width="2.5"/>
-<path d="M2 44l-2 8h8ZM26 36l-2 8h8Z" stroke-width="2" fill="var(--chalk)" fill-opacity=".15"/>
-<path d="M-1 50h10" stroke="var(--board-4)" stroke-width="3"/>
-<path d="M2 48q2-4 6 0" stroke="var(--chalk-dim)" stroke-width="2"/>
-<path d="M24 42l3-1M28 42h4" stroke="var(--chalk-dim)" stroke-width="2"/>
-<path d="M22 32l1-4M28 30l2-3M34 34l3-2" stroke="var(--warn)" stroke-width="2"/>
+<path d="M32 60C24 64 16 62 12 56" stroke-width="7"/>
+<path d="M32 60C24 64 16 62 12 56" stroke="var(--board)" stroke-width="1"/>
+<path d="M6 52h16" stroke-width="3"/>
+<path d="M8 50l2-6h8l2 6" fill="var(--board-4)" stroke-width="2.5"/>
+<path d="M14 44c-5-4-3-9 0-12c0 3 3 2 2 0c4 4 3 9-2 12Z" fill="var(--bad)" fill-opacity=".5" stroke="var(--bad)" stroke-width="2"/>
+<g stroke="var(--chalk-dim)" stroke-width="2" stroke-dasharray="2 3"><circle cx="16" cy="24" r="4"/><circle cx="24" cy="14" r="3"/><circle cx="14" cy="8" r="2"/></g>
 </svg>`);
 })();
