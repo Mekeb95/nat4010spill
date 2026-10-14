@@ -594,6 +594,47 @@ NG.LADDER = ['Ukjent', 'Gjenkjenne', 'Definere', 'Nettverk', 'Anvende', 'Overfø
 })();
 
 ;
+/* ===== src/core/06-wakelock.js ===== */
+/* Skjerm alltid på (Screen Wake Lock API). Låsen slippes av nettleseren når appen skjules,
+   så den hentes på nytt når appen blir synlig igjen. På av som standard; valget huskes. */
+(function () {
+  'use strict';
+  let on = true;
+  try { on = localStorage.getItem('ng.wakelock') !== '0'; } catch (e) { /* ingen lagring */ }
+  let lock = null;
+  const supported = typeof navigator !== 'undefined' && 'wakeLock' in navigator;
+
+  async function acquire() {
+    if (!supported || !on || lock || document.visibilityState !== 'visible') return;
+    try {
+      lock = await navigator.wakeLock.request('screen');
+      lock.addEventListener('release', () => { lock = null; });
+    } catch (e) { lock = null; /* f.eks. strømsparing eller manglende brukerhandling */ }
+  }
+  function release() {
+    if (lock) { try { lock.release(); } catch (e) { /* */ } lock = null; }
+  }
+
+  if (supported) {
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') acquire(); });
+    // Noen nettlesere krever en brukerhandling før første forespørsel.
+    ['pointerdown', 'keydown'].forEach((t) => document.addEventListener(t, acquire, { passive: true }));
+    acquire();
+  }
+
+  NG.wakeLock = {
+    supported,
+    get on() { return on; },
+    get active() { return !!lock; },
+    set(v) {
+      on = !!v;
+      try { localStorage.setItem('ng.wakelock', on ? '1' : '0'); } catch (e) { /* */ }
+      if (on) acquire(); else release();
+    },
+  };
+})();
+
+;
 /* ===== src/core/10-mgapi.js ===== */
 /* API-et som hvert mini-spill får i start(root, api). Se docs/CONTRACT.md. */
 (function () {
@@ -20789,6 +20830,10 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
     app.appendChild(el('div', { class: 'stack' }, [
       el('div', { class: 'card stack-s' }, [el('label', { class: 'label', for: 'set-name', text: 'Navnet ditt' }), el('div', { class: 'row' }, [name, el('button', { class: 'btn small', text: 'Lagre', onclick: () => { s.name = name.value.trim() || 'Lærling'; NG.save(); NG.toast('Lagret'); } })])]),
       el('div', { class: 'card row' }, [el('span', { class: 'grow', text: 'Lyd' }), el('button', { class: 'btn small', id: 'set-sound', text: NG.audio.muted ? 'Av' : 'På', onclick: (e) => { NG.audio.setMuted(!NG.audio.muted); e.target.textContent = NG.audio.muted ? 'Av' : 'På'; NG.sfx('click'); } })]),
+      NG.wakeLock.supported ? el('div', { class: 'card row' }, [
+        el('div', { class: 'grow stack-s' }, [el('span', { text: 'Skjerm alltid på' }), el('span', { class: 'small muted', text: 'Hindrer at skjermen slukker mens du tenker.' })]),
+        el('button', { class: 'btn small', id: 'set-wake', text: NG.wakeLock.on ? 'På' : 'Av', onclick: (e) => { NG.wakeLock.set(!NG.wakeLock.on); e.target.textContent = NG.wakeLock.on ? 'På' : 'Av'; NG.sfx('click'); } }),
+      ]) : null,
       installCard(),
       el('div', { class: 'card stack-s' }, [
         el('span', { class: 'label', text: 'Flytt fremgang' }),

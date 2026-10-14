@@ -167,6 +167,10 @@
     app.appendChild(el('div', { class: 'stack' }, [
       el('div', { class: 'card stack-s' }, [el('label', { class: 'label', for: 'set-name', text: 'Navnet ditt' }), el('div', { class: 'row' }, [name, el('button', { class: 'btn small', text: 'Lagre', onclick: () => { s.name = name.value.trim() || 'Lærling'; NG.save(); NG.toast('Lagret'); } })])]),
       el('div', { class: 'card row' }, [el('span', { class: 'grow', text: 'Lyd' }), el('button', { class: 'btn small', id: 'set-sound', text: NG.audio.muted ? 'Av' : 'På', onclick: (e) => { NG.audio.setMuted(!NG.audio.muted); e.target.textContent = NG.audio.muted ? 'Av' : 'På'; NG.sfx('click'); } })]),
+      NG.wakeLock.supported ? el('div', { class: 'card row' }, [
+        el('div', { class: 'grow stack-s' }, [el('span', { text: 'Skjerm alltid på' }), el('span', { class: 'small muted', text: 'Hindrer at skjermen slukker mens du tenker.' })]),
+        el('button', { class: 'btn small', id: 'set-wake', text: NG.wakeLock.on ? 'På' : 'Av', onclick: (e) => { NG.wakeLock.set(!NG.wakeLock.on); e.target.textContent = NG.wakeLock.on ? 'På' : 'Av'; NG.sfx('click'); } }),
+      ]) : null,
       installCard(),
       el('div', { class: 'card stack-s' }, [
         el('span', { class: 'label', text: 'Flytt fremgang' }),
