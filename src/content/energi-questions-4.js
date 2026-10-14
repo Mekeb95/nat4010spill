@@ -341,7 +341,7 @@
         2: 'Røyk og gasser har masse og kan i prinsippet samles og veies – massen av alle produktene er lik massen av ved + oksygen.',
         3: 'Ingen reaksjon lager energi. Energien kommer fra omorganiseringen av bindingene.',
       },
-      explain: 'c² ≈ 9 · 10^16^ m²/s² er et enormt tall. Brenner du 1 kg ved, frigjøres ca. 15 MJ, som tilsvarer en masseendring på ca. 2 · 10^-10^ kg – milliarddeler av et gram. Derfor kan vi trygt bruke massebevaring i kjemien, mens den må utvides til masse-energi-bevaring i kjernefysikken.',
+      explain: 'c² ≈ 9 · 10^16^ m²/s² er et enormt tall. Brenner du 1 kg ved, frigjøres ca. 15 MJ, som tilsvarer en masseendring på ca. 2 · 10^-10^ kg – under en milliontedel av et gram. Derfor kan vi trygt bruke massebevaring i kjemien, mens den må utvides til masse-energi-bevaring i kjernefysikken.',
     },
 
     /* ===================== ELEVFORESTILLINGER (Henriksen & Angell 2019) ===================== */

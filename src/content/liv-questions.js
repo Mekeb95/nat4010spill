@@ -291,7 +291,7 @@
     { id: 'liv.kjede.20', topic: NK, concepts: ['tiprosentregelen', 'celleanding'], level: 5, type: 'mc',
       prompt: 'Forskere finner at en hoggorm bygger inn en mye større andel av energien i maten sin som ny kroppsmasse enn en røyskatt gjør. Hva er den beste forklaringen?',
       options: ['Røyskatten bruker mye energi på å holde kroppen varm', 'Hoggormen har mer effektive mitokondrier som lager ekstra energi', 'Røyskatten spiser mindre mat enn hoggormen', 'Hoggormen bryter ikke 2. lov fordi den er kaldblodig'], answer: 0,
-      why: { 1: 'Mitokondrier lager ikke energi; de frigjør den. Forskjellen ligger i hvor mye som brukes til varme.', 2: 'Spørsmålet gjelder *andelen* av det som spises, ikke mengden.', 3: 'Ingen organismer bryter 2. lov. Hoggormen taper også energi som varme – bare mindre fordi den ikke holder egen kroppstemperatur.' },
+      why: { 1: 'Mitokondrier lager ikke energi; de omdanner kjemisk energi fra maten til ATP. Forskjellen ligger i hvor mye som brukes til varme.', 2: 'Spørsmålet gjelder *andelen* av det som spises, ikke mengden.', 3: 'Ingen organismer bryter 2. lov. Hoggormen taper også energi som varme – bare mindre fordi den ikke holder egen kroppstemperatur.' },
       explain: 'Vekselvarme dyr bruker lite energi på å holde kroppen varm, så en større andel kan gå til vekst. Fugler og pattedyr sender ofte over 95 % ut som varme. 10 %-regelen er altså et gjennomsnitt som varierer mellom organismegrupper.' },
     { id: 'liv.kjede.21', topic: NK, concepts: ['stoffkretslop-energistrom', 'nedbrytere', 'okosystem'], level: 5, type: 'mc',
       prompt: 'En flaskehage – en forseglet glassflaske med jord, planter og mikroorganismer – har overlevd i over 50 år uten å bli åpnet. Hva er nødvendig for at det skal gå?',

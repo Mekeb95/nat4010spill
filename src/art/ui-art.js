@@ -34,7 +34,7 @@
 <path d="M44 62q-6 10-4 22q-4 0-6 2" stroke-width="3.5"/>
 <path d="M43 40q-3 10 3 15M77 40q3 10-3 15" fill="var(--heat)" fill-opacity=".95" stroke-width="3"/>
 <circle cx="60" cy="38" r="17" fill="var(--board-2)"/>
-<circle cx="60" cy="38" r="17" fill="var(--r-didaktikk)" fill-opacity=".55" stroke="none"/>
+<circle cx="60" cy="38" r="17" fill="var(--r-didaktikk)" fill-opacity=".8" stroke="none"/>
 <path d="M43 39c-3-15 6-23 17-23s20 8 17 23c-3-6-9-10-15-9-7-4-15 1-19 9Z" fill="var(--heat)" fill-opacity=".95" stroke-width="3"/>
 <path d="M60 16q3-6 8-5" stroke-width="3"/>
 <circle cx="53" cy="41" r="3.3" fill="var(--board)" stroke="none"/><circle cx="67" cy="41" r="3.3" fill="var(--board)" stroke="none"/>
@@ -54,11 +54,12 @@
   /* ---------- Reservefigur: ullent spørsmålstegn-vesen ---------- */
   const q = 'M40 46c0-14 10-22 22-22s22 8 22 20c0 10-8 14-14 18-6 4-8 8-8 14v6';
   A('_fallback', fig(`<ellipse cx="62" cy="111" rx="24" ry="4.5" fill="var(--chalk)" fill-opacity=".09" stroke="none"/>
-<path d="${q}" stroke-width="31" stroke-linecap="butt" stroke-dasharray="1.6 2.2"/>
-<path d="${q}" stroke="var(--board-2)" stroke-width="25"/>
-<path d="${q}" stroke="var(--chalk-dim)" stroke-opacity=".3" stroke-width="25"/>
-<circle cx="62" cy="99" r="8.5" stroke-width="8" stroke-linecap="butt" stroke-dasharray="1.5 2"/>
-<circle cx="62" cy="99" r="7" fill="var(--board-2)" stroke="none"/><circle cx="62" cy="99" r="7" fill="var(--chalk-dim)" fill-opacity=".3" stroke="none"/>
+<path d="${q}" stroke="var(--chalk-dim)" stroke-width="36" stroke-linecap="butt" stroke-dasharray="1.2 2.4"/>
+<path d="${q}" stroke-width="30"/>
+<path d="${q}" stroke="var(--board-2)" stroke-width="24"/>
+<path d="${q}" stroke="var(--chalk-dim)" stroke-opacity=".3" stroke-width="24"/>
+<circle cx="62" cy="99" r="10.5" stroke="var(--chalk-dim)" stroke-width="5" stroke-linecap="butt" stroke-dasharray="1.2 2.2"/>
+<circle cx="62" cy="99" r="9.5" fill="var(--board-2)" stroke-width="3"/><circle cx="62" cy="99" r="8" fill="var(--chalk-dim)" fill-opacity=".3" stroke="none"/>
 ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
 <path d="M44 21l8 3M70 15l-6 5" stroke-width="2.5"/>
 <path d="M76 38q4 2 5 6" stroke-width="2.5"/>

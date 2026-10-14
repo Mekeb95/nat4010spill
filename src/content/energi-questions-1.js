@@ -86,7 +86,7 @@
         { t: 'Bremseklossene på sykkelen blir varme', b: 1 },
         { t: 'Musklene gjør kjemisk energi om til bevegelse', b: 1 },
       ],
-      explain: 'Skyving (arbeid), sollys (stråling) og te mot hender (varme) flytter energi fra ett objekt til et annet. Eplet (stilling → bevegelse), fyrstikka (kjemisk → termisk og lys), bremsene (bevegelse → termisk) og musklene (kjemisk → bevegelse) handler først og fremst om at energien skifter form. I virkeligheten følges de ofte ad: bremsene både omdanner og overfører energi til lufta.',
+      explain: 'Skyving (arbeid), sollys (stråling) og te mot hender (varme) flytter energi fra ett objekt til et annet. Eplet (stilling → bevegelse), fyrstikka (kjemisk → termisk og lys), bremsene (bevegelse → termisk) og musklene (kjemisk → bevegelse) handler først og fremst om at energien skifter form. Flere eksempler rommer begge deler: sollyset omdannes til termisk energi når huden absorberer det, kassa får friksjonsvarme, og bremsene overfører energi videre til lufta. Sorteringen følger det som er mest framtredende i hvert eksempel.',
     },
     {
       id: 'energi.form.06', region: R, topic: 'Energiformer', concepts: ['potensiell-energi', 'kinetisk-energi'], level: 3, type: 'mc', myth: 'myte.energi-krever-bevegelse',

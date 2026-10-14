@@ -119,11 +119,11 @@
       ],
       answer: 0,
       why: {
-        1: 'Magnetisme er en egenskap ved stoffet (makronivå), ikke noe enkeltatomene «har» og mister. Avkjølt jern er magnetisk igjen – jernsulfid er det ikke.',
+        1: 'Jern mister riktignok magnetismen over ca. 770 °C, men avkjølt jern er magnetisk igjen – jernsulfid er det ikke. Det er stoffet som er endret, ikke temperaturen.',
         2: 'Atomene forsvinner ikke. Produktet veier like mye som jernet og svovelet som reagerte.',
         3: 'Et tynt svovellag ville ikke stoppet magneten. Produktet er dessuten et nytt, ensartet stoff, ikke jernkorn med skall.',
       },
-      explain: 'Fe + S → FeS. Jern- og svovelatomene er bundet sammen i jernsulfid, som har nye egenskaper: svart, sprøtt og praktisk talt ikke magnetisk. Det er det klassiske skillet: i en blanding beholder stoffene egenskapene sine, i en forbindelse får du et nytt stoff.',
+      explain: 'Fe + S → FeS. Jern- og svovelatomene er bundet sammen i jernsulfid, som har nye egenskaper: svart, sprøtt og praktisk talt ikke magnetisk (trekker magneten svakt i produktet fra et skoleforsøk, skyldes det som regel litt jern som ikke har reagert). Det er det klassiske skillet: i en blanding beholder stoffene egenskapene sine, i en forbindelse får du et nytt stoff.',
     },
     {
       id: 'stoffer.stoff.08', region: R, topic: T_STOFF, concepts: ['egenskap'], level: 2, type: 'sort',

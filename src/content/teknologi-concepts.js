@@ -106,7 +106,7 @@
       related: ['tek-tidssteg', 'tek-variabel', 'tek-lokke'] },
     { id: 'tek-tidssteg', name: 'Tidssteg', region: R,
       def: 'Hvor stort hopp i tid simuleringen tar for hver runde i løkka. Mindre tidssteg gir som regel mer nøyaktige resultater, men flere beregninger.',
-      example: 'Fritt fall med dt = 0,1 s gir 5,40 m etter 1 s; den eksakte verdien er 4,91 m.',
+      example: 'Fritt fall med dt = 0,1 s (farten oppdateres før posisjonen) gir 5,40 m etter 1 s; den eksakte verdien er 4,91 m. Med dt = 0,01 s blir det ca. 4,95 m.',
       related: ['tek-simulering'] },
     { id: 'tek-feilsoking', name: 'Feilsøking', region: R,
       def: 'Systematisk leting etter feil i et program: sammenligne forventet og faktisk resultat, isolere hvor feilen oppstår, teste én endring om gangen. Skiller syntaksfeil (programmet kjører ikke) fra logiske feil (kjører, men gir feil svar).',
