@@ -149,7 +149,7 @@
 
 /* Studie */
 .tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 8px; scrollbar-width: none; }
-.tab { flex: none; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line-strong); background: transparent; color: var(--chalk-dim); cursor: pointer; min-height: 38px; }
+.tab { flex: none; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line-strong); background: transparent; color: var(--chalk-dim); cursor: pointer; min-height: 44px; }
 .tab.on { background: var(--chalk); color: var(--board); border-color: var(--chalk); font-weight: 700; }
 .wall { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 .wall-sum { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 4px 12px; }

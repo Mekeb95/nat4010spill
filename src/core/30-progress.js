@@ -9,7 +9,19 @@
   NG.maxEnergy = (s) => 40 + 6 * s.stats.nysgjerrighet + (NG.hasRelic(s, 'solcelle') ? 10 : 0);
   NG.hintsPerFight = (s) => 1 + Math.floor(s.stats.nysgjerrighet / 2) + (NG.hasRelic(s, 'notatbok') ? 1 : 0);
   NG.xpNeed = (lvl) => 60 + 45 * lvl;
-  NG.hasRelic = (s, id) => (s.relics || []).indexOf(id) >= 0;
+  // Varige relikvier (s.relics) og ekspedisjonsrelikvier (s.run.relics)
+  NG.hasRelic = (s, id) => (Array.isArray(s.relics) && s.relics.indexOf(id) >= 0) ||
+    !!(s.run && Array.isArray(s.run.relics) && s.run.relics.indexOf(id) >= 0);
+  // Tilfør energi opp til maks. Overskuddet blir spillvarme (energien er bevart, men lite nyttig).
+  // Returnerer { gained, heat }.
+  NG.addEnergy = function (s, amount) {
+    const room = Math.max(0, NG.maxEnergy(s) - s.energy);
+    const gained = Math.min(room, amount);
+    s.energy += gained;
+    const heat = amount - gained;
+    if (heat > 0) s.heat += heat;
+    return { gained, heat };
+  };
 
   /* ---------- XP og nivå ---------- */
   // Returnerer antall nivåer opp.
@@ -102,8 +114,11 @@
       return any.length ? { q: rng.pick(any) } : null;
     }
     const m = NG.regionMastery(s, ctx.region).avg;
-    const visits = s.regionVisits[ctx.region] || 0;
-    let target = 1.6 + m + Math.min(1.5, visits * 0.4) + (ctx.tier === 'elite' ? 0.8 : ctx.tier === 'boss' ? 1.4 : 0);
+    // Vanskelighet følger fullførte ekspedisjoner (NG.regionTier), ikke avbrutte/tapte forsøk.
+    let tierN = null;
+    if (NG.regionTier) { try { tierN = NG.regionTier(s, ctx.region); } catch (e) { tierN = null; } }
+    if (!isFinite(tierN)) tierN = Math.max(0, (s.regionVisits[ctx.region] || 1) - 1);
+    let target = 1.6 + m + Math.min(1.5, 0.4 + 0.4 * NG.clamp(tierN, 0, 4)) + (ctx.tier === 'elite' ? 0.8 : ctx.tier === 'boss' ? 1.4 : 0);
     target = NG.clamp(target, 1, 5);
     const now = Date.now();
     const weights = pool.map((q) => {

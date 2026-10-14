@@ -82,7 +82,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 code { font-family: var(--f-mono); font-size: 0.92em; background: var(--board-3); padding: 0 0.3em; border-radius: 4px; }
 sup, sub { line-height: 0; }
 
-#app { position: relative; z-index: 1; min-height: 100%; max-width: 560px; margin: 0 auto; padding-inline: var(--gutter); padding-block: 12px 28px; }
+#app { position: relative; z-index: 1; min-height: 100%; max-width: 560px; margin: 0 auto; padding-inline: var(--gutter); padding-block: calc(12px + env(safe-area-inset-top, 0px)) calc(28px + env(safe-area-inset-bottom, 0px)); }
+#app h1[tabindex="-1"]:focus, .sheet:focus { outline: none; }
 
 .h-display { font-family: var(--f-display); font-weight: 400; letter-spacing: 0.01em; line-height: 1.1; text-wrap: balance; margin: 0; }
 h1.h-display { font-size: var(--t-xxl); }
@@ -119,7 +120,7 @@ h3.h-display { font-size: var(--t-l); }
 .btn.primary { background: var(--chalk); color: var(--board); border-color: var(--chalk); }
 .btn.ghost { background: transparent; }
 .btn.block { width: 100%; }
-.btn.small { min-height: 38px; padding: 6px 12px; font-size: var(--t-s); }
+.btn.small { min-height: 44px; padding: 6px 12px; font-size: var(--t-s); }
 
 .option {
   display: block; width: 100%; text-align: left;
@@ -152,6 +153,80 @@ h3.h-display { font-size: var(--t-l); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
 }
+
+/* src/ui/combat-extra.css */
+/* Kamp-tillegg: evneknapper som alltid får plass (360–430 px), info-knapper, relikvier, elite-modifikatorer.
+   Lastes FØR game.css (alfabetisk), så kampregler prefikses med .scr-combat for å vinne. */
+
+/* Evner: fast rutenett med like høye knapper */
+.scr-combat .abilities { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 6px; margin-bottom: 12px; }
+@media (max-width: 340px) { .scr-combat .abilities { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.abw { position: relative; display: flex; min-width: 0; }
+.scr-combat .ab { flex: 1; min-width: 0; width: 100%; min-height: 58px; height: 100%; padding: 12px 4px 5px; gap: 3px; justify-content: space-between; }
+.scr-combat .ab-n { display: block; max-width: 100%; font-size: 0.74rem; line-height: 1.1; text-align: center; hyphens: manual; -webkit-hyphens: manual; overflow-wrap: anywhere; word-break: normal; }
+.ab-meta { display: flex; align-items: baseline; justify-content: center; gap: 4px; flex-wrap: wrap; line-height: 1.1; }
+.ab-l { font-size: 0.46rem; letter-spacing: 0; color: var(--xp); white-space: nowrap; }
+.scr-combat .ab-c { font-size: 0.66rem; }
+.ab-i { position: absolute; top: -8px; right: -5px; width: 21px; height: 21px; border-radius: 50%; padding: 0; display: grid; place-items: center;
+  font: 700 0.72rem/1 var(--f-mono); font-style: italic; color: var(--board); background: var(--chalk-dim); border: 2px solid var(--board); cursor: pointer; z-index: 2; touch-action: manipulation; }
+.ab-i::after { content: ''; position: absolute; inset: -9px; } /* større trykkflate */
+.ab-i:active { background: var(--chalk); }
+
+/* Planen (intensjonen) er trykkbar */
+.scr-combat button.intent { background: none; text-align: left; font: inherit; font-size: 0.85rem; cursor: pointer; }
+.intent.i-mytekall strong, .intent.i-utlading strong { color: var(--bad); }
+.intent.i-forskanser strong { color: var(--r-stoffer); }
+.intent.i-energityv strong { color: var(--energy); }
+.intent.i-ladeopp strong { color: var(--warn); }
+.intent.i-utlading { border-color: var(--bad); border-style: solid; }
+
+/* Elite-modifikatorer */
+.en-title { flex-wrap: wrap; row-gap: 4px; }
+.mod-chip { cursor: pointer; background: transparent; color: var(--warn); border-color: var(--warn); font: inherit; font-size: 0.75rem; }
+
+/* Statuschips */
+.scr-combat .cb-status { flex-wrap: wrap; gap: 4px; min-height: 26px; margin-block: 8px 10px; }
+.scr-combat .cb-status:empty { min-height: 0; margin-block: 6px; }
+.st-infect { color: var(--bad); border-color: var(--bad); }
+.st-myth { color: var(--r-jorda); border-color: var(--r-jorda); }
+
+/* Relikvierad i kampen */
+.relic-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.relic-row[hidden] { display: none; }
+.relic-ic { width: 34px; height: 34px; padding: 4px; border-radius: 9px; background: var(--board-2); border: 1.5px solid var(--line-strong); color: var(--gold); cursor: pointer; touch-action: manipulation; }
+.relic-ic.perm { border-style: dashed; color: var(--chalk-dim); }
+.relic-art { width: 100%; height: 100%; }
+.r-vanlig { --rar: var(--chalk-dim); }
+.r-sjelden { --rar: var(--r-stoffer); }
+.r-episk { --rar: var(--xp); }
+.r-boss { --rar: var(--bad); }
+.relic-ic.run { border-color: var(--rar); color: var(--rar); }
+.chip.rar { color: var(--rar, var(--chalk-dim)); border-color: var(--rar, var(--line-strong)); font-size: 0.7rem; }
+
+/* «Velg én av tre» */
+.relic-pick { border: 1.5px solid var(--gold); }
+.relic-card { display: flex; gap: 10px; align-items: flex-start; text-align: left; width: 100%; padding: 10px; border-radius: 12px; border: 1.5px solid var(--rar, var(--line-strong)); background: var(--board-3); color: var(--chalk); cursor: pointer; font: inherit; }
+.relic-card .loot-art { color: var(--rar, var(--gold)); }
+.relic-card:disabled { opacity: 0.4; cursor: default; }
+.relic-card.picked { opacity: 1; box-shadow: 0 0 0 3px color-mix(in srgb, var(--rar, var(--gold)) 40%, transparent); }
+.rc-head { flex-wrap: wrap; gap: 6px; align-items: center; }
+
+/* Sekken: evner og relikvier */
+.ab-line, .relic-line { width: 100%; text-align: left; background: none; border: 0; border-top: 1px dashed var(--line); padding: 8px 0 4px; color: var(--chalk); cursor: pointer; font: inherit; }
+.ab-line.locked { opacity: 0.5; }
+.ab-line .loot-art, .relic-line .loot-art { color: var(--rar, var(--gold)); }
+.ab-pips { font-size: 0.7rem; }
+.ab-levels { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.ab-levels li { display: flex; gap: 8px; align-items: baseline; padding: 5px 8px; border-radius: 8px; border: 1px solid var(--line); color: var(--chalk-faint); }
+.ab-levels li.on { color: var(--chalk); border-color: color-mix(in srgb, var(--xp) 60%, transparent); }
+.ab-levels li.next { color: var(--chalk-dim); border-style: dashed; border-color: var(--xp); }
+.ab-lv { flex: none; width: 1.4em; height: 1.4em; border-radius: 50%; display: grid; place-items: center; font-size: 0.72rem; background: var(--board-4); color: var(--chalk); }
+.ab-levels li.on .ab-lv { background: var(--xp); color: var(--board); }
+.ab-line, .relic-line { flex-wrap: nowrap; }
+.ab-line > .grow, .relic-line > .grow { flex: 1 1 0; min-width: 0; }
+.ab-line > .chip { flex: none; align-self: center; }
+.scr-sekk .stat-row { flex-wrap: nowrap; }
+.scr-sekk .stat-row > .grow { flex: 1 1 0; }
 
 /* src/ui/game.css */
 /* Skjermer og spillkomponenter */
@@ -305,7 +380,7 @@ h3.h-display { font-size: var(--t-l); }
 
 /* Studie */
 .tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 8px; scrollbar-width: none; }
-.tab { flex: none; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line-strong); background: transparent; color: var(--chalk-dim); cursor: pointer; min-height: 38px; }
+.tab { flex: none; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line-strong); background: transparent; color: var(--chalk-dim); cursor: pointer; min-height: 44px; }
 .tab.on { background: var(--chalk); color: var(--board); border-color: var(--chalk); font-weight: 700; }
 .wall { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 .wall-sum { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 4px 12px; }
@@ -339,6 +414,68 @@ h3.h-display { font-size: var(--t-l); }
   .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
+/* src/ui/map.css */
+/* Ekspedisjonskartet (forgreinet sti, boss øverst) + Solgløtt-valg og handelsmann. */
+.rmap { position: relative; margin: 4px 0 6px; border-radius: var(--r-m); background:
+  radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--bad) 10%, transparent), transparent 40%),
+  radial-gradient(ellipse at 50% 100%, color-mix(in srgb, var(--rc) 9%, transparent), transparent 45%);
+  overflow: hidden; }
+.rmap-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.rmap-lines line { stroke: var(--chalk-faint); stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 2 7; fill: none; }
+.rmap-lines .ml-dim { opacity: 0.28; }
+.rmap-lines .ml-ahead { stroke: var(--chalk-dim); opacity: 0.6; }
+.rmap-lines .ml-taken { stroke: var(--chalk); stroke-width: 3.5; stroke-dasharray: 9 5; opacity: 0.85; }
+.rmap-lines .ml-open { stroke: var(--rc); stroke-width: 3.5; stroke-dasharray: 7 6; animation: mapFlow 0.9s linear infinite; }
+@keyframes mapFlow { to { stroke-dashoffset: -13; } }
+
+.mnode { position: absolute; width: 50px; height: 50px; margin: -25px 0 0 -25px; padding: 7px; border-radius: 50%;
+  border: 2px solid var(--line-strong); background: var(--board-2); color: var(--chalk-dim); display: grid; place-items: center; z-index: 1; cursor: default;
+  -webkit-tap-highlight-color: transparent; transition: transform .15s ease; }
+.mnode-art { width: 100%; height: 100%; }
+.mnode-art svg { width: 100%; height: 100%; display: block; }
+.mnode.ahead { color: var(--chalk-dim); }
+.mnode.gone { color: color-mix(in srgb, var(--chalk) 22%, transparent); border-color: var(--line); border-style: dotted; background: var(--board); }
+.mnode.done { border-style: dashed; color: var(--chalk-faint); border-color: var(--line-strong); background: var(--board); }
+.mnode.here { opacity: 0.9; border-color: var(--chalk); border-style: solid; }
+.mnode-ok { position: absolute; right: -5px; top: -6px; width: 20px; height: 20px; border-radius: 50%; background: var(--board); border: 2px solid var(--good);
+  color: var(--good); font-size: 0.75rem; font-weight: 700; line-height: 16px; text-align: center; }
+.mnode.can { cursor: pointer; width: 56px; height: 56px; margin: -28px 0 0 -28px; color: var(--rc); border-color: var(--rc); border-width: 3px; background: var(--board-3);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--rc) 22%, transparent), 0 0 18px color-mix(in srgb, var(--rc) 35%, transparent); animation: mapPulse 1.6s ease-in-out infinite; z-index: 2; }
+.mnode.can:active { transform: scale(0.93); }
+@keyframes mapPulse { 50% { box-shadow: 0 0 0 9px color-mix(in srgb, var(--rc) 12%, transparent), 0 0 24px color-mix(in srgb, var(--rc) 45%, transparent); } }
+.mnode:disabled { cursor: default; }
+.mnode.t-elite:not(.done):not(.gone) { border-color: var(--warn); }
+.mnode.t-elite.ahead { color: var(--warn); }
+.mnode.t-sol.ahead { color: var(--gold); }
+.mnode.t-butikk.ahead { color: var(--gold); }
+.mnode.t-kiste.ahead { color: var(--good); }
+.mnode.t-boss { width: 68px; height: 68px; margin: -34px 0 0 -34px; padding: 9px; color: var(--bad); border-color: var(--bad); border-width: 3px; }
+.mnode.t-boss.can { width: 72px; height: 72px; margin: -36px 0 0 -36px; --rc: var(--bad); }
+.mnode.t-boss.gone { opacity: 0.85; border-style: solid; }
+.mnode-l { position: absolute; transform: translate(-50%, 31px); font-size: 0.72rem; font-weight: 700; color: var(--rc); white-space: nowrap; pointer-events: none; z-index: 3;
+  background: color-mix(in srgb, var(--board) 82%, transparent); padding: 0 5px; border-radius: 6px; }
+.mnode-l.boss { transform: translate(-50%, -62px); font-family: var(--f-display); font-size: 1.15rem; font-weight: 400; color: var(--bad); }
+.rmap-start { position: absolute; left: 0; right: 0; bottom: 4px; text-align: center; opacity: 0.7; }
+
+.rmap-legend { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line-strong); }
+.rmap-leg { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 4px 10px 4px 6px; border-radius: 999px; border: 1px solid var(--line-strong);
+  background: var(--board-2); color: var(--chalk); font-size: var(--t-xs); font-weight: 700; cursor: pointer; }
+.rmap-leg-art { width: 24px; height: 24px; color: var(--chalk-dim); }
+.rmap-leg.t-boss .rmap-leg-art { color: var(--bad); }
+.rmap-leg.t-elite .rmap-leg-art { color: var(--warn); }
+
+/* Solgløtt */
+.sol-q { margin: 0; }
+.sol-choice { display: flex; flex-wrap: nowrap; align-items: center; text-align: left; gap: 12px; min-height: 64px; }
+.sol-choice .loot-art { color: var(--gold); }
+
+/* Handelsmann */
+.shop-row { flex-wrap: nowrap; gap: 10px; align-items: center; }
+.shop-row .stack-s { flex: 1 1 auto; }
+.shop-rar { align-self: flex-start; }
+.shop-row .shop-buy { flex: none; min-width: 64px; }
+.shop-row.sold { opacity: 0.45; }
+
 /* src/ui/question.css */
 .q-prompt { font-size: 1.08rem; line-height: 1.45; }
 .q-figure { display: flex; justify-content: center; }
@@ -359,7 +496,7 @@ h3.h-display { font-size: var(--t-l); }
 .sort-row.wrong { border-color: var(--bad); }
 .sort-t { min-width: 0; }
 .segs { display: flex; gap: 6px; flex-wrap: wrap; }
-.seg { flex: 1 1 0; min-width: 0; min-height: 40px; padding: 6px 8px; border-radius: 10px; border: 2px solid var(--line-strong); background: var(--board); color: var(--chalk-dim); font-size: var(--t-s); font-weight: 700; cursor: pointer; touch-action: manipulation; overflow-wrap: anywhere; }
+.seg { flex: 1 1 0; min-width: 0; min-height: 44px; padding: 6px 8px; border-radius: 10px; border: 2px solid var(--line-strong); background: var(--board); color: var(--chalk-dim); font-size: var(--t-s); font-weight: 700; cursor: pointer; touch-action: manipulation; overflow-wrap: anywhere; }
 .seg.on { background: var(--chalk); color: var(--board); border-color: var(--chalk); }
 .seg.want { border-color: var(--good); color: var(--good); }
 .num-row { display: flex; gap: 8px; align-items: center; }
@@ -375,8 +512,8 @@ h3.h-display { font-size: var(--t-l); }
 
 </style>
 
-<div id="app" aria-live="polite"></div>
-<div class="toast-wrap" id="toasts"></div>
+<div id="app"></div>
+<div class="toast-wrap" id="toasts" role="status" aria-live="polite"></div>
 <script>
 /* ===== src/core/00-ns.js ===== */
 /* Nøkkelvokteren — globalt navnerom og registre.
@@ -537,21 +674,29 @@ NG.LADDER = ['Ukjent', 'Gjenkjenne', 'Definere', 'Nettverk', 'Anvende', 'Overfø
 
 ;
 /* ===== src/core/05-audio.js ===== */
-/* Små synth-lyder med WebAudio. Ingen filer. Starter først etter brukerinteraksjon. */
+/* Små synth-lyder med WebAudio. Ingen filer. Starter først etter brukerinteraksjon.
+   Lydgraf: SFX → master → høyttaler; musikk (07-music.js) → egen musikkgain → master. */
 (function () {
   'use strict';
   let ctx = null;
+  let master = null;
   let muted = false;
   try { muted = localStorage.getItem('ng.muted') === '1'; } catch (e) { /* ingen lagring */ }
 
-  function ac() {
-    if (muted) return null;
+  // Felles AudioContext for SFX og musikk. Skal bare kalles fra (eller etter) en brukerhandling.
+  function context() {
     if (!ctx) {
-      try { ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return null; }
+      try {
+        ctx = new (window.AudioContext || window.webkitAudioContext)();
+        master = ctx.createGain();
+        master.gain.value = 1;
+        master.connect(ctx.destination);
+      } catch (e) { ctx = null; return null; }
     }
-    if (ctx.state === 'suspended') ctx.resume().catch(() => {});
+    if (ctx.state === 'suspended' && document.visibilityState !== 'hidden') ctx.resume().catch(() => {});
     return ctx;
   }
+  function ac() { return muted ? null : context(); }
   function tone(freq, dur, type, vol, when, slide) {
     const c = ac(); if (!c) return;
     const t = c.currentTime + (when || 0);
@@ -562,7 +707,7 @@ NG.LADDER = ['Ukjent', 'Gjenkjenne', 'Definere', 'Nettverk', 'Anvende', 'Overfø
     g.gain.setValueAtTime(0.0001, t);
     g.gain.exponentialRampToValueAtTime(vol || 0.12, t + 0.01);
     g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    o.connect(g); g.connect(c.destination);
+    o.connect(g); g.connect(master);
     o.start(t); o.stop(t + dur + 0.02);
   }
   const SFX = {
@@ -578,10 +723,19 @@ NG.LADDER = ['Ukjent', 'Gjenkjenne', 'Definere', 'Nettverk', 'Anvende', 'Overfø
     win: () => { [392, 523, 659, 784, 1047].forEach((f, i) => tone(f, 0.2, 'triangle', 0.09, i * 0.1)); },
     lose: () => { [392, 330, 262, 196].forEach((f, i) => tone(f, 0.25, 'triangle', 0.08, i * 0.14)); },
   };
-  NG.sfx = function (name) { try { (SFX[name] || SFX.click)(); } catch (e) { /* lyd er valgfritt */ } };
+  NG.sfx = function (name) {
+    try { (SFX[name] || SFX.click)(); } catch (e) { /* lyd er valgfritt */ }
+    try { if (NG.music && NG.music._onSfx) NG.music._onSfx(name); } catch (e) { /* */ }
+  };
   NG.audio = {
     get muted() { return muted; },
-    setMuted(m) { muted = !!m; try { localStorage.setItem('ng.muted', muted ? '1' : '0'); } catch (e) { /* */ } },
+    setMuted(m) {
+      muted = !!m; try { localStorage.setItem('ng.muted', muted ? '1' : '0'); } catch (e) { /* */ }
+      try { if (NG.music && NG.music._sync) NG.music._sync(); } catch (e) { /* */ }
+    },
+    context, // oppretter ved behov (uavhengig av lyd av/på)
+    get ready() { return !!ctx; },
+    get master() { return master; },
   };
 })();
 
@@ -622,6 +776,523 @@ NG.LADDER = ['Ukjent', 'Gjenkjenne', 'Definere', 'Nettverk', 'Anvende', 'Overfø
       on = !!v;
       try { localStorage.setItem('ng.wakelock', on ? '1' : '0'); } catch (e) { /* */ }
       if (on) acquire(); else release();
+    },
+  };
+})();
+
+;
+/* ===== src/core/07-music.js ===== */
+/* Generativ bakgrunnsmusikk med WebAudio. Ingen lydfiler.
+   Hvert spor er en liten oppskrift (grunntone, modus, tempo, akkordrekke, mønstre, klang). En lookahead-
+   planlegger (setTimeout + AudioContext-klokka) lager løkker av oppskriften, og melodien genereres på nytt
+   (frøsatt) for hver runde slik at den ikke blir masete. Deler AudioContext med SFX (05-audio.js).
+   Sporvalg: NG.go → NG.music.auto(skjerm, params). Overstyr med NG.music.play(id).
+   Spor-ID-er: title, camp, lab, rest, map:<region>, combat:<region>, boss:<region>, victory, defeat. */
+(function () {
+  'use strict';
+  const TICK = 40;     // ms mellom planleggerkall (lavt CPU-bruk på mobil)
+  const AHEAD = 0.16;  // sekunder som planlegges fram i tid
+  const FADE = 1.0;    // krysstoning i sekunder
+  const GAIN = 0.55;   // musikkvolum 1.0 tilsvarer denne bus-gainen
+
+  const MODE = {
+    major: [0, 2, 4, 5, 7, 9, 11], minor: [0, 2, 3, 5, 7, 8, 10], dorian: [0, 2, 3, 5, 7, 9, 10],
+    lydian: [0, 2, 4, 6, 7, 9, 11], mixo: [0, 2, 4, 5, 7, 9, 10], phryg: [0, 1, 3, 5, 7, 8, 10], harm: [0, 2, 3, 5, 7, 8, 11],
+  };
+  const PENTA = [0, 2, 4, 7, 9];
+  const MPENTA = [0, 3, 5, 7, 10];
+
+  /* ---------- Oppskrifter ----------
+     r: grunntone (MIDI), m: modus, ms: melodiskala, bpm, spb: steg per takt (16 = 4/4, 12 = 3/4),
+     prog: akkordtrinn (0-basert), pad/bass/arp/mel: stemmer, drum: mønstre (k spark, s skarp, h hihat, t tom),
+     lp: lavpass (Hz), dl: ekko-send, di: takter før trommene kommer inn.
+     Mønstre: bass x=grunntone 5=kvint 3=ters o=oktav b=liten sekund; arp sifre = akkordtone 0–5; trommer x/X/g. */
+  const REG = {
+    energi: { r: 62, m: 'mixo', bpm: 96, prog: [0, 6, 3, 0], lp: 2600, dl: 0.22,
+      pad: { w: 'triangle', v: 0.05 }, bass: { w: 'triangle', v: 0.16, p: 'x...x.5.x...x.o.', l: 2 },
+      arp: { i: 'pluck', v: 0.07, p: ['0.1.2.1.3.1.2.1.', '0.2.1.2.3.2.4.2.'] }, mel: { i: 'flute', v: 0.07, o: 1, d: 0.45 },
+      drum: { k: 'x.......x.......', h: '..g...x...g...x.' }, di: 2 },
+    stoffer: { r: 57, m: 'harm', bpm: 84, prog: [0, 5, 3, 4], lp: 3200, dl: 0.28,
+      pad: { w: 'sine', v: 0.04, o: -1 }, bass: { w: 'sine', v: 0.2, p: 'x.....x.x.......', l: 3 },
+      arp: { i: 'mallet', v: 0.08, p: ['0.2.1.2.3.2.1.2.', '0.1.2.3.4.3.2.1.'] }, mel: { i: 'mallet', v: 0.08, o: 1, d: 0.4 },
+      drum: { k: 'x.........x.....', h: '....g.......x...' }, di: 1 },
+    liv: { r: 55, m: 'major', ms: PENTA, bpm: 72, prog: [0, 5, 3, 4], lp: 1900, dl: 0.34,
+      pad: { w: 'sine', v: 0.07, o: 0 }, bass: { w: 'sine', v: 0.14, p: 'x.......5.......', l: 6 },
+      arp: { i: 'pluck', v: 0.045, p: ['0...2...1...3...'] }, mel: { i: 'flute', v: 0.08, o: 1, d: 0.35 } },
+    jorda: { r: 64, m: 'lydian', ms: [0, 2, 4, 6, 7, 11], bpm: 64, prog: [0, 1, 5, 1], cp: [0, 0, 1, 4], lp: 4200, dl: 0.45, fb: 0.45,
+      pad: { w: 'sine', v: 0.06, o: -1 }, bass: { w: 'sine', v: 0.1, p: 'x...............', l: 12 },
+      arp: { i: 'bell', v: 0.035, o: 1, p: ['0.......2.......', '1.......4.......'] }, mel: { i: 'bell', v: 0.05, o: 1, d: 0.25 } },
+    kropp: { r: 60, m: 'dorian', bpm: 76, prog: [0, 3, 0, 4], lp: 2100, dl: 0.2,
+      pad: { w: 'triangle', v: 0.05, o: -1 }, bass: { w: 'triangle', v: 0.16, p: 'x..x....x..x....', l: 2 },
+      arp: { i: 'pluck', v: 0.05, p: ['..0...1...2...1.'] }, mel: { i: 'flute', v: 0.07, o: 1, d: 0.4 },
+      drum: { k: 'X..g............' }, di: 0 },
+    teknologi: { r: 53, m: 'major', bpm: 112, prog: [5, 3, 0, 4], lp: 3400, dl: 0.12,
+      bass: { w: 'triangle', v: 0.17, p: 'x.x.o.x.x.x.o.5.', l: 1 },
+      arp: { i: 'chip', v: 0.04, o: 1, p: ['0123210301232103', '0124210402142104'] }, mel: { i: 'chip', v: 0.045, o: 1, d: 0.5 },
+      drum: { k: 'x.......x.......', s: '....x.......x...', h: 'g.g.g.g.g.g.g.g.' }, di: 2 },
+    praksis: { r: 58, m: 'major', bpm: 92, spb: 12, prog: [0, 2, 3, 4], lp: 2500, dl: 0.2,
+      pad: { w: 'triangle', v: 0.04 }, bass: { w: 'sine', v: 0.17, p: 'x...5...5...', l: 3 },
+      arp: { i: 'pluck', v: 0.06, p: ['....1.2.....', '....2.1...3.'] }, mel: { i: 'mallet', v: 0.08, o: 1, d: 0.45 },
+      drum: { k: 'x...........', h: '....g...g...' }, di: 2 },
+    didaktikk: { r: 51, m: 'major', bpm: 80, prog: [0, 4, 5, 3], lp: 1700, dl: 0.25,
+      pad: { w: 'organ', v: 0.045, o: 1 }, bass: { w: 'sine', v: 0.18, p: 'x.......x...5...', l: 4 },
+      arp: { i: 'pluck', v: 0.05, o: 1, p: ['0...1...2...1...'] }, mel: { i: 'bell', v: 0.06, o: 2, d: 0.35 },
+      drum: { k: 'x.......x.......' }, di: 4 },
+  };
+  const BASE = {
+    camp: { r: 53, m: 'major', bpm: 70, prog: [0, 2, 3, 0], lp: 2000, dl: 0.25,
+      pad: { w: 'triangle', v: 0.05, o: 1 }, bass: { w: 'sine', v: 0.15, p: 'x.......5.......', l: 6 },
+      arp: { i: 'pluck', v: 0.06, o: 1, p: ['0.1.2.3.4.3.2.1.', '0.2.1.3.2.4.3.1.'] }, mel: { i: 'flute', v: 0.07, o: 2, d: 0.3 } },
+    title: { r: 53, m: 'major', bpm: 62, prog: [0, 5, 3, 4], lp: 2400, dl: 0.4, fb: 0.4,
+      pad: { w: 'triangle', v: 0.06, o: 1 }, bass: { w: 'sine', v: 0.13, p: 'x...............', l: 14 },
+      mel: { i: 'bell', v: 0.06, o: 2, d: 0.3 } },
+    lab: { r: 60, m: 'major', bpm: 104, prog: [0, 3, 1, 4], lp: 3000, dl: 0.18,
+      bass: { w: 'triangle', v: 0.15, p: 'x...x...x...5...', l: 2 },
+      arp: { i: 'pluck', v: 0.075, p: ['0.2.1.2.0.2.1.2.', '0.2.1.2.3.2.1.2.'] }, mel: { i: 'mallet', v: 0.1, o: 1, d: 0.4 },
+      drum: { k: 'x.......x.......', h: '..g...x...g...x.' }, di: 2 },
+    rest: { r: 57, m: 'major', ms: PENTA, bpm: 58, prog: [0, 5, 3, 0], lp: 2200, dl: 0.4, fb: 0.4,
+      pad: { w: 'sine', v: 0.07 }, bass: { w: 'sine', v: 0.1, p: 'x...............', l: 14 },
+      mel: { i: 'bell', v: 0.05, o: 1, d: 0.22 } },
+  };
+
+  function combatOf(id) {
+    const b = REG[id] || REG.energi;
+    const minorish = /minor|harm|dorian|phryg/.test(b.m);
+    return { r: b.r, m: b.m, ms: minorish ? MPENTA : b.ms, bpm: Math.max(112, Math.min(138, Math.round(b.bpm * 1.35))), prog: b.cp || [0, 0, 3, 4],
+      lp: 2300, dl: 0.12,
+      bass: { w: 'sawtooth', v: 0.13, p: 'x.x.x.x.x.x.o.x.', l: 1 },
+      arp: { i: b.arp ? b.arp.i : 'pluck', v: 0.065, o: b.arp && b.arp.o || 0, p: ['0120312001203120', '0123423101234231'] },
+      mel: { i: b.mel ? b.mel.i : 'pluck', v: 0.085, o: 1, d: 0.5 },
+      drum: { k: 'x.....x...x.....', s: '....x.......x...', h: 'g.x.g.x.g.x.g.xg' }, di: 1 };
+  }
+  function bossOf(id) {
+    const b = REG[id] || REG.energi;
+    return { r: b.r - (b.r > 59 ? 12 : 0), m: 'phryg', ms: [0, 1, 3, 5, 7, 8], bpm: Math.max(108, Math.min(124, Math.round(b.bpm * 1.25))), prog: [0, 1, 0, 4],
+      lp: 1700, dl: 0.18,
+      pad: { w: 'sawtooth', v: 0.035, o: 0 }, bass: { w: 'sawtooth', v: 0.12, p: 'x..x..x.x..x..b.', l: 2 },
+      arp: { i: b.arp ? b.arp.i : 'mallet', v: 0.05, o: 1, p: ['0.1.0.2.0.1.0.3.'] },
+      mel: { i: 'bell', v: 0.05, o: 1, d: 0.22 },
+      drum: { k: 'x.....x.x.......', s: '....x.......x...', t: '........x.....x.', h: '..g...g...g...g.' }, di: 1 };
+  }
+  const cache = {};
+  function specFor(id) {
+    if (cache[id]) return cache[id];
+    const m = /^(map|combat|boss):(\w+)$/.exec(id);
+    let sp = null;
+    if (BASE[id]) sp = BASE[id];
+    else if (m && REG[m[2]]) sp = m[1] === 'map' ? REG[m[2]] : m[1] === 'combat' ? combatOf(m[2]) : bossOf(m[2]);
+    if (sp) cache[id] = sp;
+    return sp;
+  }
+
+  /* ---------- Hjelpere ---------- */
+  const mtof = (m) => 440 * Math.pow(2, (m - 69) / 12);
+  const mod = (a, n) => ((a % n) + n) % n;
+  function hash(str) { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+  function rngOf(seed) {
+    let a = seed >>> 0;
+    return function () {
+      a = (a + 0x6d2b79f5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  const stats = { notes: 0, ticks: 0, tracks: 0 };
+  let noiseBuf = null;
+  function noise(c) {
+    if (!noiseBuf || noiseBuf.sampleRate !== c.sampleRate || noiseBuf._c !== c) {
+      noiseBuf = c.createBuffer(1, c.sampleRate, c.sampleRate);
+      const d = noiseBuf.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+      noiseBuf._c = c;
+    }
+    return noiseBuf;
+  }
+
+  /* ---------- Stemmer ---------- */
+  function env(g, t, a, peak, hold, rel) {
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(peak, t + a);
+    if (hold > 0) g.gain.setValueAtTime(peak, t + a + hold);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + a + hold + rel);
+    return t + a + hold + rel;
+  }
+  function osc(p, type, f, t, end, dest, detune) {
+    const o = p.c.createOscillator();
+    o.type = type; o.frequency.value = f;
+    if (detune) o.detune.value = detune;
+    o.connect(dest); o.start(t); o.stop(end + 0.05);
+    stats.notes++;
+    return o;
+  }
+  function voice(p, inst, t, m, dur, v) {
+    const c = p.c, f = mtof(m), g = c.createGain();
+    g.connect(p.inn);
+    let end;
+    switch (inst) {
+      case 'mallet': {
+        end = env(g, t, 0.004, v, 0, Math.min(0.9, 0.25 + dur));
+        osc(p, 'sine', f, t, end, g);
+        const g2 = c.createGain(); g2.connect(p.inn);
+        osc(p, 'sine', f * 4, t, env(g2, t, 0.002, v * 0.18, 0, 0.07), g2);
+        break;
+      }
+      case 'bell': {
+        end = env(g, t, 0.005, v, 0, 1.4 + dur * 0.5);
+        osc(p, 'sine', f, t, end, g);
+        const g2 = c.createGain(); g2.connect(p.inn);
+        osc(p, 'sine', f * 2.76, t, env(g2, t, 0.003, v * 0.22, 0, 0.5), g2);
+        break;
+      }
+      case 'chip':
+        end = env(g, t, 0.003, v, dur * 0.6, 0.06);
+        osc(p, 'square', f, t, end, g);
+        break;
+      case 'flute':
+        end = env(g, t, 0.06, v, Math.max(0, dur - 0.08), 0.22);
+        osc(p, 'sine', f, t, end, g);
+        break;
+      case 'pluck': default:
+        end = env(g, t, 0.005, v, 0, Math.min(1.2, 0.3 + dur * 1.2));
+        osc(p, 'triangle', f, t, end, g);
+    }
+  }
+  function pad(p, sp, t, notes, dur) {
+    const pd = sp.pad, c = p.c;
+    const g = c.createGain(); g.connect(p.inn);
+    const a = Math.min(0.8, dur * 0.3);
+    const end = env(g, t, a, pd.v, Math.max(0, dur - a - 0.2), 0.7);
+    for (const m of notes) {
+      const f = mtof(m + 12 * (pd.o || 0));
+      if (pd.w === 'organ') { osc(p, 'square', f, t, end, g); osc(p, 'sine', f * 2, t, end, g); }
+      else { osc(p, pd.w, f, t, end, g, -6); osc(p, pd.w, f, t, end, g, 6); }
+    }
+  }
+  function bass(p, sp, t, m, dur) {
+    const b = sp.bass, g = p.c.createGain(); g.connect(p.inn);
+    osc(p, b.w, mtof(m), t, env(g, t, 0.01, b.v, dur * 0.5, Math.max(0.08, dur * 0.6)), g);
+  }
+  function drum(p, kind, t, v) {
+    const c = p.c, g = c.createGain();
+    if (kind === 'k' || kind === 't') {
+      g.connect(p.dr);
+      const o = osc(p, 'sine', kind === 'k' ? 140 : 120, t, env(g, t, 0.003, 0.5 * v, 0, kind === 'k' ? 0.28 : 0.35), g);
+      o.frequency.setValueAtTime(kind === 'k' ? 140 : 120, t);
+      o.frequency.exponentialRampToValueAtTime(kind === 'k' ? 42 : 70, t + 0.13);
+      return;
+    }
+    const src = c.createBufferSource();
+    src.buffer = noise(c);
+    src.connect(g); g.connect(kind === 's' ? p.bp : p.hp);
+    const end = env(g, t, 0.002, (kind === 's' ? 0.3 : 0.12) * v, 0, kind === 's' ? 0.16 : 0.045);
+    src.start(t, Math.random() * 0.8, end - t + 0.02);
+    stats.notes++;
+  }
+
+  /* ---------- Harmonikk og melodi ---------- */
+  function chord(sp, d) {
+    const sc = MODE[sp.m];
+    return [0, 2, 4].map((k) => { const i = d + k; return sp.r + sc[i % 7] + 12 * Math.floor(i / 7); });
+  }
+  function melMidi(sp, i) {
+    const ms = sp.ms || MODE[sp.m];
+    return sp.r + 12 * (sp.mel.o || 0) + ms[mod(i, ms.length)] + 12 * Math.floor(i / ms.length);
+  }
+  function snap(sp, i, pcs) {
+    for (const dd of [0, -1, 1, -2, 2]) if (pcs.includes(mod(melMidi(sp, i + dd), 12))) return i + dd;
+    return i;
+  }
+  function rhythm(rng, spb, d, last) {
+    const on = [];
+    if (last) { on.push(0); if (rng() < 0.6) on.push(spb === 12 ? 4 : 6); return on; }
+    for (let s = 0; s < spb; s += 2) {
+      const pr = s === 0 ? d + 0.3 : s % 4 === 0 ? d + 0.15 : d * 0.6;
+      if (rng() < pr) on.push(s);
+    }
+    if (!on.length) on.push(0);
+    return on;
+  }
+  // Ny melodi for hver runde: takt 1 og 3 deler rytme (A A'), siste takt lander på en akkordtone.
+  function genMel(p, pass) {
+    const sp = p.sp;
+    if (!sp.mel || pass === 0 || (pass % 4 === 3 && !/^(combat|boss)/.test(p.id))) return null;
+    const rng = rngOf(p.seed + pass * 7919);
+    const spb = sp.spb || 16, L = sp.prog.length, d = sp.mel.d || 0.4;
+    const rA = rhythm(rng, spb, d), rB = rhythm(rng, spb, d);
+    let i = Math.floor(rng() * 5);
+    const out = [];
+    for (let b = 0; b < L; b++) {
+      const last = b === L - 1;
+      const on = last ? rhythm(rng, spb, d, true) : (b % 2 === 0 ? rA : rB);
+      const pcs = chord(sp, sp.prog[b]).map((m) => mod(m, 12));
+      const bar = {};
+      on.forEach((s, k) => {
+        const r = rng();
+        i += r < 0.12 ? -2 : r < 0.4 ? -1 : r < 0.5 ? 0 : r < 0.8 ? 1 : r < 0.92 ? 2 : (rng() < 0.5 ? 3 : -3);
+        if (i > 8) i -= 3; if (i < -2) i += 3;
+        if (s % 4 === 0 || last) i = snap(sp, i, pcs);
+        if (last && k === on.length - 1) i = snap(sp, Math.round(i / 5) * 5, pcs);
+        const next = k + 1 < on.length ? on[k + 1] : spb;
+        bar[s] = { m: melMidi(sp, i), l: Math.min(next - s, last ? spb : 6) };
+      });
+      out.push(bar);
+    }
+    return out;
+  }
+
+  /* ---------- Spiller (én per aktivt spor) ---------- */
+  function makePlayer(c, dest, id, sp, seed, t0, fadeIn) {
+    const p = { c, id, sp, seed, step: 0, t0, endAt: 0, mel: null, nodes: [] };
+    const node = (n) => { p.nodes.push(n); return n; };
+    p.out = node(c.createGain());
+    if (fadeIn) { p.out.gain.setValueAtTime(0.0001, t0); p.out.gain.linearRampToValueAtTime(1, t0 + FADE); }
+    p.out.connect(dest);
+    const lp = node(c.createBiquadFilter()); lp.type = 'lowpass'; lp.frequency.value = sp.lp || 2400; lp.Q.value = 0.4; lp.connect(p.out);
+    p.inn = node(c.createGain()); p.inn.connect(lp);
+    if (sp.dl) {
+      const sd = 60 / sp.bpm / 4;
+      const send = node(c.createGain()); send.gain.value = sp.dl;
+      const dly = node(c.createDelay(2)); dly.delayTime.value = sd * 3;
+      const damp = node(c.createBiquadFilter()); damp.type = 'lowpass'; damp.frequency.value = 1800;
+      const fb = node(c.createGain()); fb.gain.value = sp.fb || 0.32;
+      lp.connect(send); send.connect(dly); dly.connect(damp); damp.connect(fb); fb.connect(dly); damp.connect(p.out);
+    }
+    p.dr = node(c.createGain()); p.dr.gain.value = 0.8; p.dr.connect(p.out);
+    p.hp = node(c.createBiquadFilter()); p.hp.type = 'highpass'; p.hp.frequency.value = 7000; p.hp.connect(p.dr);
+    p.bp = node(c.createBiquadFilter()); p.bp.type = 'bandpass'; p.bp.frequency.value = 1800; p.bp.Q.value = 0.8; p.bp.connect(p.dr);
+    return p;
+  }
+  function stepTime(p, step) {
+    const sd = 60 / p.sp.bpm / 4;
+    return p.t0 + step * sd;
+  }
+  function scheduleStep(p, step, t) {
+    const sp = p.sp, spb = sp.spb || 16, sd = 60 / sp.bpm / 4;
+    const s = step % spb, bar = Math.floor(step / spb), L = sp.prog.length, lb = bar % L, pass = Math.floor(bar / L);
+    if (s === 0 && lb === 0) p.mel = genMel(p, pass);
+    const ch = chord(sp, sp.prog[lb]);
+    if (s === 0 && sp.pad) pad(p, sp, t, ch, spb * sd);
+    if (sp.bass) {
+      const c = sp.bass.p[s % sp.bass.p.length];
+      if (c !== '.') {
+        const root = ch[0] - 24 + 12 * (sp.bass.o || 0);
+        const m = { x: root, '5': ch[2] - 24, '3': ch[1] - 24, o: root + 12, b: root + 1 }[c];
+        if (m != null) bass(p, sp, t, m, (sp.bass.l || 2) * sd);
+      }
+    }
+    if (sp.arp) {
+      const pats = Array.isArray(sp.arp.p) ? sp.arp.p : [sp.arp.p];
+      const pat = pats[(pass + (lb >= L / 2 ? 1 : 0)) % pats.length];
+      const c = pat[s % pat.length];
+      if (c >= '0' && c <= '5') {
+        const k = +c, m = ch[k % 3] + 12 * (Math.floor(k / 3) + (sp.arp.o || 0));
+        voice(p, sp.arp.i, t, m, sd * 1.5, sp.arp.v);
+      }
+    }
+    if (p.mel && p.mel[lb] && p.mel[lb][s]) { const n = p.mel[lb][s]; voice(p, sp.mel.i, t, n.m, n.l * sd, sp.mel.v); }
+    if (sp.drum && bar >= (sp.di || 0)) {
+      const fill = lb === L - 1 && pass % 2 === 1 && s >= spb - 4;
+      for (const k in sp.drum) {
+        const pat = sp.drum[k];
+        let c = pat[s % pat.length];
+        if (fill && k === 'h' && c === '.') c = 'g';
+        if (c !== '.') drum(p, k, t, c === 'X' ? 1.3 : c === 'g' ? 0.45 : 1);
+      }
+    }
+  }
+  function fill(p, until) {
+    for (;;) {
+      const t = stepTime(p, p.step);
+      if (t >= until) break;
+      if (!p.endAt || t < p.endAt) scheduleStep(p, p.step, t + ((p.step % 2) ? (p.sp.sw || 0) * 60 / p.sp.bpm / 4 : 0));
+      p.step++;
+    }
+  }
+
+  /* ---------- Stikk (seier/tap) ---------- */
+  function stinger(c, dest, root, kind, t) {
+    const sp = { r: root, bpm: 90, lp: 3000, dl: 0.3, fb: 0.35, pad: { w: 'triangle', v: 0.06 } };
+    const p = makePlayer(c, dest, kind, sp, 1, t, false);
+    if (kind === 'victory') {
+      [0, 4, 7, 12, 16].forEach((iv, k) => voice(p, 'bell', t + k * 0.13, root + 12 + iv, 0.4, 0.06));
+      pad(p, sp, t + 0.5, [root, root + 4, root + 7, root + 12], 2.4);
+    } else {
+      [7, 3, 2, -2].forEach((iv, k) => voice(p, 'flute', t + k * 0.32, root + 12 + iv, 0.3, 0.06));
+      pad(p, sp, t + 1.1, [root - 12, root + 3 - 12, root + 7 - 12], 2.6);
+    }
+    return p;
+  }
+
+  /* ---------- Tilstand og API ---------- */
+  let enabled = true, vol = 0.5;
+  try {
+    enabled = localStorage.getItem('ng.music') !== '0';
+    const v = parseFloat(localStorage.getItem('ng.musicVol'));
+    if (v >= 0 && v <= 1) vol = v;
+  } catch (e) { /* ingen lagring */ }
+  let bus = null, busCtx = null, players = [], timer = null, want = null, gestured = false, resumeT = null, plays = 0;
+  const hidden = () => typeof document !== 'undefined' && document.visibilityState === 'hidden';
+  const muted = () => !!(NG.audio && NG.audio.muted);
+  const canPlay = () => enabled && !muted() && gestured && !hidden();
+
+  function getBus() {
+    const c = NG.audio && NG.audio.context && NG.audio.context();
+    if (!c || !NG.audio.master) return null;
+    if (busCtx !== c) {
+      bus = c.createGain(); bus.gain.value = vol * GAIN; bus.connect(NG.audio.master); busCtx = c;
+    }
+    return bus;
+  }
+  function tick() {
+    timer = null;
+    if (!busCtx || hidden()) return;
+    stats.ticks++;
+    const now = busCtx.currentTime;
+    players = players.filter((p) => {
+      if (p.endAt && now > p.endAt + 0.3) { p.nodes.forEach((n) => { try { n.disconnect(); } catch (e) { /* */ } }); return false; }
+      if (!p.once) {
+        if (stepTime(p, p.step) < now) p.t0 = now + 0.05 - p.step * 60 / p.sp.bpm / 4; // hang etter (struping) → hopp fram
+        fill(p, now + AHEAD);
+      }
+      return true;
+    });
+    if (players.length) timer = setTimeout(tick, TICK);
+  }
+  function kick() { if (!timer && players.length && !hidden()) timer = setTimeout(tick, 0); }
+  function fadeOut(p, now, len) {
+    if (p.endAt) return;
+    const g = p.out.gain;
+    g.cancelScheduledValues(now); g.setValueAtTime(g.value, now); g.linearRampToValueAtTime(0.0001, now + len);
+    p.endAt = now + len;
+  }
+  function fadeAll(len) { if (busCtx) players.forEach((p) => fadeOut(p, busCtx.currentTime, len)); }
+  const current = () => players.find((p) => !p.endAt && !p.once) || null;
+
+  function play(id) {
+    if (!id) return;
+    clearTimeout(resumeT); resumeT = null;
+    if (id === 'victory' || id === 'defeat') { stingerNow(id); return; }
+    if (!specFor(id)) return;
+    want = id;
+    if (!canPlay()) return;
+    const cur = current();
+    if (cur && cur.id === id) return;
+    const b = getBus(); if (!b) return;
+    const now = busCtx.currentTime;
+    fadeAll(FADE);
+    players.push(makePlayer(busCtx, b, id, specFor(id), hash(id) + 101 * plays++, now + 0.05, true));
+    stats.tracks++;
+    kick();
+  }
+  function stingerNow(kind, after) {
+    if (!canPlay()) return;
+    const b = getBus(); if (!b) return;
+    const cur = current();
+    const prev = cur ? cur.id : want;
+    const root = cur ? cur.sp.r : 60;
+    const now = busCtx.currentTime;
+    fadeAll(0.5);
+    const p = stinger(busCtx, b, root % 12 + 60, kind, now + 0.55); // etter SFX-fanfaren
+    p.once = true; p.endAt = now + 5;
+    players.push(p);
+    kick();
+    want = after || prev;
+    if (want) { const w = want; resumeT = setTimeout(() => { resumeT = null; play(w); }, 4500); }
+  }
+  function runRegion() { try { const s = NG.state && NG.state(); return s && s.run ? s.run.region : null; } catch (e) { return null; } }
+
+  // Skjerm + parametre + ekspedisjonsstatus → spor. null = behold det som spiller.
+  function pick(name, params) {
+    params = params || {};
+    let s = null; try { s = NG.state && NG.state(); } catch (e) { /* */ }
+    const run = s && s.run, reg = run ? run.region : null;
+    switch (name) {
+      case 'title': case 'intro': case 'finale': return 'title';
+      case 'camp': case 'shop': return 'camp';
+      case 'merchant': return 'rest';
+      case 'path': case 'event': case 'chest': return reg ? 'map:' + reg : 'camp';
+      case 'sol': case 'oracle': return 'rest';
+      case 'lab': case 'labs': case 'exams': case 'review': return 'lab';
+      case 'combat': {
+        let def = null; try { def = params.enemy && NG.enemyDef ? NG.enemyDef(params.enemy) : null; } catch (e) { /* */ }
+        const region = reg || (def && def.region) || 'energi';
+        let node = null; try { node = run && NG.runNode ? NG.runNode(s) : null; } catch (e) { /* */ }
+        const boss = (node && node.type === 'boss') || (NG.REGIONS || []).some((r) => r.boss === params.enemy);
+        return (boss ? 'boss:' : 'combat:') + region;
+      }
+      default: return null;
+    }
+  }
+  function auto(name, params) {
+    let id = pick(name, params);
+    if (!id) {
+      const w = (current() || {}).id || want;
+      id = !w ? 'camp' : (/^(map|combat|boss):/.test(w) && !runRegion() ? 'camp' : null);
+    }
+    if (id) play(id);
+  }
+
+  function unlock() {
+    if (gestured) return;
+    // Berøring via pointerdown gir ikke «user activation» i Chrome; vent da på touchend/click.
+    if (navigator.userActivation && !navigator.userActivation.isActive) return;
+    gestured = true;
+    ['pointerdown', 'touchend', 'click', 'keydown'].forEach((t) => document.removeEventListener(t, unlock, true));
+    if (enabled && !muted()) play(want || 'camp');
+  }
+  if (typeof document !== 'undefined' && document.addEventListener) {
+    ['pointerdown', 'touchend', 'click', 'keydown'].forEach((t) => document.addEventListener(t, unlock, { capture: true, passive: true }));
+    document.addEventListener('visibilitychange', () => {
+      if (!busCtx) return;
+      if (hidden()) { clearTimeout(timer); timer = null; busCtx.suspend().catch(() => {}); }
+      else if (gestured) busCtx.resume().then(kick, () => {});
+    });
+  }
+
+  NG.music = {
+    play,
+    stop() { want = null; clearTimeout(resumeT); resumeT = null; fadeAll(FADE); },
+    get enabled() { return enabled; },
+    setEnabled(b) {
+      enabled = !!b;
+      try { localStorage.setItem('ng.music', enabled ? '1' : '0'); } catch (e) { /* */ }
+      NG.music._sync();
+    },
+    get volume() { return vol; },
+    setVolume(v) {
+      vol = Math.max(0, Math.min(1, +v || 0));
+      try { localStorage.setItem('ng.musicVol', String(vol)); } catch (e) { /* */ }
+      if (bus) bus.gain.setTargetAtTime(vol * GAIN, busCtx.currentTime, 0.05);
+    },
+    get track() { const c = current(); return c ? c.id : null; },
+    pick, auto,
+    stinger: (kind) => stingerNow(kind === 'defeat' ? 'defeat' : 'victory'),
+    tracks: () => ['title', 'camp', 'lab', 'rest', ...Object.keys(REG).flatMap((r) => ['map:' + r, 'combat:' + r, 'boss:' + r])],
+    _sync() {
+      if (enabled && !muted()) { if (want) { const w = want; want = null; play(w); } else if (gestured) play('camp'); }
+      else { const c = current(); if (c) want = c.id; fadeAll(0.4); }
+    },
+    _onSfx(name) {
+      const c = current(); const id = c ? c.id : '';
+      const reg = runRegion();
+      if (name === 'lose') stingerNow('defeat', reg ? 'map:' + reg : 'camp');
+      else if (name === 'win' || (name === 'coin' && /^(combat|boss):/.test(id))) {
+        stingerNow('victory', /^(combat|boss):/.test(id) ? (reg ? 'map:' + reg : 'camp') : null);
+      }
+    },
+    debug: () => ({ track: (current() || {}).id || null, want, players: players.length, ctx: busCtx && busCtx.state, gestured, enabled, vol, ...stats }),
+    // Testhjelper: render et spor offline og mål topp/RMS. NG.music._render('map:liv', 12).then(console.log)
+    _render(id, secs) {
+      const sr = 22050, c = new OfflineAudioContext(1, Math.ceil(sr * secs), sr);
+      const g = c.createGain(); g.gain.value = vol * GAIN; g.connect(c.destination);
+      if (id === 'victory' || id === 'defeat') stinger(c, g, 60, id, 0);
+      else fill(makePlayer(c, g, id, specFor(id), hash(id), 0, false), secs);
+      return c.startRendering().then((buf) => {
+        const d = buf.getChannelData(0); let peak = 0, sum = 0;
+        for (let i = 0; i < d.length; i++) { const a = Math.abs(d[i]); if (a > peak) peak = a; sum += d[i] * d[i]; }
+        return { id, peak: +peak.toFixed(3), rms: +Math.sqrt(sum / d.length).toFixed(4) };
+      });
     },
   };
 })();
@@ -676,13 +1347,14 @@ NG.LADDER = ['Ukjent', 'Gjenkjenne', 'Definere', 'Nettverk', 'Anvende', 'Overfø
 (function () {
   'use strict';
   const KEY = 'ng.save.v1';
+  const BAK = 'ng.save.v1.bak';
   const VERSION = 1;
 
   NG.newState = function () {
     return {
       v: VERSION,
       created: Date.now(),
-      updated: Date.now(),
+      updated: 0, // 0 = aldri lagret (en tom lagring skal aldri overskrive skyen)
       name: 'Lærling',
       introSeen: false,
       level: 1,
@@ -695,6 +1367,7 @@ NG.LADDER = ['Ukjent', 'Gjenkjenne', 'Definere', 'Nettverk', 'Anvende', 'Overfø
       joule: 30,
       items: { matpakke: 1, kakao: 1 }, // forbruksvarer: id -> antall
       relics: [], // varige gjenstander (id)
+      abilities: {}, // evne-id -> { lvl 1–5, xp } (mestring som følger spilleren)
       cards: {}, // begrep-id -> { lvl, sub, seen, right, wrong }
       srs: {}, // spørsmål-id -> { box, due, seen, right, wrong, last }
       bossesBeaten: {},
@@ -715,23 +1388,60 @@ NG.LADDER = ['Ukjent', 'Gjenkjenne', 'Definere', 'Nettverk', 'Anvende', 'Overfø
 
   NG.state = function () { return state; };
 
+  const isObj = (x) => x && typeof x === 'object' && !Array.isArray(x);
   function migrate(s) {
     const base = NG.newState();
-    for (const k in base) if (s[k] === undefined) s[k] = base[k];
-    for (const k in base.counters) if (s.counters[k] === undefined) s.counters[k] = 0;
-    for (const k in base.stats) if (s.stats[k] === undefined) s.stats[k] = 1;
+    for (const k in base) if (s[k] === undefined || (s[k] === null && base[k] !== null && k !== 'run')) s[k] = base[k];
+    for (const k of ['counters', 'stats', 'items', 'cards', 'srs', 'bossesBeaten', 'regionVisits', 'sheets', 'labs', 'daily', 'tips', 'abilities']) if (!isObj(s[k])) s[k] = base[k];
+    if (!Array.isArray(s.relics)) s.relics = [];
+    for (const k in base.counters) if (!isFinite(s.counters[k])) s.counters[k] = 0;
+    for (const k in base.stats) if (!(s.stats[k] >= 1)) s.stats[k] = 1;
+    for (const k of ['level']) if (!(s[k] >= 1)) s[k] = 1;
+    for (const k of ['xp', 'statPoints', 'joule', 'heat', 'updated']) if (!isFinite(s[k]) || s[k] < 0) s[k] = 0;
+    for (const id in s.abilities) {
+      const a = s.abilities[id];
+      if (!isObj(a)) { delete s.abilities[id]; continue; }
+      a.lvl = NG.clamp(Math.floor(Number(a.lvl)) || 1, 1, 5);
+      a.xp = Math.max(0, Number(a.xp) || 0);
+    }
+    if (s.run != null && !isObj(s.run)) s.run = null;
+    if (s.run) {
+      if (!Array.isArray(s.run.layers) && !isObj(s.run.map)) s.run = null; // kartet valideres videre av NG.runMap
+      else {
+        if (!Array.isArray(s.run.relics)) s.run.relics = [];
+        for (const k of ['seenEnemies', 'seenEvents', 'seenLabs', 'usedQ']) if (!Array.isArray(s.run[k])) s.run[k] = [];
+      }
+    }
     s.v = VERSION;
     return s;
   }
+  // HP/energi kan mangle (ny lagring) eller være ødelagt (importert kode).
+  function fixVitals(s) {
+    if (!isFinite(s.hp) || s.hp == null) s.hp = NG.maxHp(s);
+    if (!isFinite(s.energy) || s.energy == null) s.energy = NG.maxEnergy(s);
+    s.hp = NG.clamp(Math.round(s.hp), 0, NG.maxHp(s));
+    s.energy = Math.max(0, Math.round(s.energy));
+    return s;
+  }
+  // Grovt mål på hvor mye fremgang en lagring har (for å aldri overskrive mer fremgang med mindre).
+  function progress(s) { return s && s.counters ? (Number(s.counters.answered) || 0) + 100 * ((Number(s.level) || 1) - 1) : 0; }
 
   NG.load = function () {
     let s = null;
-    try {
-      const raw = localStorage.getItem(KEY);
-      if (raw) s = JSON.parse(raw);
-    } catch (e) { s = null; }
-    state = s ? migrate(s) : NG.newState();
-    if (state.hp == null) { state.hp = NG.maxHp(state); state.energy = NG.maxEnergy(state); }
+    let raw = null;
+    try { raw = localStorage.getItem(KEY); } catch (e) { raw = null; }
+    if (raw) {
+      try { s = JSON.parse(raw); } catch (e) { s = null; }
+      if (!isObj(s)) {
+        // Ødelagt lagring: ta vare på råteksten (overskriv aldri en eksisterende sikkerhetskopi).
+        s = null;
+        try { if (!localStorage.getItem(BAK)) localStorage.setItem(BAK, raw); } catch (e) { /* */ }
+        NG.saveWasCorrupt = true;
+      }
+    }
+    try { state = s ? migrate(s) : NG.newState(); } catch (e) { state = NG.newState(); }
+    fixVitals(state);
+    try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {}); } catch (e) { /* */ }
     return state;
   };
 
@@ -755,8 +1465,8 @@ NG.LADDER = ['Ukjent', 'Gjenkjenne', 'Definere', 'Nettverk', 'Anvende', 'Overfø
   NG.importSave = function (code) {
     try {
       const s = JSON.parse(decodeURIComponent(escape(atob(String(code).trim()))));
-      if (!s || typeof s !== 'object' || !s.cards) return false;
-      state = migrate(s);
+      if (!isObj(s) || !isObj(s.cards) || !isObj(s.counters) || !isObj(s.stats)) return false;
+      state = fixVitals(migrate(s));
       NG.save({ now: true });
       return true;
     } catch (e) { return false; }
@@ -786,14 +1496,21 @@ NG.LADDER = ['Ukjent', 'Gjenkjenne', 'Definere', 'Nettverk', 'Anvende', 'Overfø
       dbRef = db.doc('data/users/' + uid + '/save');
       const snap = await dbRef.get();
       const remote = snap.exists ? snap.data() : null;
-      if (remote && remote.json && Number(remote.updated) > (state ? state.updated : 0) + 1000) {
+      let remoteState = null;
+      if (remote && remote.json) { try { remoteState = JSON.parse(remote.json); } catch (e) { remoteState = null; } }
+      const local = state;
+      const localNever = !local || !local.updated;
+      const remoteNewer = remoteState && Number(remote.updated) > (local ? local.updated : 0) + 1000;
+      // Mer fremgang i skyen enn lokalt, og lokal lagring er ikke en bevisst ny start etter skylagringen.
+      const remoteRicher = remoteState && progress(remoteState) > progress(local) && !(local && local.created > Number(remote.updated));
+      if (remoteState && (localNever || remoteNewer || remoteRicher)) {
         try {
-          state = migrate(JSON.parse(remote.json));
+          state = fixVitals(migrate(remoteState));
           try { localStorage.setItem(KEY, remote.json); } catch (e) { /* */ }
           if (onNewer) onNewer(state);
         } catch (e) { /* korrupt sky-lagring: behold lokal */ }
-      } else {
-        writeDb();
+      } else if (state && state.updated) {
+        writeDb(); // aldri skriv en lagring som ikke er lagret lokalt ennå
       }
       NG.cloud = true;
       return true;
@@ -817,7 +1534,19 @@ NG.LADDER = ['Ukjent', 'Gjenkjenne', 'Definere', 'Nettverk', 'Anvende', 'Overfø
   NG.maxEnergy = (s) => 40 + 6 * s.stats.nysgjerrighet + (NG.hasRelic(s, 'solcelle') ? 10 : 0);
   NG.hintsPerFight = (s) => 1 + Math.floor(s.stats.nysgjerrighet / 2) + (NG.hasRelic(s, 'notatbok') ? 1 : 0);
   NG.xpNeed = (lvl) => 60 + 45 * lvl;
-  NG.hasRelic = (s, id) => (s.relics || []).indexOf(id) >= 0;
+  // Varige relikvier (s.relics) og ekspedisjonsrelikvier (s.run.relics)
+  NG.hasRelic = (s, id) => (Array.isArray(s.relics) && s.relics.indexOf(id) >= 0) ||
+    !!(s.run && Array.isArray(s.run.relics) && s.run.relics.indexOf(id) >= 0);
+  // Tilfør energi opp til maks. Overskuddet blir spillvarme (energien er bevart, men lite nyttig).
+  // Returnerer { gained, heat }.
+  NG.addEnergy = function (s, amount) {
+    const room = Math.max(0, NG.maxEnergy(s) - s.energy);
+    const gained = Math.min(room, amount);
+    s.energy += gained;
+    const heat = amount - gained;
+    if (heat > 0) s.heat += heat;
+    return { gained, heat };
+  };
 
   /* ---------- XP og nivå ---------- */
   // Returnerer antall nivåer opp.
@@ -910,8 +1639,11 @@ NG.LADDER = ['Ukjent', 'Gjenkjenne', 'Definere', 'Nettverk', 'Anvende', 'Overfø
       return any.length ? { q: rng.pick(any) } : null;
     }
     const m = NG.regionMastery(s, ctx.region).avg;
-    const visits = s.regionVisits[ctx.region] || 0;
-    let target = 1.6 + m + Math.min(1.5, visits * 0.4) + (ctx.tier === 'elite' ? 0.8 : ctx.tier === 'boss' ? 1.4 : 0);
+    // Vanskelighet følger fullførte ekspedisjoner (NG.regionTier), ikke avbrutte/tapte forsøk.
+    let tierN = null;
+    if (NG.regionTier) { try { tierN = NG.regionTier(s, ctx.region); } catch (e) { tierN = null; } }
+    if (!isFinite(tierN)) tierN = Math.max(0, (s.regionVisits[ctx.region] || 1) - 1);
+    let target = 1.6 + m + Math.min(1.5, 0.4 + 0.4 * NG.clamp(tierN, 0, 4)) + (ctx.tier === 'elite' ? 0.8 : ctx.tier === 'boss' ? 1.4 : 0);
     target = NG.clamp(target, 1, 5);
     const now = Date.now();
     const weights = pool.map((q) => {
@@ -951,17 +1683,27 @@ NG.LADDER = ['Ukjent', 'Gjenkjenne', 'Definere', 'Nettverk', 'Anvende', 'Overfø
 
 ;
 /* ===== src/core/40-items.js ===== */
-/* Gjenstander. kind: 'use' = forbruksvare (brukes i kamp eller leir), 'relic' = varig effekt.
-   Effektene håndteres i kamp-/leir-koden etter id. Teksten forklarer alltid fysikken bak. */
+/* Gjenstander, evner og ekspedisjonsrelikvier.
+   kind: 'use' = forbruksvare (brukes i kamp eller leir), 'relic' = varig effekt (kjøpes i Materiallageret).
+   NG.RUN_RELICS = relikvier som bare varer én ekspedisjon (s.run.relics). Effektene håndteres i kampkoden etter id.
+   Teksten forklarer alltid naturfaget bak. */
 (function () {
   'use strict';
   NG.ITEMS = [
     { id: 'matpakke', kind: 'use', name: 'Matpakke', art: 'item-notatbok', price: 15, combat: true,
-      desc: '+20 J energi.', lore: 'Kjemisk energi i maten blir til energi du kan bruke. Celleåndingen *lager* ikke energi — den omdanner den.' },
+      desc: '+20 J energi (opp til maks — resten blir spillvarme).', lore: 'Kjemisk energi i maten blir til energi du kan bruke. Celleåndingen *lager* ikke energi — den omdanner den.' },
     { id: 'kakao', kind: 'use', name: 'Termos med kakao', art: 'item-termos', price: 15, combat: true,
       desc: 'Gjenopprett 25 HP.', lore: 'Termosen holder på varmen fordi vakuumet stopper ledning og strømning, og den blanke flata reflekterer stråling.' },
     { id: 'repetisjonskort', kind: 'use', name: 'Repetisjonskort', art: 'item-begrepskort', price: 20, combat: true,
       desc: 'Neste spørsmål gir dobbel skade hvis riktig.', lore: 'Spredt repetisjon slår massiv pugging.' },
+    { id: 'lakmus', kind: 'use', name: 'Lakmuspapir', art: 'relic-lakmus', price: 20, combat: true,
+      desc: 'Avslører om ett av svaralternativene er riktig eller galt (flervalg).', lore: 'Lakmus blir rødt i sur løsning og blått i basisk. En god indikator gir et entydig ja/nei-svar.' },
+    { id: 'brannteppe', kind: 'use', name: 'Brannteppe', art: 'relic-brannteppe', price: 18, combat: true,
+      desc: 'Gir et skjold mot neste angrep.', lore: 'Teppet kveler flammen ved å stenge oksygenet ute. Fjerner du én side av branntrekanten, slokner brannen.' },
+    { id: 'torris', kind: 'use', name: 'Tørris', art: 'relic-torris', price: 22, combat: true,
+      desc: 'Fryser Misforståelsens neste trekk: den bare lurer.', lore: 'Fast CO~2~ sublimerer ved −78,5 °C — rett fra fast stoff til gass uten å bli væske.' },
+    { id: 'magnesium', kind: 'use', name: 'Magnesiumbånd', art: 'relic-magnesium', price: 25, combat: true,
+      desc: 'Neste riktige svar blir et kritisk treff.', lore: 'Magnesium brenner med blendende hvitt lys og danner magnesiumoksid (MgO). Ikke se rett på flammen!' },
     { id: 'vernebriller', kind: 'relic', name: 'Vernebriller', art: 'item-vernebriller', price: 90,
       desc: 'Første feilsvar i hver kamp gir ingen skade.', lore: 'Verneutstyr er siste skanse i en risikovurdering — men den skansen redder øyne.' },
     { id: 'termos', kind: 'relic', name: 'Isolert termos', art: 'item-termos', price: 105,
@@ -969,11 +1711,11 @@ NG.LADDER = ['Ukjent', 'Gjenkjenne', 'Definere', 'Nettverk', 'Anvende', 'Overfø
     { id: 'notatbok', kind: 'relic', name: 'Feynmans notatbok', art: 'item-notatbok', price: 80,
       desc: '+1 hint i hver kamp.', lore: '«What I cannot create, I do not understand.»' },
     { id: 'partikkelbriller', kind: 'relic', name: 'Partikkelbrillene', art: 'item-partikkelbriller', price: 95,
-      desc: 'Partikkelblikket koster 5 J i stedet for 10 J.', lore: 'Se mikronivået bak makronivået.' },
+      desc: 'Partikkelblikket koster 5 J mindre.', lore: 'Se mikronivået bak makronivået.' },
     { id: 'kalorimeter', kind: 'relic', name: 'Kalorimeteret', art: 'item-kalorimeter', price: 75,
       desc: '+15 % XP fra kamper.', lore: 'Det du måler, kan du gjøre regnskap for.' },
     { id: 'lupe', kind: 'relic', name: 'Forskerlupa', art: 'item-lupe', price: 65,
-      desc: 'Du ser alltid hva Misforståelsen planlegger.', lore: 'Observasjon først — slutning etterpå.' },
+      desc: 'Du ser alltid hva Misforståelsen planlegger to trekk frem.', lore: 'Observasjon først — slutning etterpå.' },
     { id: 'periodesystem', kind: 'relic', name: 'Lommeperiodesystemet', art: 'item-periodesystem', price: 90,
       desc: '+25 % skade i Stoffgruvene.', lore: 'Mendelejev lot hull stå åpne for grunnstoffer ingen hadde funnet ennå.' },
     { id: 'solcelle', kind: 'relic', name: 'Solcellepanelet', art: 'item-solcelle', price: 105,
@@ -982,22 +1724,181 @@ NG.LADDER = ['Ukjent', 'Gjenkjenne', 'Definere', 'Nettverk', 'Anvende', 'Overfø
       desc: 'Ny evne: bruk 5 J for å hente 15 J ut av spillvarmen.', lore: 'En varmepumpe bruker høyverdig energi til å flytte lavverdig varme dit vi vil ha den. Den lager ikke energi.' },
   ];
   NG.item = (id) => NG.ITEMS.find((i) => i.id === id);
+  NG.combatItems = () => NG.ITEMS.filter((i) => i.kind === 'use' && i.combat);
 
-  NG.ABILITIES = [
-    { id: 'blikk', name: 'Partikkelblikket', cost: 10, desc: 'Fjern to gale svaralternativ.', icon: 'item-partikkelbriller' },
-    { id: 'gruble', name: 'Grubletegning', cost: 15, desc: 'Skjold mot neste angrep, og du ser hva Misforståelsen planlegger.', icon: 'item-lupe' },
-    { id: 'peb', name: 'PEB-kombo', cost: 25, desc: 'Påstand → Evidens → Begrunnelse: tre riktige på rad gir et knusende argument.', icon: 'item-begrepskort' },
-    { id: 'pumpe', name: 'Varmepumpe', cost: 5, desc: 'Hent 15 J fra spillvarmen.', icon: 'item-varmepumpe', needs: 'varmepumpe' },
+  /* ---------- Ekspedisjonsrelikvier (varer én ekspedisjon) ---------- */
+  NG.RARITY = {
+    vanlig: { name: 'Vanlig', color: 'var(--chalk-dim)' },
+    sjelden: { name: 'Sjelden', color: 'var(--r-stoffer)' },
+    episk: { name: 'Episk', color: 'var(--xp)' },
+    boss: { name: 'Boss', color: 'var(--bad)' },
+  };
+  NG.RUN_RELICS = [
+    { id: 'newtons-vugge', name: 'Newtons vugge', rarity: 'vanlig', art: 'relic-vugge',
+      desc: 'Et feilsvar halverer rekka di i stedet for å nullstille den.', lore: 'Kulene sender bevegelsesmengde og energi videre fra støt til støt — lite går tapt hver gang.' },
+    { id: 'bunsenbrenner', name: 'Bunsenbrenneren', rarity: 'vanlig', art: 'relic-bunsen',
+      desc: '+3 J energi for hvert riktige svar når rekka er 3 eller mer.', lore: 'Med lufthullet åpent brenner gassen fullstendig: blå, varm flamme og mer energi frigjort per gram.' },
+    { id: 'termoelement', name: 'Termoelementet', rarity: 'vanlig', art: 'relic-termoelement',
+      desc: '+1 skade per 10 J spillvarme du har (maks +6).', lore: 'Seebeck-effekten: to ulike metaller og en temperaturforskjell gir en spenning. Litt av spillvarmen kan gjøre nytte igjen.' },
+    { id: 'mikroskop', name: 'Mikroskopet', rarity: 'vanlig', art: 'relic-mikroskop',
+      desc: 'Hint fjerner også ett galt alternativ på flervalgsspørsmål.', lore: 'Antoni van Leeuwenhoek så «dyrekryp» i en vanndråpe gjennom hjemmeslipte linser. Observasjon kom før teorien.' },
+    { id: 'feltdagbok', name: 'Feltdagboka', rarity: 'vanlig', art: 'item-notatbok',
+      desc: 'Etter et feilsvar gjenvinner du 4 J fra spillvarmen.', lore: 'Et mislykket forsøk er også data — hvis du skriver det ned og reflekterer over det.' },
+    { id: 'katalysator', name: 'Katalysatoren', rarity: 'sjelden', art: 'relic-katalysator',
+      desc: 'Den første evnen du bruker i hver kamp, er gratis.', lore: 'En katalysator senker aktiveringsenergien og kommer selv uforandret ut av reaksjonen.' },
+    { id: 'leitner', name: 'Leitner-boksen', rarity: 'sjelden', art: 'item-begrepskort',
+      desc: 'Dobbelt så mange gjenferd (repetisjonsspørsmål), og riktige svar på gjenferd gjør ×1,5 skade.', lore: 'Sebastian Leitners kortboks (1972): kort du kan, flyttes bakover og kommer sjeldnere. Spredt repetisjon slår pugging.' },
+    { id: 'kontrollforsok', name: 'Kontrollforsøket', rarity: 'sjelden', art: 'relic-kontroll',
+      desc: 'Etter et feilsvar kommer et nytt spørsmål fra samme tema. Svarer du riktig på det, gjør det ×1,5 skade.', lore: 'Endre én variabel om gangen og sammenlign med en kontroll — da vet du hva som gjorde forskjellen.' },
+    { id: 'prisme', name: 'Prismet', rarity: 'sjelden', art: 'relic-prisme',
+      desc: '+15 % sjanse for kritisk treff på spørsmål på nivå 4–5 (Anvende/Overføre).', lore: 'Newton viste at hvitt lys er sammensatt: prismet bryter de ulike bølgelengdene ulikt.' },
+    { id: 'vandegraaff', name: 'Van de Graaff-generatoren', rarity: 'episk', art: 'relic-vdg',
+      desc: 'Hvert 4. riktige svar i en kamp utløser en gnist: ekstra skade lik grunnskaden din.', lore: 'Beltet fører ladning opp til kula til spenningen blir så stor at lufta slår gjennom.' },
+    { id: 'dna-modell', name: 'DNA-modellen', rarity: 'episk', art: 'relic-dna',
+      desc: 'Begrepskortene dine gir dobbelt så stor skadebonus (opptil +60 %).', lore: 'Watson og Crick bygde modellen — men det var Rosalind Franklins røntgenbilde 51 som avslørte dobbelheliksen.' },
+    { id: 'tannhjul', name: 'Evighetsmaskinens tannhjul', rarity: 'boss', art: 'relic-tannhjul',
+      desc: 'Evner er gratis de to første rundene i hver kamp. Ulempe: du tar 10 % mer skade.', lore: 'Ingen evighetsmaskin har noen gang virket — 1. hovedsetning forbyr det. «Gratis» energi har alltid en pris et sted.' },
+    { id: 'dewar', name: 'Dewar-kolben', rarity: 'boss', art: 'item-termos',
+      desc: 'Når du svarer riktig, slår ikke Misforståelsen i det hele tatt. Ulempe: feilsvar gjør 25 % mer skade.', lore: 'James Dewars vakuumkolbe isolerer nesten perfekt: det som er inne, blir inne — på godt og vondt.' },
+    { id: 'schrodinger', name: 'Schrödingers eske', rarity: 'boss', art: 'relic-eske',
+      desc: '+25 % sjanse for kritisk treff. Ulempe: treff som ikke er kritiske, gjør 15 % mindre skade.', lore: 'Tankeeksperimentet skulle vise hvor rart det blir å bruke kvantemekanikk på en katt. Utfallet er uvisst til du åpner esken.' },
   ];
+  NG.runRelic = (id) => NG.RUN_RELICS.find((r) => r.id === id) || null;
+  NG.relicDef = (id) => NG.runRelic(id) || NG.item(id) || null;
+  NG.runRelics = (s) => (s && s.run && Array.isArray(s.run.relics) ? s.run.relics : []);
+
+  // Trekk n ulike relikvier spilleren ikke har. source: 'elite' | 'boss' | 'kiste' | 'butikk'
+  NG.rollRelics = function (s, rng, n, source) {
+    rng = rng || NG.makeRng(Date.now());
+    n = n || 3;
+    let avail = NG.RUN_RELICS.filter((r) => !NG.hasRelic(s, r.id));
+    const W = { elite: [50, 35, 15], kiste: [70, 25, 5] }[source] || [60, 30, 10];
+    const out = [];
+    for (let i = 0; i < n && avail.length; i++) {
+      let pool = [];
+      if (source === 'boss') {
+        pool = avail.filter((r) => r.rarity === 'boss');
+        if (!pool.length) pool = avail.filter((r) => r.rarity === 'episk');
+      } else {
+        let rar;
+        if (source === 'elite' && rng.chance(0.1)) rar = 'boss';
+        else { const x = rng.next() * 100; rar = x < W[0] ? 'vanlig' : x < W[0] + W[1] ? 'sjelden' : 'episk'; }
+        pool = avail.filter((r) => r.rarity === rar);
+      }
+      if (!pool.length) pool = avail.filter((r) => r.rarity !== 'boss');
+      if (!pool.length) pool = avail;
+      const pick = rng.pick(pool);
+      out.push(pick.id);
+      avail = avail.filter((r) => r !== pick);
+    }
+    return out;
+  };
+
+  // Gi spilleren en relikvie/gjenstand. Returnerer definisjonen (eller null).
+  NG.gainRelic = function (s, id) {
+    const rr = NG.runRelic(id);
+    if (rr) {
+      if (!s.run) return null;
+      if (!Array.isArray(s.run.relics)) s.run.relics = [];
+      if (s.run.relics.indexOf(id) < 0) s.run.relics.push(id);
+      return rr;
+    }
+    const it = NG.item(id);
+    if (!it) return null;
+    if (it.kind === 'relic') {
+      if (!Array.isArray(s.relics)) s.relics = [];
+      if (s.relics.indexOf(id) < 0) { s.relics.push(id); if (id === 'solcelle') s.energy += 10; }
+    } else s.items[id] = (s.items[id] || 0) + 1;
+    return it;
+  };
+
+  /* ---------- Evner (med mestringsnivå 1–5 som følger spilleren) ---------- */
+  NG.ABILITIES = [
+    { id: 'blikk', name: 'Partikkelblikket', short: 'Partikkel­blikk', cost: 10, icon: 'item-partikkelbriller',
+      desc: 'Fjern to gale svaralternativer (flervalg).',
+      science: 'Partikkelmodellen: mange fenomener på makronivå — smelting, diffusjon, trykk — blir forståelige når vi «ser» partiklene på mikronivå. Blikket skreller bort alternativene som ikke stemmer med modellen.',
+      levels: [null, 'Fjerner 2 gale alternativer på flervalgsspørsmål.', 'Svarer du riktig, gjenvinner du 3 J fra spillvarmen.', 'Koster 3 J mindre.', 'Det første Partikkelblikket i hver kamp er gratis.', 'Viser også begrepene spørsmålet bygger på (gratis hint).'] },
+    { id: 'gruble', name: 'Grubletegning', short: 'Gruble­tegning', cost: 15, icon: 'item-lupe',
+      desc: 'Skjold mot neste angrep, og du ser Misforståelsens plan to trekk frem.',
+      science: 'Å tegne tanken sin — en skisse, en modell på papir — gjør den synlig for deg selv og andre. Elevtegninger avslører forestillinger som ord skjuler.',
+      levels: [null, 'Skjold mot neste angrep, og du ser planen to trekk frem.', 'Koster 3 J mindre.', 'Når skjoldet tar et angrep, slår du tilbake med halve skaden (motargument).', 'Skjoldet tåler to angrep.', 'Gir også +1 hint i kampen.'] },
+    { id: 'peb', name: 'PEB-kombo', short: 'PEB-kombo', cost: 25, icon: 'item-begrepskort',
+      desc: 'Start en argumentkjede: tre riktige på rad (påstand → evidens → begrunnelse) gir et knusende argument.',
+      science: 'Argumentasjon i naturfag: en påstand blir sterk først når den støttes av evidens og en begrunnelse som knytter evidensen til påstanden (Toulmins modell i skoleversjon).',
+      levels: [null, 'Tre riktige på rad gir et knusende argument (2,2 × grunnskade).', 'Det knusende argumentet blir sterkere (2,7 ×).', 'Koster 5 J mindre.', 'Et feilsvar bryter ikke kjeden — du går bare ett steg tilbake.', 'Krever bare to riktige (evidens og begrunnelse i ett).'] },
+    { id: 'pumpe', name: 'Varmepumpe', short: 'Varme­pumpe', cost: 5, icon: 'item-varmepumpe', needs: 'varmepumpe',
+      desc: 'Hent 15 J ut av spillvarmen.',
+      science: 'En varmepumpe bruker litt høyverdig energi (arbeid) til å flytte mye lavverdig varme. Forholdet kalles effektfaktor (COP), typisk 3–4. Den lager ikke energi — 2. hovedsetning sier at det koster arbeid å flytte varme «oppover».',
+      levels: [null, 'Henter 15 J ut av spillvarmen.', 'Henter 18 J.', 'Henter 21 J.', 'Koster bare 3 J.', 'Henter 25 J.'] },
+    { id: 'modell', name: 'Modellbygging', short: 'Modell­bygging', cost: 20, icon: 'relic-modell', unlock: 6,
+      desc: 'Bygg en modell av fenomenet: neste riktige svar gir ekstra skade for hvert nivå begrepskortene i spørsmålet har.',
+      science: 'Modeller forenkler virkeligheten for å forklare og forutsi. Jo bedre du kjenner begrepene, jo sterkere modell kan du bygge — men modellen er aldri selve virkeligheten.',
+      levels: [null, 'Neste riktige svar: +3 skade per kortnivå (minst +6).', 'Koster 4 J mindre.', '+4 skade per kortnivå.', 'Riktig svar med modellen gir også 6 HP.', 'Modellen holder for to riktige svar.'] },
+  ];
+  NG.ABILITY_NEED = [0, 4, 6, 9, 12]; // mestrings-XP fra nivå n til n+1
+  NG.ability = (id) => NG.ABILITIES.find((a) => a.id === id) || null;
+  NG.abilityState = function (s, id) {
+    if (!s.abilities || typeof s.abilities !== 'object') s.abilities = {};
+    let a = s.abilities[id];
+    if (!a || typeof a !== 'object') a = s.abilities[id] = { lvl: 1, xp: 0 };
+    if (!(a.lvl >= 1)) a.lvl = 1;
+    if (!(a.xp >= 0)) a.xp = 0;
+    return a;
+  };
+  NG.abilityLevel = (s, id) => NG.abilityState(s, id).lvl;
+  NG.abilityUnlocked = function (s, ab) {
+    if (ab.needs && !NG.hasRelic(s, ab.needs)) return false;
+    if (ab.unlock && s.level < ab.unlock) return false;
+    return true;
+  };
   NG.abilityCost = function (s, ab) {
-    if (ab.id === 'blikk' && NG.hasRelic(s, 'partikkelbriller')) return 5;
-    return ab.cost;
+    const lvl = NG.abilityLevel(s, ab.id);
+    let c = ab.cost;
+    if (ab.id === 'blikk') { if (lvl >= 3) c -= 3; if (NG.hasRelic(s, 'partikkelbriller')) c -= 5; c = Math.max(2, c); }
+    if (ab.id === 'gruble' && lvl >= 2) c -= 3;
+    if (ab.id === 'peb' && lvl >= 3) c -= 5;
+    if (ab.id === 'pumpe' && lvl >= 4) c = 3;
+    if (ab.id === 'modell' && lvl >= 2) c -= 4;
+    return c;
+  };
+  NG.pumpAmount = (s) => [0, 15, 18, 21, 21, 25][NG.abilityLevel(s, 'pumpe')] || 15;
+  // Gi mestrings-XP. Returnerer { id, lvl } ved nivå opp, ellers null.
+  NG.abilityXp = function (s, id, amount) {
+    const a = NG.abilityState(s, id);
+    if (a.lvl >= 5) return null;
+    a.xp += amount;
+    let up = null;
+    while (a.lvl < 5 && a.xp >= NG.ABILITY_NEED[a.lvl]) { a.xp -= NG.ABILITY_NEED[a.lvl]; a.lvl++; up = { id, lvl: a.lvl }; }
+    if (a.lvl >= 5) a.xp = 0;
+    return up;
+  };
+  NG.abilityUpText = function (up) {
+    const ab = NG.ability(up.id);
+    return ab ? ab.name + ' nivå ' + up.lvl + ': ' + ab.levels[up.lvl] : '';
+  };
+  // Trening (f.eks. hvileplassens «Tren»): gir mestrings-XP til evnen med lavest nivå (eller id).
+  // Returnerer en kort tekst om hva som ble oppnådd.
+  NG.trainAbility = function (s, id, amount) {
+    amount = amount || 5;
+    let ab = id ? NG.ability(id) : null;
+    if (!ab) {
+      const open = NG.ABILITIES.filter((a) => NG.abilityUnlocked(s, a) && NG.abilityLevel(s, a.id) < 5);
+      open.sort((a, b) => (NG.abilityLevel(s, a.id) - NG.abilityLevel(s, b.id)) || (NG.abilityState(s, b.id).xp - NG.abilityState(s, a.id).xp));
+      ab = open[0];
+    }
+    if (!ab) { const ups = NG.gainXp(s, 25); return 'Alle evnene dine er på toppnivå. Du fikk +25 XP i stedet' + (ups ? ' — og gikk opp et nivå!' : '.'); }
+    const up = NG.abilityXp(s, ab.id, amount);
+    if (up) return ab.name + ' nådde nivå ' + up.lvl + ': ' + ab.levels[up.lvl];
+    const a = NG.abilityState(s, ab.id);
+    return ab.name + ': +' + amount + ' mestring (' + a.xp + '/' + NG.ABILITY_NEED[a.lvl] + ' mot nivå ' + (a.lvl + 1) + ').';
   };
 })();
 
 ;
 /* ===== src/core/50-run.js ===== */
-/* Ekspedisjoner: en sti av lag med noder gjennom en region, avsluttet med boss. */
+/* Ekspedisjoner: et forgreinet kart (à la Slay the Spire) gjennom en region, avsluttet med boss.
+   r.map = { rows, lanes, nodes: [{ id, row, lane, type, done, enemy?, event?, lab? }], edges: [[fra, til], …] }
+   r.at = id-en til noden du står på (null før første steg), r.path = id-ene du har besøkt. */
 (function () {
   'use strict';
   NG.NODE_TYPES = {
@@ -1005,69 +1906,199 @@ NG.LADDER = ['Ukjent', 'Gjenkjenne', 'Definere', 'Nettverk', 'Anvende', 'Overfø
     elite: { name: 'Elite', art: 'node-elite', desc: 'En seiglivet Misforståelse. Bedre belønning.' },
     lab: { name: 'Laben', art: 'node-lab', desc: 'Et utforskende mini-spill.' },
     hendelse: { name: 'Hendelse', art: 'node-hendelse', desc: 'En situasjon der faget avgjør utfallet.' },
-    sol: { name: 'Solgløtt', art: 'node-sol', desc: 'Hvil: sola fyller på energien, og du kan repetere.' },
+    sol: { name: 'Solgløtt', art: 'node-sol', desc: 'Sola fyller alltid på energien. Velg så: hvile, studere eller trene.' },
+    butikk: { name: 'Handelsmann', art: 'node-butikk', desc: 'Vandrende handelsmann: kjøp gjenstander for joule (◆).' },
     kiste: { name: 'Kiste', art: 'node-kiste', desc: 'Noe er gjemt her.' },
     boss: { name: 'Boss', art: 'node-boss', desc: 'Misforståelsen som holder nøkkelarket.' },
   };
 
-  const PLAN = [
-    [['kamp']],
-    [['kamp', 'lab', 'hendelse'], ['kamp', 'lab', 'hendelse']],
-    [['kamp', 'kiste', 'hendelse'], ['kamp', 'elite', 'lab']],
-    [['sol'], ['lab', 'hendelse']],
-    [['elite', 'kamp'], ['kamp', 'lab', 'hendelse']],
-    [['kamp', 'hendelse', 'kiste'], ['kamp', 'lab', 'elite']],
-    [['sol'], ['kiste', 'lab']],
-    [['boss']],
-  ];
+  const ROWS = 9;          // rad 0–7 + bossrad 8
+  const LANES = 4;
+  const LAST = ROWS - 2;   // siste rad før bossen (Solgløtt)
+  const WEIGHTS = { kamp: 45, hendelse: 20, lab: 15, elite: 10, sol: 7, butikk: 8 };
+  const NO_REPEAT = { sol: 1, elite: 1, butikk: 1 }; // aldri to av disse etter hverandre langs en kant
+
+  const nid = (row, lane) => row + '-' + lane;
+
+  /* ---------- Kartgenerering ---------- */
+  function genMap(rng, firstVisit) {
+    const nodes = []; const byId = {};
+    const edges = []; const edgeKey = {};
+    const addNode = (row, lane) => {
+      const id = nid(row, lane);
+      if (!byId[id]) { byId[id] = { id, row, lane, type: null, done: false }; nodes.push(byId[id]); }
+      return byId[id];
+    };
+    const addEdge = (a, b) => { const k = a + '>' + b; if (!edgeKey[k]) { edgeKey[k] = 1; edges.push([a, b]); } };
+    // krysser steget (row, from → to) en eksisterende kant mellom samme to rader?
+    const crosses = (row, from, to) => edges.some(([a, b]) => {
+      const A = byId[a]; const B = byId[b];
+      if (!A || !B || A.row !== row || B.row !== row + 1) return false;
+      return (A.lane < from && B.lane > to) || (A.lane > from && B.lane < to);
+    });
+
+    const nPaths = rng.chance(0.5) ? 3 : 4;
+    const starts = [];
+    for (let p = 0; p < nPaths; p++) {
+      let lane = rng.int(0, LANES - 1);
+      if (p === 1) { while (lane === starts[0]) lane = rng.int(0, LANES - 1); } // minst to ulike startspor
+      starts.push(lane);
+      addNode(0, lane);
+      for (let row = 0; row < LAST; row++) {
+        const opts = rng.shuffle([lane - 1, lane, lane + 1].filter((l) => l >= 0 && l < LANES)).filter((l) => !crosses(row, lane, l));
+        const to = opts.length ? opts[0] : lane; // rett frem krysser aldri (steg er maks ±1)
+        addNode(row + 1, to);
+        addEdge(nid(row, lane), nid(row + 1, to));
+        lane = to;
+      }
+    }
+    const boss = { id: 'boss', row: LAST + 1, lane: (LANES - 1) / 2, type: 'boss', done: false };
+    nodes.filter((n) => n.row === LAST).forEach((n) => addEdge(n.id, boss.id));
+    nodes.push(boss); byId.boss = boss;
+
+    const parents = (id) => edges.filter((e) => e[1] === id).map((e) => byId[e[0]]);
+    const children = (id) => edges.filter((e) => e[0] === id).map((e) => byId[e[1]]);
+    const allowed = (n, t) => {
+      if (t === 'elite' && n.row < (firstVisit ? 4 : 3)) return false;
+      if (t === 'sol' && (n.row < 3 || n.row === LAST - 1)) return false; // rad 6 leder rett inn i Solgløtt
+      if (t === 'butikk' && n.row < 2) return false;
+      if (NO_REPEAT[t] && parents(n.id).concat(children(n.id)).some((m) => m && m.type === t)) return false;
+      return true;
+    };
+    const pickType = (n, avoid) => {
+      let opts = Object.keys(WEIGHTS).filter((t) => allowed(n, t));
+      const varied = opts.filter((t) => avoid.indexOf(t) < 0);
+      if (varied.length) opts = varied;
+      let sum = 0; opts.forEach((t) => { sum += WEIGHTS[t]; });
+      let x = rng.next() * sum;
+      for (const t of opts) { x -= WEIGHTS[t]; if (x < 0) return t; }
+      return opts[opts.length - 1] || 'kamp';
+    };
+    for (let row = 0; row <= LAST; row++) {
+      const rowNodes = nodes.filter((n) => n.row === row).sort((a, b) => a.lane - b.lane);
+      for (const n of rowNodes) {
+        if (row === 0) n.type = 'kamp';
+        else if (row === 4) n.type = 'kiste';
+        else if (row === LAST) n.type = 'sol';
+        else {
+          // søsken (andre barn av samme forelder) får helst ulike typer
+          const sib = [];
+          parents(n.id).forEach((p) => children(p.id).forEach((c) => { if (c !== n && c.type) sib.push(c.type); }));
+          n.type = pickType(n, sib);
+        }
+      }
+    }
+    // Minst én handelsmann på kartet
+    if (!nodes.some((n) => n.type === 'butikk')) {
+      const cand = nodes.filter((n) => n.row >= 2 && n.row <= LAST - 1 && n.row !== 4 && (n.type === 'kamp' || n.type === 'hendelse') && allowed(n, 'butikk'));
+      if (cand.length) rng.pick(cand).type = 'butikk';
+    }
+    return { rows: ROWS, lanes: LANES, nodes, edges };
+  }
+  NG.genRunMap = genMap; // for testing
+
+  /* ---------- Bakoverkompatibilitet: gammel lag-sti → kart ---------- */
+  function convertLayers(r) {
+    const nodes = []; const edges = [];
+    const rows = r.layers.length;
+    r.layers.forEach((layer, li) => {
+      layer.forEach((n, ni) => {
+        const lane = (LANES - 1) / 2 + (ni - (layer.length - 1) / 2) * 2; // 1 node: midt, 2 noder: 25 % / 75 %
+        nodes.push(Object.assign({}, n, { id: li + '-' + ni, row: li, lane, done: !!n.done }));
+      });
+      if (li > 0) r.layers[li - 1].forEach((_, a) => layer.forEach((__, b) => edges.push([(li - 1) + '-' + a, li + '-' + b])));
+    });
+    r.map = { rows, lanes: LANES, nodes, edges };
+    r.at = r.layer >= 0 ? r.layer + '-' + r.idx : null;
+    r.path = nodes.filter((n) => n.done && n.id !== r.at).map((n) => n.id);
+    if (r.at) r.path.push(r.at);
+    delete r.layers; delete r.layer; delete r.idx;
+  }
+
+  // Sørger for at s.run har kartformat (konverterer eldre lagringer). Returnerer kartet eller null.
+  NG.runMap = function (s) {
+    const r = s && s.run; if (!r) return null;
+    if (!r.map && Array.isArray(r.layers)) { try { convertLayers(r); } catch (e) { r.map = null; } }
+    if (!r.map || !Array.isArray(r.map.nodes)) return null;
+    if (!Array.isArray(r.map.edges)) r.map.edges = [];
+    if (!Array.isArray(r.path)) r.path = r.at ? [r.at] : [];
+    if (r.at === undefined) r.at = null;
+    ['seenEnemies', 'seenEvents', 'seenLabs', 'usedQ'].forEach((k) => { if (!Array.isArray(r[k])) r[k] = []; });
+    return r.map;
+  };
+  NG.mapNode = function (s, id) {
+    const m = NG.runMap(s); if (!m || id == null) return null;
+    return m.nodes.find((n) => n.id === id) || null;
+  };
+  // Noden du står på nå
+  NG.runNode = (s) => (s && s.run ? NG.mapNode(s, s.run.at) : null);
+  // Engangsbelønning: true første gang (og markerer noden), false etterpå
+  NG.claimNode = function (s, key) {
+    const n = NG.runNode(s); if (!n) return true;
+    const k = key || 'claimed';
+    if (n[k]) return false;
+    n[k] = true;
+    return true;
+  };
 
   NG.startRun = function (s, region) {
     const seed = (Date.now() ^ NG.hashStr(region)) >>> 0;
     const rng = NG.makeRng(seed);
-    const layers = PLAN.map((slots) => {
-      const types = slots.map((opts) => rng.pick(opts));
-      // unngå to like noder i samme lag
-      if (types.length === 2 && types[0] === types[1]) {
-        const alt = slots[1].filter((t) => t !== types[0]);
-        if (alt.length) types[1] = rng.pick(alt);
-      }
-      return types.map((t) => ({ type: t, done: false }));
-    });
-    // Første besøk: mindre tøft — ingen elite før lag 4
-    if (!(s.regionVisits[region] > 0)) {
-      layers[2].forEach((n) => { if (n.type === 'elite') n.type = 'lab'; });
-    }
-    s.run = { region, seed, layers, layer: -1, idx: -1, joule: 0, startedAt: Date.now(), seenEnemies: [], seenEvents: [], seenLabs: [], usedQ: [], ghostsBeaten: 0 };
+    const firstVisit = !(s.regionVisits[region] > 0);
+    const map = genMap(rng, firstVisit);
+    s.run = { region, seed, map, at: null, path: [], joule: 0, startedAt: Date.now(), seenEnemies: [], seenEvents: [], seenLabs: [], usedQ: [], ghostsBeaten: 0 };
     s.regionVisits[region] = (s.regionVisits[region] || 0) + 1;
     return s.run;
   };
 
+  // Vanskelighetstrinn for en region: antall fullførte ekspedisjoner (boss slått), maks 4.
+  // Brukes til skalering av fiender — avbrutte/tapte forsøk teller ikke (ingen dødsspiral).
+  NG.regionTier = function (s, region) {
+    const c = (s.regionClears && s.regionClears[region]) || (s.bossesBeaten && s.bossesBeaten[region] ? 1 : 0);
+    return Math.max(0, Math.min(4, c | 0));
+  };
+
   NG.runRng = function (s, salt) {
     const r = s.run;
-    return NG.makeRng((r.seed + (r.layer + 1) * 7919 + (salt || 0) * 104729) >>> 0);
+    const n = NG.runNode(s);
+    const row = n ? n.row : -1;
+    const lane = n ? Math.round(n.lane * 2) : 0;
+    return NG.makeRng((r.seed + (row + 1) * 7919 + (lane + 1) * 3571 + (salt || 0) * 104729) >>> 0);
   };
 
-  // Hvilke noder kan velges nå?
+  // Hvilke noder kan velges nå? (nodeobjekter)
   NG.choosable = function (s) {
-    const r = s.run; if (!r) return [];
-    const next = r.layer + 1;
-    if (next >= r.layers.length) return [];
-    return r.layers[next].map((n, i) => ({ layer: next, idx: i, node: n }));
+    const m = NG.runMap(s); if (!m) return [];
+    const r = s.run;
+    if (r.at == null) return m.nodes.filter((n) => n.row === 0);
+    const cur = NG.mapNode(s, r.at);
+    if (!cur) return m.nodes.filter((n) => n.row === 0);
+    if (!cur.done) return [cur]; // avbrutt node (f.eks. appen ble lukket midt i kampen) kan tas opp igjen
+    return m.edges.filter((e) => e[0] === cur.id).map((e) => NG.mapNode(s, e[1])).filter(Boolean);
   };
 
-  NG.enterNode = function (s, layer, idx) {
+  NG.enterNode = function (s, id) {
     const r = s.run;
-    r.layer = layer; r.idx = idx;
-    const node = r.layers[layer][idx];
-    const rng = NG.runRng(s, idx + 1);
+    if (!NG.runMap(s)) return null;
+    const node = NG.mapNode(s, id);
+    if (!node) return null;
+    r.at = id;
+    if (r.path[r.path.length - 1] !== id) r.path.push(id);
+    const rng = NG.runRng(s, 1);
     const S = NG.content.store;
     if ((node.type === 'kamp' || node.type === 'elite' || node.type === 'boss') && !node.enemy) {
       const tier = node.type === 'kamp' ? 'normal' : node.type;
-      let pool = S.enemies.filter((e) => e.region === r.region && e.tier === tier);
-      if (tier === 'boss') pool = S.enemies.filter((e) => e.id === NG.region(r.region).boss).concat(pool);
-      const fresh = pool.filter((e) => r.seenEnemies.indexOf(e.id) < 0);
-      const e = (fresh.length ? rng.pick(fresh) : pool.length ? rng.pick(pool) : null);
-      node.enemy = e ? e.id : '_fallback-' + tier;
+      if (tier === 'boss') {
+        // Bossnoden er alltid regionens egen boss
+        const bossId = NG.region(r.region).boss;
+        const b = S.enemies.find((e) => e.id === bossId);
+        node.enemy = b ? b.id : '_fallback-boss';
+      } else {
+        const pool = S.enemies.filter((e) => e.region === r.region && e.tier === tier);
+        const fresh = pool.filter((e) => r.seenEnemies.indexOf(e.id) < 0);
+        const e = (fresh.length ? rng.pick(fresh) : pool.length ? rng.pick(pool) : null);
+        node.enemy = e ? e.id : '_fallback-' + tier;
+      }
       r.seenEnemies.push(node.enemy);
     }
     if (node.type === 'hendelse' && !node.event) {
@@ -1088,21 +2119,24 @@ NG.LADDER = ['Ukjent', 'Gjenkjenne', 'Definere', 'Nettverk', 'Anvende', 'Overfø
         const m = rng.chance(0.7) ? pool[0] : rng.pick(pool);
         node.lab = m.id; r.seenLabs.push(m.id);
       } else node.type = 'kamp';
-      if (node.type === 'kamp') return NG.enterNode(s, layer, idx);
+      if (node.type === 'kamp') return NG.enterNode(s, id);
     }
     return node;
   };
 
   NG.completeNode = function (s) {
-    const r = s.run; if (!r) return;
-    const node = r.layers[r.layer][r.idx];
-    node.done = true;
+    const node = NG.runNode(s);
+    if (node) node.done = true;
   };
 
   NG.endRun = function (s, outcome) {
     const r = s.run;
     s.run = null;
     if (!r) return null;
+    if (outcome === 'win') {
+      const c = s.regionClears || (s.regionClears = {});
+      c[r.region] = (c[r.region] || 0) + 1;
+    }
     if (outcome === 'death') {
       const lost = Math.floor(r.joule / 2);
       s.joule = Math.max(0, s.joule - lost);
@@ -1128,141 +2162,330 @@ NG.LADDER = ['Ukjent', 'Gjenkjenne', 'Definere', 'Nettverk', 'Anvende', 'Overfø
 /* ===== src/core/60-combat.js ===== */
 /* Kamplogikk (ren tilstand, ingen DOM). UI-et i src/ui/screen-combat.js driver den.
    Riktig svar = du angriper. Feil svar = Misforståelsen slår. I tillegg har fienden en plan
-   (intensjon) som kan slå uansett — det gir press og gjør Grubletegning/skjold verdifullt. */
+   (intensjon) som kan slå uansett — det gir press og gjør Grubletegning/skjold verdifullt.
+   Ekspedisjonsrelikvier (NG.RUN_RELICS) og evnenivåer (s.abilities) hektes inn her. */
 (function () {
   'use strict';
-  const INTENTS = {
-    normal: ['vent', 'vent', 'slag'],
-    elite: ['vent', 'slag', 'vent', 'slag'],
-    boss: ['vent', 'slag', 'vent', 'storslag'],
-  };
   const INTENT_TEXT = {
     vent: { name: 'Lurer', desc: 'Slår bare hvis du svarer feil.' },
     slag: { name: 'Slag', desc: 'Slår litt selv om du svarer riktig — hardt hvis du svarer feil.' },
     storslag: { name: 'Storslag', desc: 'Et kraftig angrep uansett. Skjold hjelper!' },
+    mytekall: { name: 'Mytekall', desc: 'Roper på myten sin: spørsmålet handler om den. Riktig svar gjør ×1,5 skade — feil svar slår hardere.' },
+    forskanser: { name: 'Forskanser seg', desc: 'Riktige svar gjør bare halv skade, med mindre spørsmålet er på nivå 4–5.' },
+    energityv: { name: 'Energityv', desc: 'Gjør 10 J av energien din om til spillvarme (5 J hvis du svarer riktig).' },
+    ladeopp: { name: 'Lader opp', desc: 'Svar riktig for å avbryte! Ellers kommer et dobbelt slag neste runde.' },
+    utlading: { name: 'Utlading', desc: 'Dobbelt slag hvis du svarer feil — et vanlig slag selv om du svarer riktig.' },
   };
   NG.INTENT_TEXT = INTENT_TEXT;
 
+  const ELITE_MODS = {
+    seiglivet: { name: 'Seiglivet', desc: '+30 % HP. Misoppfatninger som har overlevd mange skoleår, sitter godt.' },
+    smittsom: { name: 'Smittsom', desc: 'Feilsvar smitter: du mister 3 HP per runde i 3 runder. Et riktig svar renser.' },
+    rask: { name: 'Rask', desc: '+15 % angrep, og planen har flere angrep.' },
+  };
+  NG.ELITE_MODS = ELITE_MODS;
+
+  const has = (s, id) => NG.hasRelic(s, id);
+
+  // Utvid planen (intensjonene) slik at den rekker til tur `upto`.
+  function extendPlan(c, upto) {
+    const r = c.planRng;
+    const rask = c.mods.indexOf('rask') >= 0;
+    const pattern = c.tier === 'boss' ? ['calm', 'act', 'calm', 'big']
+      : c.tier === 'elite' ? (rask ? ['act', 'calm', 'act'] : ['calm', 'act'])
+        : (rask ? ['calm', 'act'] : ['calm', 'calm', 'act']);
+    while (c.plan.length <= upto) {
+      const t = c.plan.length;
+      let it;
+      if (t === 0) it = 'vent';
+      else if (c.plan[t - 1] !== 'vent' && c.plan[t - 1] !== 'slag' && pattern[t % pattern.length] !== 'big') it = pattern[t % pattern.length] === 'act' ? 'slag' : 'vent';
+      else {
+        const slot = pattern[t % pattern.length];
+        if (slot === 'calm') {
+          const opts = ['forskanser'];
+          if (c.mythQ) opts.push('mytekall', 'mytekall');
+          it = r.chance(0.35) ? r.pick(opts) : 'vent';
+        } else if (slot === 'act') it = r.chance(0.35) ? r.pick(['energityv', 'ladeopp']) : 'slag';
+        else it = r.chance(0.3) ? 'ladeopp' : 'storslag';
+      }
+      c.plan.push(it);
+    }
+  }
+
+  function regionTier(s, region) {
+    let t;
+    if (NG.regionTier) { try { t = NG.regionTier(s, region); } catch (e) { t = null; } }
+    if (!isFinite(t)) t = Math.max(0, (s.regionVisits[region] || 1) - 1);
+    return NG.clamp(Math.floor(t), 0, 4);
+  }
+
   NG.Combat = {
     create(s, enemyId, opts) {
+      opts = opts || {};
       const def = NG.enemyDef(enemyId);
-      const visits = s.regionVisits[def.region] || 1;
-      const scale = 1 + 0.12 * Math.max(0, visits - 1) + 0.03 * Math.max(0, s.level - 3);
-      const hp = Math.round(def.hp * scale);
+      const rng = opts.rng || NG.makeRng(Date.now());
+      const tierN = regionTier(s, def.region);
+      const scale = 1 + 0.1 * tierN + 0.02 * NG.clamp(s.level - 3, 0, 10);
+      let hp = def.hp * scale;
+      let atk = def.atk * (1 + 0.06 * tierN);
+      const mods = [];
+      if (def.tier === 'elite') {
+        const pool = rng.shuffle(Object.keys(ELITE_MODS));
+        mods.push(pool[0]);
+        if (tierN >= 2) mods.push(pool[1]);
+      }
+      if (mods.indexOf('seiglivet') >= 0) hp *= 1.3;
+      if (mods.indexOf('rask') >= 0) atk *= 1.15;
+      hp = Math.round(hp);
+      const S = NG.content.store;
       const c = {
         def,
-        enemy: { hp, maxHp: hp, atk: Math.round(def.atk * (1 + 0.08 * Math.max(0, visits - 1))) },
+        enemy: { hp, maxHp: hp, atk: Math.round(atk) },
         tier: def.tier,
+        mods,
+        tierN,
         turn: 0,
         streak: 0,
         bestStreak: 0,
         hints: NG.hintsPerFight(s),
-        shield: false,
-        peb: 0, // 0 = av, 1..3 = aktiv (antall riktige så langt + 1)
+        shield: 0, // antall angrep skjoldet tåler
+        reveal: false, // Grubletegning: se planen to trekk frem
+        peb: 0, // 0 = av, 1.. = aktiv (antall riktige så langt + 1)
         eliminate: 0,
+        blikkUsed: false,
         double: false,
-        wrongBlocked: NG.hasRelic(s, 'vernebriller'),
+        forceCrit: false,
+        model: 0,
+        infect: 0,
+        charge: 0,
+        retry: false,
+        retryTopic: null,
+        abUsed: [],
+        freeAb: has(s, 'katalysator') ? 1 : 0,
+        blikkFree: NG.abilityLevel(s, 'blikk') >= 4 ? 1 : 0,
+        wrongBlocked: has(s, 'vernebriller'),
         phaseIdx: 0,
         enraged: 1,
-        rng: opts.rng,
+        rng,
+        planRng: NG.makeRng(rng.int(0, 1e9)),
+        plan: [],
+        mythQ: !!(def.myth && S.questions.some((q) => q.myth === def.myth)),
         region: opts.region || def.region,
         used: opts.used || new Set(),
         q: null,
+        qSeed: 0,
         ghost: false,
         correct: 0,
         answered: 0,
         over: null,
       };
+      extendPlan(c, 3);
       return c;
     },
 
-    intent(c) {
-      const seq = INTENTS[c.tier] || INTENTS.normal;
-      return seq[c.turn % seq.length];
+    // Intensjon for denne turen (k = 0) eller k turer frem.
+    intent(c, k) {
+      const t = c.turn + (k || 0);
+      if (!c.plan) return 'vent';
+      extendPlan(c, t);
+      return c.plan[t];
     },
 
     nextQuestion(s, c) {
-      const picked = NG.pickQuestion(s, { region: c.region, tier: c.tier, used: c.used, rng: c.rng, topics: c.def.topics, ghostChance: 0.12 });
+      const S = NG.content.store;
+      let picked = null;
+      c.retry = false;
+      if (NG.Combat.intent(c) === 'mytekall') {
+        const pool = S.questions.filter((q) => q.myth === c.def.myth && !c.used.has(q.id));
+        if (pool.length) picked = { q: c.rng.pick(pool) };
+        else c.plan[c.turn] = 'vent';
+      }
+      if (!picked && c.retryTopic) {
+        const rt = c.retryTopic;
+        const pool = S.questions.filter((q) => q.topic === rt.topic && q.region === rt.region && !c.used.has(q.id));
+        if (pool.length) { picked = { q: c.rng.pick(pool) }; c.retry = true; }
+      }
+      c.retryTopic = null;
+      if (!picked) picked = NG.pickQuestion(s, { region: c.region, tier: c.tier, used: c.used, rng: c.rng, topics: c.def.topics, ghostChance: has(s, 'leitner') ? 0.25 : 0.12 });
       if (!picked) { c.q = null; return null; }
       c.q = picked.q; c.ghost = !!picked.ghost;
+      c.qSeed = c.rng.int(0, 1e9);
+      c.eliminate = 0; c.blikkUsed = false;
       c.used.add(c.q.id);
       return c.q;
     },
 
     baseDamage(s) { return 5 + 2 * s.stats.forstaelse + 0.5 * s.level; },
 
+    // Hva koster evnen akkurat nå? { cost, free: null|'katalysator'|'tannhjul'|'blikk' }
+    abilityCost(s, c, ab) {
+      if (c && c.turn < 2 && has(s, 'tannhjul')) return { cost: 0, free: 'tannhjul' };
+      if (c && c.freeAb > 0) return { cost: 0, free: 'katalysator' };
+      if (c && ab.id === 'blikk' && c.blikkFree > 0) return { cost: 0, free: 'blikk' };
+      return { cost: NG.abilityCost(s, ab), free: null };
+    },
+
     useAbility(s, c, id) {
-      const ab = NG.ABILITIES.find((a) => a.id === id);
+      const ab = NG.ability(id);
       if (!ab) return { ok: false, msg: 'Ukjent evne' };
-      if (ab.needs && !NG.hasRelic(s, ab.needs)) return { ok: false, msg: 'Krever ' + NG.item(ab.needs).name };
-      const cost = NG.abilityCost(s, ab);
+      if (ab.needs && !has(s, ab.needs)) return { ok: false, msg: 'Krever ' + NG.item(ab.needs).name };
+      if (ab.unlock && s.level < ab.unlock) return { ok: false, msg: 'Låses opp på nivå ' + ab.unlock };
+      const lvl = NG.abilityLevel(s, id);
+      const ci = NG.Combat.abilityCost(s, c, ab);
+      const cost = ci.cost;
       if (s.energy < cost) return { ok: false, msg: 'For lite energi (' + cost + ' J trengs)' };
+      const out = { ok: true, msg: '', hint: false, up: null };
       if (id === 'blikk') {
         if (!c.q || c.q.type !== 'mc') return { ok: false, msg: 'Virker bare på flervalgsspørsmål' };
-        if (c.eliminate) return { ok: false, msg: 'Allerede aktiv' };
-        c.eliminate = 2;
+        if (c.blikkUsed) return { ok: false, msg: 'Allerede aktiv' };
+        c.blikkUsed = true;
+        c.eliminate += 2;
+        if (lvl >= 5) out.hint = true;
       } else if (id === 'gruble') {
         if (c.shield) return { ok: false, msg: 'Skjoldet er allerede oppe' };
-        c.shield = true;
+        c.shield = lvl >= 4 ? 2 : 1;
+        c.reveal = true;
+        if (lvl >= 5) c.hints++;
       } else if (id === 'peb') {
         if (c.peb) return { ok: false, msg: 'PEB-kombo er allerede i gang' };
         c.peb = 1;
+      } else if (id === 'modell') {
+        if (c.model) return { ok: false, msg: 'Modellen står allerede klar' };
+        c.model = lvl >= 5 ? 2 : 1;
       } else if (id === 'pumpe') {
-        if (s.heat < 15) return { ok: false, msg: 'For lite spillvarme å hente (15 J trengs)' };
+        const amt = NG.pumpAmount(s);
+        if (s.heat < amt) return { ok: false, msg: 'For lite spillvarme å hente (' + amt + ' J trengs)' };
         s.energy -= cost; s.heat += cost; // drivenergien blir også til varme …
-        s.heat -= 15; s.energy += 15; // … og varmepumpa løfter 15 J tilbake
-        return { ok: true, msg: 'Varmepumpa løftet 15 J ut av spillvarmen' };
+        s.heat -= amt; s.energy += amt; // … og varmepumpa løfter varme tilbake til nyttig energi
+        out.msg = 'Varmepumpa løftet ' + amt + ' J ut av spillvarmen';
+        out.up = NG.abilityXp(s, 'pumpe', 2);
       }
-      // Energien forsvinner ikke: den blir spillvarme.
-      s.energy -= cost; s.heat += cost;
-      return { ok: true, msg: ab.name + ' (−' + cost + ' J → spillvarme)' };
+      if (id !== 'pumpe') {
+        // Energien forsvinner ikke: den blir spillvarme.
+        s.energy -= cost; s.heat += cost;
+        out.msg = ab.name + (cost ? ' (−' + cost + ' J → spillvarme)' : ' (gratis)');
+        if (c.abUsed.indexOf(id) < 0) c.abUsed.push(id);
+      }
+      if (ci.free === 'katalysator') { c.freeAb--; out.msg += ' — Katalysatoren senket aktiveringsenergien'; }
+      else if (ci.free === 'blikk') c.blikkFree = 0;
+      else if (ci.free === 'tannhjul') out.msg += ' — tannhjulet snurrer';
+      return out;
     },
 
     useItem(s, c, id) {
       const it = NG.item(id);
       if (!it || !(s.items[id] > 0)) return { ok: false, msg: 'Har ikke ' + (it ? it.name : id) };
-      if (id === 'matpakke') { s.energy += 20; }
-      else if (id === 'kakao') { if (s.hp >= NG.maxHp(s)) return { ok: false, msg: 'Du har full HP' }; s.hp = Math.min(NG.maxHp(s), s.hp + 25); }
-      else if (id === 'repetisjonskort') { c.double = true; }
-      else return { ok: false, msg: 'Kan ikke brukes her' };
+      const out = { ok: true, msg: it.name + ' brukt', reveal: null };
+      if (id === 'matpakke') {
+        if (s.energy >= NG.maxEnergy(s)) return { ok: false, msg: 'Du er full av energi' };
+        const r = NG.addEnergy(s, 20);
+        out.msg = it.name + ': +' + r.gained + ' J' + (r.heat ? ' (' + r.heat + ' J ble spillvarme)' : '');
+      } else if (id === 'kakao') { if (s.hp >= NG.maxHp(s)) return { ok: false, msg: 'Du har full HP' }; s.hp = Math.min(NG.maxHp(s), s.hp + 25); }
+      else if (id === 'repetisjonskort') { if (c.double) return { ok: false, msg: 'Allerede aktiv' }; c.double = true; }
+      else if (id === 'brannteppe') { c.shield++; out.msg = 'Brannteppet skjermer deg mot neste angrep'; }
+      else if (id === 'torris') {
+        const it0 = NG.Combat.intent(c);
+        if (it0 === 'vent') return { ok: false, msg: 'Misforståelsen lurer allerede' };
+        c.plan[c.turn] = 'vent'; out.msg = 'Tørrisen frøs planen: Misforståelsen kan bare lure';
+      } else if (id === 'magnesium') { if (c.forceCrit) return { ok: false, msg: 'Allerede aktiv' }; c.forceCrit = true; out.msg = 'Magnesiumbåndet gløder: neste riktige svar blir kritisk'; }
+      else if (id === 'lakmus') {
+        const q = c.q;
+        if (!q || (q.type !== 'mc' && q.type !== 'multi')) return { ok: false, msg: 'Virker bare på flervalgsspørsmål' };
+        const i = c.rng.int(0, q.options.length - 1);
+        const right = q.type === 'mc' ? i === q.answer : q.answer.indexOf(i) >= 0;
+        out.reveal = { text: q.options[i], right, multi: q.type === 'multi' };
+        out.msg = 'Lakmuspapiret farges ' + (right ? 'blått' : 'rødt');
+      } else return { ok: false, msg: 'Kan ikke brukes her' };
       s.items[id]--;
-      return { ok: true, msg: it.name + ' brukt' };
+      return out;
     },
 
     // res: { correct, partial }. Returnerer hva som skjedde, for animasjon/tekst.
     answer(s, c, res) {
       const q = c.q;
-      const out = { dealt: 0, crit: false, taken: 0, blocked: false, finisher: false, phase: null, intent: NG.Combat.intent(c), notes: [] };
+      const intent = NG.Combat.intent(c);
+      const out = { dealt: 0, crit: false, taken: 0, blocked: false, finisher: false, phase: null, intent, notes: [], abilityUps: [], counter: 0 };
+      const base = NG.Combat.baseDamage(s);
+      const pebLvl = NG.abilityLevel(s, 'peb');
+      const modLvl = NG.abilityLevel(s, 'modell');
+      const ups = [];
+      const xp = (id, n) => { const u = NG.abilityXp(s, id, n); if (u) ups.push(u); };
       c.answered++;
-      if (res.correct) { c.correct++; c.streak++; c.bestStreak = Math.max(c.bestStreak, c.streak); }
-      else c.streak = 0;
+      const prevStreak = c.streak;
+      if (res.correct) {
+        c.correct++; c.streak++; c.bestStreak = Math.max(c.bestStreak, c.streak);
+        if (c.infect) { c.infect = 0; out.notes.push('Det riktige svaret renset smitten.'); }
+      } else {
+        c.streak = has(s, 'newtons-vugge') ? Math.floor(c.streak / 2) : 0;
+        if (c.streak > 0 && prevStreak >= 2) out.notes.push('Newtons vugge: rekka svinger videre (×' + c.streak + ').');
+      }
 
       // --- spillerens angrep ---
       const part = res.correct ? 1 : (res.partial || 0) * 0.5;
       if (part > 0) {
-        let dmg = NG.Combat.baseDamage(s);
+        let dmg = base;
         dmg *= 1 + 0.1 * Math.min(c.streak, 5);
         let cardSum = 0;
         for (const id of q.concepts || []) { const k = s.cards[id]; if (k) cardSum += k.lvl; }
-        dmg *= Math.min(1.3, 1 + 0.03 * cardSum);
+        const dna = has(s, 'dna-modell');
+        dmg *= Math.min(dna ? 1.6 : 1.3, 1 + (dna ? 0.06 : 0.03) * cardSum);
         if (q.level >= 5) dmg *= 1.3; else if (q.level >= 4) dmg *= 1.15;
-        if (c.region === 'stoffer' && NG.hasRelic(s, 'periodesystem')) dmg *= 1.25;
-        if (c.double && res.correct) { dmg *= 2; out.notes.push('Repetisjonskortet doblet skaden!'); }
-        if (c.ghost && res.correct) dmg *= 1.2;
-        if (res.correct && c.rng.chance(0.08 + 0.02 * s.stats.nysgjerrighet)) { dmg *= 1.5; out.crit = true; }
+        if (c.region === 'stoffer' && has(s, 'periodesystem')) dmg *= 1.25;
+        if (has(s, 'termoelement')) dmg += Math.min(6, Math.floor(s.heat / 10));
+        if (res.correct) {
+          if (c.double) { dmg *= 2; out.notes.push('Repetisjonskortet doblet skaden!'); }
+          if (c.ghost) dmg *= has(s, 'leitner') ? 1.5 : 1.2;
+          if (c.retry) { dmg *= 1.5; out.notes.push('Kontrollforsøket bekreftet det: ×1,5 skade.'); }
+          if (intent === 'mytekall' && q.myth && q.myth === c.def.myth) { dmg *= 1.5; out.notes.push('Du avkreftet myten direkte: ×1,5 skade!'); }
+          if (c.model) {
+            const bonus = Math.max(6, (modLvl >= 3 ? 4 : 3) * cardSum);
+            dmg += bonus; c.model--;
+            out.notes.push('Modellen forklarte fenomenet: +' + bonus + ' skade.');
+            if (modLvl >= 4) { s.hp = Math.min(NG.maxHp(s), s.hp + 6); }
+          }
+        }
+        if (intent === 'forskanser') {
+          if (q.level >= 4) out.notes.push('Et spørsmål på nivå ' + q.level + ' brøt gjennom forskansningen!');
+          else { dmg *= 0.5; out.notes.push('Misforståelsen hadde forskanset seg — halv skade.'); }
+        }
+        if (res.correct) {
+          let critP = 0.08 + 0.02 * s.stats.nysgjerrighet;
+          if (has(s, 'prisme') && q.level >= 4) critP += 0.15;
+          if (has(s, 'schrodinger')) critP += 0.25;
+          if (c.forceCrit || c.rng.chance(critP)) { dmg *= 1.5; out.crit = true; if (c.forceCrit) out.notes.push('Magnesiumbåndet blusset opp!'); c.forceCrit = false; }
+        }
+        if (has(s, 'schrodinger') && !out.crit) dmg *= 0.85;
         dmg *= part;
         out.dealt = Math.max(1, Math.round(dmg));
       }
       c.double = false;
 
+      if (res.correct) {
+        if (has(s, 'vandegraaff')) {
+          c.charge++;
+          if (c.charge >= 4) { c.charge = 0; const sp = Math.round(base); out.dealt += sp; out.notes.push('Van de Graaff: gnisten slo over (+' + sp + ')!'); }
+        }
+        if (has(s, 'bunsenbrenner') && c.streak >= 3) NG.addEnergy(s, 3);
+        if (c.abUsed.indexOf('blikk') >= 0 && NG.abilityLevel(s, 'blikk') >= 2 && s.heat > 0) { const g = Math.min(3, s.heat); s.heat -= g; s.energy += g; }
+      } else {
+        if (has(s, 'feltdagbok') && s.heat > 0) { const g = Math.min(4, s.heat); s.heat -= g; s.energy += g; out.notes.push('Feltdagboka: du lærte av feilen (+' + g + ' J).'); }
+        if (has(s, 'kontrollforsok') && q.topic) c.retryTopic = { topic: q.topic, region: q.region };
+      }
+
       // --- PEB-kombo ---
       if (c.peb) {
+        const need = pebLvl >= 5 ? 2 : 3;
         if (res.correct) {
-          if (c.peb >= 3) {
-            const fin = Math.round(NG.Combat.baseDamage(s) * 2.2);
+          xp('peb', 1);
+          if (c.peb >= need) {
+            const fin = Math.round(base * (pebLvl >= 2 ? 2.7 : 2.2));
             out.dealt += fin; out.finisher = true; c.peb = 0;
+            xp('peb', 2);
             out.notes.push('Påstand, evidens og begrunnelse sitter: knusende argument (+' + fin + ')!');
           } else { c.peb++; out.notes.push(['', 'Påstand ✓', 'Evidens ✓'][c.peb - 1] || ''); }
+        } else if (pebLvl >= 4) {
+          if (c.peb > 1) c.peb--;
+          out.notes.push('Argumentet vaklet, men står — ett steg tilbake.');
         } else { c.peb = 0; out.notes.push('Argumentet falt sammen — PEB-kombo brutt.'); }
       }
       c.enemy.hp = Math.max(0, c.enemy.hp - out.dealt);
@@ -1275,20 +2498,56 @@ NG.LADDER = ['Ukjent', 'Gjenkjenne', 'Definere', 'Nettverk', 'Anvende', 'Overfø
 
       // --- fiendens trekk ---
       if (c.enemy.hp > 0) {
-        const intent = out.intent;
         const atk = c.enemy.atk * c.enraged;
+        const miss = 1 - (res.partial || 0) * 0.5;
         let dmg = 0;
-        if (intent === 'vent') dmg = res.correct ? 0 : atk * (1 - (res.partial || 0) * 0.5);
+        if (intent === 'vent') dmg = res.correct ? 0 : atk * miss;
         else if (intent === 'slag') dmg = res.correct ? atk * 0.35 : atk * 1.2;
         else if (intent === 'storslag') dmg = res.correct ? atk * 0.7 : atk * 1.6;
+        else if (intent === 'mytekall') dmg = res.correct ? 0 : atk * 1.4 * miss;
+        else if (intent === 'forskanser') dmg = res.correct ? 0 : atk * 0.8 * miss;
+        else if (intent === 'energityv') {
+          dmg = res.correct ? 0 : atk * 0.6 * miss;
+          const moved = Math.min(s.energy, res.correct ? 5 : 10);
+          s.energy -= moved; s.heat += moved;
+          if (moved) out.notes.push('Energityven gjorde ' + moved + ' J om til spillvarme.');
+        } else if (intent === 'ladeopp') {
+          dmg = res.correct ? 0 : atk * 0.8 * miss;
+          if (res.correct) out.notes.push('Du avbrøt oppladningen!');
+          else { extendPlan(c, c.turn + 1); c.plan[c.turn + 1] = 'utlading'; out.notes.push('Den lader opp — neste runde kommer et dobbelt slag!'); }
+        } else if (intent === 'utlading') dmg = res.correct ? atk * 0.9 : atk * 2;
+        if (has(s, 'dewar')) { if (res.correct) dmg = 0; else dmg *= 1.25; }
         if (dmg > 0 && !res.correct && c.wrongBlocked) { c.wrongBlocked = false; dmg = 0; out.blocked = true; out.notes.push('Vernebrillene tok støyten.'); }
-        if (dmg > 0 && c.shield) { c.shield = false; dmg = 0; out.blocked = true; out.notes.push('Grubletegningen skjermet deg.'); }
-        if (dmg > 0 && NG.hasRelic(s, 'termos')) dmg *= 0.8;
+        if (dmg > 0 && c.shield > 0) {
+          c.shield--;
+          out.blocked = true;
+          out.notes.push('Skjoldet tok angrepet.');
+          if (c.abUsed.indexOf('gruble') >= 0) xp('gruble', 1);
+          if (NG.abilityLevel(s, 'gruble') >= 3) {
+            out.counter = Math.max(1, Math.round(dmg * 0.5));
+            c.enemy.hp = Math.max(0, c.enemy.hp - out.counter);
+            out.dealt += out.counter;
+            out.notes.push('Motargument: +' + out.counter + ' skade.');
+          }
+          dmg = 0;
+        }
+        if (dmg > 0 && has(s, 'termos')) dmg *= 0.8;
+        if (dmg > 0 && has(s, 'tannhjul')) dmg *= 1.1;
         out.taken = Math.round(dmg);
+        // smitte (elite-modifikator)
+        if (c.infect > 0) { out.taken += 3; c.infect--; out.notes.push('Smitten gnager (−3 HP).'); }
+        if (!res.correct && c.mods.indexOf('smittsom') >= 0) { c.infect = 3; out.notes.push('Misforståelsen smitter! Svar riktig for å rense.'); }
         s.hp = Math.max(0, s.hp - out.taken);
       }
+
+      // --- mestring for evner brukt denne runden ---
+      for (const id of c.abUsed) if (id !== 'peb') xp(id, res.correct ? 2 : 1);
+      c.abUsed = [];
+      out.abilityUps = ups;
+
       c.turn++;
       c.eliminate = 0;
+      c.retry = false;
       if (c.enemy.hp <= 0) c.over = 'win';
       else if (s.hp <= 0) c.over = 'lose';
       return out;
@@ -1298,15 +2557,15 @@ NG.LADDER = ['Ukjent', 'Gjenkjenne', 'Definere', 'Nettverk', 'Anvende', 'Overfø
     rewards(s, c) {
       const tierXp = { normal: 15, elite: 30, boss: 80 }[c.tier] || 15;
       let xp = tierXp + 2 * c.bestStreak;
-      if (NG.hasRelic(s, 'kalorimeter')) xp = Math.round(xp * 1.15);
+      if (has(s, 'kalorimeter')) xp = Math.round(xp * 1.15);
       const j = { normal: c.rng.int(6, 12), elite: c.rng.int(18, 28), boss: 60 }[c.tier] || 8;
       const out = { xp, joule: j, item: null, relic: null, energy: 0, heal: Math.round(NG.maxHp(s) * 0.08) };
-      if (NG.hasRelic(s, 'solcelle')) out.energy = 5;
+      if (has(s, 'solcelle')) out.energy = 5;
       if (c.tier === 'elite' || c.tier === 'boss') {
-        const unowned = NG.ITEMS.filter((i) => i.kind === 'relic' && !NG.hasRelic(s, i.id));
-        if (unowned.length && (c.tier === 'boss' || c.rng.chance(0.55))) out.relic = c.rng.pick(unowned).id;
+        const unowned = NG.ITEMS.filter((i) => i.kind === 'relic' && !(s.relics || []).includes(i.id));
+        if (unowned.length && (c.tier === 'boss' || c.rng.chance(0.2))) out.relic = c.rng.pick(unowned).id;
       }
-      if (!out.relic && c.rng.chance(c.tier === 'normal' ? 0.3 : 0.6)) out.item = c.rng.pick(['matpakke', 'kakao', 'repetisjonskort']);
+      if (!out.relic && c.rng.chance(c.tier === 'normal' ? 0.3 : 0.6)) out.item = c.rng.pick(NG.combatItems().map((i) => i.id));
       return out;
     },
   };
@@ -2667,6 +3926,33 @@ ${shadow(50)}
 <path d="M45 26l10 4M75 26l-10 4" stroke-width="3"/>
 <path d="M56 44l-6 4 6 4M64 44l6 4-6 4" stroke-width="3.5"/>
 <path d="M14 26v8M14 40v0M106 26v8M106 40v0M24 100l-2 6M100 98l2 6" stroke="var(--bad)" stroke-width="3.5"/>`);
+})();
+
+;
+/* ===== src/art/relics.js ===== */
+/* Ikoner for ekspedisjonsrelikvier, nye forbruksvarer og evnen Modellbygging (48×48, currentColor). */
+(function () {
+  'use strict';
+  const A = NG.art.add;
+  const icon = (b) => `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">${b}</svg>`;
+  const soft = 'fill="currentColor" fill-opacity=".22"';
+
+  A('relic-lakmus', icon(`<path d="M17 6h14v36H17z" ${soft}/><path d="M17 26h14"/><path d="M21 33h6M21 38h6" stroke-width="2.4"/><path d="M24 12v8" stroke-width="2.4"/>`));
+  A('relic-brannteppe', icon(`<path d="M10 8h28v24c-4 3-10 4-14 4s-10-1-14-4z" ${soft}/><path d="M10 8l-2 6M38 8l2 6"/><path d="M24 42c-5-3-5-8 0-12 1 3 4 4 4 7s-2 4-4 5z"/>`));
+  A('relic-torris', icon(`<path d="M10 20l14-8 14 8v14l-14 8-14-8z" ${soft}/><path d="M10 20l14 8 14-8M24 28v14"/><path d="M18 8c0-3 3-3 3-6M28 9c0-3 3-3 3-6" stroke-width="2.4"/>`));
+  A('relic-magnesium', icon(`<path d="M8 40c8-4 10-12 18-14"/><path d="M33 22l3-9M33 22l9-3M33 22l7 7M33 22l-2 10M33 22l-9-6" stroke-width="2.6"/><circle cx="33" cy="22" r="4" ${soft}/>`));
+  A('relic-vugge', icon(`<path d="M6 8h36M6 8v6M42 8v6"/><path d="M14 8v24M20 8v24M26 8v24M32 8l8 18" stroke-width="2.2"/><circle cx="14" cy="35" r="3.6" ${soft}/><circle cx="20" cy="35" r="3.6" ${soft}/><circle cx="26" cy="35" r="3.6" ${soft}/><circle cx="41" cy="29" r="3.6" ${soft}/>`));
+  A('relic-bunsen', icon(`<path d="M18 42h12M20 42l2-22h4l2 22"/><path d="M24 18c-5-3-4-9 0-14 4 5 5 11 0 14z" ${soft}/><path d="M24 14c-1-1-1-3 0-5" stroke-width="2.2"/><path d="M28 32h6"/>`));
+  A('relic-termoelement', icon(`<path d="M8 40l14-22M40 40L26 18"/><circle cx="24" cy="15" r="4" ${soft}/><path d="M8 40h6M34 40h6"/><path d="M18 30h12" stroke-dasharray="2 3" stroke-width="2.4"/>`));
+  A('relic-mikroskop', icon(`<path d="M10 42h28M16 42c0-6 4-10 10-10"/><path d="M20 8l8 4-7 14-8-4z" ${soft}/><path d="M24 26l6 3M30 22c5 2 6 8 4 12"/>`));
+  A('relic-katalysator', icon(`<path d="M6 36c6 0 8-20 18-20s12 20 18 20" stroke-dasharray="3 4" stroke-width="2.4"/><path d="M6 36c6 0 10-10 18-10s12 10 18 10"/><circle cx="24" cy="12" r="4" ${soft}/>`));
+  A('relic-kontroll', icon(`<path d="M10 8v26a5 5 0 0 0 10 0V8M28 8v26a5 5 0 0 0 10 0V8"/><path d="M10 24h10" stroke-width="2.4"/><path d="M28 18h10" stroke-width="2.4"/><path d="M10 34a5 5 0 0 0 10 0V24H10z" ${soft}/><path d="M7 8h16M25 8h16"/>`));
+  A('relic-prisme', icon(`<path d="M24 8l14 26H10z" ${soft}/><path d="M2 24l15 2"/><path d="M31 22l15-6M32 25l14 0M33 28l13 6" stroke-width="2.4"/>`));
+  A('relic-vdg', icon(`<circle cx="24" cy="14" r="10" ${soft}/><path d="M20 24v16M28 24v16M14 42h20"/><path d="M38 6l-4 6h5l-4 6" stroke-width="2.4"/>`));
+  A('relic-dna', icon(`<path d="M14 4c0 10 20 10 20 20s-20 10-20 20"/><path d="M34 4c0 10-20 10-20 20s20 10 20 20"/><path d="M17 10h14M19 18h10M19 30h10M17 38h14" stroke-width="2.2"/>`));
+  A('relic-tannhjul', icon(`<circle cx="24" cy="24" r="11" ${soft}/><circle cx="24" cy="24" r="4"/><path d="M24 6v6M24 36v6M6 24h6M36 24h6M11 11l4 4M33 33l4 4M37 11l-4 4M15 33l-4 4"/>`));
+  A('relic-eske', icon(`<path d="M8 18h32v22H8z" ${soft}/><path d="M8 18l6-8h32l-6 8M40 40l6-8V10"/><path d="M18 30c2-3 6-3 8 0M22 26v1" stroke-width="2.4"/>`));
+  A('relic-modell', icon(`<circle cx="24" cy="24" r="5" ${soft}/><ellipse cx="24" cy="24" rx="18" ry="7"/><ellipse cx="24" cy="24" rx="18" ry="7" transform="rotate(60 24 24)"/><ellipse cx="24" cy="24" rx="18" ry="7" transform="rotate(120 24 24)"/>`));
 })();
 
 ;
@@ -19848,13 +21134,63 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
     app.innerHTML = '';
     app.className = 'scr-' + name;
     current = { name, params: params || {} };
+    if (HUBS.includes(name)) lastHub = name;
+    if (name !== 'title') arm();
+    try { if (NG.music) NG.music.auto(name, params || {}); } catch (e) { /* musikk er valgfritt */ }
     const r = screens[name];
     if (!r) { app.textContent = 'Ukjent skjerm: ' + name; return; }
     const ret = r(app, params || {});
     if (typeof ret === 'function') cleanup = ret;
     try { window.scrollTo(0, 0); } catch (e) { /* */ }
+    // Tilgjengelighet: flytt fokus til skjermens overskrift (uten synlig ramme/hopp).
+    const ae = document.activeElement;
+    if (!ae || ae === document.body || !document.contains(ae)) {
+      const h = app.querySelector('h1');
+      if (h) { h.setAttribute('tabindex', '-1'); try { h.focus({ preventScroll: true }); } catch (e) { /* */ } }
+    }
   };
   NG.current = () => current;
+
+  /* ---------- Tilbakeknapp (Android/nettleser) ----------
+     Én «felle»-oppføring i historikken: tilbake lukker et åpent ark eller går til en fornuftig forelder
+     i appen, i stedet for å lukke PWA-en. Ekspedisjon, kamp og noder blir stående (ingen flukt midt i
+     en kamp, og belønningsskjermer tegnes aldri på nytt). Av i iframe (Artifact-visning). */
+  const HUBS = ['title', 'camp', 'path'];
+  const STAY = ['path', 'combat', 'event', 'chest', 'sol', 'merchant'];
+  const SAFE_BACK = ['camp', 'path', 'labs', 'exams', 'sheets', 'wall', 'settings', 'shop', 'review'];
+  let lastHub = 'camp';
+  let armed = false;
+  const sheets = [];
+  const useHistory = (() => { try { return window.top === window && !!(window.history && history.pushState); } catch (e) { return false; } })();
+  function arm() {
+    if (!useHistory || armed) return;
+    try { history.pushState({ ng: 1 }, ''); armed = true; } catch (e) { /* */ }
+  }
+  function backTarget() {
+    const cur = current || { name: 'title', params: {} };
+    const n = cur.name, p = cur.params || {};
+    const s = NG.state && NG.state();
+    const run = s && s.run;
+    if (n === 'title') return null;
+    if (n === 'camp' || n === 'intro') return { name: 'title' };
+    if (STAY.includes(n) || (n === 'lab' && p.inRun)) return run || n === 'path' || n === 'combat' ? 'stay' : { name: 'camp' };
+    if (n === 'lab') return { name: 'labs' };
+    if (p.back && SAFE_BACK.includes(p.back.name) && p.back.name !== n) {
+      return p.back.name === 'path' && !run ? { name: 'camp' } : p.back;
+    }
+    return { name: lastHub === 'path' && run ? 'path' : 'camp' };
+  }
+  if (useHistory) {
+    window.addEventListener('popstate', () => {
+      armed = false;
+      const onTitle = !current || current.name === 'title';
+      if (sheets.length) { if (!onTitle) arm(); sheets[sheets.length - 1](); return; }
+      const t = backTarget();
+      if (!t) return; // tittelskjermen: tilbake lukker appen
+      if (t === 'stay') arm();
+      else NG.go(t.name, t.params); // NG.go setter fella på nytt (unntatt for tittelskjermen)
+    });
+  }
 
   /* ---------- Grafikk ---------- */
   NG.artEl = function (id, cls) {
@@ -19899,8 +21235,19 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
   /* ---------- Modal-ark (bunnark på mobil) ---------- */
   NG.sheet = function (title, content, actions) {
     const back = el('div', { class: 'sheet-back', onclick: (e) => { if (e.target === back) close(); } });
-    const box = el('div', { class: 'sheet', role: 'dialog', 'aria-modal': 'true', 'aria-label': title });
-    function close() { back.remove(); document.removeEventListener('keydown', onKey); }
+    const box = el('div', { class: 'sheet', role: 'dialog', 'aria-modal': 'true', 'aria-label': title, tabindex: '-1' });
+    const prevFocus = document.activeElement;
+    let open = true;
+    function close() {
+      if (!open) return;
+      open = false;
+      back.remove(); document.removeEventListener('keydown', onKey);
+      const i = sheets.indexOf(close); if (i >= 0) sheets.splice(i, 1);
+      const tgt = prevFocus && prevFocus !== document.body && document.contains(prevFocus) ? prevFocus : document.querySelector('#app h1[tabindex]');
+      if (tgt && tgt.focus) try { tgt.focus({ preventScroll: true }); } catch (e) { /* */ }
+    }
+    sheets.push(close);
+    arm();
     function onKey(e) { if (e.key === 'Escape') close(); }
     document.addEventListener('keydown', onKey);
     box.appendChild(el('div', { class: 'row sheet-head' }, [
@@ -19918,6 +21265,7 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
     }
     back.appendChild(box);
     document.body.appendChild(back);
+    try { box.focus({ preventScroll: true }); } catch (e) { /* */ }
     return { close, body };
   };
 
@@ -20036,6 +21384,9 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
     if (q.figure) wrap.appendChild(el('div', { class: 'q-figure', html: q.figure.trim().startsWith('<') ? q.figure : NG.art.get(q.figure) }));
     wrap.appendChild(el('div', { class: 'q-prompt', html: NG.md(q.prompt) }));
     const body = el('div', { class: 'q-body stack-s' });
+    // Rask dobbelttrykk på «Videre» skal ikke svare på neste spørsmål: ignorer trykk de første 250 ms.
+    const born = Date.now();
+    body.addEventListener('click', (e) => { if (Date.now() - born < 250) { e.stopPropagation(); e.preventDefault(); } }, true);
     wrap.appendChild(body);
     const fb = el('div', { class: 'q-fb' });
     wrap.appendChild(fb);
@@ -20364,6 +21715,7 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
       el('span', { class: 'small muted', text: NG.cloud ? 'Lagret i skyen' : 'Lagret på enheten' }),
     ]));
 
+    if (NG.saveWasCorrupt) { NG.saveWasCorrupt = false; setTimeout(() => NG.toast('Den lagrede fremgangen kunne ikke leses. En kopi er tatt vare på (ng.save.v1.bak).', 5000), 300); }
     if (!s.tips.camp) { s.tips.camp = 1; NG.save(); setTimeout(() => NG.toast('Trykk på Energidalen eller Stoffgruvene for å starte.', 3500), 400); }
   });
 
@@ -20399,8 +21751,7 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
     if (open) {
       if (s.run && s.run.region === r.id) actions.push({ label: 'Fortsett ekspedisjonen', primary: true, onclick: () => NG.go('path') });
       else actions.push({ label: 'Dra på ekspedisjon', primary: true, onclick: () => {
-        if (s.run) NG.endRun(s, 'abandon');
-        s.hp = Math.max(s.hp, Math.ceil(NG.maxHp(s) * 0.5));
+        if (s.run) NG.endRun(s, 'abandon'); // ingen gratis helbredelse: du starter med den HP-en du har
         NG.startRun(s, r.id); NG.save(); NG.sfx('boss'); NG.go('path');
       } });
       actions.push({ label: 'Øv på begrepene', onclick: () => NG.go('review', { region: r.id }) });
@@ -20417,8 +21768,24 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
   'use strict';
   const el = (...a) => NG.el(...a);
 
+  // Langt trykk på node → fn(). Hindrer at det etterfølgende klikket også utløses.
+  function longPress(node, fn) {
+    let t = null; let fired = false;
+    const cancel = () => { clearTimeout(t); t = null; };
+    node.addEventListener('pointerdown', () => { fired = false; cancel(); t = setTimeout(() => { fired = true; t = null; fn(); }, 480); });
+    ['pointerup', 'pointerleave', 'pointercancel'].forEach((ev) => node.addEventListener(ev, cancel));
+    node.addEventListener('click', (e) => { if (fired) { e.stopPropagation(); e.preventDefault(); fired = false; } }, true);
+    node.addEventListener('contextmenu', (e) => e.preventDefault());
+  }
+  NG.longPress = longPress;
+
   NG.screen('combat', (app, p) => {
     const s = NG.state();
+    // Beskyttelse: en kamp i en ekspedisjon som allerede er avgjort, skal ikke kunne startes på nytt.
+    if (s.run && NG.runNode) {
+      const node = NG.runNode(s);
+      if (node && node.done) { NG.go('path'); return; }
+    }
     const rng = NG.makeRng((s.run ? s.run.seed : Date.now()) + (s.counters.answered * 31) + 17);
     const used = new Set(s.run ? s.run.usedQ : []);
     const c = NG.Combat.create(s, p.enemy, { rng, region: s.run ? s.run.region : null, used });
@@ -20427,28 +21794,32 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
     app.style.setProperty('--rc', reg.color);
     s.counters.fights++;
     let busy = false;
+    let settled = null;
 
     const hudSlot = el('div');
     const enemyArt = NG.artEl(c.def.art || c.def.id, 'en-art tier-' + c.tier);
     const enemyHp = el('i', { style: { background: 'var(--bad)' } });
     const enemyHpTxt = el('span', { class: 'num small' });
-    const intentPill = el('span', { class: 'intent' });
+    const intentPill = el('button', { class: 'intent', type: 'button', 'aria-label': 'Hva betyr planen?', onclick: () => intentSheet() });
     const bubble = el('div', { class: 'bubble' });
+    const relicRow = el('div', { class: 'relic-row', 'aria-label': 'Relikvier' });
     const status = el('div', { class: 'row cb-status' });
     const abil = el('div', { class: 'abilities' });
     const qbox = el('div', { class: 'qbox' });
+    const modChips = c.mods.map((m) => el('button', { class: 'chip mod-chip', type: 'button', text: NG.ELITE_MODS[m].name, onclick: () => NG.sheet(NG.ELITE_MODS[m].name, el('p', { text: NG.ELITE_MODS[m].desc })) }));
     const arena = el('section', { class: 'arena' }, [
       el('div', { class: 'en-top row' }, [
         el('div', { class: 'grow stack-s' }, [
-          el('div', { class: 'row' }, [el('strong', { class: 'en-name', text: c.def.name }), el('span', { class: 'chip', text: { normal: 'Misforståelse', elite: 'Elite', boss: 'BOSS' }[c.tier] || '' })]),
+          el('div', { class: 'row en-title' }, [el('strong', { class: 'en-name', text: c.def.name }), el('span', { class: 'chip', text: { normal: 'Misforståelse', elite: 'Elite', boss: 'BOSS' }[c.tier] || '' }), ...modChips]),
           el('div', { class: 'row' }, [el('div', { class: 'bar grow' }, enemyHp), enemyHpTxt]),
         ]),
       ]),
       el('div', { class: 'en-stage' }, [enemyArt, bubble, intentPill]),
     ]);
-    app.append(hudSlot, arena, status, abil, qbox);
+    app.append(hudSlot, arena, relicRow, status, abil, qbox);
 
     function refresh() {
+      if (settled) return;
       hudSlot.innerHTML = ''; hudSlot.appendChild(NG.hud(s, { noNav: true }));
       enemyHp.style.width = (100 * c.enemy.hp / c.enemy.maxHp) + '%';
       enemyHpTxt.textContent = c.enemy.hp + '/' + c.enemy.maxHp;
@@ -20457,48 +21828,105 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
       intentPill.className = 'intent i-' + it;
       intentPill.innerHTML = '';
       intentPill.append(el('strong', { text: info.name }), el('span', { class: 'small', text: ' · ' + info.desc }));
-      if (NG.hasRelic(s, 'lupe')) {
-        const seq = [1, 2].map((k) => { const cc = Object.assign({}, c, { turn: c.turn + k }); return NG.INTENT_TEXT[NG.Combat.intent(cc)].name; });
+      if (NG.hasRelic(s, 'lupe') || c.reveal) {
+        const seq = [1, 2].map((k) => NG.INTENT_TEXT[NG.Combat.intent(c, k)].name);
         intentPill.append(el('span', { class: 'small muted', text: ' → ' + seq.join(' → ') }));
       }
+      renderRelics();
       status.innerHTML = '';
-      if (c.streak >= 2) status.appendChild(el('span', { class: 'chip st-streak', text: 'Rekke ×' + c.streak }));
-      if (c.shield) status.appendChild(el('span', { class: 'chip st-shield', text: 'Skjold' }));
-      if (c.peb) status.appendChild(el('span', { class: 'chip st-peb', text: 'PEB ' + ['Påstand', 'Evidens', 'Begrunnelse'][c.peb - 1] + '…' }));
-      if (c.double) status.appendChild(el('span', { class: 'chip', text: 'Dobbel skade' }));
-      if (c.wrongBlocked) status.appendChild(el('span', { class: 'chip', text: 'Vernebriller' }));
-      if (c.ghost) status.appendChild(el('span', { class: 'chip st-ghost', text: 'Gjenferd fra ' + NG.region(c.q.region).name }));
+      const chip = (cls, text) => status.appendChild(el('span', { class: 'chip ' + (cls || ''), text }));
+      if (c.streak >= 2) chip('st-streak', 'Rekke ×' + c.streak);
+      if (c.shield) chip('st-shield', 'Skjold' + (c.shield > 1 ? ' ×' + c.shield : ''));
+      if (c.peb) {
+        const need = NG.abilityLevel(s, 'peb') >= 5 ? 2 : 3;
+        const names = need === 2 ? ['Påstand', 'Evidens + begrunnelse'] : ['Påstand', 'Evidens', 'Begrunnelse'];
+        chip('st-peb', 'PEB: ' + (names[c.peb - 1] || '') + '…');
+      }
+      if (c.model) chip('st-peb', 'Modell klar' + (c.model > 1 ? ' ×' + c.model : ''));
+      if (c.double) chip('', 'Dobbel skade');
+      if (c.forceCrit) chip('st-streak', 'Magnesium');
+      if (c.wrongBlocked) chip('', 'Vernebriller');
+      if (c.infect) chip('st-infect', 'Smitte ' + c.infect);
+      if (c.retry) chip('st-ghost', 'Kontrollforsøk ×1,5');
+      if (NG.hasRelic(s, 'vandegraaff')) chip('', 'Ladning ' + c.charge + '/4');
+      if (c.ghost && c.q) chip('st-ghost', 'Gjenferd fra ' + NG.region(c.q.region).name);
+      if (NG.Combat.intent(c) === 'mytekall' && c.q && c.q.myth) chip('st-myth', 'Myten');
       renderAbilities();
+    }
+
+    function renderRelics() {
+      relicRow.innerHTML = '';
+      const ids = NG.runRelics(s).concat((s.relics || []));
+      for (const id of ids) {
+        const d = NG.relicDef(id); if (!d) continue;
+        const run = !!NG.runRelic(id);
+        relicRow.appendChild(el('button', { class: 'relic-ic' + (run ? ' run r-' + d.rarity : ' perm'), type: 'button', 'aria-label': d.name, title: d.name, onclick: () => NG.showRelic(id) },
+          NG.artEl(d.art, 'relic-art')));
+      }
+      relicRow.hidden = !relicRow.childNodes.length;
     }
 
     function renderAbilities() {
       abil.innerHTML = '';
       const locked = busy || !c.q || c.over;
       for (const ab of NG.ABILITIES) {
-        if (ab.needs && !NG.hasRelic(s, ab.needs)) continue;
-        const cost = NG.abilityCost(s, ab);
-        abil.appendChild(el('button', { class: 'ab', disabled: locked || s.energy < cost || null, title: ab.desc, onclick: () => {
+        if (!NG.abilityUnlocked(s, ab)) continue;
+        const ci = NG.Combat.abilityCost(s, c, ab);
+        const lvl = NG.abilityLevel(s, ab.id);
+        const btn = el('button', { class: 'ab', 'data-ab': ab.id, disabled: locked || s.energy < ci.cost || null, 'aria-label': ab.name + ', nivå ' + lvl + ', ' + ci.cost + ' J', onclick: () => {
           const r = NG.Combat.useAbility(s, c, ab.id);
           NG.toast(r.msg);
-          if (r.ok) { NG.sfx('click'); NG.save(); if (ab.id === 'blikk') showQuestion(true); refresh(); }
-          else NG.sfx('bad');
-        } }, [el('span', { class: 'ab-n', text: ab.name }), el('span', { class: 'ab-c num', text: cost + ' J' })]));
+          if (r.ok) {
+            NG.sfx('click'); NG.save();
+            if (r.up) abilityUp(r.up);
+            if (ab.id === 'blikk') showQuestion(true);
+            if (r.hint) showHint(true);
+            refresh();
+          } else NG.sfx('bad');
+        } }, [
+          el('span', { class: 'ab-n', html: ab.short || ab.name }),
+          el('span', { class: 'ab-meta' }, [el('span', { class: 'ab-l', 'aria-hidden': 'true', text: '●'.repeat(lvl) + '○'.repeat(5 - lvl) }), el('span', { class: 'ab-c num', text: ci.free ? 'gratis' : ci.cost + ' J' })]),
+        ]);
+        const wrap = el('div', { class: 'abw' }, [btn, el('button', { class: 'ab-i', type: 'button', 'aria-label': 'Om ' + ab.name, text: 'i', onclick: () => NG.showAbility(ab.id) })]);
+        longPress(wrap, () => NG.showAbility(ab.id));
+        abil.appendChild(wrap);
       }
-      abil.appendChild(el('button', { class: 'ab', disabled: locked || c.hints <= 0 || null, title: 'Vis begrepskortene spørsmålet handler om', onclick: hint },
-        [el('span', { class: 'ab-n', text: 'Hint' }), el('span', { class: 'ab-c num', text: c.hints + ' igjen' })]));
-      const nItems = ['matpakke', 'kakao', 'repetisjonskort'].reduce((a, k) => a + (s.items[k] || 0), 0);
-      abil.appendChild(el('button', { class: 'ab', disabled: locked || !nItems || null, onclick: items },
-        [el('span', { class: 'ab-n', text: 'Sekk' }), el('span', { class: 'ab-c num', text: nItems + ' ting' })]));
+      const hintBtn = el('button', { class: 'ab', disabled: locked || c.hints <= 0 || null, onclick: () => showHint(false) },
+        [el('span', { class: 'ab-n', text: 'Hint' }), el('span', { class: 'ab-meta' }, el('span', { class: 'ab-c num', text: c.hints + ' igjen' }))]);
+      abil.appendChild(el('div', { class: 'abw' }, [hintBtn, el('button', { class: 'ab-i', type: 'button', 'aria-label': 'Om hint', text: 'i', onclick: () => NG.sheet('Hint', el('div', { class: 'stack small' }, [
+        el('p', { text: 'Et hint viser begrepskortene spørsmålet bygger på — definisjonen, ikke svaret. Du har ' + NG.hintsPerFight(s) + ' hint per kamp (mer med høy Nysgjerrighet og Feynmans notatbok).' }),
+        NG.hasRelic(s, 'mikroskop') ? el('p', { text: 'Mikroskopet: hintet fjerner også ett galt alternativ på flervalg.' }) : null,
+      ])) })]));
+      const nItems = NG.combatItems().reduce((a, it) => a + (s.items[it.id] || 0), 0);
+      abil.appendChild(el('div', { class: 'abw' }, el('button', { class: 'ab', disabled: locked || !nItems || null, onclick: items },
+        [el('span', { class: 'ab-n', text: 'Sekk' }), el('span', { class: 'ab-meta' }, el('span', { class: 'ab-c num', text: nItems + ' ting' }))])));
     }
 
-    function hint() {
-      if (c.hints <= 0 || !c.q) return;
-      c.hints--;
+    function abilityUp(u) {
+      NG.sfx('level');
+      NG.toast('Evne opp! ' + NG.abilityUpText(u), 4200);
+    }
+
+    function intentSheet() {
+      const it = NG.Combat.intent(c);
+      const rows = [el('p', { html: '<strong>' + NG.INTENT_TEXT[it].name + ':</strong> ' + NG.INTENT_TEXT[it].desc })];
+      if (NG.hasRelic(s, 'lupe') || c.reveal) rows.push(el('p', { class: 'small muted', text: 'Deretter: ' + [1, 2].map((k) => NG.INTENT_TEXT[NG.Combat.intent(c, k)].name).join(' → ') }));
+      else rows.push(el('p', { class: 'small muted', text: 'Grubletegning (eller Forskerlupa) lar deg se to trekk frem.' }));
+      NG.sheet('Misforståelsens plan', el('div', { class: 'stack small' }, rows));
+    }
+
+    function showHint(free) {
+      if (!c.q) return;
+      if (!free) {
+        if (c.hints <= 0) return;
+        c.hints--;
+        if (NG.hasRelic(s, 'mikroskop') && c.q.type === 'mc') { c.eliminate += 1; showQuestion(true); }
+      }
       const body = el('div', { class: 'stack' }, (c.q.concepts || []).map((id) => {
         const cc = NG.conceptById(id);
         return cc ? el('div', { class: 'card stack-s' }, [el('strong', { text: cc.name }), el('div', { class: 'small', html: NG.md(cc.def) })]) : null;
       }));
-      body.appendChild(el('p', { class: 'small muted', text: 'Hintet viser begrepene spørsmålet bygger på — ikke svaret.' }));
+      body.appendChild(el('p', { class: 'small muted', text: (free ? 'Partikkelblikket (nivå 5) viser begrepene spørsmålet bygger på. ' : 'Hintet viser begrepene spørsmålet bygger på — ikke svaret.') + (!free && NG.hasRelic(s, 'mikroskop') && c.q.type === 'mc' ? ' Mikroskopet fjernet også ett galt alternativ.' : '') }));
       NG.sheet('Hint', body);
       refresh();
     }
@@ -20506,14 +21934,22 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
     function items() {
       const body = el('div', { class: 'stack-s' });
       const sh = NG.sheet('Sekken', body);
-      for (const id of ['matpakke', 'kakao', 'repetisjonskort']) {
+      for (const it of NG.combatItems()) {
+        const id = it.id;
         if (!(s.items[id] > 0)) continue;
-        const it = NG.item(id);
         body.appendChild(el('button', { class: 'option row', onclick: () => {
           const r = NG.Combat.useItem(s, c, id);
-          NG.toast(r.msg); if (r.ok) { NG.sfx('heal'); NG.save(); }
+          NG.toast(r.msg);
+          if (r.ok) { NG.sfx('heal'); NG.save(); }
+          else NG.sfx('bad');
           sh.close(); refresh();
-        } }, [NG.artEl(it.art, 'loot-art sm'), el('div', { class: 'grow stack-s' }, [el('strong', { text: it.name + ' ×' + s.items[id] }), el('span', { class: 'small muted', text: it.desc })])]));
+          if (r.reveal) {
+            NG.sheet('Lakmuspapir', el('div', { class: 'stack' }, [
+              el('div', { class: 'feedback ' + (r.reveal.right ? 'good' : 'bad') }, [el('div', { html: '«' + NG.md(r.reveal.text) + '» er <strong>' + (r.reveal.right ? (r.reveal.multi ? 'med i svaret' : 'riktig') : (r.reveal.multi ? 'ikke med i svaret' : 'galt')) + '</strong>.' })]),
+              el('p', { class: 'small muted', html: NG.md(it.lore) }),
+            ]));
+          }
+        } }, [NG.artEl(it.art, 'loot-art sm'), el('div', { class: 'grow stack-s' }, [el('strong', { text: it.name + ' ×' + s.items[id] }), el('span', { class: 'small muted', html: NG.md(it.desc) })])]));
       }
     }
 
@@ -20525,11 +21961,15 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
     function showQuestion(keep) {
       if (!keep) {
         const q = NG.Combat.nextQuestion(s, c);
-        if (!q) { qbox.innerHTML = ''; qbox.appendChild(el('div', { class: 'feedback', text: 'Ingen spørsmål i denne regionen ennå. Kampen er avlyst.' })); endWin(); return; }
+        if (!q) { qbox.innerHTML = ''; qbox.appendChild(el('div', { class: 'feedback', text: 'Ingen spørsmål i denne regionen ennå. Kampen er avlyst.' })); c.over = 'win'; settle(); endWin(); return; }
         if (s.run && s.run.usedQ.indexOf(q.id) < 0) s.run.usedQ.push(q.id);
+        if (NG.Combat.intent(c) === 'mytekall' && q.myth) {
+          const m = NG.content.store.myths.find((x) => x.id === q.myth);
+          if (m) say('«' + m.text + '»');
+        }
       }
       NG.renderQuestion(qbox, c.q, {
-        rng: NG.makeRng(rng.int(0, 1e9)),
+        rng: NG.makeRng(c.qSeed),
         eliminate: c.eliminate,
         onAnswer: onAnswer,
         onContinue: afterAnswer,
@@ -20537,13 +21977,12 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
       });
     }
 
-    let lastOut = null;
     function onAnswer(res) {
       busy = true;
       const rec = NG.recordAnswer(s, c.q, res);
       const out = NG.Combat.answer(s, c, res);
-      lastOut = out;
       s.counters.bestStreak = Math.max(s.counters.bestStreak, c.streak);
+      if (c.over) settle(); // seier/nederlag lagres med en gang, før spilleren trykker «Videre»
       NG.save();
       // animasjon
       if (out.dealt) {
@@ -20558,9 +21997,11 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
       } else if (out.blocked) say('…!');
       else if (res.correct) say(['Grr…', 'Hmpf.', 'Det … stemmer vel.', 'Argh!'][c.turn % 4]);
       out.notes.forEach((n, i) => n && setTimeout(() => NG.toast(n), 300 + i * 500));
+      out.abilityUps.forEach((u, i) => setTimeout(() => abilityUp(u), 600 + i * 900));
       if (out.phase) setTimeout(() => { NG.sfx('boss'); NG.toast(out.phase, 3500); }, 600);
       NG.announce(rec);
-      refresh();
+      if (!settled) refresh();
+      else { renderAbilities(); hudSlot.innerHTML = ''; hudSlot.appendChild(NG.hud(s, { noNav: true })); enemyHp.style.width = (100 * c.enemy.hp / c.enemy.maxHp) + '%'; enemyHpTxt.textContent = c.enemy.hp + '/' + c.enemy.maxHp; }
     }
 
     function afterAnswer() {
@@ -20570,23 +22011,50 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
       else { showQuestion(); refresh(); }
     }
 
+    // Anvend utfallet på lagringen nøyaktig én gang (idempotent), straks kampen er avgjort.
+    function settle() {
+      if (settled) return settled;
+      if (c.over === 'win') {
+        const rw = NG.Combat.rewards(s, c);
+        const ups = NG.gainXp(s, rw.xp);
+        s.joule += rw.joule; if (s.run) s.run.joule += rw.joule;
+        if (rw.energy) NG.addEnergy(s, rw.energy);
+        s.hp = Math.min(NG.maxHp(s), s.hp + rw.heal);
+        if (rw.item) s.items[rw.item] = (s.items[rw.item] || 0) + 1;
+        if (rw.relic) NG.gainRelic(s, rw.relic);
+        s.counters.wins++;
+        const isBoss = c.tier === 'boss' && c.def.id === reg.boss;
+        if (isBoss) { s.bossesBeaten[reg.id] = Date.now(); s.sheets[reg.id] = true; }
+        let choices = [];
+        if (s.run) {
+          if (isBoss) NG.endRun(s, 'win');
+          else {
+            NG.completeNode(s);
+            if (c.tier === 'elite' || c.tier === 'boss') {
+              choices = NG.rollRelics(s, c.rng, 3, c.tier === 'boss' ? 'boss' : 'elite');
+              if (choices.length) s.run.pendingRelics = choices.slice();
+            }
+          }
+        }
+        settled = { win: true, rw, ups, isBoss, choices };
+      } else {
+        const lost = s.run ? NG.endRun(s, 'death') : { lost: 0 };
+        if (!lost.lost && s.hp <= 0) s.hp = Math.ceil(NG.maxHp(s) * 0.6);
+        settled = { win: false, lost };
+      }
+      NG.save({ now: true });
+      return settled;
+    }
+
     function endWin() {
-      const rw = NG.Combat.rewards(s, c);
-      const ups = NG.gainXp(s, rw.xp);
-      s.joule += rw.joule; if (s.run) s.run.joule += rw.joule;
-      if (rw.energy) s.energy += rw.energy;
-      s.hp = Math.min(NG.maxHp(s), s.hp + rw.heal);
-      if (rw.item) s.items[rw.item] = (s.items[rw.item] || 0) + 1;
-      if (rw.relic && !NG.hasRelic(s, rw.relic)) s.relics.push(rw.relic);
-      s.counters.wins++;
-      const isBoss = c.tier === 'boss' && c.def.id === reg.boss;
-      if (isBoss) { s.bossesBeaten[reg.id] = Date.now(); s.sheets[reg.id] = true; }
-      NG.save();
+      const st = settle();
+      const rw = st.rw;
+      const isBoss = st.isBoss;
       NG.sfx(isBoss ? 'win' : 'coin');
-      if (ups) NG.announce({ levelUps: ups });
+      if (st.ups) NG.announce({ levelUps: st.ups });
       app.innerHTML = '';
-      app.appendChild(NG.hud(s));
-      const acc = c.answered ? Math.round(100 * c.correct / c.answered) : 100;
+      app.appendChild(NG.hud(s, { noNav: true }));
+      const relicBox = st.choices.length ? relicChoice(st.choices) : null;
       app.appendChild(el('div', { class: 'stack victory' }, [
         el('div', { class: 'row' }, [NG.artEl(c.def.art || c.def.id, 'en-art small defeated'), el('div', { class: 'grow stack-s' }, [
           el('span', { class: 'label', text: isBoss ? 'Boss beseiret' : 'Seier' }),
@@ -20596,31 +22064,63 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
         el('div', { class: 'card rw-grid' }, [
           rwCell('+' + rw.xp, 'XP'), rwCell('+' + rw.joule, '◆ joule'), rwCell(c.correct + '/' + c.answered, 'riktige · beste rekke ×' + c.bestStreak), rwCell('+' + rw.heal, 'HP i pusterommet'),
         ]),
+        relicBox,
         rw.relic ? lootRow(NG.item(rw.relic), 'Ny varig gjenstand!') : null,
         rw.item ? lootRow(NG.item(rw.item), 'Lagt i sekken') : null,
         rw.energy ? el('p', { class: 'small muted', text: 'Solcellepanelet ga +' + rw.energy + ' J.' }) : null,
         isBoss ? el('div', { class: 'feedback good stack-s' }, [el('strong', { text: 'Nøkkelarket «' + reg.sheet + '» er restaurert!' }), el('span', { class: 'small', text: 'Les det under Nøkkelarkene i leiren. Nye regioner kan ha åpnet seg.' })]) : null,
         el('button', { class: 'btn primary block', id: 'btn-after-win', text: isBoss ? 'Tilbake til leiren' : 'Videre', onclick: () => {
-          if (isBoss) { NG.endRun(s, 'win'); NG.save(); NG.go(Object.keys(s.bossesBeaten).length >= 8 ? 'finale' : 'sheets', { open: reg.id }); }
+          if (s.run && s.run.pendingRelics) { delete s.run.pendingRelics; NG.save(); }
+          if (isBoss) NG.go(Object.keys(s.bossesBeaten).length >= 8 ? 'finale' : 'sheets', { open: reg.id });
           else if (s.run) NG.nodeDone(); else NG.go('camp');
         } }),
       ]));
     }
 
+    // «Velg én av tre» — ekspedisjonsrelikvier etter elite/boss
+    function relicChoice(ids) {
+      const box = el('div', { class: 'card stack-s relic-pick' }, [
+        el('div', { class: 'row' }, [el('span', { class: 'label grow', text: 'Velg én av tre' }), el('span', { class: 'small muted', text: 'varer ut ekspedisjonen' })]),
+      ]);
+      const cards = ids.map((id) => {
+        const d = NG.runRelic(id);
+        const b = el('button', { class: 'relic-card r-' + d.rarity, 'data-relic': id, onclick: () => pick(id, b) }, [
+          NG.artEl(d.art, 'loot-art sm'),
+          el('div', { class: 'grow stack-s' }, [
+            el('div', { class: 'row rc-head' }, [el('strong', { text: d.name }), el('span', { class: 'chip rar', text: NG.RARITY[d.rarity].name })]),
+            el('span', { class: 'small', text: d.desc }),
+            el('span', { class: 'small muted', html: NG.md(d.lore) }),
+          ]),
+        ]);
+        return b;
+      });
+      const skip = el('button', { class: 'btn ghost small', text: 'Hopp over', onclick: () => { done(); NG.toast('Du lot relikviene ligge.'); } });
+      function done() { cards.forEach((b) => { b.disabled = true; }); skip.remove(); if (s.run) { delete s.run.pendingRelics; NG.save(); } }
+      function pick(id, b) {
+        const d = NG.gainRelic(s, id);
+        done();
+        b.classList.add('picked');
+        if (d) { NG.sfx('coin'); NG.toast(d.name + ' er med deg resten av ekspedisjonen.'); }
+        NG.save();
+      }
+      cards.forEach((b) => box.appendChild(b));
+      box.appendChild(el('div', { class: 'row' }, [el('span', { class: 'spacer' }), skip]));
+      return box;
+    }
+
     function endLose() {
-      const lost = s.run ? NG.endRun(s, 'death') : { lost: 0 };
-      if (!s.run && !lost.lost) s.hp = Math.ceil(NG.maxHp(s) * 0.6);
-      NG.save();
+      const st = settle();
+      const lost = st.lost || { lost: 0 };
       NG.sfx('lose');
       app.innerHTML = '';
-      app.appendChild(NG.hud(s));
+      app.appendChild(NG.hud(s, { noNav: true }));
       const missed = [...c.used].map((id) => NG.content.store.questions.find((q) => q.id === id)).filter((q) => q && s.srs[q.id] && s.srs[q.id].due < Date.now() + 3600e3 && s.srs[q.id].box <= 1);
       app.appendChild(el('div', { class: 'stack' }, [
         el('div', { class: 'row' }, [NG.artEl(c.def.art || c.def.id, 'en-art small'), el('div', { class: 'grow stack-s' }, [
           el('span', { class: 'label', text: 'Nederlag' }),
           el('h1', { class: 'h-display', text: c.def.name + ' vant denne gangen' }),
         ])]),
-        el('p', { text: 'Du våkner i leiren. Du beholder XP og alle begrepskort — det du har lært, forsvinner ikke' + (lost.lost ? ', men du mistet ' + lost.lost + ' ◆ på veien.' : '.') }),
+        el('p', { text: 'Du våkner i leiren. Du beholder XP, evnenivåer og alle begrepskort — det du har lært, forsvinner ikke' + (lost.lost ? ', men du mistet ' + lost.lost + ' ◆ på veien.' : '.') + ' Ekspedisjonsrelikviene ble igjen.' }),
         missed.length ? el('div', { class: 'card stack-s' }, [el('span', { class: 'label', text: 'Dette kommer tilbake som Gjenferd' }),
           ...missed.slice(0, 5).map((q) => el('div', { class: 'small', html: '• ' + NG.md(q.topic + ': ' + q.prompt.split('\n')[0].slice(0, 90)) }))]) : null,
         el('button', { class: 'btn primary block', text: 'Repeter det du bommet på', onclick: () => NG.go('review') }),
@@ -20631,7 +22131,7 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
     function rwCell(v, l) { return el('div', { class: 'rw' }, [el('strong', { class: 'num', text: v }), el('span', { class: 'small muted', text: l })]); }
     function lootRow(it, label) {
       return el('div', { class: 'card row' }, [NG.artEl(it.art, 'loot-art'), el('div', { class: 'grow stack-s' }, [
-        el('span', { class: 'label', text: label }), el('strong', { text: it.name }), el('span', { class: 'small', text: it.desc }), el('span', { class: 'small muted', html: NG.md(it.lore) })])]);
+        el('span', { class: 'label', text: label }), el('strong', { text: it.name }), el('span', { class: 'small', html: NG.md(it.desc) }), el('span', { class: 'small muted', html: NG.md(it.lore) })])]);
     }
 
     // Start
@@ -20640,14 +22140,19 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
     showQuestion();
     refresh();
     if (!s.tips.combat) {
-      s.tips.combat = 1; NG.save();
+      s.tips.combat = 1; s.tips.abInfo = 1; NG.save();
       NG.sheet('Slik kjemper du', el('div', { class: 'stack small' }, [
         el('p', { html: '<strong>Svar riktig</strong> → du angriper. Rekker, vanskelige spørsmål og sterke begrepskort gir mer skade.' }),
         el('p', { html: '<strong>Svar feil</strong> → Misforståelsen slår, og du får forklaringen. Spørsmålet kommer tilbake senere som et <em>Gjenferd</em>.' }),
-        el('p', { html: '<strong>Planen</strong> under fienden viser neste trekk. «Slag» og «Storslag» treffer litt selv om du svarer riktig.' }),
+        el('p', { html: '<strong>Planen</strong> under fienden viser neste trekk. «Slag» og «Storslag» treffer litt selv om du svarer riktig. Trykk på planen for å lese mer.' }),
         el('p', { html: '<strong>Evner</strong> koster energi (J). Brukt energi blir <em>spillvarme</em> — den er ikke borte, men du kan ikke bruke den. Solgløtt fyller på.' }),
+        el('p', { html: '<strong>Trykk på «i»</strong> (eller hold inne en evne) for å se hva den gjør. Evnene blir sterkere jo mer du bruker dem godt.' }),
       ]), [{ label: 'Kjør på!', primary: true }]);
+    } else if (!s.tips.abInfo) {
+      s.tips.abInfo = 1; NG.save();
+      setTimeout(() => NG.toast('Nytt: trykk på «i» eller hold inne en evne for å se hva den gjør — evnene får nivåer når du bruker dem.', 4500), 700);
     }
+    if (c.mods.length) setTimeout(() => NG.toast('Elite: ' + c.mods.map((m) => NG.ELITE_MODS[m].name).join(' + ') + ' — trykk på merket for detaljer.', 3200), 400);
   });
 })();
 
@@ -20688,6 +22193,18 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
       ]));
     }
     app.appendChild(st);
+    // Evner med mestringsnivå
+    const abs = el('div', { class: 'card stack-s' }, [el('div', { class: 'row' }, [el('span', { class: 'label grow', text: 'Evner' }), el('span', { class: 'small muted', text: 'Trykk for detaljer' })])]);
+    for (const ab of NG.ABILITIES) abs.appendChild(abilityRow(s, ab));
+    abs.appendChild(el('p', { class: 'small muted', text: 'Evnene får mestring når du bruker dem og svarer riktig etterpå (litt også ved feil). Nivå 1 → 5, og hvert nivå gir en ny effekt.' }));
+    app.appendChild(abs);
+    if (s.run) {
+      const rr = el('div', { class: 'card stack-s' }, [el('div', { class: 'row' }, [el('span', { class: 'label grow', text: 'Ekspedisjonsrelikvier' }), el('span', { class: 'small muted', text: 'varer ut ekspedisjonen' })])]);
+      const ids = NG.runRelics(s);
+      if (!ids.length) rr.appendChild(el('p', { class: 'small muted', text: 'Ingen ennå. Eliter gir deg «Velg én av tre».' }));
+      for (const id of ids) { const d = NG.runRelic(id); if (d) rr.appendChild(relicRow(d)); }
+      app.appendChild(rr);
+    }
     const relics = el('div', { class: 'card stack-s' }, [el('span', { class: 'label', text: 'Varige gjenstander' })]);
     if (!s.relics.length) relics.appendChild(el('p', { class: 'small muted', text: 'Ingen ennå. Eliter og bosser slipper dem, og Materiallageret selger dem.' }));
     for (const id of s.relics) { const it = NG.item(id); if (it) relics.appendChild(itemRow(it)); }
@@ -20699,7 +22216,7 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
       const it = NG.item(id); if (!it) continue;
       const row = itemRow(it, ' ×' + s.items[id]);
       if (id === 'kakao' && s.hp < NG.maxHp(s)) row.appendChild(el('button', { class: 'btn small', text: 'Bruk', onclick: () => { s.items[id]--; s.hp = Math.min(NG.maxHp(s), s.hp + 25); NG.sfx('heal'); NG.save(); NG.go('sekk', p); } }));
-      if (id === 'matpakke') row.appendChild(el('button', { class: 'btn small', text: 'Spis', onclick: () => { s.items[id]--; s.energy += 20; NG.sfx('heal'); NG.save(); NG.go('sekk', p); } }));
+      if (id === 'matpakke' && s.energy < NG.maxEnergy(s)) row.appendChild(el('button', { class: 'btn small', text: 'Spis', onclick: () => { s.items[id]--; const r = NG.addEnergy(s, 20); NG.toast('+' + r.gained + ' J' + (r.heat ? ' (' + r.heat + ' J ble spillvarme)' : '')); NG.sfx('heal'); NG.save(); NG.go('sekk', p); } }));
       inv.appendChild(row);
     }
     if (!any) inv.appendChild(el('p', { class: 'small muted', text: 'Tom.' }));
@@ -20712,8 +22229,68 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
   });
   function itemRow(it, extra) {
     return el('div', { class: 'row item-row' }, [NG.artEl(it.art, 'loot-art sm'), el('div', { class: 'grow stack-s' }, [
-      el('strong', { text: it.name + (extra || '') }), el('span', { class: 'small', text: it.desc }), el('span', { class: 'small muted', html: NG.md(it.lore) })])]);
+      el('strong', { text: it.name + (extra || '') }), el('span', { class: 'small', html: NG.md(it.desc) }), el('span', { class: 'small muted', html: NG.md(it.lore) })])]);
   }
+  function relicRow(d) {
+    return el('button', { class: 'row item-row relic-line r-' + d.rarity, onclick: () => NG.showRelic(d.id) }, [NG.artEl(d.art, 'loot-art sm'), el('div', { class: 'grow stack-s' }, [
+      el('div', { class: 'row rc-head' }, [el('strong', { text: d.name }), el('span', { class: 'chip rar', text: NG.RARITY[d.rarity].name })]),
+      el('span', { class: 'small', text: d.desc })])]);
+  }
+  function pips(lvl) { return el('span', { class: 'pips ab-pips', 'aria-label': 'Nivå ' + lvl + ' av 5', text: '●'.repeat(lvl) + '○'.repeat(5 - lvl) }); }
+  function abilityRow(s, ab) {
+    const open = NG.abilityUnlocked(s, ab);
+    const a = NG.abilityState(s, ab.id);
+    const lockTxt = ab.needs && !NG.hasRelic(s, ab.needs) ? 'Krever ' + NG.item(ab.needs).name : ab.unlock && s.level < ab.unlock ? 'Låses opp på nivå ' + ab.unlock : '';
+    return el('button', { class: 'row item-row ab-line' + (open ? '' : ' locked'), onclick: () => NG.showAbility(ab.id) }, [
+      NG.artEl(ab.icon, 'loot-art sm'),
+      el('div', { class: 'grow stack-s' }, [
+        el('div', { class: 'row rc-head' }, [el('strong', { text: ab.name }), open ? pips(a.lvl) : el('span', { class: 'chip', text: 'Låst' })]),
+        el('span', { class: 'small', text: open ? ab.desc : lockTxt }),
+        open && a.lvl < 5 ? el('div', { class: 'bar thin' }, el('i', { style: { width: (100 * a.xp / NG.ABILITY_NEED[a.lvl]) + '%', background: 'var(--xp)' } })) : null,
+      ]),
+      el('span', { class: 'chip num', text: NG.abilityCost(s, ab) + ' J' }),
+    ]);
+  }
+
+  // Detaljark for en evne: hva den gjør, kostnad, naturfaget bak, nivå og neste nivå.
+  NG.showAbility = function (id) {
+    const s = NG.state();
+    const ab = NG.ability(id);
+    if (!ab) return;
+    const a = NG.abilityState(s, id);
+    const open = NG.abilityUnlocked(s, ab);
+    const body = el('div', { class: 'stack ab-sheet' }, [
+      el('div', { class: 'row' }, [NG.artEl(ab.icon, 'loot-art'), el('div', { class: 'grow stack-s' }, [
+        el('div', { class: 'row' }, [el('span', { class: 'chip num', text: NG.abilityCost(s, ab) + ' J' }), pips(a.lvl), el('span', { class: 'small muted', text: 'nivå ' + a.lvl + '/5' })]),
+        el('span', { text: ab.desc }),
+      ])]),
+      !open ? el('div', { class: 'feedback', text: ab.needs && !NG.hasRelic(s, ab.needs) ? 'Krever ' + NG.item(ab.needs).name + ' (Materiallageret).' : 'Låses opp når du når nivå ' + ab.unlock + '.' }) : null,
+      el('div', { class: 'card stack-s' }, [el('span', { class: 'label', text: 'Naturfaget bak' }), el('div', { class: 'small', html: NG.md(ab.science) })]),
+      el('div', { class: 'stack-s' }, [
+        el('span', { class: 'label', text: 'Mestring' }),
+        a.lvl < 5 ? el('div', { class: 'row small' }, [el('div', { class: 'bar grow' }, el('i', { style: { width: (100 * a.xp / NG.ABILITY_NEED[a.lvl]) + '%', background: 'var(--xp)' } })), el('span', { class: 'num', text: a.xp + '/' + NG.ABILITY_NEED[a.lvl] })]) : el('span', { class: 'small', text: 'Fullt mestret!' }),
+        el('ol', { class: 'ab-levels' }, ab.levels.slice(1).map((txt, i) => el('li', { class: i + 1 <= a.lvl ? 'on' : (i + 1 === a.lvl + 1 ? 'next' : '') }, [
+          el('span', { class: 'num ab-lv', text: String(i + 1) }), el('span', { class: 'small', text: txt + (i + 1 === a.lvl + 1 ? ' (neste)' : '') })]))),
+        el('p', { class: 'small muted', text: 'Mestring: +2 når du bruker evnen og svarer riktig, +1 ved feil svar. Trening på hvileplasser gir også mestring.' }),
+      ]),
+    ]);
+    NG.sheet(ab.name, body);
+  };
+
+  // Detaljark for en relikvie (ekspedisjon eller varig)
+  NG.showRelic = function (id) {
+    const d = NG.relicDef(id);
+    if (!d) return;
+    const run = !!NG.runRelic(id);
+    NG.sheet(d.name, el('div', { class: 'stack' }, [
+      el('div', { class: 'row' }, [NG.artEl(d.art, 'loot-art'), el('div', { class: 'grow stack-s' }, [
+        el('div', { class: 'row' }, [run ? el('span', { class: 'chip rar r-' + d.rarity, text: NG.RARITY[d.rarity].name }) : el('span', { class: 'chip', text: 'Varig' }),
+          el('span', { class: 'small muted', text: run ? 'Varer ut ekspedisjonen' : 'Følger deg alltid' })]),
+        el('span', { html: NG.md(d.desc) }),
+      ])]),
+      el('div', { class: 'card stack-s' }, [el('span', { class: 'label', text: 'Naturfaget bak' }), el('div', { class: 'small', html: NG.md(d.lore) })]),
+    ]));
+  };
 
   /* ---------- Materiallageret ---------- */
   NG.screen('shop', (app) => {
@@ -20728,7 +22305,7 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
       row.classList.add('card');
       row.appendChild(el('button', { class: 'btn small', disabled: owned || s.joule < it.price || null, text: owned ? 'Eies' : it.price + ' ◆', onclick: () => {
         s.joule -= it.price;
-        if (it.kind === 'relic') { s.relics.push(it.id); if (it.id === 'solcelle') s.energy += 10; } else s.items[it.id] = (s.items[it.id] || 0) + 1;
+        NG.gainRelic(s, it.id);
         NG.sfx('coin'); NG.save(); NG.go('shop');
       } }));
       list.appendChild(row);
@@ -20765,16 +22342,20 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
     const s = NG.state();
     const m = NG.minigames.get(p.id);
     if (!m) { if (p.inRun) NG.nodeDone(); else NG.go('labs'); return; }
+    // Allerede gjennomført i denne ekspedisjonen (f.eks. tilbake fra sekken): ingen ny belønning
+    const runNode = p.inRun && s.run && NG.runNode ? NG.runNode(s) : null;
+    if (runNode && runNode.claimed) { NG.nodeDone(); return; }
+    let left = false;
     const reg = NG.region(m.region);
     app.style.setProperty('--rc', reg.color);
     app.appendChild(el('div', { class: 'row lab-head' }, [
       NG.artEl('node-lab', 'ph-icon'),
       el('div', { class: 'grow stack-s' }, [el('span', { class: 'label', text: 'Laben · ' + reg.name + ' · ' + m.title })]),
-      el('button', { class: 'btn ghost small', text: p.inRun ? 'Hopp over' : 'Avbryt', onclick: () => { stop(); p.inRun ? NG.nodeDone() : NG.go('labs'); } }),
+      el('button', { class: 'btn ghost small', text: p.inRun ? 'Hopp over' : 'Avbryt', onclick: () => { left = true; stop(); p.inRun ? NG.nodeDone() : NG.go('labs'); } }),
     ]));
     const root = el('div', { class: 'mg-root' });
     app.appendChild(root);
-    const visits = s.regionVisits[m.region] || 0;
+    const visits = NG.regionTier ? NG.regionTier(s, m.region) + 1 : (s.regionVisits[m.region] || 0);
     let inst = null;
     const api = NG.makeMinigameApi({
       seed: (Date.now() ^ NG.hashStr(m.id)) >>> 0,
@@ -20786,7 +22367,10 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
     }
     function stop() { if (inst && inst.destroy) try { inst.destroy(); } catch (e) { /* */ } }
     function finish(r) {
+      if (left) return;
+      left = true;
       stop();
+      if (runNode) runNode.claimed = true;
       const prev = s.labs[m.id];
       s.labs[m.id] = Math.max(prev || 0, r.score);
       s.counters.labs++;
@@ -20810,7 +22394,7 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
       ]));
     }
     function cell(v, l) { return el('div', { class: 'rw' }, [el('strong', { class: 'num', text: v }), el('span', { class: 'small muted', text: l })]); }
-    return stop;
+    return () => { left = true; stop(); };
   });
 
   /* ---------- Innstillinger ---------- */
@@ -20822,6 +22406,10 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
     app.appendChild(el('div', { class: 'stack' }, [
       el('div', { class: 'card stack-s' }, [el('label', { class: 'label', for: 'set-name', text: 'Navnet ditt' }), el('div', { class: 'row' }, [name, el('button', { class: 'btn small', text: 'Lagre', onclick: () => { s.name = name.value.trim() || 'Lærling'; NG.save(); NG.toast('Lagret'); } })])]),
       el('div', { class: 'card row' }, [el('span', { class: 'grow', text: 'Lyd' }), el('button', { class: 'btn small', id: 'set-sound', text: NG.audio.muted ? 'Av' : 'På', onclick: (e) => { NG.audio.setMuted(!NG.audio.muted); e.target.textContent = NG.audio.muted ? 'Av' : 'På'; NG.sfx('click'); } })]),
+      NG.music ? el('div', { class: 'card stack-s' }, [
+        el('div', { class: 'row' }, [el('span', { class: 'grow', text: 'Musikk' }), el('button', { class: 'btn small', id: 'set-music', text: NG.music.enabled ? 'På' : 'Av', onclick: (e) => { NG.music.setEnabled(!NG.music.enabled); e.target.textContent = NG.music.enabled ? 'På' : 'Av'; } })]),
+        el('input', { type: 'range', id: 'set-music-vol', min: '0', max: '100', step: '5', value: String(Math.round(NG.music.volume * 100)), 'aria-label': 'Musikkvolum', style: { width: '100%', accentColor: 'var(--xp)' }, oninput: (e) => NG.music.setVolume(e.target.value / 100) }),
+      ]) : null,
       NG.wakeLock.supported ? el('div', { class: 'card row' }, [
         el('div', { class: 'grow stack-s' }, [el('span', { text: 'Skjerm alltid på' }), el('span', { class: 'small muted', text: 'Hindrer at skjermen slukker mens du tenker.' })]),
         el('button', { class: 'btn small', id: 'set-wake', text: NG.wakeLock.on ? 'På' : 'Av', onclick: (e) => { NG.wakeLock.set(!NG.wakeLock.on); e.target.textContent = NG.wakeLock.on ? 'På' : 'Av'; NG.sfx('click'); } }),
@@ -20968,12 +22556,19 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
       } else selfAssess();
     };
 
-    function reward(score) {
+    // self = egenvurdering (uten Claude): kortene løftes høyst til nivå 3 (Nettverk).
+    // XP gis bare én gang per oppgave per dag, så Orakelet ikke kan «farmes».
+    function reward(score, self) {
       done[pr.id] = Math.max(done[pr.id] || 0, score);
       s.counters.oracle++;
-      const xp = 10 + 15 * score;
-      const ups = NG.gainXp(s, xp);
-      const cardUps = NG.updateCards(s, { concepts: pr.concepts || [], level: score >= 2 ? 5 : 3 }, score >= 2);
+      const today = NG.today();
+      if (!s.oracleXp || s.oracleXp.date !== today) s.oracleXp = { date: today, ids: [] };
+      const first = s.oracleXp.ids.indexOf(pr.id) < 0;
+      if (first) s.oracleXp.ids.push(pr.id);
+      const xp = first ? Math.round(10 + 15 * score) : 0;
+      const ups = xp ? NG.gainXp(s, xp) : 0;
+      if (!first) NG.toast('Du har allerede fått XP for denne oppgaven i dag.');
+      const cardUps = NG.updateCards(s, { concepts: pr.concepts || [], level: self ? 3 : (score >= 2 ? 5 : 3) }, score >= 2);
       NG.save();
       NG.announce({ cardUps, levelUps: ups });
       NG.sfx(score >= 2 ? 'win' : 'coin');
@@ -21000,7 +22595,7 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
       const pick = el('div', { class: 'stack-s' }, [el('span', { class: 'label', text: 'Egenvurdering: hvor godt traff du?' })]);
       [['Bommet', 0], ['Delvis', 1], ['Godt', 2], ['Presist', 3]].forEach(([n, v]) => pick.appendChild(el('button', { class: 'option', text: n, onclick: () => {
         pick.querySelectorAll('button').forEach((b) => { b.disabled = true; });
-        const xp = reward(v); NG.toast('+' + xp + ' XP');
+        const xp = reward(v, true); if (xp) NG.toast('+' + xp + ' XP');
       } })));
       out.appendChild(pick);
     }
@@ -21015,15 +22610,27 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
 
 ;
 /* ===== src/ui/screen-path.js ===== */
-/* Ekspedisjonsstien + enkle noder (hendelse, solgløtt, kiste). */
+/* Ekspedisjonskartet + enkle noder (hendelse, solgløtt, kiste, handelsmann). */
 (function () {
   'use strict';
   const el = (...a) => NG.el(...a);
+  const ROW_H = 86;   // px per rad på kartet
+  const PAD = 34;     // luft over bossen og under startraden
 
+  // Ikon for handelsmannen (markedsbod med markise og mynt) — registreres her hvis ingen grafikkfil har det
+  if (!NG.art.map['node-butikk']) {
+    NG.art.add('node-butikk', '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M6 17l4-9h28l4 9" fill="currentColor" fill-opacity=".22"/><path d="M6 17q4 5 9 0q4.5 5 9 0q4.5 5 9 0q5 5 9 0"/>' +
+      '<path d="M9 21v20M39 21v20M5 41h38"/><circle cx="24" cy="31" r="5.5" fill="currentColor" fill-opacity=".22"/><path d="M24 28.5v5" stroke-width="2.4"/></svg>');
+  }
+
+  /* ---------- Kartet ---------- */
   NG.screen('path', (app) => {
     const s = NG.state();
     if (!s.run) { NG.go('camp'); return; }
     const r = s.run;
+    const map = NG.runMap(s);
+    if (!map) { NG.endRun(s, 'abandon'); NG.save(); NG.go('camp'); return; }
     const reg = NG.region(r.region);
     app.style.setProperty('--rc', reg.color);
     app.appendChild(NG.hud(s));
@@ -21032,33 +22639,94 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
       el('div', { class: 'grow stack-s' }, [el('span', { class: 'label', text: 'Ekspedisjon' }), el('h1', { class: 'h-display', text: reg.name })]),
       el('button', { class: 'btn ghost small', text: 'Leiren', onclick: () => NG.go('camp') }),
     ]));
-    const choosable = NG.choosable(s);
-    const list = el('ol', { class: 'path', reversed: true });
-    for (let li = r.layers.length - 1; li >= 0; li--) {
-      const layer = r.layers[li];
-      const row = el('li', { class: 'path-layer' + (li === r.layer + 1 ? ' next' : '') + (li <= r.layer ? ' past' : '') });
-      layer.forEach((n, ni) => {
-        const can = choosable.some((c) => c.layer === li && c.idx === ni);
-        const here = li === r.layer && ni === r.idx;
-        const t = NG.NODE_TYPES[n.type];
-        const btn = el('button', {
-          class: 'pnode t-' + n.type + (n.done ? ' done' : '') + (can ? ' can' : '') + (here ? ' here' : '') + (li <= r.layer && !here ? ' skipped' : ''),
-          disabled: !can || null, 'aria-label': t.name + (n.done ? ' (ferdig)' : ''),
-          onclick: () => { NG.sfx('click'); enter(li, ni); },
-        }, [NG.artEl(t.art, 'pnode-art'), el('span', { class: 'pnode-l', text: t.name })]);
-        row.appendChild(btn);
-      });
-      list.appendChild(row);
-    }
-    app.appendChild(list);
-    const hint = choosable.length ? 'Velg neste steg. ' + choosable.map((c) => NG.NODE_TYPES[c.node.type].name + ': ' + NG.NODE_TYPES[c.node.type].desc).join(' ') : '';
-    if (hint) app.appendChild(el('p', { class: 'small muted path-hint', text: hint }));
-    setTimeout(() => { const n = app.querySelector('.path-layer.next'); if (n) try { n.scrollIntoView({ block: 'center' }); } catch (e) { /* */ } }, 30);
 
-    function enter(li, ni) {
-      const node = NG.enterNode(s, li, ni);
+    const choosable = NG.choosable(s);
+    const canIds = {}; choosable.forEach((n) => { canIds[n.id] = 1; });
+    const cur = NG.runNode(s);
+    const resume = cur && !cur.done;
+    const byId = {}; map.nodes.forEach((n) => { byId[n.id] = n; });
+    // Noder du fortsatt kan nå (fremover fra de valgbare)
+    const reach = {};
+    const stack = choosable.map((n) => n.id);
+    while (stack.length) {
+      const id = stack.pop();
+      if (reach[id]) continue;
+      reach[id] = 1;
+      map.edges.forEach((e) => { if (e[0] === id && !reach[e[1]]) stack.push(e[1]); });
+    }
+    const taken = {};
+    for (let i = 1; i < r.path.length; i++) taken[r.path[i - 1] + '>' + r.path[i]] = 1;
+
+    const H = map.rows * ROW_H + PAD * 2;
+    const pos = (n) => {
+      const h = NG.hashStr(r.seed + ':' + n.id);
+      const boss = n.type === 'boss';
+      const jx = boss ? 0 : ((h % 1000) / 1000 - 0.5) * 8;          // ±4 %
+      const jy = boss ? 0 : (((h >>> 10) % 1000) / 1000 - 0.5) * 20; // ±10 px
+      return { x: ((n.lane + 0.5) / map.lanes) * 100 + jx, y: PAD + (map.rows - 1 - n.row) * ROW_H + ROW_H / 2 + jy };
+    };
+    const P = {}; map.nodes.forEach((n) => { P[n.id] = pos(n); });
+
+    // Linjer
+    let lines = '';
+    map.edges.forEach(([a, b]) => {
+      if (!P[a] || !P[b]) return;
+      let cls = 'dim';
+      if (taken[a + '>' + b]) cls = 'taken';
+      else if (cur && cur.done && a === cur.id && canIds[b]) cls = 'open';
+      else if (reach[a] && reach[b]) cls = 'ahead';
+      lines += `<line class="ml-${cls}" x1="${P[a].x.toFixed(2)}" y1="${P[a].y.toFixed(1)}" x2="${P[b].x.toFixed(2)}" y2="${P[b].y.toFixed(1)}" vector-effect="non-scaling-stroke"/>`;
+    });
+    const svg = `<svg class="rmap-lines" viewBox="0 0 100 ${H}" preserveAspectRatio="none" aria-hidden="true">${lines}</svg>`;
+    const wrap = el('div', { class: 'rmap', style: { height: H + 'px' }, html: svg });
+
+    const bossDef = NG.enemyDef(reg.boss);
+    map.nodes.forEach((n) => {
+      const t = NG.NODE_TYPES[n.type] || NG.NODE_TYPES.kamp;
+      const can = !!canIds[n.id];
+      const here = cur && cur.id === n.id;
+      const st = can ? ' can' : n.done ? ' done' : reach[n.id] ? ' ahead' : ' gone';
+      const label = n.type === 'boss' ? bossDef.name : can ? t.name : '';
+      const b = el('button', {
+        class: 'mnode t-' + n.type + st + (here ? ' here' : ''),
+        style: { left: P[n.id].x + '%', top: P[n.id].y + 'px' },
+        disabled: !can || null,
+        'aria-label': t.name + (n.done ? ' (ferdig)' : can ? ' (kan velges)' : ''),
+        'data-id': n.id,
+        onclick: () => { NG.sfx('click'); enter(n.id); },
+      }, [
+        NG.artEl(t.art, 'mnode-art'),
+        n.done ? el('span', { class: 'mnode-ok', text: '✓', 'aria-hidden': 'true' }) : null,
+      ]);
+      wrap.appendChild(b);
+      if (label) wrap.appendChild(el('span', { class: 'mnode-l' + (n.type === 'boss' ? ' boss' : ''), style: { left: P[n.id].x + '%', top: P[n.id].y + 'px' }, text: label }));
+    });
+    wrap.appendChild(el('span', { class: 'rmap-start label', text: 'Start' }));
+    app.appendChild(wrap);
+
+    const hint = resume ? 'Du ble avbrutt her. Trykk på noden for å fortsette.'
+      : r.at == null ? 'Velg hvor du vil begynne. Stiene deler seg og møtes — planlegg ruten mot bossen.'
+        : choosable.length ? 'Velg neste steg langs en sti.' : '';
+    if (hint) app.appendChild(el('p', { class: 'small muted path-hint', text: hint }));
+
+    // Tegnforklaring — trykk for å lese hva nodetypen er
+    const present = Object.keys(NG.NODE_TYPES).filter((k) => map.nodes.some((n) => n.type === k));
+    app.appendChild(el('div', { class: 'rmap-legend' }, present.map((k) => {
+      const t = NG.NODE_TYPES[k];
+      return el('button', { class: 'rmap-leg t-' + k, onclick: () => NG.sheet(t.name, el('div', { class: 'row' }, [NG.artEl(t.art, 'loot-art sm'), el('p', { class: 'grow', text: t.desc })])) }, [
+        NG.artEl(t.art, 'rmap-leg-art'), el('span', { text: t.name }),
+      ]);
+    })));
+
+    setTimeout(() => {
+      const n = app.querySelector('.mnode.can') || app.querySelector('.mnode.here');
+      if (n) try { n.scrollIntoView({ block: 'center' }); } catch (e) { /* */ }
+    }, 30);
+
+    function enter(id) {
+      const node = NG.enterNode(s, id);
       NG.save();
-      NG.openNode(node);
+      if (node) NG.openNode(node); else NG.go('path');
     }
   });
 
@@ -21067,6 +22735,7 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
     else if (node.type === 'lab') NG.go('lab', { id: node.lab, inRun: true });
     else if (node.type === 'hendelse') NG.go('event', { id: node.event });
     else if (node.type === 'sol') NG.go('sol');
+    else if (node.type === 'butikk') NG.go('merchant');
     else NG.go('chest');
   };
 
@@ -21075,13 +22744,38 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
     const s = NG.state();
     NG.completeNode(s);
     NG.save();
-    NG.go('path');
+    NG.go(s.run ? 'path' : 'camp');
   };
+
+  // Belønning fra hendelse/kiste o.l. — returnerer tekstlinjer
+  function grant(s, rw) {
+    const lines = [];
+    if (rw.xp) { const ups = NG.gainXp(s, rw.xp); lines.push((rw.xp > 0 ? '+' : '') + rw.xp + ' XP'); if (ups) NG.announce({ levelUps: ups }); }
+    if (rw.joule) { s.joule = Math.max(0, s.joule + rw.joule); if (s.run && rw.joule > 0) s.run.joule += rw.joule; lines.push((rw.joule > 0 ? '+' : '') + rw.joule + ' ◆'); }
+    if (rw.hp) { s.hp = NG.clamp(s.hp + rw.hp, 1, NG.maxHp(s)); lines.push((rw.hp > 0 ? '+' : '') + rw.hp + ' HP'); }
+    if (rw.energy) {
+      if (rw.energy > 0) { s.energy += rw.energy; lines.push('+' + rw.energy + ' J'); }
+      else { const e = Math.min(s.energy, -rw.energy); s.energy -= e; s.heat += e; lines.push('−' + e + ' J (til spillvarme)'); }
+    }
+    if (rw.item) {
+      const def = (id) => (NG.relicDef ? NG.relicDef(id) : NG.item(id));
+      const it = def(rw.item) || def(String(rw.item).replace(/^item-/, ''));
+      if (it) { if (it.kind === 'relic' || (NG.runRelic && NG.runRelic(it.id))) gainRelic(s, it.id); else s.items[it.id] = (s.items[it.id] || 0) + 1; lines.push(it.name); }
+    }
+    return lines;
+  }
+  function gainRelic(s, id) {
+    if (NG.hasRelic(s, id)) return;
+    if (typeof NG.gainRelic === 'function') { NG.gainRelic(s, id); return; }
+    s.relics.push(id);
+    if (id === 'solcelle') s.energy += 10;
+  }
 
   /* ---------- Hendelse ---------- */
   NG.screen('event', (app, p) => {
     const s = NG.state();
     const ev = NG.content.store.events.find((e) => e.id === p.id);
+    const node = NG.runNode(s);
     app.appendChild(NG.hud(s));
     if (!ev) { NG.nodeDone(); return; }
     const reg = NG.region(ev.region);
@@ -21094,27 +22788,27 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
     const order = NG.runRng(s, 99).shuffle(ev.choices.map((_, i) => i));
     order.forEach((i) => {
       const ch = ev.choices[i];
-      choices.appendChild(el('button', { class: 'option', html: NG.md(ch.label), onclick: () => pick(ch) }));
+      choices.appendChild(el('button', { class: 'option', html: NG.md(ch.label), onclick: () => pick(i) }));
     });
     wrap.appendChild(choices);
     app.appendChild(wrap);
+    // Allerede valgt (f.eks. tilbake fra sekken): vis utfallet uten ny belønning
+    if (node && node.picked != null && ev.choices[node.picked]) show(node.picked, node.pickedLines || []);
 
-    function pick(ch) {
+    function pick(i) {
+      if (node && node.picked != null) return;
+      const ch = ev.choices[i];
       NG.sfx(ch.correct ? 'good' : 'bad');
-      choices.querySelectorAll('button').forEach((b) => { b.disabled = true; });
-      const rw = ch.reward || {};
-      const lines = [];
-      if (rw.xp) { const ups = NG.gainXp(s, rw.xp); lines.push((rw.xp > 0 ? '+' : '') + rw.xp + ' XP'); if (ups) NG.announce({ levelUps: ups }); }
-      if (rw.joule) { s.joule = Math.max(0, s.joule + rw.joule); if (s.run && rw.joule > 0) s.run.joule += rw.joule; lines.push((rw.joule > 0 ? '+' : '') + rw.joule + ' ◆'); }
-      if (rw.hp) { s.hp = NG.clamp(s.hp + rw.hp, 1, NG.maxHp(s)); lines.push((rw.hp > 0 ? '+' : '') + rw.hp + ' HP'); }
-      if (rw.energy) {
-        if (rw.energy > 0) { s.energy += rw.energy; lines.push('+' + rw.energy + ' J'); }
-        else { const e = Math.min(s.energy, -rw.energy); s.energy -= e; s.heat += e; lines.push('−' + e + ' J (til spillvarme)'); }
-      }
-      if (rw.item) { const it = NG.item(rw.item) || NG.item(String(rw.item).replace(/^item-/, '')); if (it) { if (it.kind === 'relic') { if (!NG.hasRelic(s, it.id)) s.relics.push(it.id); } else s.items[it.id] = (s.items[it.id] || 0) + 1; lines.push(it.name); } }
+      const lines = grant(s, ch.reward || {});
+      if (node) { node.picked = i; node.pickedLines = lines; }
       // Begrepene i hendelsen telles som et svar på nivå 4
       if (ev.concepts && ev.concepts.length) NG.announce({ cardUps: NG.updateCards(s, { concepts: ev.concepts, level: 4 }, !!ch.correct) });
       NG.save();
+      show(i, lines);
+    }
+    function show(i, lines) {
+      const ch = ev.choices[i];
+      choices.querySelectorAll('button').forEach((b) => { b.disabled = true; });
       wrap.appendChild(el('div', { class: 'feedback ' + (ch.correct ? 'good' : 'bad') + ' stack-s' }, [
         el('div', { class: 'h-display fb-title', text: ch.correct ? 'Godt valgt' : 'Det gikk ikke helt' }),
         el('div', { html: NG.md(ch.result || '') }),
@@ -21124,53 +22818,107 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
     }
   });
 
-  /* ---------- Solgløtt ---------- */
+  /* ---------- Solgløtt: energien fylles alltid, så velger du én ting ---------- */
   NG.screen('sol', (app) => {
     const s = NG.state();
+    const node = NG.runNode(s) || {};
     const maxE = NG.maxEnergy(s);
-    const radiated = s.heat;
-    const gained = Math.max(0, maxE - s.energy);
-    const healed = Math.min(NG.maxHp(s) - s.hp, Math.round(NG.maxHp(s) * 0.5));
-    s.heat = 0; s.energy = Math.max(s.energy, maxE); s.hp += healed;
+    if (!node.solE) {
+      node.solE = { radiated: s.heat, gained: Math.max(0, maxE - s.energy) };
+      NG.sfx('heal');
+    }
+    s.heat = 0; s.energy = Math.max(s.energy, maxE);
     NG.save();
-    NG.sfx('heal');
+    const canTrain = typeof NG.trainAbility === 'function';
+    const maxHp = NG.maxHp(s);
+    const heal = Math.min(maxHp - s.hp, Math.round(maxHp * 0.4));
     app.appendChild(NG.hud(s));
-    app.appendChild(el('div', { class: 'stack sol' }, [
+    const box = el('div', { class: 'stack sol' }, [
       el('div', { class: 'row' }, [NG.artEl('node-sol', 'ev-art'), el('div', { class: 'grow stack-s' }, [el('span', { class: 'label', text: 'Hvil' }), el('h1', { class: 'h-display', text: 'Solgløtt' })])]),
       el('div', { class: 'card stack-s' }, [
         el('span', { class: 'label', text: 'Energiregnskap' }),
-        el('div', { class: 'num small', html: `Spillvarme strålt ut i verdensrommet: <strong>${radiated} J</strong><br>Ny energi fra sola: <strong>${gained} J</strong><br>HP: <strong>+${healed}</strong>` }),
+        el('div', { class: 'num small', html: `Spillvarme strålt ut i verdensrommet: <strong>${node.solE.radiated} J</strong><br>Ny energi fra sola: <strong>${node.solE.gained} J</strong>` }),
         el('p', { class: 'small muted', text: 'Jorda kvitter seg med spillvarme ved å stråle den ut som infrarød stråling — og får ny høyverdig energi fra sola. Uten den strømmen ville alt endt som lunken, ubrukelig varme.' }),
       ]),
-      el('p', { text: 'Vil du bruke hvilen til å repetere? Tre riktige gir en bonus.' }),
-      el('button', { class: 'btn primary block', text: 'Repeter 3 spørsmål (+bonus)', onclick: () => NG.go('review', { region: s.run ? s.run.region : null, count: 3, fromSol: true }) }),
-      NG.oracleAvailable ? el('button', { class: 'btn block', text: 'Spør Orakelet', onclick: () => NG.go('oracle', { region: s.run && s.run.region, fromSol: true }) }) : null,
-      el('button', { class: 'btn block ghost', text: 'Gå videre', onclick: () => NG.nodeDone() }),
-    ]));
+    ]);
+    app.appendChild(box);
+
+    if (node.sol) { result(); return; }
+
+    box.appendChild(el('p', { class: 'sol-q', text: 'Sola har fylt energien. Hva bruker du hvilen på? Du rekker bare én ting.' }));
+    const opts = el('div', { class: 'stack-s sol-choices' });
+    opts.appendChild(choice('hvil', 'item-termos', 'Hvil', heal > 0 ? '+' + heal + ' HP (40 % av maks)' : 'Du har allerede full HP.', () => {
+      s.hp = Math.min(maxHp, s.hp + heal);
+      node.solMsg = heal > 0 ? 'Du sover i solveggen. +' + heal + ' HP.' : 'Du hviler, men var allerede i full form.';
+      NG.sfx('heal');
+    }));
+    opts.appendChild(choice('studer', 'item-begrepskort', 'Studer', '3 repetisjonsspørsmål. Bonus-XP for hvert riktige svar.', null, () => {
+      NG.go('review', { region: s.run ? s.run.region : null, count: 3, fromSol: true });
+    }));
+    if (canTrain) {
+      opts.appendChild(choice('tren', 'item-partikkelbriller', 'Tren', 'Øv på en evne, så den blir sterkere.', () => {
+        let res = null;
+        try { res = NG.trainAbility(s); } catch (e) { res = null; }
+        node.solMsg = typeof res === 'string' ? res : res && (res.text || res.msg) ? (res.text || res.msg) : 'Du øver på evnene dine i sollyset.';
+        NG.sfx('level');
+      }));
+    }
+    if (NG.oracleAvailable) {
+      opts.appendChild(choice('orakel', 'item-lupe', 'Spør Orakelet', 'Forklar et fenomen med egne ord og få vurdering.', null, () => {
+        NG.go('oracle', { region: s.run && s.run.region, fromSol: true });
+      }));
+    }
+    box.appendChild(opts);
+
+    function choice(id, art, name, sub, apply, go) {
+      return el('button', { class: 'option row sol-choice', 'data-choice': id, onclick: () => {
+        if (node.sol) return;
+        node.sol = id;
+        if (apply) apply();
+        NG.save();
+        if (go) go(); else NG.go('sol');
+      } }, [NG.artEl(art, 'loot-art sm'), el('div', { class: 'grow stack-s' }, [el('strong', { text: name }), el('span', { class: 'small muted', text: sub })])]);
+    }
+    function result() {
+      box.appendChild(el('div', { class: 'feedback good stack-s' }, [
+        el('div', { class: 'h-display fb-title', text: { hvil: 'Uthvilt', tren: 'Trent', studer: 'Studert', orakel: 'Orakelet' }[node.sol] || 'Hvilt' }),
+        node.solMsg ? el('div', { text: node.solMsg }) : null,
+      ]));
+      box.appendChild(el('button', { class: 'btn primary block', text: 'Videre', onclick: () => NG.nodeDone() }));
+    }
   });
 
   /* ---------- Kiste ---------- */
   NG.screen('chest', (app) => {
     const s = NG.state();
-    const rng = NG.runRng(s, 7);
-    const region = s.run ? s.run.region : 'energi';
-    const j = rng.int(8, 18);
-    s.joule += j; if (s.run) s.run.joule += j;
-    const items = ['matpakke', 'kakao', 'repetisjonskort'];
-    const itemId = rng.pick(items);
-    s.items[itemId] = (s.items[itemId] || 0) + 1;
-    // Et begrepskort fra regionen (helst et du ikke kan godt)
-    const cs = NG.content.store.concepts.filter((c) => c.region === region);
-    cs.sort((a, b) => ((s.cards[a.id] || {}).lvl || 0) - ((s.cards[b.id] || {}).lvl || 0));
-    const c = cs.length ? cs[Math.min(cs.length - 1, rng.int(0, 3))] : null;
-    if (c) { const k = NG.card(s, c.id); if (k.lvl === 0) k.lvl = 1; }
-    NG.save();
-    NG.sfx('coin');
+    const node = NG.runNode(s);
+    let loot = node && node.loot;
+    if (!loot) {
+      // Rull og gi belønningen én gang — lagres på noden
+      const rng = NG.runRng(s, 7);
+      const region = s.run ? s.run.region : 'energi';
+      const j = rng.int(8, 18);
+      s.joule += j; if (s.run) s.run.joule += j;
+      const uses = NG.ITEMS.filter((i) => i.kind === 'use').map((i) => i.id);
+      const itemId = rng.pick(uses.length ? uses : ['matpakke']);
+      s.items[itemId] = (s.items[itemId] || 0) + 1;
+      // Et begrepskort fra regionen (helst et du ikke kan godt)
+      const cs = NG.content.store.concepts.filter((c) => c.region === region);
+      cs.sort((a, b) => ((s.cards[a.id] || {}).lvl || 0) - ((s.cards[b.id] || {}).lvl || 0));
+      const c = cs.length ? cs[Math.min(cs.length - 1, rng.int(0, 3))] : null;
+      if (c) { const k = NG.card(s, c.id); if (k.lvl === 0) k.lvl = 1; }
+      loot = { j, itemId, concept: c ? c.id : null };
+      if (node) node.loot = loot;
+      NG.save();
+      NG.sfx('coin');
+    }
+    const it = NG.item(loot.itemId);
+    const c = loot.concept ? NG.conceptById(loot.concept) : null;
     app.appendChild(NG.hud(s));
     app.appendChild(el('div', { class: 'stack' }, [
       el('div', { class: 'row' }, [NG.artEl('node-kiste', 'ev-art'), el('div', { class: 'grow stack-s' }, [el('span', { class: 'label', text: 'Funn' }), el('h1', { class: 'h-display', text: 'Kiste' })])]),
-      el('div', { class: 'card row' }, [NG.artEl(NG.item(itemId).art, 'loot-art'), el('div', { class: 'grow stack-s' }, [el('strong', { text: NG.item(itemId).name }), el('span', { class: 'small muted', text: NG.item(itemId).desc })])]),
-      el('div', { class: 'card row' }, [el('strong', { class: 'num gold', text: '+' + j + ' ◆' }), el('span', { class: 'small muted', text: 'joule til Materiallageret' })]),
+      it ? el('div', { class: 'card row' }, [NG.artEl(it.art, 'loot-art'), el('div', { class: 'grow stack-s' }, [el('strong', { text: it.name }), el('span', { class: 'small muted', text: it.desc })])]) : null,
+      el('div', { class: 'card row' }, [el('strong', { class: 'num gold', text: '+' + loot.j + ' ◆' }), el('span', { class: 'small muted', text: 'joule til Materiallageret' })]),
       c ? el('div', { class: 'card stack-s' }, [
         el('span', { class: 'label', text: 'Begrepskort funnet — les det!' }),
         el('h3', { class: 'h-display', text: c.name }),
@@ -21179,6 +22927,73 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
       ]) : null,
       el('button', { class: 'btn primary block', text: 'Videre', onclick: () => NG.nodeDone() }),
     ]));
+  });
+
+  /* ---------- Vandrende handelsmann ---------- */
+  NG.screen('merchant', (app) => {
+    const s = NG.state();
+    const node = NG.runNode(s);
+    if (!node) { NG.go(s.run ? 'path' : 'camp'); return; }
+    if (!node.stock) {
+      const rng = NG.runRng(s, 31);
+      let relics = [];
+      if (typeof NG.rollRelics === 'function') {
+        try { relics = (NG.rollRelics(s, rng, 3, 'butikk') || []).map((x) => (typeof x === 'string' ? x : x && x.id)).filter(Boolean); } catch (e) { relics = []; }
+      }
+      if (!relics.length) relics = rng.shuffle(NG.ITEMS.filter((i) => i.kind === 'relic' && !NG.hasRelic(s, i.id))).slice(0, 3).map((i) => i.id);
+      const uses = rng.shuffle(NG.ITEMS.filter((i) => i.kind === 'use')).slice(0, 3).map((i) => i.id);
+      node.stock = { relics, uses, sold: [] };
+      NG.save();
+    }
+    const st = node.stock;
+    const reg = s.run ? NG.region(s.run.region) : null;
+    if (reg) app.style.setProperty('--rc', reg.color);
+    app.appendChild(NG.hud(s));
+    const list = el('div', { class: 'stack-s shop-list' });
+    const section = (title, ids) => {
+      const items = ids.map((id) => (NG.relicDef ? NG.relicDef(id) : NG.item(id))).filter(Boolean);
+      if (!items.length) return;
+      list.appendChild(el('span', { class: 'label', text: title }));
+      items.forEach((it) => {
+        const sold = st.sold.indexOf(it.id) >= 0;
+        const relic = isRelic(it);
+        const owned = relic && NG.hasRelic(s, it.id);
+        const has = !relic && s.items[it.id] ? ' (har ' + s.items[it.id] + ')' : '';
+        const rar = it.rarity && NG.RARITY && NG.RARITY[it.rarity];
+        list.appendChild(el('div', { class: 'card row item-row shop-row' + (sold ? ' sold' : '') }, [
+          NG.artEl(it.art, 'loot-art sm'),
+          el('div', { class: 'grow stack-s' }, [
+            el('strong', { text: it.name + has }),
+            rar ? el('span', { class: 'chip shop-rar', style: { color: rar.color, borderColor: rar.color }, text: rar.name + (NG.runRelic && NG.runRelic(it.id) ? ' · denne ekspedisjonen' : '') }) : null,
+            el('span', { class: 'small', text: it.desc }), it.lore ? el('span', { class: 'small muted', html: NG.md(it.lore) }) : null]),
+          el('button', { class: 'btn small shop-buy', disabled: sold || owned || s.joule < price(it) || null, text: sold ? 'Solgt' : owned ? 'Eies' : price(it) + ' ◆', onclick: () => buy(it) }),
+        ]));
+      });
+    };
+    section('Varige gjenstander', st.relics);
+    section('Forbruksvarer', st.uses);
+    app.appendChild(el('div', { class: 'stack' }, [
+      el('div', { class: 'row' }, [NG.artEl('node-butikk', 'ev-art'), el('div', { class: 'grow stack-s' }, [el('span', { class: 'label', text: 'Vandrende handelsmann' }), el('h1', { class: 'h-display', text: 'Handelsmannen' })])]),
+      el('p', { class: 'ev-text', text: '«Jeg tar betalt i joule. Energien forsvinner ikke når du handler — den bare skifter eier.»' }),
+      el('div', { class: 'card row' }, [el('span', { class: 'grow small muted', text: 'Du har' }), el('strong', { class: 'num gold', text: s.joule + ' ◆' })]),
+      list,
+      el('button', { class: 'btn primary block', text: 'Gå videre', onclick: () => NG.nodeDone() }),
+    ]));
+
+    function isRelic(it) { return it.kind === 'relic' || !!(NG.runRelic && NG.runRelic(it.id)); }
+    // Pris: gjenstandens egen pris, ellers etter sjeldenhet (ekspedisjonsrelikvier varer bare én tur)
+    function price(it) { return it.price || ({ vanlig: 35, sjelden: 55, episk: 80, boss: 110 }[it.rarity]) || 50; }
+    function buy(it) {
+      const cost = price(it);
+      if (st.sold.indexOf(it.id) >= 0 || s.joule < cost) return;
+      if (isRelic(it) && NG.hasRelic(s, it.id)) return;
+      s.joule -= cost;
+      if (isRelic(it)) gainRelic(s, it.id); else s.items[it.id] = (s.items[it.id] || 0) + 1;
+      st.sold.push(it.id);
+      NG.sfx('coin'); NG.toast('Kjøpt: ' + it.name);
+      NG.save();
+      NG.go('merchant');
+    }
   });
 })();
 
@@ -21282,9 +23097,11 @@ ${eye(50, 30, 5.5, 1.5, 1)}${eye(66, 25, 5.5, 1.5, 1)}
       });
     }
     function finish() {
-      if (p.fromSol && right >= 2) {
-        const hp = Math.min(NG.maxHp(s) - s.hp, 15); s.hp += hp; NG.gainXp(s, 20);
-        NG.toast('Godt repetert: +' + hp + ' HP og +20 XP');
+      // Solgløtt «Studer»: bonus-XP per riktige svar, bare én gang per node
+      if (p.fromSol && right && (!NG.claimNode || NG.claimNode(s, 'studyClaimed'))) {
+        const xp = 15 * right; const ups = NG.gainXp(s, xp);
+        NG.toast('Godt repetert: +' + xp + ' XP');
+        if (ups) NG.announce({ levelUps: ups });
       }
       NG.save();
       if (p.fromSol && s.run) NG.nodeDone();

@@ -127,6 +127,7 @@
       el('span', { class: 'small muted', text: NG.cloud ? 'Lagret i skyen' : 'Lagret på enheten' }),
     ]));
 
+    if (NG.saveWasCorrupt) { NG.saveWasCorrupt = false; setTimeout(() => NG.toast('Den lagrede fremgangen kunne ikke leses. En kopi er tatt vare på (ng.save.v1.bak).', 5000), 300); }
     if (!s.tips.camp) { s.tips.camp = 1; NG.save(); setTimeout(() => NG.toast('Trykk på Energidalen eller Stoffgruvene for å starte.', 3500), 400); }
   });
 
@@ -162,8 +163,7 @@
     if (open) {
       if (s.run && s.run.region === r.id) actions.push({ label: 'Fortsett ekspedisjonen', primary: true, onclick: () => NG.go('path') });
       else actions.push({ label: 'Dra på ekspedisjon', primary: true, onclick: () => {
-        if (s.run) NG.endRun(s, 'abandon');
-        s.hp = Math.max(s.hp, Math.ceil(NG.maxHp(s) * 0.5));
+        if (s.run) NG.endRun(s, 'abandon'); // ingen gratis helbredelse: du starter med den HP-en du har
         NG.startRun(s, r.id); NG.save(); NG.sfx('boss'); NG.go('path');
       } });
       actions.push({ label: 'Øv på begrepene', onclick: () => NG.go('review', { region: r.id }) });
