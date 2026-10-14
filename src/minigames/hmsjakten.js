@@ -430,7 +430,7 @@
   /* ---------------- Spillet ---------------- */
   NG.minigames.register({
     id: ID, region: 'praksis', title: 'HMS-jakten', icon: 'goggles',
-    concepts: ['risikovurdering', 'hms', 'farepiktogram', 'sikkerhetsdatablad'],
+    concepts: ['pr-risikovurdering', 'pr-tiltakshierarki', 'pr-farepiktogram', 'pr-sikkerhetsdatablad', 'pr-verneutstyr', 'pr-avfall'],
     blurb: 'Finn farene på skolelaben, og gjør en risikovurdering med sannsynlighet × konsekvens.',
     minutes: 3,
     start(root, api) {

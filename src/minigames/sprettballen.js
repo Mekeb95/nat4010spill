@@ -191,7 +191,7 @@
           ctx.setLineDash([4, 4]); ctx.strokeStyle = C.faint; ctx.beginPath(); ctx.moveTo(30, Y(h)); ctx.lineTo(lw, Y(h)); ctx.stroke();
           if (firstApex != null) { ctx.strokeStyle = C.ek; ctx.beginPath(); ctx.moveTo(30, Y(firstApex)); ctx.lineTo(lw, Y(firstApex)); ctx.stroke(); }
           ctx.setLineDash([]);
-          ctx.strokeStyle = C.chalk; ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(14, floor); ctx.lineTo(lw + 4, floor); ctx.stroke();
+          ctx.strokeStyle = C.chalk; ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(32, floor); ctx.lineTo(lw + 4, floor); ctx.stroke();
           const bx = (30 + lw) / 2; const r = ball.r;
           const squash = y < 0.02 && !rest ? 0.8 : 1;
           ctx.fillStyle = C.ball; ctx.beginPath(); ctx.ellipse(bx, Y(y) - r * squash, r / squash, r * squash, 0, 0, 6.29); ctx.fill();
