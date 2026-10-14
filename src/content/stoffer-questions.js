@@ -112,7 +112,7 @@
       myth: 'myte.atomer-har-stoffets-egenskaper',
       prompt: 'Jern- og svovelblandingen varmes til den gløder, og det dannes et svart, sprøtt stoff. Nå klarer ikke magneten å trekke ut jern. Hvorfor?',
       options: [
-        'Jernatomene er kjemisk bundet til svovelatomer i et nytt stoff med andre egenskaper',
+        'Jern og svovel er bundet sammen i et nytt stoff',
         'Jernatomene mistet magnetismen sin fordi de ble så varme',
         'Jernet har brent opp og forsvunnet i varmen',
         'Svovelet har smeltet og ligger som et skall rundt jernkornene',
@@ -162,9 +162,9 @@
       id: 'stoffer.stoff.10', region: R, topic: T_STOFF, concepts: ['stoff', 'kjemisk-forbindelse'], level: 1, type: 'mc',
       prompt: 'Hva menes med et **organisk** stoff i kjemi?',
       options: [
-        'En karbonforbindelse (unntatt noen enkle, som CO₂ og karbonater)',
+        'En karbonforbindelse, med noen enkle unntak som CO₂',
         'Et stoff som er laget av en levende organisme',
-        'Et naturlig stoff uten syntetiske tilsetninger',
+        'Et naturlig stoff uten kunstige eller syntetiske tilsetninger',
         'Et stoff som brytes raskt ned i naturen',
       ],
       answer: 0,
@@ -179,7 +179,7 @@
       id: 'stoffer.stoff.11', region: R, topic: T_STOFF, concepts: ['rent-stoff', 'blanding'], level: 4, type: 'mc',
       prompt: 'En elev sier: «Vannet fra springen er helt rent, så det er et rent stoff.» Hva er det faglig beste svaret?',
       options: [
-        'Springvann har oppløste salter og gasser, så det er en blanding – «rent» i hverdagen betyr trygt å drikke',
+        'Springvann er en blanding; «rent» betyr her trygt å drikke',
         'Eleven har rett: drikkevann er renset og består bare av H₂O-molekyler',
         'Springvann er en kjemisk forbindelse av vann og mineraler',
         'Springvann er et grunnstoff, fordi vann er et av de fire elementene',
@@ -210,7 +210,7 @@
       myth: 'myte.blanding-er-forbindelse',
       prompt: 'Klassen sorterer stoffkort. Selma legger «vann» under *grunnstoff* og sier: «Vann er jo et av de fire elementene!» Hvilket lærergrep gir henne best grunnlag for å endre forestillingen?',
       options: [
-        'Anerkjenne at dette var en vitenskapelig idé i antikken, og vise elektrolyse av vann som gir to ulike gasser',
+        'Anerkjenne den historiske ideen, og vise elektrolyse av vann til to gasser',
         'Si at svaret er feil, og be henne lære definisjonen av grunnstoff utenat til neste time',
         'Forklare at vann egentlig er en blanding av hydrogengass og oksygengass',
         'Vise at vann koker ved nøyaktig 100 °C, slik bare grunnstoffer gjør',
@@ -292,7 +292,7 @@
     {
       id: 'stoffer.atom.09', region: R, topic: T_ATOM, concepts: ['atom'], level: 3, type: 'mc',
       prompt: 'Tenk deg at atomkjernen forstørres til en ert på 1 cm. Omtrent hvor langt unna er da de ytterste elektronene?',
-      options: ['Opptil 1 km', 'Ca. 1 cm', 'Ca. 10 cm', 'Ca. 1 m'],
+      options: ['Ca. 1 km', 'Ca. 1 cm', 'Ca. 10 cm', 'Ca. 1 m'],
       answer: 0,
       why: {
         1: 'Lærebokfigurer med tette skall gir inntrykk av at elektronene ligger like ved kjernen. Skalaen er sterkt fortegnet.',
@@ -335,7 +335,7 @@
       myth: 'myte.atomer-har-stoffets-egenskaper',
       prompt: 'I en modelltegning farger Jonas kobberatomene rødbrune «fordi kobber er rødbrunt». Hvilken oppfølging er faglig og didaktisk best?',
       options: [
-        'Spørre om ett atom kan ha farge, og knytte farge til makronivået der enormt mange atomer virker sammen',
+        'Spørre om ett atom kan ha farge, og knytte farge til makronivået',
         'Rose tegningen: kobberatomene må være rødbrune, ellers ville ikke kobber vært det',
         'Be ham bruke grått i stedet, fordi alle atomer egentlig er grå',
         'Si at farger ikke er viktige i kjemi, og gå videre',
@@ -437,7 +437,7 @@
       id: 'stoffer.iso.09', region: R, topic: T_ATOM, concepts: ['isotop', 'grunnstoff', 'proton'], level: 5, type: 'mc',
       prompt: 'En elev sier: «Klor-37 må være et annet grunnstoff enn klor-35, siden atomene er forskjellige.» Hva er den beste forklaringen å gi?',
       options: [
-        'Begge har 17 protoner og 17 elektroner: protonene bestemmer grunnstoffet, elektronene kjemien – nøytronene endrer bare massen',
+        'Begge har 17 protoner, så begge er klor; bare massen er ulik',
         'Eleven har rett, fordi ulikt nukleontall betyr ulikt grunnstoff',
         'Klor-37 er et ion av klor, fordi det har flere partikler i kjernen',
         'Klor-37 er radioaktivt og regnes derfor som et eget grunnstoff',
@@ -471,7 +471,7 @@
     {
       id: 'stoffer.ps.02', region: R, topic: T_PS, concepts: ['periodesystemet', 'elektronskall'], level: 1, type: 'mc',
       prompt: 'Hvorfor ligner grunnstoffene i samme hovedgruppe hverandre kjemisk?',
-      options: ['De har like mange ytterelektroner', 'De har like mange protoner', 'De har like mange nøytroner', 'De har omtrent lik atommasse'],
+      options: ['De har like mange ytterelektroner', 'De har like mange protoner', 'De har like mange nøytroner', 'De har omtrent like stor atommasse'],
       answer: 0,
       why: {
         1: 'Like mange protoner betyr samme grunnstoff. Protontallet øker nedover i gruppen.',
@@ -490,7 +490,7 @@
       id: 'stoffer.ps.04', region: R, topic: T_PS, concepts: ['periodesystemet', 'proton', 'isotop'], level: 3, type: 'mc',
       prompt: 'Argon har atommasse 39,95 u og kalium 39,10 u. Likevel står argon (Z = 18) **foran** kalium (Z = 19). Hvorfor?',
       options: [
-        'Systemet er ordnet etter atomnummer, og kalium hører kjemisk hjemme blant alkalimetallene',
+        'Systemet er ordnet etter atomnummer, ikke etter atommasse',
         'Det er en gammel trykkfeil som har blitt stående av tradisjon',
         'Argon er en gass, og gasser plasseres alltid foran metaller',
         'Atommassene er feilmålt; egentlig er kalium tyngst',
@@ -507,9 +507,9 @@
       id: 'stoffer.ps.05', region: R, topic: T_PS, concepts: ['periodesystemet', 'elektronskall', 'ion'], level: 3, type: 'mc',
       prompt: 'Hvorfor reagerer kalium voldsommere med vann enn natrium gjør?',
       options: [
-        'Ytterelektronet er lenger fra kjernen, holdes svakere og avgis lettere',
+        'Ytterelektronet er lenger fra kjernen og avgis lettere',
         'Kalium har flere ytterelektroner å gi bort',
-        'Kalium er lettere og flyter bedre på vannet',
+        'Kalium er lettere enn natrium og flyter bedre på vannet',
         'Kalium har færre protoner som holder på elektronene',
       ],
       answer: 0,
@@ -524,7 +524,7 @@
       id: 'stoffer.ps.06', region: R, topic: T_PS, concepts: ['periodesystemet', 'elektronskall'], level: 3, type: 'mc',
       prompt: 'Hvorfor står helium i gruppe 18, selv om det bare har 2 ytterelektroner?',
       options: [
-        'Ytterskallet er fullt, akkurat som hos de andre edelgassene',
+        'Ytterskallet er fullt, som hos de andre edelgassene',
         'Det er en inkonsekvens i systemet som ingen har rettet',
         'Helium har egentlig 8 ytterelektroner',
         'Helium er et metall, og gruppe 18 er for lette metaller',
@@ -590,7 +590,7 @@
     {
       id: 'stoffer.ps.10', region: R, topic: T_PS, concepts: ['elektron', 'elektronskall', 'grunnstoff'], level: 4, type: 'mc',
       prompt: 'Du skal lage **rødt** fyrverkeri. Hvilket salt bør du bruke?',
-      options: ['Et strontiumsalt', 'Et natriumsalt', 'Et kobbersalt', 'Et kaliumsalt'],
+      options: ['Et strontiumsalt', 'Et natriumsalt, f.eks. NaCl', 'Et kobbersalt', 'Et kaliumsalt'],
       answer: 0,
       why: {
         1: 'Natrium gir sterk gul flamme, som ofte overdøver andre farger.',
@@ -603,7 +603,7 @@
       id: 'stoffer.ps.11', region: R, topic: T_PS, concepts: ['elektron', 'elektronskall'], level: 3, type: 'mc',
       prompt: 'Hvorfor gir et natriumsalt **gul** flamme?',
       options: [
-        'Elektroner som har fått energi og hoppet ut til et ytre skall, faller tilbake og sender ut lys med en farge typisk for natrium',
+        'Eksiterte elektroner faller tilbake og sender ut lys med natriums farge',
         'Saltet brenner, og produktet av forbrenningen er gult',
         'Natriumatomer er gule, og fargen blir synlig når de varmes',
         'Flammen blir varmere når saltet tilsettes, og varmere flammer er gulere',
@@ -622,10 +622,10 @@
       myth: 'myte.atomer-har-stoffets-egenskaper',
       prompt: 'Under flammeprøver sier en elev: «Flammen blir gul fordi natrium er gult.» Hvilken respons gir eleven best evidens?',
       options: [
-        'La eleven sammenligne hvitt bordsalt og en natriumløsning i flammen: begge gir samme gule farge, selv om ingen av dem er gule',
-        'Bekrefte at natrium er gult, og la eleven teste neste stoff',
-        'Si at flammen bare blir varmere og derfor gulere når saltet tilsettes',
-        'Forklare at fargen egentlig kommer fra kloret i bordsaltet',
+        'Sammenligne hvitt bordsalt og annet natriumsalt i flammen: samme gule farge',
+        'Bekrefte at natrium er gult, og la eleven gå videre til neste stoff',
+        'Si at flammen bare blir varmere når saltet tilsettes, og derfor ser gulere ut',
+        'Forklare at den gule fargen egentlig kommer fra kloret i bordsaltet',
       ],
       answer: 0,
       why: {
@@ -670,7 +670,7 @@
       id: 'stoffer.ps.17', region: R, topic: T_PS, concepts: ['periodesystemet', 'grunnstoff'], level: 5, type: 'mc',
       prompt: 'Før klassen ser en video av cesium i vann, ber du elevene **forutsi** hva som vil skje ut fra cesiums plass i periodesystemet. Hva er den viktigste didaktiske begrunnelsen?',
       options: [
-        'Elevene bruker periodesystemet som modell for å forutsi, slik Mendelejev gjorde – de løfter kunnskap fra gjenkjenning til anvendelse og overføring',
+        'De bruker periodesystemet som modell for å forutsi, slik Mendelejev gjorde',
         'Elevene lærer atommassen til cesium utenat, som er grunnlaget for alt videre arbeid',
         'Elevene får se at periodesystemet ofte tar feil, slik at de blir kritiske',
         'Elevene kan senere gjøre forsøket selv på pulten, siden de da vet hva som skjer',
@@ -687,7 +687,7 @@
       id: 'stoffer.ps.18', region: R, topic: T_PS, concepts: ['periodesystemet', 'proton', 'elektronskall'], level: 4, type: 'mc',
       prompt: 'Natrium (Z = 11) og klor (Z = 17) har begge tre elektronskall, men kloratomet er mye **mindre**. Hvorfor?',
       options: [
-        'Klor har flere protoner i kjernen, som trekker elektronskallene tettere inn',
+        'Klor har flere protoner, som trekker skallene tettere inn',
         'Klor har flere elektroner, og elektronene trekker hverandre sammen',
         'Klor er en gass, og gassatomer er mindre enn metallatomer',
         'Natrium har flere nøytroner, som tar mye plass',

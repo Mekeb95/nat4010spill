@@ -4,7 +4,7 @@
   const R = 'var(--r-didaktikk)';
   // Hver figur får egen <svg>. SVG-interne id-er (gradienter) prefikses med figur-id.
   const add = (id, b) => NG.art.add(id, `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="var(--chalk)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">${b}</svg>`);
-  const f = (o, c) => `fill="${c || R}" fill-opacity="${o == null ? 0.32 : o}"`;
+  const f = (o, c) => `fill="${c || R}" fill-opacity="${o == null ? 0.4 : o}"`;
   const eye = (x, y, r, px, py) => `<circle cx="${x}" cy="${y}" r="${r}" fill="var(--chalk)" stroke="none"/><circle cx="${x + (px || 0)}" cy="${y + (py || 0)}" r="${(r * 0.5).toFixed(1)}" fill="var(--board)" stroke="none"/>`;
   const shadow = (rx, cx) => `<ellipse cx="${cx || 60}" cy="111" rx="${rx || 30}" ry="4.5" fill="var(--chalk)" fill-opacity=".09" stroke="none"/>`;
   const spark = (x, y, s) => `<path d="M${x} ${y - s}v${2 * s}M${x - s} ${y}h${2 * s}" stroke-width="2.5"/>`;
@@ -28,7 +28,7 @@
 <circle cx="54" cy="36" r="5" fill="var(--chalk)" stroke="none"/>${spiral(54, 36)}
 <path d="M90 30l4-4M92 40l6 0M90 50l4 4" stroke="var(--chalk-dim)" stroke-width="2.5"/>
 <rect x="100" y="22" width="6" height="4" fill="var(--chalk)" fill-opacity=".6" stroke="none" transform="rotate(20 100 22)"/><rect x="108" y="38" width="5" height="4" fill="var(--chalk)" fill-opacity=".6" stroke="none"/>
-<path d="M22 22a12 12 0 1 1 6 14" stroke="var(--chalk-dim)" stroke-width="2.5"/><path d="M24 31l4 5-6 1" stroke="var(--chalk-dim)" stroke-width="2.5"/>`);
+<path d="M12 26a9 9 0 1 1 5 10" stroke="var(--chalk-dim)" stroke-width="2.5"/><path d="M13 32l4 4-6 1" stroke="var(--chalk-dim)" stroke-width="2.5"/>`);
 
   /* Ordflommen: en flodbølge av nye ord — en liten elevhånd stikker opp av flommen. */
   add('ordflommen', `<path d="M4 108q10-4 20 0t20 0 20 0 20 0 20 0 20 0" stroke="${R}" stroke-width="2.5"/>
@@ -122,14 +122,14 @@ ${eye(46, 38, 5.5, 1, 1)}${eye(66, 38, 5.5, -1, 1)}
 <path d="M40 88h48a8 8 0 0 1 8 8v2a8 8 0 0 1-8 8H58l-8 7v-7H40a8 8 0 0 1-8-8v-2a8 8 0 0 1 8-8Z" ${f(0.16, 'var(--chalk)')} stroke-width="3"/>
 <path d="M64 92v6M64 102v0" stroke="var(--warn)" stroke-width="3.5"/>
 <path d="M56 80v8h-6M72 80v8h6" stroke-width="3.5"/>
+<path d="M30 76L100 50" stroke="var(--heat)" stroke-width="3"/>
 <path d="M42 50c-4 10-4 22-2 32h48c2-10 2-22-2-32Z" ${f(0.38)}/>
-<path d="M28 74L98 52" stroke="var(--heat)" stroke-width="3"/>
 <path d="M44 56l6 4 6-4 6 4 6-4 6 4 6-4 6 4" stroke="var(--bad)" stroke-width="2"/>
-<path d="M42 64q22 12 44 0M42 72q22-10 44 0" ${f(0.3)} stroke-width="3.5"/>
+<path d="M42 62q22 12 44 0v9q-22 12-44 0Z" ${f(0.55)} stroke-width="3.5"/><path d="M64 67v12" stroke-width="2.5"/><circle cx="42" cy="66" r="4" ${f(0.2, 'var(--chalk)')} stroke-width="2.5"/><circle cx="86" cy="66" r="4" ${f(0.2, 'var(--chalk)')} stroke-width="2.5"/>
 <circle cx="64" cy="32" r="15" ${f(0.16, 'var(--chalk)')}/>
 <path d="M49 28q0-16 14-16 8-8 16 0-6 0-8 4 6 4 8 12-8-6-16-6-8 0-14 6Z" ${f(0.8, 'var(--board-3)')} stroke-width="3"/>
 <path d="M55 31q3-3 6 0M67 31q3-3 6 0" stroke-width="2.5"/>
-<path d="M54 40q5-4 10 0 5-4 10 0" ${f(1, 'var(--chalk-dim)')} stroke-width="3"/>
+<path d="M53 41q5-6 11-1 6-5 11 1-5 3-11 0-6 3-11 0Z" fill="var(--heat)" stroke-width="2.5"/>
 <path d="M58 45q6 2 10-1" stroke-width="2.5"/>
 <path d="M104 30q3-5 8-2M100 18q2-4 6-4" stroke="var(--chalk-dim)" stroke-width="2"/>`);
 

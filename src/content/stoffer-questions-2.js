@@ -93,10 +93,10 @@
       myth: 'myte.salt-er-molekyler',
       prompt: 'Hvor mange **NaCl-molekyler** finnes det i en liten saltkrystall?',
       options: [
-        'Ingen – saltet er et iongitter, og NaCl angir bare forholdet 1 : 1 mellom ionene',
+        'Ingen – saltet er et iongitter uten avgrensede molekyler',
         'Omtrent like mange som det er natriumatomer i krystallen',
-        'Halvparten så mange som det er ioner i krystallen',
-        'Bare ett, fordi hele krystallen er ett stort molekyl',
+        'Halvparten så mange som det er ioner i krystallen til sammen',
+        'Bare ett, fordi hele krystallen er ett stort, sammenhengende molekyl',
       ],
       answer: 0,
       why: {
@@ -110,10 +110,10 @@
       id: 'stoffer.bind.07', region: R, topic: T_BIND, concepts: ['metallbinding', 'elektron', 'egenskap'], level: 3, type: 'mc',
       prompt: 'Hvorfor leder metaller elektrisk strøm godt?',
       options: [
-        'Ytterelektronene er ikke bundet til ett atom og kan bevege seg fritt gjennom metallet',
+        'Ytterelektronene er ikke bundet til ett atom og kan bevege seg fritt',
         'Metallatomene er pakket så tett at strømmen hopper fra atom til atom',
-        'Metallionene er positive og vandrer mot minuspolen',
-        'Metaller er harde, og harde stoffer leder strøm bedre',
+        'Metallionene er positive og vandrer gjennom tråden mot minuspolen',
+        'Metaller er harde og tette, og harde stoffer leder strøm bedre',
       ],
       answer: 0,
       why: {
@@ -127,10 +127,10 @@
       id: 'stoffer.bind.08', region: R, topic: T_BIND, concepts: ['ion', 'loselighet', 'ionebinding'], level: 4, type: 'mc',
       prompt: 'Saltvann leder strøm, men sukkervann gjør det ikke. Hva er forklaringen?',
       options: [
-        'Salt løses som frie ioner som kan bevege seg; sukker løses som uladde molekyler',
+        'Salt løses som frie ioner; sukker løses som uladde molekyler',
         'Salt inneholder metallet natrium, og metaller leder strøm',
-        'Saltvann har flere partikler oppløst enn sukkervann',
-        'Sukker er en isolator som stenger strømmen i vannet',
+        'Saltvann har mange flere oppløste partikler enn sukkervann',
+        'Sukker er en god isolator som stenger strømmen i vannet',
       ],
       answer: 0,
       why: {
@@ -144,10 +144,10 @@
       id: 'stoffer.bind.09', region: R, topic: T_BIND, concepts: ['metallbinding', 'ionebinding', 'egenskap'], level: 4, type: 'mc',
       prompt: 'Et kobberstykke kan bankes flatt, mens en saltkrystall knuses av et hammerslag. Hva er forklaringen på partikkelnivå?',
       options: [
-        'I metallet glir ionelagene over hverandre mens elektronsjøen holder dem sammen; i saltet havner like ladninger ved siden av hverandre og frastøter',
-        'Kobberatomene er myke, mens natrium- og kloratomene er harde',
-        'Kobber har sterkere bindinger enn salt, så det tåler mer',
-        'Saltet inneholder vann som gjør det sprøtt',
+        'Metallets ionelag glir i elektronsjøen; i saltet kommer like ladninger inntil hverandre',
+        'Kobberatomene er myke og bøyelige, mens natrium- og kloratomene er harde og sprø',
+        'Kobber har mye sterkere bindinger enn salt, så det tåler slaget uten å gå i stykker',
+        'Saltkrystallen inneholder litt vann, og vannet gjør den sprø når den blir slått',
       ],
       answer: 0,
       why: {
@@ -176,10 +176,10 @@
       myth: 'myte.salt-er-molekyler',
       prompt: 'En elev forklarer: «Natrium gir bort elektronet sitt fordi det **vil ha** fullt ytterskall.» Hvordan kan du best videreutvikle forklaringen hennes?',
       options: [
-        'Påpeke at atomer ikke vil noe: det koster energi å fjerne elektronet, men tiltrekningen mellom ionene i gitteret frigjør mer, så systemet ender lavere i energi',
-        'Bekrefte forklaringen; ønsket om fullt skall er drivkraften bak alle reaksjoner',
-        'Si at natrium gir bort elektronet fordi elektronet er negativt og natrium er positivt',
-        'Si at natrium gjør det for å bli lik neon, og at alle atomer prøver å bli edelgasser',
+        'Si at atomer ikke vil noe: å fjerne elektronet koster energi, men gittertiltrekningen frigjør mer',
+        'Bekrefte forklaringen; ønsket om fullt ytterskall er drivkraften bak alle kjemiske reaksjoner',
+        'Si at natrium gir bort elektronet fordi elektronet er negativt og natriumatomet er positivt',
+        'Si at natrium gjør det for å bli lik neon, og at alle atomer egentlig prøver å bli edelgasser',
       ],
       answer: 0,
       why: {
@@ -193,10 +193,10 @@
       id: 'stoffer.bind.12', region: R, topic: T_BIND, concepts: ['ionebinding', 'partikkelmodellen', 'kjemiens-tre-nivaer'], level: 5, type: 'mc',
       prompt: 'Elevene bygger bordsalt med en kule-pinne-byggesett og lager mange små Na–Cl-par. Hvilken **begrensning** ved modellen er viktigst å ta opp?',
       options: [
-        'Modellen viser avgrensede par, men i saltet er hvert Na⁺ omgitt av seks Cl⁻ i et gitter uten faste partnere',
-        'Modellen mangler pinnene for elektronparene som natrium og klor deler',
-        'Det skulle vært to Cl-kuler per Na-kule, fordi klor er toatomig',
-        'Kulene burde hatt samme størrelse, fordi alle ioner er like store',
+        'Den viser faste par, men i saltet er hvert Na⁺ omgitt av seks Cl⁻ i et gitter',
+        'Modellen mangler pinnene for de delte elektronparene mellom natrium og klor',
+        'Det skulle vært to Cl-kuler per Na-kule, fordi klor alltid er toatomig',
+        'Kulene burde hatt samme størrelse, fordi alle ioner i et salt er like store',
       ],
       answer: 0,
       why: {
@@ -217,9 +217,9 @@
       id: 'stoffer.los.01', region: R, topic: T_LOS, concepts: ['elektronegativitet'], level: 2, type: 'mc',
       prompt: 'Hva er **elektronegativitet**?',
       options: [
-        'Hvor sterkt et atom i en binding trekker på de delte elektronene',
+        'Hvor sterkt et atom i en binding trekker på elektronene',
         'Hvor mange elektroner et atom har i ytterskallet',
-        'Hvor negativt ladet et ion er',
+        'Hvor sterkt negativt ladet et ion av atomet er',
         'Hvor lett et atom gir fra seg elektroner til andre atomer',
       ],
       answer: 0,
@@ -234,10 +234,10 @@
       id: 'stoffer.los.02', region: R, topic: T_LOS, concepts: ['elektronegativitet', 'molekyl', 'kovalent-binding'], level: 3, type: 'mc',
       prompt: 'Hvorfor er vannmolekylet **polart**?',
       options: [
-        'Oksygen trekker hardere på elektronene enn hydrogen, og molekylet er vinklet så ladningene ikke opphever hverandre',
-        'Vann er en væske, og væsker er polare',
-        'Oksygenatomet i vann er et O²⁻-ion',
-        'Hydrogenatomene er mye større enn oksygenatomet',
+        'O trekker hardest på elektronene, og molekylet er vinklet',
+        'Vann er en væske, og alle væsker består av polare molekyler',
+        'Oksygenatomet i vannmolekylet er et O²⁻-ion med full ladning',
+        'Hydrogenatomene er mye større enn oksygenatomet og skyver det',
       ],
       answer: 0,
       why: {
@@ -251,10 +251,10 @@
       id: 'stoffer.los.03', region: R, topic: T_LOS, concepts: ['elektronegativitet', 'molekyl'], level: 4, type: 'mc',
       prompt: 'Bindingene C=O i karbondioksid er polare, men CO₂-molekylet er **upolart**. Hvordan kan det ha seg?',
       options: [
-        'Molekylet er lineært og symmetrisk, så de to polare bindingene trekker like mye i hver sin retning',
-        'Karbon og oksygen har lik elektronegativitet',
-        'CO₂ er en gass, og gassmolekyler er alltid upolare',
-        'Dobbeltbindinger kan ikke være polare',
+        'Molekylet er lineært, så de to bindingsdipolene opphever hverandre',
+        'Karbon og oksygen trekker like sterkt på elektronene i bindingen',
+        'CO₂ er en gass, og molekyler i gassfase er alltid helt upolare',
+        'Dobbeltbindinger deler elektronene likt og kan ikke være polare',
       ],
       answer: 0,
       why: {
@@ -283,10 +283,10 @@
       id: 'stoffer.los.05', region: R, topic: T_LOS, concepts: ['loselighet', 'elektronegativitet', 'molekyl'], level: 4, type: 'mc',
       prompt: 'Rent vann fjerner ikke en fettflekk på genseren, men såpevann gjør det. Hvorfor?',
       options: [
-        'Såpemolekylene har en upolar hale som løses i fettet og en polar/ladd ende som løses i vannet',
-        'Såpe gjør vannet varmere, slik at fettet smelter',
-        'Såpe reagerer kjemisk med fettet og gjør det om til vann',
-        'Såpe gjør vannmolekylene mindre, slik at de kommer inn i fettet',
+        'Såpemolekylene har én ende som løses i fett og én som løses i vann',
+        'Såpe gjør vannet varmere, slik at fettet smelter og renner ut',
+        'Såpe reagerer kjemisk med fettet og gjør det om til rent vann',
+        'Såpe gjør vannmolekylene mindre, slik at de lettere kommer inn i fettet',
       ],
       answer: 0,
       why: {
@@ -302,9 +302,9 @@
       myth: 'myte.stoff-forsvinner',
       prompt: 'Du rører en teskje sukker ut i te til du ikke ser det lenger. Hva har skjedd med sukkeret?',
       options: [
-        'Sukkermolekylene har spredt seg mellom vannmolekylene og er for små til å sees',
+        'Sukkermolekylene har spredt seg mellom vannmolekylene',
         'Sukkeret har smeltet på grunn av den varme teen',
-        'Sukkeret har forsvunnet, men smaken er igjen',
+        'Sukkeret har forsvunnet helt, men smaken er igjen',
         'Sukkeret har reagert med vannet og blitt et nytt stoff',
       ],
       answer: 0,
@@ -313,15 +313,15 @@
         2: 'Smaken er selve evidensen for at sukkeret fortsatt er der. Massen av teen har også økt med massen av sukkeret.',
         3: 'Det dannes ikke noe nytt stoff. Damp inn teen, og sukkeret kommer tilbake.',
       },
-      explain: 'Ved oppløsning løsner sukkermolekylene fra krystallen og omgis av vannmolekyler. Partiklene er bevart: massen er summen av te og sukker, og løsningen smaker søtt. Hverdagsuttrykket «sukkeret smelter» er et godt utgangspunkt for å skille smelting og oppløsning.',
+      explain: 'Ved oppløsning løsner sukkermolekylene fra krystallen og omgis av vannmolekyler – de er altfor små til å sees. Partiklene er bevart: massen er summen av te og sukker, og løsningen smaker søtt. Hverdagsuttrykket «sukkeret smelter» er et godt utgangspunkt for å skille smelting og oppløsning.',
     },
     {
       id: 'stoffer.los.07', region: R, topic: T_LOS, concepts: ['loselighet', 'ion', 'kjemiens-tre-nivaer'], level: 4, type: 'mc',
       prompt: 'Hvilken partikkeltegning viser best en løsning av bordsalt i vann?',
       options: [
-        'Na⁺- og Cl⁻-ioner hver for seg, omgitt av vannmolekyler som vender O-siden mot Na⁺ og H-siden mot Cl⁻',
+        'Na⁺- og Cl⁻-ioner hver for seg, omgitt av vannmolekyler',
         'Små NaCl-molekyler som svømmer rundt mellom vannmolekylene',
-        'Små saltkorn som flyter mellom vannmolekylene',
+        'Små saltkorn som flyter rundt mellom vannmolekylene',
         'Tomrom der saltet var, fordi saltet har forsvunnet',
       ],
       answer: 0,
@@ -443,7 +443,7 @@
       myth: 'myte.atomer-har-stoffets-egenskaper',
       prompt: 'En elev sier: «Vanndamp tar mye mer plass enn vann fordi vannmolekylene blåses opp når de varmes.» Hvilken forklaring er riktig?',
       options: [
-        'Molekylene er like store; det er avstanden mellom dem som øker kraftig',
+        'Molekylene er like store; avstanden mellom dem øker kraftig',
         'Eleven har rett: molekylene utvider seg når de får mer energi',
         'Molekylene deler seg i flere mindre molekyler, som tar mer plass',
         'Det kommer luft inn mellom vannmolekylene når vannet koker',
@@ -461,7 +461,7 @@
       myth: 'myte.faseovergang-er-reaksjon',
       prompt: 'Vann på kokeplata står på 100 °C så lenge det koker, selv om plata stadig tilfører energi. Hva skjer med energien på partikkelnivå?',
       options: [
-        'Den brukes til å trekke molekylene fra hverandre, ikke til å øke farten deres',
+        'Den trekker molekylene fra hverandre i stedet for å øke farten',
         'Den brukes til å spalte vannmolekylene til hydrogen og oksygen',
         'Den forsvinner, fordi vann ikke kan ta imot mer energi',
         'Den går inn i termometeret, som ikke klarer å vise mer enn 100 °C',
@@ -478,8 +478,8 @@
       id: 'stoffer.fase.10', region: R, topic: T_FASE, concepts: ['faseovergang-partikler', 'fast-stoff', 'gass'], level: 4, type: 'mc',
       prompt: 'Klesvask som henger ute i −10 °C, blir tørr etter noen dager, selv om den frøs stiv. Hvordan er det mulig?',
       options: [
-        'Isen sublimerer: vannmolekyler river seg løs fra iskrystallene og går rett over til vanndamp',
-        'Kulda suger vannet ut av klærne',
+        'Isen sublimerer – den går rett over til vanndamp',
+        'Kulda suger vannet ut av stoffet i klærne',
         'Isen smelter litt hver dag fordi kroppstemperaturen til klypene varmer',
         'Vannet fryser bort – is forsvinner etter en stund',
       ],
@@ -495,10 +495,10 @@
       id: 'stoffer.fase.11', region: R, topic: T_FASE, concepts: ['partikkelmodellen', 'gass', 'massebevaringsloven'], level: 4, type: 'mc',
       prompt: 'En oppblåst ballong legges i fryseren og blir mindre. Hva er forklaringen på partikkelnivå?',
       options: [
-        'Luftmolekylene beveger seg saktere og støter sjeldnere og svakere mot ballongveggen innenfra',
-        'Noe av lufta forsvinner i kulda',
-        'Luftmolekylene krymper når de blir kalde',
-        'Kulda presser ballongen sammen utenfra',
+        'Molekylene beveger seg saktere og støter svakere mot veggen',
+        'Noe av lufta slutter å finnes når den blir veldig kald',
+        'Luftmolekylene krymper når de blir kalde og tar mindre plass',
+        'Kulda presser på ballongen utenfra og klemmer den sammen',
       ],
       answer: 0,
       why: {
@@ -513,10 +513,10 @@
       id: 'stoffer.fase.12', region: R, topic: T_FASE, concepts: ['vaeske', 'partikkelmodellen', 'gass'], level: 5, type: 'mc',
       prompt: 'Ida tegner partiklene i vann med store avstander mellom seg «fordi vann renner». Hvilken aktivitet gir henne best **evidens** til å revurdere tegningen?',
       options: [
-        'Presse stempelet i to tette sprøyter, en med luft og en med vann – vannet lar seg nesten ikke presse sammen',
-        'Si at tegningen er feil og vise lærebokas figur',
-        'La henne helle vann mellom to glass og observere at det renner',
-        'Forklare at avstanden mellom partiklene ikke er viktig i modellen',
+        'To tette sprøyter, én med luft og én med vann: hvilken kan presses sammen?',
+        'Si at tegningen er feil, og vise henne den riktige figuren i læreboka',
+        'La henne helle vann mellom to glass og observere hvor lett det renner',
+        'Forklare at avstanden mellom partiklene ikke er viktig i denne modellen',
       ],
       answer: 0,
       why: {
@@ -531,8 +531,8 @@
       myth: 'myte.kondens-siver-ut',
       prompt: 'Flere elever mener at dråpene utenpå en kald brusflaske har sivet ut gjennom glasset. Hvilket forsøk gir den sterkeste evidensen mot denne ideen?',
       options: [
-        'Fylle en flaske med isvann farget med konditorfarge og vise at dråpene utenpå er fargeløse',
-        'Tørke flaska og vise at nye dråper kommer igjen',
+        'Fylle flaska med farget isvann og se om dråpene utenpå er farget',
+        'Tørke flaska og vise at det kommer nye dråper igjen',
         'Veie flaska før og etter, for å vise at den har blitt lettere',
         'Sette en flaske med romtemperert vann ved siden av og vise at den ikke dugger',
       ],
@@ -568,8 +568,8 @@
       myth: 'myte.gass-er-vektlos',
       prompt: 'En slapp fotball ligger på en nøyaktig vekt. Du pumper den hard. Hva skjer med vekta?',
       options: [
-        'Den viser noen gram mer, fordi det er presset inn mer luft',
-        'Den viser det samme, fordi luft ikke har masse',
+        'Den viser noen gram mer, fordi det er mer luft i ballen',
+        'Den viser det samme, fordi luft ikke har noen masse',
         'Den viser mindre, fordi luft gjør ting lettere',
         'Den viser det samme, fordi lufta bare presses sammen',
       ],
@@ -598,10 +598,10 @@
       myth: 'myte.masse-forsvinner-ved-brenning',
       prompt: 'Et stearinlys står på en vekt og brenner i en time. Vekta viser at lyset har blitt lettere. Hvor ble det av massen?',
       options: [
-        'Den finnes i CO₂ og vanndamp som har forsvunnet ut i rommet',
+        'Den finnes i CO₂ og vanndamp som har gått ut i rommet',
         'Massen er omdannet til lys og varme',
         'Stearinet er brent opp og finnes ikke lenger',
-        'Stearinet har smeltet og fordampet uten å reagere',
+        'Stearinet har smeltet og fordampet bort uten å reagere',
       ],
       answer: 0,
       why: {
@@ -616,10 +616,10 @@
       myth: 'myte.masse-forsvinner-ved-brenning',
       prompt: 'Stålull brennes på en vekt, og vekta viser at massen **øker**. En elev sier: «Det må være sot fra flammen som legger seg på.» Hvilken oppfølging er best?',
       options: [
-        'Spørre hvor nye atomer kan komme fra, og la elevene teste ideen om at jernet binder oksygen fra lufta – f.eks. ved å brenne stålull i et lukket glass på vekta',
-        'Forklare at brenning alltid gjør stoffer tyngre',
-        'Forklare at jernet utvider seg når det blir varmt, og derfor blir tyngre',
-        'Si at varmen fra brenningen har masse som blir igjen i stålulla',
+        'Spørre hvor nye atomer kan komme fra, og teste stålull i et lukket glass på vekta',
+        'Bekrefte hypotesen om sot og forklare at brenning alltid gjør stoffer tyngre',
+        'Forklare at jernet utvider seg når det blir varmt, og derfor blir tyngre på vekta',
+        'Si at varmen fra brenningen har masse som blir igjen i stålulla etterpå',
       ],
       answer: 0,
       why: {
@@ -633,7 +633,7 @@
       id: 'stoffer.masse.08', region: R, topic: T_MASSE, concepts: ['massebevaringsloven', 'gass', 'kjemisk-reaksjon'], level: 5, type: 'mc',
       prompt: 'Elevene skal vise at massen er bevart når natron og eddik reagerer. Hvilket oppsett gir best evidens?',
       options: [
-        'En flaske med eddik og en ballong med natron over åpningen, veid før og etter at natronen drysses ned',
+        'Flaske med eddik, natron i en ballong over åpningen, veid før og etter',
         'Et åpent begerglass på vekta, med natron og eddik blandet',
         'Veie produktene etter reaksjonen og sammenligne med utgangsstoffene veid hver for seg',
         'Bruke ti ganger så mye natron og eddik, så målefeilen blir relativt mindre',
@@ -656,10 +656,10 @@
       id: 'stoffer.reak.01', region: R, topic: T_REAK, concepts: ['kjemisk-reaksjon', 'produkt'], level: 1, type: 'mc',
       prompt: 'Hva kjennetegner en **kjemisk reaksjon**?',
       options: [
-        'Det dannes nye stoffer med andre egenskaper enn utgangsstoffene',
+        'Det dannes nye stoffer med nye egenskaper',
         'Stoffet skifter fase, for eksempel fra fast stoff til væske',
-        'Stoffet løses opp og blir usynlig',
-        'Det blir varmt',
+        'Stoffet løses opp og blir helt usynlig',
+        'Det blir merkbart varmt i beholderen',
       ],
       answer: 0,
       why: {
@@ -704,10 +704,10 @@
       id: 'stoffer.reak.05', region: R, topic: T_REAK, concepts: ['kjemisk-reaksjon', 'partikkelmodellen'], level: 3, type: 'mc',
       prompt: 'Stålull tar lett fyr i en flamme, mens en jernspiker bare blir varm. Hva er hovedgrunnen?',
       options: [
-        'Stålulla har mye større overflate, så langt flere jernatomer kan treffes av oksygenmolekyler samtidig',
+        'Stålulla har mye større overflate som oksygenet kan treffe',
         'Stålull er laget av et annet grunnstoff enn spikeren',
-        'Spikeren inneholder mindre oksygen enn stålulla',
-        'Stålullatomene er mindre og lettere å antenne',
+        'Spikeren inneholder mindre oksygen enn stålulla gjør',
+        'Atomene i stålull er mindre og derfor lettere å antenne',
       ],
       answer: 0,
       why: {
@@ -721,10 +721,10 @@
       id: 'stoffer.reak.06', region: R, topic: T_REAK, concepts: ['kjemisk-reaksjon', 'partikkelmodellen', 'temperatur'], level: 4, type: 'mc',
       prompt: 'Hvorfor holder melk seg lenger i kjøleskapet enn på kjøkkenbenken? Svar på partikkelnivå.',
       options: [
-        'Ved lav temperatur beveger partiklene seg saktere, så færre kollisjoner har nok energi til å gi reaksjon',
-        'Kulda dreper alle bakteriene i melka',
-        'Kulda trekker inn i melka og stopper alle reaksjoner',
-        'Melka fryser, og frosne stoffer kan ikke reagere',
+        'Partiklene beveger seg saktere og kolliderer sjeldnere og svakere',
+        'Kulda dreper alle bakteriene i melka, så ingenting kan skje',
+        'Kulda trekker inn i melka og stopper alle reaksjonene fullstendig',
+        'Melka fryser, og stoffer i fast form kan ikke reagere',
       ],
       answer: 0,
       why: {
@@ -739,9 +739,9 @@
       myth: 'myte.bindingsbrudd-gir-energi',
       prompt: 'Når metan brenner (CH₄ + 2O₂ → CO₂ + 2H₂O), frigjøres mye energi. Hvor kommer energien fra?',
       options: [
-        'Dannelsen av de sterke bindingene i CO₂ og H₂O frigjør mer energi enn det kostet å bryte bindingene i CH₄ og O₂',
+        'Nye, sterkere bindinger i CO₂ og H₂O frigjør mer enn bruddene kostet',
         'Energien er lagret i bindingene i metan og slippes fri når de brytes',
-        'Energien kommer fra fyrstikka som tenner gassen',
+        'Energien kommer fra fyrstikka som tenner på gassen',
         'Energien skapes i reaksjonen når de nye stoffene dannes fra ingenting',
       ],
       answer: 0,
@@ -756,7 +756,7 @@
       id: 'stoffer.reak.08', region: R, topic: T_REAK, concepts: ['kjemisk-reaksjon', 'produkt', 'utgangsstoff'], level: 3, type: 'mc',
       prompt: 'Hva menes med at en kjemisk reaksjon er i **likevekt**?',
       options: [
-        'Reaksjonen går begge veier like raskt, så mengdene av stoffene holder seg konstante',
+        'Reaksjonen går begge veier like raskt',
         'Reaksjonen har stoppet helt opp',
         'Det er like mye produkter som utgangsstoffer',
         'Det er like mange atomer av hvert slag på begge sider av pilen',
@@ -792,9 +792,9 @@
       id: 'stoffer.likn.01', region: R, topic: T_LIKN, concepts: ['reaksjonslikning', 'molekyl'], level: 2, type: 'mc',
       prompt: 'I uttrykket 2H₂O: hva betyr det store **2-tallet foran**, og hva betyr den lille **₂-en etter H**?',
       options: [
-        'Foran: to vannmolekyler. Etter H: to hydrogenatomer i hvert molekyl',
+        'Foran: to vannmolekyler. Etter H: to H-atomer per molekyl',
         'Foran: to hydrogenatomer. Etter H: to vannmolekyler',
-        'Begge betyr at det er to oksygenatomer',
+        'Begge tallene betyr at det er to oksygenatomer',
         'Foran: vannet er dobbelt så tungt. Etter H: to hydrogenmolekyler',
       ],
       answer: 0,
@@ -868,10 +868,10 @@
       myth: 'myte.indekser-kan-endres',
       prompt: 'En elev balanserer natrium + klor slik: Na + Cl₂ → NaCl₂. Hva viser feilen, og hva er en god oppfølging?',
       options: [
-        'Eleven bruker indeksen til å balansere og lager et stoff som ikke finnes; ta utgangspunkt i ionene Na⁺ og Cl⁻ og balanser så med koeffisienter: 2Na + Cl₂ → 2NaCl',
-        'Likningen er riktig fordi antall atomer stemmer på begge sider',
-        'Eleven skulle skrevet Na₂ på venstre side, siden klor er toatomig',
-        'Eleven bør lære svaret utenat, for balansering er prøving og feiling',
+        'Indeksen er brukt til å balansere; bestem formelen fra ionene, så: 2Na + Cl₂ → 2NaCl',
+        'Likningen er riktig og trenger ingen oppfølging, fordi antall atomer stemmer på begge sider',
+        'Eleven skulle skrevet Na₂ på venstre side, siden både natrium og klor er toatomige',
+        'Eleven bør lære svaret utenat, for balansering er bare prøving og feiling med tall',
       ],
       answer: 0,
       why: {
@@ -903,7 +903,7 @@
       id: 'stoffer.niva.01', region: R, topic: T_NIVA, concepts: ['kjemiens-tre-nivaer'], level: 1, type: 'mc',
       prompt: 'Hvilke tre nivåer beskriver kjemien, ifølge Kjemi fagdidaktikk?',
       options: [
-        'Makronivå, mikronivå og representasjonsnivå',
+        'Makro, mikro og representasjon',
         'Fast stoff, væske og gass',
         'Atom, molekyl og ion',
         'Observasjon, hypotese og konklusjon',
@@ -950,10 +950,10 @@
       id: 'stoffer.niva.04', region: R, topic: T_NIVA, concepts: ['kjemiens-tre-nivaer'], level: 3, type: 'mc',
       prompt: 'Hva er ifølge Kjemi fagdidaktikk en hovedgrunn til at kjemi oppleves vanskelig for elever?',
       options: [
-        'Undervisningen veksler stadig mellom makro, mikro og representasjon, ofte uten å si fra',
+        'Undervisningen veksler mellom de tre nivåene uten å si fra',
         'Kjemi krever mer matematikk enn de andre naturfagene',
-        'Elevene har ingen hverdagserfaringer med stoffer',
-        'Det finnes for mange grunnstoffer å lære utenat',
+        'Elevene har ingen hverdagserfaringer med kjemiske stoffer',
+        'Det finnes altfor mange grunnstoffer å lære seg utenat',
       ],
       answer: 0,
       why: {
@@ -968,7 +968,7 @@
       myth: 'myte.faseovergang-er-reaksjon',
       prompt: 'Nora tegner kokende vann. I boblene tegner hun løse H-er og O-er. Hvilke nivåer blander hun, og hva er den underliggende misoppfatningen?',
       options: [
-        'Hun lar symbolet H₂O styre mikrotegningen og tror koking bryter molekylene – representasjon og mikro blandes',
+        'Representasjon styrer mikro: hun tror koking bryter H₂O-molekylene',
         'Hun blander makro og mikro, fordi bobler ikke kan tegnes på mikronivå',
         'Hun blander ingen nivåer – tegningen er riktig, fordi vann består av H og O',
         'Hun blander mikro og representasjon fordi hun brukte bokstaver i stedet for farger',
@@ -998,10 +998,10 @@
       myth: 'myte.atomer-har-stoffets-egenskaper',
       prompt: 'Elevene modellerer smelting med fargede klinkekuler i en eske som de rister. Hvilken **begrensning** ved modellen er viktigst å diskutere med dem?',
       options: [
-        'Ekte partikler har ikke farge og hardhet, beveger seg hele tiden av seg selv, og har tomrom – ikke luft – mellom seg',
+        'Ekte partikler har verken farge eller hardhet, og de beveger seg av seg selv',
         'Kulene er for store; med riktig størrelse ville modellen vært en eksakt kopi',
-        'Modellen er feil og bør erstattes av en definisjon av smelting',
-        'Ingen – en god modell har ingen begrensninger',
+        'Modellen er feil og bør erstattes av en presis definisjon av smelting',
+        'Ingen – en god modell har ingen begrensninger som må diskuteres',
       ],
       answer: 0,
       why: {
