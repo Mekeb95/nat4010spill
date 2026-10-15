@@ -1,0 +1,80 @@
+/* Kroppsbyen (kropp) — spørsmål del 3: flere grunnleggende spørsmål (nivå 1–2) på tvers av temaene,
+   slik at regionen har en mykere start på begrepsstigen. */
+(function () {
+  'use strict';
+  const CO = 'Celler og organisering';
+  const RS = 'Respirasjon og sirkulasjon';
+  const FE = 'Fordøyelse og energi';
+  const NM = 'Nervesystem og muskler';
+  const DG = 'DNA og gener';
+  const IV = 'Immunforsvar og vaksiner';
+
+  const Q = [
+    { id: 'kropp.org.08', topic: CO, concepts: ['celle'], level: 1, type: 'mc',
+      prompt: 'Hva er den minste enheten som regnes som levende?',
+      options: ['Cellen', 'Atomet', 'Organet', 'DNA-molekylet'], answer: 0,
+      why: { 1: 'Atomer er byggesteiner i alt stoff, levende og dødt – et atom lever ikke.', 2: 'Et organ er bygd av mange celler og vev.', 3: 'DNA er et molekyl inne i cellen. Det kan ikke leve, formere seg eller ta opp næring alene.' },
+      explain: 'Cellen er livets minste enhet: den tar opp næring, omdanner energi, kvitter seg med avfall og kan dele seg. Alt levende består av én eller flere celler.' },
+    { id: 'kropp.org.09', topic: CO, concepts: ['vev', 'organ', 'organsystem'], level: 1, type: 'order',
+      prompt: 'Sett organiseringsnivåene i kroppen i rekkefølge fra **minst** til **størst**:',
+      items: ['Celle', 'Vev', 'Organ', 'Organsystem', 'Organisme'],
+      explain: 'Like celler danner vev (f.eks. muskelvev). Flere vev danner et organ (hjertet). Organer som samarbeider, danner et organsystem (sirkulasjonssystemet). Alle organsystemene til sammen er organismen – deg.' },
+    { id: 'kropp.org.10', topic: CO, concepts: ['organ', 'organsystem'], level: 2, type: 'sort',
+      prompt: 'Hvilket organsystem hører organet til?',
+      buckets: ['Sirkulasjon', 'Fordøyelse', 'Nervesystem'],
+      items: [{ t: 'Hjertet', b: 0 }, { t: 'Blodårene', b: 0 }, { t: 'Tynntarmen', b: 1 }, { t: 'Leveren', b: 1 }, { t: 'Hjernen', b: 2 }, { t: 'Ryggmargen', b: 2 }],
+      explain: 'Organene samarbeider i systemer. Leveren hører til fordøyelsessystemet fordi den lager galle – men den har mange andre oppgaver også, som å lagre glykogen og bryte ned giftstoffer.' },
+    { id: 'kropp.resp.11', topic: RS, concepts: ['respirasjon'], level: 1, type: 'mc',
+      prompt: 'Hvilken gass tar blodet **opp** i lungene?',
+      options: ['Oksygen (O₂)', 'Karbondioksid (CO₂)', 'Nitrogen (N₂)', 'Vanndamp (H₂O)'], answer: 0,
+      why: { 1: 'CO₂ går motsatt vei: fra blodet ut i lungeblærene, og pustes ut.', 2: 'Nitrogen er det mest av i lufta, men kroppen bruker det ikke – det pustes ut igjen.', 3: 'Vi puster ut vanndamp; den tas ikke opp for å brukes.' },
+      explain: 'I lungeblærene diffunderer O₂ fra lufta inn i blodet, og CO₂ fra blodet ut i lufta. Det skjer fordi konsentrasjonene er ulike på hver side av den tynne veggen.' },
+    { id: 'kropp.resp.12', topic: RS, concepts: ['sirkulasjon'], level: 2, type: 'tf',
+      prompt: 'Hjertet pumper blodet gjennom to kretsløp: ett til lungene og ett til resten av kroppen.', answer: true,
+      explain: 'Sant. Høyre side av hjertet pumper blodet til lungene (lille kretsløp), venstre side pumper det ut i kroppen (store kretsløp). Derfor kalles det et dobbelt kretsløp.' },
+    { id: 'kropp.resp.13', topic: RS, concepts: ['sirkulasjon', 'respirasjon'], level: 2, type: 'mc',
+      prompt: 'Hva er hovedoppgaven til de **røde** blodcellene?',
+      options: ['Frakte oksygen rundt i kroppen', 'Bekjempe bakterier og virus', 'Få blodet til å levre seg', 'Frakte avfallsstoffer til nyrene'], answer: 0,
+      why: { 1: 'Det er de hvite blodcellene som er en del av immunforsvaret.', 2: 'Det er blodplatene som hjelper blodet å levre seg.', 3: 'Avfallsstoffer løst i blodplasmaet fraktes til nyrene, men det er ikke de røde blodcellenes oppgave.' },
+      explain: 'Røde blodceller er fulle av hemoglobin, et protein som binder oksygen i lungene og slipper det i vevet. De har ingen cellekjerne – det gir plass til mer hemoglobin. Form følger funksjon.' },
+    { id: 'kropp.ford.08', topic: FE, concepts: ['fordoyelse'], level: 1, type: 'mc',
+      prompt: 'Hvor tas det meste av næringsstoffene opp i blodet?',
+      options: ['I tynntarmen', 'I magesekken', 'I tykktarmen', 'I spiserøret'], answer: 0,
+      why: { 1: 'Magesekken bryter ned, men tar opp lite (litt vann og alkohol).', 2: 'Tykktarmen tar mest opp vann og salter.', 3: 'Spiserøret frakter bare maten ned til magesekken.' },
+      explain: 'Tynntarmen er lang og full av tarmtotter, så overflaten blir svært stor. Der tas glukose, aminosyrer, fettsyrer og glyserol opp i blodet og lymfen.' },
+    { id: 'kropp.ford.09', topic: FE, concepts: ['fordoyelse'], level: 2, type: 'mc',
+      prompt: 'Hva er et **enzym**?',
+      options: ['Et protein som får en reaksjon til å gå raskere', 'Et næringsstoff som gir kroppen mye energi', 'En celle i tarmen som bryter ned bakterier', 'Et hormon som styrer hvor sulten du blir'], answer: 0,
+      why: { 1: 'Enzymer gir ikke energi selv; de hjelper til med å bryte ned stoffer som gjør det.', 2: 'Enzymer er molekyler, ikke celler.', 3: 'Hormoner er signalstoffer; enzymer setter fart på kjemiske reaksjoner.' },
+      explain: 'Enzymer er proteiner som virker som katalysatorer. I fordøyelsen deler de store molekyler i små: amylase bryter ned stivelse, pepsin bryter ned proteiner, lipase bryter ned fett.' },
+    { id: 'kropp.ford.10', topic: FE, concepts: ['fordoyelse', 'kroppens-energi'], level: 1, type: 'mc',
+      prompt: 'Hvilket næringsstoff er kroppens viktigste **byggemateriale** for muskler?',
+      options: ['Proteiner', 'Karbohydrater', 'Fett', 'Vitaminer'], answer: 0,
+      why: { 1: 'Karbohydrater er først og fremst en energikilde.', 2: 'Fett er et energilager og en del av cellemembranene, men musklene bygges av proteiner.', 3: 'Vitaminer trengs i små mengder for at reaksjoner i kroppen skal gå, men de er ikke byggemateriale.' },
+      explain: 'Proteiner brytes ned til aminosyrer, som cellene bygger nye proteiner av – muskelfibre, enzymer, antistoffer og mye mer.' },
+    { id: 'kropp.nerv.07', topic: NM, concepts: ['nervesystem'], level: 1, type: 'mc',
+      prompt: 'Hva kalles cellene som sender signaler i nervesystemet?',
+      options: ['Nerveceller', 'Muskelceller', 'Blodceller', 'Hudceller'], answer: 0,
+      why: { 1: 'Muskelceller tar imot signaler og trekker seg sammen.', 2: 'Blodceller frakter stoffer og forsvarer kroppen.', 3: 'I huden finnes sanseceller som reagerer på berøring og varme, men det er nervecellene som leder signalene videre.' },
+      explain: 'Nervecellene (nevronene) har lange utløpere som leder elektriske signaler. Mellom nervecellene går signalene videre med signalstoffer.' },
+    { id: 'kropp.nerv.08', topic: NM, concepts: ['nervesystem', 'muskel-skjelett'], level: 2, type: 'order',
+      prompt: 'Du tar på en varm kokeplate. Sett trinnene i **refleksen** i rekkefølge:',
+      items: ['Sanseceller i huden reagerer på varmen', 'Signalet går via en sansenerve til ryggmargen', 'Ryggmargen sender signal ut via en motorisk nerve', 'Musklene i armen trekker hånda vekk', 'Hjernen registrerer at det gjør vondt'],
+      explain: 'I en refleks går signalet en snarvei om ryggmargen, ikke om hjernen. Derfor trekker du hånda til deg før du rekker å kjenne smerten.' },
+    { id: 'kropp.imm.11', topic: IV, concepts: ['immunsystem'], level: 2, type: 'mc',
+      prompt: 'Hva lager B-cellene (en type hvite blodceller) for å bekjempe et bestemt smittestoff?',
+      options: ['Antistoffer', 'Antibiotika', 'Hormoner', 'Enzymer'], answer: 0,
+      why: { 1: 'Antibiotika er medisiner som lages av mennesker (opprinnelig fra sopp), ikke av kroppen.', 2: 'Hormoner er signalstoffer i kroppen, ikke våpen mot smitte.', 3: 'Enzymer setter fart på reaksjoner; antistoffene er det som gjenkjenner smittestoffet.' },
+      explain: 'Antistoffer passer til antigenene på ett bestemt smittestoff, som en nøkkel i en lås. De merker smittestoffet slik at andre hvite blodceller kan ødelegge det.' },
+    { id: 'kropp.imm.12', topic: IV, concepts: ['antibiotika'], level: 2, type: 'tf',
+      prompt: 'Antibiotika virker mot bakterier, men ikke mot virus.', answer: true,
+      explain: 'Sant. Antibiotika angriper strukturer som bakterier har, for eksempel celleveggen. Virus har ikke slike strukturer. Å bruke antibiotika mot virusinfeksjoner hjelper ikke, og øker faren for resistens.' },
+    { id: 'kropp.dna.08', topic: DG, concepts: ['dna'], level: 1, type: 'mc',
+      prompt: 'Hvor mange kromosomer har en vanlig kroppscelle hos et menneske?',
+      options: ['46', '23', '12', '92'], answer: 0,
+      why: { 1: '23 er antallet i kjønnscellene (egg- og sædceller), som bare har ett av hvert kromosompar.', 2: 'For få – mennesket har 23 kromosompar.', 3: 'Det er det dobbelte. Rett før en celledeling er DNA-et kopiert, men det er fortsatt 46 kromosomer.' },
+      explain: 'Kroppscellene har 23 par = 46 kromosomer: ett sett fra mor og ett fra far. Kjønnscellene har 23, slik at den befruktede eggcellen igjen får 46.' },
+  ];
+
+  NG.content.addQuestions(Q.map((q) => Object.assign({ region: 'kropp' }, q)));
+})();

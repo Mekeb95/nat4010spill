@@ -1,7 +1,7 @@
 # Modulkontrakt — hvordan du legger til innhold, mini-spill og grafikk
 
 Spillet er ren HTML/CSS/JS uten rammeverk og uten bundler. `tools/build.mjs` limer
-filene sammen til `dist/index.html` i denne rekkefølgen:
+filene sammen til `dist/index.html` (ikke i git – bygges lokalt og i GitHub Actions) i denne rekkefølgen:
 `src/core/*.js` → `src/art/*.js` → `src/content/**/*.js` → `src/minigames/*.js` → `src/ui/*.js` → `src/main.js`.
 CSS: `src/ui/tokens.css`, `src/ui/base.css`, så andre `src/ui/*.css`. Mini-spill injiserer egen CSS med `NG.css(\`...\`)`.
 
@@ -14,6 +14,9 @@ i innhold/spillogikk (kosmetisk partikkelstøy i canvas er greit).
 ## Kommandoer
 ```
 node tools/validate.mjs                 # validerer alt innhold, viser statistikk. Må gi OK.
+node tools/lengthbias.mjs               # riktig mc-svar skal ikke være tydelig lengst. Må gi OK.
+node --test tests/*.test.mjs            # enhetstester for spillogikken
+node tools/mgsmoke.mjs <id>             # røyktest av et mini-spill (konsollfeil, overflow) i mobilformat
 node tools/build.mjs                    # dist/index.html
 node tools/build.mjs --mg=<id>          # dist/mg-<id>.html — kjører bare mini-spillet (stub-API, ?seed=N&d=1..3)
 node tools/build.mjs --q=<region|all>   # dist/q-<region>.html — blar gjennom spørsmål (?i=N)
@@ -27,6 +30,8 @@ node tools/shot.mjs <html> <png> [--click="css"]...  # skjermbilde i mobilformat
 - Distraktorer skal være **ekte elevforestillinger/misoppfatninger**, ikke tull. Forklar dem i `why`.
 - Tall: desimalkomma i tekst («9,81 m/s²»). Enheter alltid med. g = 9,81 m/s² med mindre annet står.
 - Unngå «alle/ingen av alternativene over» (alternativene stokkes).
+- Riktig svar skal ikke avsløres av lengden: gjør distraktorene like lange og like presise (`tools/lengthbias.mjs` stopper CI ellers). Det gjelder også valg inne i mini-spill.
+- Sett `myth` på spørsmål som er laget for å avsløre en bestemt elevforestilling – den vises ved feil svar.
 
 ## Innhold (`src/content/<region>-*.js`)
 Regions-id-er: `energi, stoffer, liv, jorda, kropp, teknologi, praksis, didaktikk`.
@@ -130,6 +135,8 @@ Krav til mini-spill:
 - Berøring først: trykk-for-å-velge fremfor dra-og-slipp (dra kan være tillegg). Ingen hover-avhengighet.
   Mål ≥ 44 px trykkflater. Ingen horisontal scrolling. Canvas skal skalere til bredden (devicePixelRatio).
 - Rydd opp timere/animasjonsløkker i `destroy()` og når `done` er kalt.
+- Respekter `prefers-reduced-motion` (hopp over eller forkort animasjoner), og bruk `aria-live` på tekst som endrer seg.
+- Kjør `node tools/mgsmoke.mjs <id>` før du committer – CI kjører det for alle mini-spill.
 
 ## Grafikk (`src/art/*.js`)
 ```js
