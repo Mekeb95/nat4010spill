@@ -181,7 +181,7 @@
       options: [
         "«Sett tilbake én endring om gangen og test – finn den virkelige feilen.»",
         "«Det viktigste er at det virker. Gå videre til neste oppgave.»",
-        "«Skriv hele programmet på nytt, så er du sikker på at det er riktig.»",
+        "«Skriv hele programmet på nytt, så er du helt sikker på at det er riktig.»",
         "«Spør en medelev om svaret, så slipper du å lete selv.»",
       ],
       answer: 0,

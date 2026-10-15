@@ -65,7 +65,7 @@
       options: [
         "Enkle prototyper tidlig og testing i flere runder.",
         "En enda mer detaljert tegning før bygging.",
-        "Dyrere og sterkere materialer fra starten av.",
+        "Dyrere og sterkere materialer helt fra starten av.",
         "Utsette presentasjonen til raketten var ferdig.",
       ],
       answer: 0,
@@ -235,7 +235,7 @@
       options: [
         "En sensor måler retningen, og programmet snur bildet.",
         "Mobilen har kunstig intelligens som gjetter.",
-        "Skjermen er laget av et materiale som snur seg selv.",
+        "Skjermen er laget av et materiale som snur seg av seg selv.",
         "Mobilen lytter etter hvordan du holder den.",
       ],
       answer: 0,

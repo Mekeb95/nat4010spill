@@ -1,0 +1,56 @@
+name: Sjekk
+
+on:
+  pull_request:
+  push:
+    branches-ignore: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  innhold-og-logikk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Valider innhold
+        run: node tools/validate.mjs
+      - name: Lengdeskjevhet i svaralternativer
+        run: node tools/lengthbias.mjs
+      - name: Enhetstester
+        run: node --test tests/*.test.mjs
+      - name: Bygg
+        run: node tools/build.mjs
+
+  nettleser:
+    runs-on: ubuntu-latest
+    needs: innhold-og-logikk
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: node tools/build.mjs
+      - name: Røyktest av alle mini-spill
+        run: node tools/mgsmoke.mjs --steps=120 --shots=shots/mg
+      - name: Automatisk gjennomspilling (energi + kropp)
+        run: |
+          node tools/playtest.mjs shots/energi --smart --strict --region=energi --steps=160
+          node tools/playtest.mjs shots/kropp --smart --strict --dev --region=kropp --steps=160
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: skjermbilder
+          path: shots
+          retention-days: 7

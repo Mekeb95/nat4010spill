@@ -1,4 +1,4 @@
 node_modules
-dist/mg-*.html
-dist/q-*.html
+# Byggeresultater lages av tools/build.mjs (og av GitHub Actions ved publisering)
+dist/
 site/

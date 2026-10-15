@@ -30,3 +30,5 @@
 .feedback.good .fb-title { color: var(--good); }
 .feedback.bad .fb-title { color: var(--bad); }
 .q-body.locked .option { cursor: default; }
+.fb-myth { border-left: 3px solid var(--bad); padding: 4px 0 4px 10px; display: flex; flex-direction: column; gap: 4px; }
+.fb-myth-text { font-style: italic; }

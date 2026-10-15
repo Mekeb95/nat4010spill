@@ -2,6 +2,7 @@
 // Automatisk gjennomspilling i mobilformat: tittel → intro → leir → ekspedisjon → noder → kamp …
 //   node tools/playtest.mjs [utmappe] [--steps=200] [--region=energi] [--smart] [--dev]
 // --smart svarer riktig (leser fasit fra NG.content), ellers tilfeldig.
+// --strict avslutter med kode 1 ved konsollfeil eller horisontal overflow (for CI).
 // --dev starter med en utviklerlagring der regionen er låst opp (forutsetningsbossene slått, nivå 5).
 // Tar skjermbilder av hver ny skjermtype og rapporterer konsollfeil og horisontal overflow.
 import { chromium } from 'playwright';
@@ -15,6 +16,7 @@ const STEPS = Number(opt('steps', 200));
 const REGION = opt('region', 'energi');
 const SMART = !!opt('smart', false);
 const DEV = !!opt('dev', false);
+const STRICT = !!opt('strict', false);
 mkdirSync(outDir, { recursive: true });
 
 const browser = await chromium.launch();
@@ -118,3 +120,4 @@ console.log(JSON.stringify(state));
 console.log(errs.length ? [...new Set(errs)].join('\n') : 'ingen feil');
 console.log('skjermbilder:', outDir);
 await browser.close();
+if (STRICT && errs.length) process.exit(1);

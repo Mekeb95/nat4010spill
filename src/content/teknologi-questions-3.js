@@ -24,7 +24,7 @@
       prompt: 'Elevene simulerer fritt fall med tidssteg dt = 0,1 s. Hver runde oppdaterer de først farten, så posisjonen: `v = v + g·dt` og `s = s + v·dt`. Etter 1 s gir simuleringen 5,40 m, mens s = ½gt² gir 4,91 m. Hva er forklaringen?',
       options: [
         "Farten ved slutten av steget brukes for hele steget.",
-        "Simuleringen har en syntaksfeil som gir feil tall.",
+        "Simuleringen har en syntaksfeil som gir helt feil tall.",
         "Formelen s = ½gt² er feil for fritt fall.",
         "Luftmotstand er tatt med i simuleringen.",
       ],
@@ -48,7 +48,7 @@
         "«Modellen mangler en grense – hva om vi legger inn bæreevne?»",
         "«Simuleringen har rett – sånn er eksponentiell vekst.»",
         "«Simuleringen er feil, så vi dropper den helt.»",
-        "«Vi må bruke en raskere datamaskin for å få riktig svar.»",
+        "«Vi må bruke en raskere datamaskin for å få et riktig svar her.»",
       ],
       answer: 0,
       why: { 1: 'Simuleringen gjør det modellen sier – men modellen mangler begrensende faktorer.', 2: 'Modellen er nyttig innenfor sitt gyldighetsområde og kan forbedres.', 3: 'Datakraften er ikke problemet; forutsetningene er det.' },
@@ -69,7 +69,7 @@
       options: [
         "Elevene måler avkjøling, programmerer en modell og sammenligner.",
         "Elevene lager et eget spill i Scratch fra bunnen av.",
-        "Elevene programmerer micro:biten til å vise et smilefjes.",
+        "Elevene programmerer micro:biten til å vise et smilefjes på skjermen.",
         "Elevene lærer syntaksen i Python med oppgaver fra en nettside.",
       ],
       answer: 0,

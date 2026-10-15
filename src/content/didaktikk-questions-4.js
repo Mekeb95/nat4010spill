@@ -132,9 +132,9 @@
     { id: 'didaktikk.plan.13', region: R, topic: T, concepts: ['di-kildebegrunnelse'], level: 3, type: 'mc', myth: 'myte.didaktikk-kildelos',
       prompt: 'Hvilken begrunnelse for å bruke grubletegninger er best i en NAT4010-oppgave?',
       options: [
-        "«Forestillingene er robuste (Henriksen & Angell 2019); tegningene gjør dem synlige.»",
+        "«Forestillingene er robuste (Henriksen & Angell 2019); tegningene viser dem.»",
         "«Jeg bruker grubletegninger fordi de er gøy og elevene liker dem.»",
-        "«Jeg brukte det i praksis, og det gikk veldig bra.»",
+        "«Jeg brukte det i praksisperioden, og det gikk veldig bra i klassen.»",
         "«Læreboka vi bruker har grubletegninger i hvert kapittel.»",
       ],
       answer: 0,
@@ -147,8 +147,8 @@
     { id: 'didaktikk.plan.15', region: R, topic: T, concepts: ['di-baerekraft', 'di-mal-aktivitet'], level: 3, type: 'mc',
       prompt: 'Du underviser om energi og vil koble inn bærekraftig utvikling. Hvilken kobling er sterkest?',
       options: [
-        "Elevene bruker virkningsgrad til å vurdere varmepumpe mot panelovn.",
-        "Elevene tegner en jordklode på forsiden av rapporten.",
+        "Elevene vurderer varmepumpe mot panelovn med virkningsgrad.",
+        "Elevene tegner en jordklode på forsiden av forsøksrapporten.",
         "Læreren nevner at klimaendringer er et stort problem.",
         "Elevene leser en tekst om bærekraft i en annen time.",
       ],
@@ -162,8 +162,8 @@
     { id: 'didaktikk.plan.17', region: R, topic: T, concepts: ['di-laeringsmal', 'di-baerekraft', 'di-kildebegrunnelse'], level: 5, type: 'mc',
       prompt: 'Du skal planlegge tre timer om nedbrytning for 9. trinn. Hvilken plan oppfyller flest av NAT4010-kriteriene?',
       options: [
-        "Mål: «planlegge og forklare en nedbrytningsundersøkelse»; Tea Bag-forsøk med kobling til klima og kilder.",
-        "Mål: «forstå nedbrytning». Elevene ser en film og svarer på spørsmål.",
+        "Mål: «planlegge og forklare en nedbrytningsundersøkelse»; Tea Bag-forsøk koblet til klima.",
+        "Mål: «forstå nedbrytning». Elevene ser en film og svarer på spørsmål etterpå.",
         "Mål: «lære om kompost». Elevene lager kompost i skolegården fordi det er gøy.",
         "Mål: «kunne definere nedbrytning». Elevene pugger definisjonen og har prøve.",
       ],

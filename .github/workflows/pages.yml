@@ -24,6 +24,10 @@ jobs:
           node-version: 22
       - name: Valider innhold
         run: node tools/validate.mjs
+      - name: Lengdeskjevhet i svaralternativer
+        run: node tools/lengthbias.mjs
+      - name: Enhetstester
+        run: node --test tests/*.test.mjs
       - name: Bygg spillet (site/ med PWA)
         run: node tools/build.mjs
       - uses: actions/configure-pages@v5

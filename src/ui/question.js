@@ -63,7 +63,8 @@
     const born = Date.now();
     body.addEventListener('click', (e) => { if (Date.now() - born < 250) { e.stopPropagation(); e.preventDefault(); } }, true);
     wrap.appendChild(body);
-    const fb = el('div', { class: 'q-fb' });
+    // aria-live: skjermlesere leser opp tilbakemeldingen når den dukker opp
+    const fb = el('div', { class: 'q-fb', 'aria-live': 'polite' });
     wrap.appendChild(fb);
     root.appendChild(wrap);
 
@@ -87,6 +88,13 @@
         box.appendChild(el('div', { class: 'fb-why', html: '<span class="label">Ditt svar</span><br>' + NG.md(q.why[picked]) }));
       }
       if (!res.correct) box.appendChild(el('div', { class: 'fb-right', html: '<span class="label">Riktig</span><br>' + NG.md(rightText(q)) }));
+      // Knytt feilsvaret til misoppfatningen spørsmålet er laget for å avsløre
+      const myth = !res.correct && q.myth ? NG.content.store.myths.find((m) => m.id === q.myth) : null;
+      if (myth) box.appendChild(el('div', { class: 'fb-myth' }, [
+        el('span', { class: 'label', text: 'Misforståelsen bak' }),
+        el('div', { class: 'fb-myth-text', html: '«' + NG.md(myth.text) + '»' }),
+        myth.fix ? el('div', { class: 'small', html: NG.md(myth.fix) }) : null,
+      ]));
       box.appendChild(el('div', { class: 'fb-explain', html: NG.md(q.explain || '') }));
       if (q.source) box.appendChild(el('div', { class: 'small muted', text: 'Kilde: ' + q.source }));
       if (opts.onContinue) {

@@ -50,7 +50,9 @@
     if (!s.cards[id]) s.cards[id] = { lvl: 0, sub: 0, seen: 0, right: 0, wrong: 0 };
     return s.cards[id];
   };
-  // Oppdater kort etter svar. Returnerer liste over {id, lvl} som steg.
+  // Så mange feil på rad før et kort synker ett trinn på begrepsstigen (aldri under «Gjenkjenne»).
+  NG.CARD_DROP_AFTER = 2;
+  // Oppdater kort etter svar. Returnerer liste over {id, lvl} som endret seg; nedgang har down: true.
   NG.updateCards = function (s, q, correct) {
     const ups = [];
     for (const id of q.concepts || []) {
@@ -58,6 +60,7 @@
       c.seen++;
       if (correct) {
         c.right++;
+        c.miss = 0;
         if (c.lvl === 0) { c.lvl = 1; ups.push({ id, lvl: 1 }); continue; }
         if (q.level >= c.lvl + 1 && c.lvl < 5) { c.lvl++; c.sub = 0; ups.push({ id, lvl: c.lvl }); }
         else {
@@ -68,7 +71,9 @@
       } else {
         c.wrong++;
         c.sub = 0;
-        if (c.lvl === 0) c.lvl = 0;
+        // Feil på et spørsmål over kortets nivå er en ærlig strekk; bare feil på eget nivå eller lavere teller.
+        if (!q.level || q.level <= c.lvl) c.miss = (c.miss || 0) + 1;
+        if (c.miss >= NG.CARD_DROP_AFTER && c.lvl > 1) { c.lvl--; c.miss = 0; ups.push({ id, lvl: c.lvl, down: true }); }
       }
     }
     return ups;

@@ -4,6 +4,14 @@
   "type": "module",
   "scripts": {
     "build": "node tools/build.mjs",
-    "validate": "node tools/validate.mjs"
+    "validate": "node tools/validate.mjs",
+    "lengthbias": "node tools/lengthbias.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "node tools/validate.mjs && node tools/lengthbias.mjs && node --test tests/*.test.mjs && node tools/build.mjs",
+    "smoke": "node tools/mgsmoke.mjs",
+    "playtest": "node tools/playtest.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
   }
 }

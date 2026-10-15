@@ -38,6 +38,7 @@ h3.h-display { font-size: var(--t-l); }
 .label { font-family: var(--f-mono); font-size: var(--t-xs); text-transform: uppercase; letter-spacing: 0.08em; color: var(--chalk-dim); }
 .muted { color: var(--chalk-dim); }
 .small { font-size: var(--t-s); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
 
 .stack { display: flex; flex-direction: column; gap: 12px; }

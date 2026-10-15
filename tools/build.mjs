@@ -46,12 +46,18 @@ const js = jsFiles.map((f) => `/* ===== ${f.slice(root.length + 1)} ===== */\n` 
 
 const FONTS = 'https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat+Brush&family=IBM+Plex+Mono:wght@400;600&display=swap';
 
-function page(extraHead, extraTail) {
+const GOOGLE_FONTS = `<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="${FONTS}">`;
+// GitHub Pages-versjonen serverer skriftene selv (pwa/fonts): ingen kall til Google, og de virker offline fra første besøk.
+const LOCAL_FONTS = `<link rel="preload" href="fonts/atkinson-hyperlegible-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/caveat-brush-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts.css">`;
+
+function page(extraHead, extraTail, fonts) {
   return `<title>Nøkkelvokteren</title>
 <meta name="theme-color" content="#17221f">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="${FONTS}">
+${fonts || GOOGLE_FONTS}
 <style>
 ${css}
 </style>
@@ -107,10 +113,15 @@ if (args.mg || args.q) {
 <meta name="apple-mobile-web-app-title" content="Nøkkelvokteren">
 <meta name="description" content="RPG-læringsspill i naturfag for NAT4010.">`;
   const swReg = `<script>if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) { window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); }); }</script>`;
-  const siteHtml = full(page('', swReg), pwaHead);
+  const siteHtml = full(page('', swReg, LOCAL_FONTS), pwaHead);
   writeFileSync(join(site, 'index.html'), siteHtml);
-  writeFileSync(join(site, 'sw.js'), readFileSync(join(pwa, 'sw.js'), 'utf8').replace('__VERSION__', version));
-  for (const f of ['manifest.webmanifest', 'icon.svg', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'apple-touch-icon.png']) copyFileSync(join(pwa, f), join(site, f));
+  const fontFiles = readdirSync(join(pwa, 'fonts')).filter((f) => f.endsWith('.woff2')).sort();
+  if (!existsSync(join(site, 'fonts'))) mkdirSync(join(site, 'fonts'));
+  for (const f of fontFiles) copyFileSync(join(pwa, 'fonts', f), join(site, 'fonts', f));
+  writeFileSync(join(site, 'sw.js'), readFileSync(join(pwa, 'sw.js'), 'utf8')
+    .replace('__VERSION__', version)
+    .replace("'__FONTS__'", ["'./fonts.css'", ...fontFiles.map((f) => `'./fonts/${f}'`)].join(', ')));
+  for (const f of ['manifest.webmanifest', 'icon.svg', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'apple-touch-icon.png', 'fonts.css']) copyFileSync(join(pwa, f), join(site, f));
   writeFileSync(join(site, '.nojekyll'), '');
   console.log('site/ (GitHub Pages + PWA) versjon', version);
 }

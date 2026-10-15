@@ -288,6 +288,14 @@
       } else if (out.blocked) { say('…!'); NG.floatText(hudSlot.querySelector('.hud') || hudSlot, 'Blokkert', 'block-t'); }
       else if (res.correct) say(['Grr…', 'Hmpf.', 'Det … stemmer vel.', 'Argh!'][c.turn % 4]);
       if (c.over === 'lose') setTimeout(() => app.classList.add('cb-lost'), 200);
+      // Skjermleser: oppsummer det animasjonene viser
+      const sr = [];
+      if (out.dealt) sr.push(c.def.name + ' mister ' + out.dealt + ' HP' + (out.crit ? ' (kritisk treff)' : '') + ', har ' + c.enemy.hp + ' igjen.');
+      if (out.taken) sr.push('Du mister ' + out.taken + ' HP.');
+      else if (out.blocked) sr.push('Angrepet ble blokkert.');
+      if (c.over === 'win') sr.push('Du vant kampen!');
+      if (c.over === 'lose') sr.push('Du tapte kampen.');
+      if (sr.length) setTimeout(() => NG.srSay(sr.join(' ')), 1200);
     }
 
     function afterAnswer() {

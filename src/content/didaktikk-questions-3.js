@@ -70,7 +70,7 @@
       prompt: 'Eleven sier: «Et vannmolekyl i den varme kaffen er varmt.» Hvilket verktøy passer best?',
       options: [
         "Partikkelmodellen: temperatur gjelder mange partikler.",
-        "En energikjede fra sola via kaffebønnene til koppen.",
+        "En energikjede fra sola via kaffebønnene og helt til koppen.",
         "Ordkort der eleven kobler «kaffe» og «varm».",
         "Fortell at molekylene egentlig er kalde.",
       ],
@@ -130,7 +130,7 @@
       prompt: 'Hvorfor virker grubletegninger godt i starten av et undervisningsforløp?',
       options: [
         "De får fram forestillinger uten at noen må «ta feil».",
-        "De gir elevene fasiten tidlig, så de slipper å lure.",
+        "De gir elevene fasiten tidlig, så de slipper å lure lenge.",
         "De erstatter forsøk, som tar lang tid å gjennomføre.",
         "De er raske å rette for læreren etter timen.",
       ],

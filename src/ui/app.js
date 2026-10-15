@@ -213,6 +213,13 @@
     anchor.appendChild(f);
     setTimeout(() => f.remove(), 1100);
   };
+  // Usynlig levende område: det som bare vises som animasjon (skade, blokkering) leses opp av skjermlesere.
+  NG.srSay = function (text) {
+    let live = document.getElementById('sr-live');
+    if (!live) { live = el('div', { id: 'sr-live', class: 'sr-only', 'aria-live': 'polite', 'aria-atomic': 'true' }); document.body.appendChild(live); }
+    live.textContent = '';
+    setTimeout(() => { live.textContent = String(text); }, 30);
+  };
   // Stjerneutbrudd (kritisk treff, relikvie, nivå) sentrert på et element
   NG.burst = function (anchor, cls) {
     if (!anchor || NG.reducedMotion()) return;
@@ -259,7 +266,8 @@
     if (!r) return;
     for (const u of r.cardUps || []) {
       const c = NG.conceptById(u.id);
-      if (c && u.lvl >= 2) NG.toast('«' + c.name + '» → ' + NG.LADDER[u.lvl], null, 'spark');
+      if (c && u.down) NG.toast('«' + c.name + '» ↓ ' + NG.LADDER[u.lvl] + ' – repeter begrepet');
+      else if (c && u.lvl >= 2) NG.toast('«' + c.name + '» → ' + NG.LADDER[u.lvl], null, 'spark');
     }
     if (r.levelUps) { NG.sfx('level'); NG.toast('Nivå opp! Du er nå nivå ' + NG.state().level + ' — fordel et poeng i sekken.', 3200, 'spark'); }
   };
